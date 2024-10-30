@@ -3,6 +3,9 @@
 <head>
     <title>Materials Database</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+    <link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <style>
         .container {
             max-width: 1200px;
@@ -15,25 +18,22 @@
         #error-message {
             color: red;
         }
-        #materials-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        #materials-table th, #materials-table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        #materials-table th {
-            background-color: #f2f2f2;
-        }
         .url-link {
             color: #0066cc;
             text-decoration: none;
         }
         .url-link:hover {
             text-decoration: underline;
+        }
+        /* Стили для поля поиска */
+        .dataTables_filter {
+            margin-bottom: 20px;
+        }
+        .dataTables_filter input {
+            padding: 5px;
+            margin-left: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
         }
     </style>
 </head>
@@ -43,7 +43,21 @@
         
         <div id="loading">Loading data...</div>
         <div id="error-message"></div>
-        <div id="materials-table"></div>
+        <table id="materials-table" class="display">
+            <thead>
+                <tr>
+                    <th>Material</th>
+                    <th>EOS</th>
+                    <th>Applications</th>
+                    <th>Discretization</th>
+                    <th>Reference</th>
+                    <th>URL</th>
+                    <th>Added</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
     </div>
 
     <script>
@@ -64,47 +78,37 @@
                 const yamlText = await response.text();
                 const materials = jsyaml.load(yamlText);
                 
-                const table = document.createElement('table');
-                table.id = 'materials-table';
+                // Преобразуем данные в формат для DataTables
+                const tableData = materials.map(material => [
+                    material.mat,
+                    material.eos || '-',
+                    material.app.join(', '),
+                    material.dis,
+                    material.ref,
+                    `<a href="${material.url}" class="url-link" target="_blank">Link</a>`,
+                    formatDate(material.add)
+                ]);
 
-                // Create header
-                const header = table.createTHead();
-                const headerRow = header.insertRow();
-                const headers = ['Material', 'EOS', 'Applications', 'Discretization', 'Reference', 'URL', 'Added'];
-                headers.forEach(text => {
-                    const th = document.createElement('th');
-                    th.textContent = text;
-                    headerRow.appendChild(th);
+                // Инициализируем DataTable
+                $('#materials-table').DataTable({
+                    data: tableData,
+                    order: [[0, 'asc']], // Сортировка по умолчанию по первой колонке
+                    pageLength: 25, // Количество записей на странице
+                    language: {
+                        search: "Search:",
+                        lengthMenu: "Show _MENU_ entries",
+                        info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                        infoEmpty: "Showing 0 to 0 of 0 entries",
+                        infoFiltered: "(filtered from _MAX_ total entries)",
+                        paginate: {
+                            first: "First",
+                            last: "Last",
+                            next: "Next",
+                            previous: "Previous"
+                        }
+                    }
                 });
 
-                // Create table body
-                const tbody = table.createTBody();
-                materials.forEach(material => {
-                    const row = tbody.insertRow();
-                    
-                    // Basic cells
-                    row.insertCell().textContent = material.mat;
-                    row.insertCell().textContent = material.eos || '-';
-                    row.insertCell().textContent = material.app.join(', ');
-                    row.insertCell().textContent = material.dis;
-                    
-                    // Reference cell (plain text)
-                    row.insertCell().textContent = material.ref;
-                    
-                    // URL cell with link
-                    const urlCell = row.insertCell();
-                    const urlLink = document.createElement('a');
-                    urlLink.href = material.url;
-                    urlLink.textContent = 'Link';
-                    urlLink.className = 'url-link';
-                    urlLink.target = '_blank';
-                    urlCell.appendChild(urlLink);
-
-                    // Date cell
-                    row.insertCell().textContent = formatDate(material.add);
-                });
-
-                document.getElementById('materials-table').appendChild(table);
             } catch (error) {
                 document.getElementById('error-message').textContent = 
                     'Error loading materials: ' + error.message;
