@@ -1,0 +1,5 @@
+- name: Titan
+  properties: >
+    Material Properties,
+    ductile
+  source: https://example.com/titan
