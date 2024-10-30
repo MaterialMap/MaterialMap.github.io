@@ -1,7 +1,7 @@
-- mat: *MAT_010/*MAT_ELASTIC_PLASTIC_HYDRO
-  eos: *EOS_LINEAR_POLYNOMIAL
-  app: 
-      - Bird strike simulation
-      - High-velocity impact analysis
-  dis: SPH
-  ref: "Zhang, Y., Zhou, Y. and Sun, Y. (2022), \"Bird-strike damage analysis of composite panels with different stiffeners\", Aircraft Engineering and Aerospace Technology, Vol. 94 No. 3, pp. 456-471. https://doi.org/10.1108/AEAT-07-2021-0223"
+mat: MAT_010/MAT_ELASTIC_PLASTIC_HYDRO  # Убраны звездочки
+eos: EOS_LINEAR_POLYNOMIAL  # Убрана звездочка
+app:  # Корректный список
+  - Bird strike simulation
+  - High-velocity impact analysis
+dis: SPH
+ref: "Zhang, Y., Zhou, Y. and Sun, Y. (2022), \"Bird-strike damage analysis of composite panels with different stiffeners\", Aircraft Engineering and Aerospace Technology, Vol. 94 No. 3, pp. 456-471. https://doi.org/10.1108/AEAT-07-2021-0223"
