@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>База данных материалов</title>
+    <title>Materials Database</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tabulator/5.5.2/js/tabulator.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tabulator/5.5.2/css/tabulator.min.css" rel="stylesheet">
     <style>
@@ -34,47 +34,98 @@
             color: #333;
             text-align: center;
         }
+        #error-message {
+            color: red;
+            text-align: center;
+            margin: 20px;
+            display: none;
+        }
+        #loading {
+            text-align: center;
+            margin: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>База данных материалов</h1>
-        <input type="text" id="search-input" placeholder="Поиск по всем колонкам...">
+        <h1>Materials Database</h1>
+        <input type="text" id="search-input" placeholder="Search all columns...">
+        <div id="loading">Loading data...</div>
+        <div id="error-message"></div>
         <div id="materials-table"></div>
     </div>
 
     <script>
-        // Загрузка данных из JSON файла в репозитории
-        fetch('data.json')
-            .then(response => response.json())
-            .then(data => {
-                // Инициализация таблицы
-                var table = new Tabulator("#materials-table", {
+        document.addEventListener('DOMContentLoaded', function() {
+            const loadingEl = document.getElementById('loading');
+            const errorEl = document.getElementById('error-message');
+            const tableEl = document.getElementById('materials-table');
+            const searchEl = document.getElementById('search-input');
+
+            loadingEl.style.display = 'block';
+            errorEl.style.display = 'none';
+            tableEl.style.display = 'none';
+            searchEl.style.display = 'none';
+
+            const testData = [
+                {
+                    name: "Test Material",
+                    properties: "Test properties",
+                    source: "https://example.com"
+                }
+            ];
+
+            function initTable(data) {
+                return new Tabulator("#materials-table", {
                     data: data,
                     layout: "fitColumns",
                     pagination: "local",
                     paginationSize: 10,
                     columns: [
-                        {title: "Материал", field: "name", sorter: "string"},
-                        {title: "Свойства", field: "properties", sorter: "string"},
-                        {title: "Источник", field: "source", formatter: "link", formatterParams: {
+                        {title: "Material", field: "name", sorter: "string"},
+                        {title: "Properties", field: "properties", sorter: "string"},
+                        {title: "Source", field: "source", formatter: "link", formatterParams: {
                             labelField: "source",
                             target: "_blank",
                         }}
                     ],
                 });
+            }
 
-                // Функция поиска по всем колонкам
-                document.getElementById("search-input").addEventListener("keyup", function(e){
-                    table.setFilter(function(data){
-                        var searchTerm = e.target.value.toLowerCase();
-                        return Object.values(data).some(value => 
-                            value && value.toString().toLowerCase().includes(searchTerm)
-                        );
+            fetch('data.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    loadingEl.style.display = 'none';
+                    tableEl.style.display = 'block';
+                    searchEl.style.display = 'block';
+
+                    const table = initTable(data);
+
+                    searchEl.addEventListener("keyup", function(e) {
+                        table.setFilter(function(data) {
+                            var searchTerm = e.target.value.toLowerCase();
+                            return Object.values(data).some(value => 
+                                value && value.toString().toLowerCase().includes(searchTerm)
+                            );
+                        });
                     });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    loadingEl.style.display = 'none';
+                    errorEl.style.display = 'block';
+                    errorEl.textContent = 'Error loading data. Please check data.json file and refresh the page.';
+                    
+                    tableEl.style.display = 'block';
+                    searchEl.style.display = 'block';
+                    initTable(testData);
                 });
-            })
-            .catch(error => console.error('Ошибка загрузки данных:', error));
+        });
     </script>
 </body>
 </html>
