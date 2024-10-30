@@ -1,0 +1,1 @@
+This non-commercial open project is a database of links to a number of scientific publications where you can find ready-made parameters of LS-DYNA material models to perform calculations at the conjecture verification stage without performing experimental studies.
