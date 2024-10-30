@@ -4,12 +4,16 @@
     - Bird strike simulation
     - High-velocity impact analysis
   dis: SPH
-  ref: "Zhang, Y., Zhou, Y. and Sun, Y. (2022)..."
-
+  ref: "Zhang, Y., Zhou, Y. and Sun, Y. (2022), \"Bird-strike damage analysis of composite panels with different stiffeners\", Aircraft Engineering and Aerospace Technology, Vol. 94 No. 3, pp. 456-471. https://doi.org/10.1108/AEAT-07-2021-0223"
+  url: https://www.researchgate.net/publication/358591119_Bird-strike_damage_analysis_of_composite_panels_with_different_stiffeners
+  add: 30.10.2024
+  
 - mat: MAT_054/MAT_ENHANCED_COMPOSITE_DAMAGE
   eos: null
   app:
     - Composite panels analysis
     - Impact damage assessment
   dis: FEM
-  ref: "Zhang, Y., Zhou, Y. and Sun, Y. (2022)..."
+  ref: "Zhang, Y., Zhou, Y. and Sun, Y. (2022), \"Bird-strike damage analysis of composite panels with different stiffeners\", Aircraft Engineering and Aerospace Technology, Vol. 94 No. 3, pp. 456-471. https://doi.org/10.1108/AEAT-07-2021-0223"
+  url: https://www.researchgate.net/publication/358591119_Bird-strike_damage_analysis_of_composite_panels_with_different_stiffeners
+  add: 30.10.2024
