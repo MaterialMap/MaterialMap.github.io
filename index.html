@@ -1,1 +1,80 @@
-Test
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>База данных материалов</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tabulator/5.5.2/js/tabulator.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tabulator/5.5.2/css/tabulator.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        #search-input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        #materials-table {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>База данных материалов</h1>
+        <input type="text" id="search-input" placeholder="Поиск по всем колонкам...">
+        <div id="materials-table"></div>
+    </div>
+
+    <script>
+        // Загрузка данных из JSON файла в репозитории
+        fetch('data.json')
+            .then(response => response.json())
+            .then(data => {
+                // Инициализация таблицы
+                var table = new Tabulator("#materials-table", {
+                    data: data,
+                    layout: "fitColumns",
+                    pagination: "local",
+                    paginationSize: 10,
+                    columns: [
+                        {title: "Материал", field: "name", sorter: "string"},
+                        {title: "Свойства", field: "properties", sorter: "string"},
+                        {title: "Источник", field: "source", formatter: "link", formatterParams: {
+                            labelField: "source",
+                            target: "_blank",
+                        }}
+                    ],
+                });
+
+                // Функция поиска по всем колонкам
+                document.getElementById("search-input").addEventListener("keyup", function(e){
+                    table.setFilter(function(data){
+                        var searchTerm = e.target.value.toLowerCase();
+                        return Object.values(data).some(value => 
+                            value && value.toString().toLowerCase().includes(searchTerm)
+                        );
+                    });
+                });
+            })
+            .catch(error => console.error('Ошибка загрузки данных:', error));
+    </script>
+</body>
+</html>
