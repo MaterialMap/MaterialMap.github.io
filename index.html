@@ -6,34 +6,134 @@
     <link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <!-- Добавляем Inter - современный шрифт без засечек -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
+        /* Базовые стили */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.5;
+            color: #1a1a1a;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 2rem;
         }
-        #loading {
-            display: none;
+
+        h1 {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            font-size: 2rem;
         }
-        #error-message {
-            color: red;
+
+        /* Стили таблицы */
+        #materials-table {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
         }
+
+        #materials-table thead th {
+            background-color: #f8f9fa;
+            font-weight: 500;
+            color: #2c3e50;
+            padding: 1rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        #materials-table tbody td {
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            color: #4a5568;
+        }
+
+        /* Стили поиска и пагинации */
+        .dataTables_wrapper .dataTables_filter input {
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            margin-left: 0.5rem;
+            font-family: inherit;
+        }
+
+        .dataTables_wrapper .dataTables_filter input:focus {
+            outline: none;
+            border-color: #4a90e2;
+            box-shadow: 0 0 0 2px rgba(74,144,226,0.2);
+        }
+
+        .dataTables_wrapper .dataTables_length select {
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 0.25rem 2rem 0.25rem 0.5rem;
+            font-family: inherit;
+        }
+
+        /* Стили ссылок */
         .url-link {
-            color: #0066cc;
+            color: #4a90e2;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .url-link:hover {
+            background-color: rgba(74,144,226,0.1);
             text-decoration: none;
         }
-        .url-link:hover {
-            text-decoration: underline;
+
+        /* Стили для состояний загрузки и ошибок */
+        #loading {
+            display: none;
+            color: #4a5568;
+            margin-bottom: 1rem;
         }
-        /* Стили для поля поиска */
-        .dataTables_filter {
-            margin-bottom: 20px;
+
+        #error-message {
+            color: #e53e3e;
+            padding: 1rem;
+            background-color: #fff5f5;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            display: none;
         }
-        .dataTables_filter input {
-            padding: 5px;
-            margin-left: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+
+        /* Стили для четных/нечетных строк */
+        #materials-table tbody tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        /* Стили для hover состояния строк */
+        #materials-table tbody tr:hover {
+            background-color: #f1f5f9;
+        }
+
+        /* Стили пагинации */
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            padding: 0.5rem 1rem;
+            margin: 0 0.25rem;
+            border-radius: 6px;
+            border: none;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+            background: #4a90e2;
+            color: white !important;
+            border: none;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+            background: #e2e8f0;
+            border: none;
         }
     </style>
 </head>
@@ -78,7 +178,6 @@
                 const yamlText = await response.text();
                 const materials = jsyaml.load(yamlText);
                 
-                // Преобразуем данные в формат для DataTables
                 const tableData = materials.map(material => [
                     material.mat,
                     material.eos || '-',
@@ -89,11 +188,10 @@
                     formatDate(material.add)
                 ]);
 
-                // Инициализируем DataTable
                 $('#materials-table').DataTable({
                     data: tableData,
-                    order: [[0, 'asc']], // Сортировка по умолчанию по первой колонке
-                    pageLength: 25, // Количество записей на странице
+                    order: [[0, 'asc']],
+                    pageLength: 25,
                     language: {
                         search: "Search:",
                         lengthMenu: "Show _MENU_ entries",
@@ -110,8 +208,9 @@
                 });
 
             } catch (error) {
-                document.getElementById('error-message').textContent = 
-                    'Error loading materials: ' + error.message;
+                const errorElement = document.getElementById('error-message');
+                errorElement.textContent = 'Error loading materials: ' + error.message;
+                errorElement.style.display = 'block';
             } finally {
                 document.getElementById('loading').style.display = 'none';
             }
