@@ -58,9 +58,7 @@
     <div class="container">
         <h1>Materials Database</h1>
         <select id="data-selector" multiple>
-            <option value="metals.yml">Metals</option>
-            <option value="polymers.yml">Polymers</option>
-            <option value="ceramics.yml">Ceramics</option>
+            <option value="MAT_010.yml">MAT_ELASTIC_PLASTIC_HYDRO</option>
         </select>
         <input type="text" id="search-input" placeholder="Search all columns...">
         <div id="loading">Loading data...</div>
@@ -87,12 +85,10 @@
                     pagination: "local",
                     paginationSize: 10,
                     columns: [
-                        {title: "Material", field: "name", sorter: "string"},
-                        {title: "Properties", field: "properties", sorter: "string"},
-                        {title: "Source", field: "source", formatter: "link", formatterParams: {
-                            labelField: "source",
-                            target: "_blank",
-                        }}
+                        {title: "Material", field: "mat", sorter: "string"},
+                        {title: "EOS", field: "eos", sorter: "string"},
+                        {title: "Application", field: "application", sorter: "string"},
+                        {title: "References", field: "references", sorter: "string"}
                     ],
                 });
             }
