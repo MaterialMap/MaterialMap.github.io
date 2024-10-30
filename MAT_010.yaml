@@ -1,6 +1,6 @@
-- model_name: *MAT_010/*MAT_ELASTIC_PLASTIC_HYDRO
+- mat: *MAT_010/*MAT_ELASTIC_PLASTIC_HYDRO
   eos: *EOS_LINEAR_POLYNOMIAL
-  application_purpose: 
+  application: 
       - Bird strike simulation
       - High-velocity impact analysis
   discretization: SPH
