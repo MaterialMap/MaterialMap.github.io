@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Materials Database</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tabulator/5.5.2/js/tabulator.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tabulator/5.5.2/css/tabulator.min.css" rel="stylesheet">
     <style>
         body {
@@ -57,9 +58,9 @@
     <div class="container">
         <h1>Materials Database</h1>
         <select id="data-selector" multiple>
-            <option value="data1.json">Dataset 1</option>
-            <option value="data2.json">Dataset 2</option>
-            <option value="data3.json">Dataset 3</option>
+            <option value="metals.yml">Metals</option>
+            <option value="polymers.yml">Polymers</option>
+            <option value="ceramics.yml">Ceramics</option>
         </select>
         <input type="text" id="search-input" placeholder="Search all columns...">
         <div id="loading">Loading data...</div>
@@ -111,8 +112,9 @@
                         fetch(file)
                             .then(response => {
                                 if (!response.ok) throw new Error(`Error loading ${file}`);
-                                return response.json();
+                                return response.text();
                             })
+                            .then(yamlText => jsyaml.load(yamlText))
                     );
 
                     const datasets = await Promise.all(dataPromises);
