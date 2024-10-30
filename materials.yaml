@@ -1,0 +1,15 @@
+- mat: MAT_010/MAT_ELASTIC_PLASTIC_HYDRO
+  eos: EOS_LINEAR_POLYNOMIAL
+  app:
+    - Bird strike simulation
+    - High-velocity impact analysis
+  dis: SPH
+  ref: "Zhang, Y., Zhou, Y. and Sun, Y. (2022)..."
+
+- mat: MAT_054/MAT_ENHANCED_COMPOSITE_DAMAGE
+  eos: null
+  app:
+    - Composite panels analysis
+    - Impact damage assessment
+  dis: FEM
+  ref: "Zhang, Y., Zhou, Y. and Sun, Y. (2022)..."
