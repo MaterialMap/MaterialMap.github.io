@@ -17,3 +17,66 @@
   ref: "Zhang, Y., Zhou, Y. and Sun, Y. (2022), \"Bird-strike damage analysis of composite panels with different stiffeners\", Aircraft Engineering and Aerospace Technology, Vol. 94 No. 3, pp. 456-471. https://doi.org/10.1108/AEAT-07-2021-0223"
   url: "https://www.researchgate.net/publication/358591119_Bird-strike_damage_analysis_of_composite_panels_with_different_stiffeners"
   add: "2024-10-30"
+
+- mat: MAT_018/MAT_POWER_LAW_PLASTICITY
+  eos: null
+  app:
+    - Ballistic clay modeling
+    - Impact deformation analysis
+  dis: FEM
+  ref: "Zochowski, P. (2019), \"Numerical Methods for the Analysis of Behind Armor Ballistic Trauma\", 12th European LS-DYNA Conference 2019, Koblenz, Germany"
+  url: "https://www.researchgate.net/publication/349412692_Numerical_Methods_for_the_Analysis_of_Behind_Armor_Ballistic_Trauma"
+  add: "2024-10-30"
+
+- mat: MAT_107/MAT_MODIFIED_JOHNSON_COOK
+  eos: null
+  app:
+    - Projectile impact modeling
+    - Ballistic penetration analysis
+  dis: FEM
+  ref: "Zochowski, P. (2019), \"Numerical Methods for the Analysis of Behind Armor Ballistic Trauma\", 12th European LS-DYNA Conference 2019, Koblenz, Germany"
+  url: "https://www.researchgate.net/publication/349412692_Numerical_Methods_for_the_Analysis_of_Behind_Armor_Ballistic_Trauma"
+  add: "2024-10-30"
+
+- mat: MAT_003/MAT_PLASTIC_KINEMATIC
+  eos: null
+  app:
+    - UHMWPE soft layers modeling
+    - Bone material modeling
+  dis: FEM
+  ref: "Zochowski, P. (2019), \"Numerical Methods for the Analysis of Behind Armor Ballistic Trauma\", 12th European LS-DYNA Conference 2019, Koblenz, Germany"
+  url: "https://www.researchgate.net/publication/349412692_Numerical_Methods_for_the_Analysis_of_Behind_Armor_Ballistic_Trauma"
+  add: "2024-10-30"
+
+- mat: MAT_001/MAT_ELASTIC
+  eos: null
+  app:
+    - Skin modeling
+    - Internal organs modeling
+    - Diaphragm modeling
+  dis: FEM
+  ref: "Zochowski, P. (2019), \"Numerical Methods for the Analysis of Behind Armor Ballistic Trauma\", 12th European LS-DYNA Conference 2019, Koblenz, Germany"
+  url: "https://www.researchgate.net/publication/349412692_Numerical_Methods_for_the_Analysis_of_Behind_Armor_Ballistic_Trauma"
+  add: "2024-10-30"
+
+- mat: MAT_006/MAT_VISCOELASTIC
+  eos: null
+  app:
+    - Muscle modeling
+    - Soft tissue modeling
+    - Internal organs modeling
+  dis: FEM
+  ref: "Zochowski, P. (2019), \"Numerical Methods for the Analysis of Behind Armor Ballistic Trauma\", 12th European LS-DYNA Conference 2019, Koblenz, Germany"
+  url: "https://www.researchgate.net/publication/349412692_Numerical_Methods_for_the_Analysis_of_Behind_Armor_Ballistic_Trauma"
+  add: "2024-10-30"
+
+- mat: MAT_001/MAT_FLUID_ELASTIC_FLUID
+  eos: null
+  app:
+    - Blood modeling
+    - Air modeling
+    - Body fluids modeling
+  dis: SPH
+  ref: "Zochowski, P. (2019), \"Numerical Methods for the Analysis of Behind Armor Ballistic Trauma\", 12th European LS-DYNA Conference 2019, Koblenz, Germany"
+  url: "https://www.researchgate.net/publication/349412692_Numerical_Methods_for_the_Analysis_of_Behind_Armor_Ballistic_Trauma"
+  add: "2024-10-30"
