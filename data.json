@@ -3,10 +3,5 @@
         "name": "Алюминий",
         "properties": "Легкий металл, плотность 2.7 г/см³",
         "source": "https://example.com/aluminum"
-    },
-    {
-        "name": "Медь",
-        "properties": "Пластичный металл, высокая теплопроводность",
-        "source": "https://example.com/copper"
     }
 ]
