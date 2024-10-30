@@ -28,6 +28,13 @@
         #materials-table th {
             background-color: #f2f2f2;
         }
+        .url-link {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        .url-link:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -40,6 +47,15 @@
     </div>
 
     <script>
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-GB', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+        }
+
         async function loadMaterials() {
             try {
                 document.getElementById('loading').style.display = 'block';
@@ -49,10 +65,12 @@
                 const materials = jsyaml.load(yamlText);
                 
                 const table = document.createElement('table');
+                table.id = 'materials-table';
+
                 // Create header
                 const header = table.createTHead();
                 const headerRow = header.insertRow();
-                const headers = ['Material', 'EOS', 'Applications', 'Discretization', 'Reference'];
+                const headers = ['Material', 'EOS', 'Applications', 'Discretization', 'Reference', 'URL', 'Added'];
                 headers.forEach(text => {
                     const th = document.createElement('th');
                     th.textContent = text;
@@ -63,11 +81,27 @@
                 const tbody = table.createTBody();
                 materials.forEach(material => {
                     const row = tbody.insertRow();
+                    
+                    // Basic cells
                     row.insertCell().textContent = material.mat;
                     row.insertCell().textContent = material.eos || '-';
                     row.insertCell().textContent = material.app.join(', ');
                     row.insertCell().textContent = material.dis;
+                    
+                    // Reference cell (plain text)
                     row.insertCell().textContent = material.ref;
+                    
+                    // URL cell with link
+                    const urlCell = row.insertCell();
+                    const urlLink = document.createElement('a');
+                    urlLink.href = material.url;
+                    urlLink.textContent = 'Link';
+                    urlLink.className = 'url-link';
+                    urlLink.target = '_blank';
+                    urlCell.appendChild(urlLink);
+
+                    // Date cell
+                    row.insertCell().textContent = formatDate(material.add);
                 });
 
                 document.getElementById('materials-table').appendChild(table);
