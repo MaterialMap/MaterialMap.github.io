@@ -1,147 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Materials Database</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tabulator/5.5.2/js/tabulator.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tabulator/5.5.2/css/tabulator.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f5f5f5;
-        }
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 20px;
         }
-        #search-input {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        #materials-table {
-            background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #333;
-            text-align: center;
+        #loading {
+            display: none;
         }
         #error-message {
             color: red;
-            text-align: center;
-            margin: 20px;
-            display: none;
         }
-        #loading {
-            text-align: center;
-            margin: 20px;
-        }
-        #data-selector {
-            margin-bottom: 10px;
+        #materials-table {
             width: 100%;
-            padding: 8px;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        #materials-table th, #materials-table td {
             border: 1px solid #ddd;
-            border-radius: 4px;
+            padding: 8px;
+            text-align: left;
+        }
+        #materials-table th {
+            background-color: #f2f2f2;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Materials Database</h1>
-        <select id="data-selector" multiple>
-            <option value="MAT_010.yml">MAT_ELASTIC_PLASTIC_HYDRO</option>
-        </select>
-        <input type="text" id="search-input" placeholder="Search all columns...">
+        
         <div id="loading">Loading data...</div>
         <div id="error-message"></div>
         <div id="materials-table"></div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const loadingEl = document.getElementById('loading');
-            const errorEl = document.getElementById('error-message');
-            const tableEl = document.getElementById('materials-table');
-            const searchEl = document.getElementById('search-input');
-            const dataSelector = document.getElementById('data-selector');
-            let table;
-
-            function initTable(data) {
-                if (table) {
-                    table.destroy();
-                }
-                return new Tabulator("#materials-table", {
-                    data: data,
-                    layout: "fitColumns",
-                    pagination: "local",
-                    paginationSize: 10,
-                    columns: [
-                        {title: "Material",       field: "mat", sorter: "string"},
-                        {title: "EOS",            field: "eos", sorter: "string"},
-                        {title: "Application",    field: "app", sorter: "string"},
-                        {title: "Discretisation", field: "dis", sorter: "string"},
-                        {title: "References",     field: "ref", sorter: "string"}
-                    ],
+        async function loadMaterials() {
+            try {
+                document.getElementById('loading').style.display = 'block';
+                
+                const response = await fetch('materials.yaml');
+                const yamlText = await response.text();
+                const materials = jsyaml.load(yamlText);
+                
+                const table = document.createElement('table');
+                // Create header
+                const header = table.createTHead();
+                const headerRow = header.insertRow();
+                const headers = ['Material', 'EOS', 'Applications', 'Discretization', 'Reference'];
+                headers.forEach(text => {
+                    const th = document.createElement('th');
+                    th.textContent = text;
+                    headerRow.appendChild(th);
                 });
+
+                // Create table body
+                const tbody = table.createTBody();
+                materials.forEach(material => {
+                    const row = tbody.insertRow();
+                    row.insertCell().textContent = material.mat;
+                    row.insertCell().textContent = material.eos || '-';
+                    row.insertCell().textContent = material.app.join(', ');
+                    row.insertCell().textContent = material.dis;
+                    row.insertCell().textContent = material.ref;
+                });
+
+                document.getElementById('materials-table').appendChild(table);
+            } catch (error) {
+                document.getElementById('error-message').textContent = 
+                    'Error loading materials: ' + error.message;
+            } finally {
+                document.getElementById('loading').style.display = 'none';
             }
+        }
 
-            async function loadSelectedData() {
-                loadingEl.style.display = 'block';
-                errorEl.style.display = 'none';
-                tableEl.style.display = 'none';
-
-                try {
-                    const selectedFiles = Array.from(dataSelector.selectedOptions).map(option => option.value);
-                    if (selectedFiles.length === 0) {
-                        throw new Error('Please select at least one dataset');
-                    }
-
-                    const dataPromises = selectedFiles.map(file => 
-                        fetch(file)
-                            .then(response => {
-                                if (!response.ok) throw new Error(`Error loading ${file}`);
-                                return response.text();
-                            })
-                            .then(yamlText => jsyaml.load(yamlText))
-                    );
-
-                    const datasets = await Promise.all(dataPromises);
-                    const combinedData = datasets.flat();
-
-                    loadingEl.style.display = 'none';
-                    tableEl.style.display = 'block';
-                    
-                    table = initTable(combinedData);
-                } catch (error) {
-                    console.error('Error:', error);
-                    loadingEl.style.display = 'none';
-                    errorEl.style.display = 'block';
-                    errorEl.textContent = error.message;
-                }
-            }
-
-            dataSelector.addEventListener('change', loadSelectedData);
-
-            searchEl.addEventListener("keyup", function(e) {
-                if (table) {
-                    table.setFilter(function(data) {
-                        var searchTerm = e.target.value.toLowerCase();
-                        return Object.values(data).some(value => 
-                            value && value.toString().toLowerCase().includes(searchTerm)
-                        );
-                    });
-                }
-            });
-        });
+        window.addEventListener('load', loadMaterials);
     </script>
 </body>
 </html>
