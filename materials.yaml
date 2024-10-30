@@ -54,7 +54,9 @@
     - Skin modeling
     - Internal organs modeling
     - Diaphragm modeling
-  dis: FEM
+  dis: 
+    - FEM
+    - ALE
   ref: "Zochowski, P. (2019), \"Numerical Methods for the Analysis of Behind Armor Ballistic Trauma\", 12th European LS-DYNA Conference 2019, Koblenz, Germany"
   url: "https://www.researchgate.net/publication/349412692_Numerical_Methods_for_the_Analysis_of_Behind_Armor_Ballistic_Trauma"
   add: "2024-10-30"
@@ -65,7 +67,9 @@
     - Muscle modeling
     - Soft tissue modeling
     - Internal organs modeling
-  dis: FEM
+  dis: 
+    - FEM
+    - ALE
   ref: "Zochowski, P. (2019), \"Numerical Methods for the Analysis of Behind Armor Ballistic Trauma\", 12th European LS-DYNA Conference 2019, Koblenz, Germany"
   url: "https://www.researchgate.net/publication/349412692_Numerical_Methods_for_the_Analysis_of_Behind_Armor_Ballistic_Trauma"
   add: "2024-10-30"
@@ -76,7 +80,9 @@
     - Blood modeling
     - Air modeling
     - Body fluids modeling
-  dis: SPH
+  dis: 
+    - SPH
+    - ALE
   ref: "Zochowski, P. (2019), \"Numerical Methods for the Analysis of Behind Armor Ballistic Trauma\", 12th European LS-DYNA Conference 2019, Koblenz, Germany"
   url: "https://www.researchgate.net/publication/349412692_Numerical_Methods_for_the_Analysis_of_Behind_Armor_Ballistic_Trauma"
   add: "2024-10-30"
