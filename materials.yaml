@@ -1,5 +1,5 @@
-- mat_id: 240
-  mat: MAT_COHESIVE_MIXED_MODE_ELASTOPLASTIC_RATE
+- mat_id: MAT_240
+  mat_name: MAT_COHESIVE_MIXED_MODE_ELASTOPLASTIC_RATE
   eos: null
   app: 
     - BETAFORCE 2850L 
