@@ -1,88 +1,24 @@
-- mat: MAT_010/MAT_ELASTIC_PLASTIC_HYDRO
-  eos: EOS_LINEAR_POLYNOMIAL
-  app:
-    - Bird strike simulation
-    - High-velocity impact analysis
-  dis: SPH
-  ref: "Zhang, Y., Zhou, Y. and Sun, Y. (2022), \"Bird-strike damage analysis of composite panels with different stiffeners\", Aircraft Engineering and Aerospace Technology, Vol. 94 No. 3, pp. 456-471. https://doi.org/10.1108/AEAT-07-2021-0223"
-  url: "https://www.researchgate.net/publication/358591119_Bird-strike_damage_analysis_of_composite_panels_with_different_stiffeners"
-  add: "2024-10-30"
-  
-- mat: MAT_054/MAT_ENHANCED_COMPOSITE_DAMAGE
-  eos: null
-  app:
-    - Composite panels analysis
-    - Impact damage assessment
-  dis: FEM
-  ref: "Zhang, Y., Zhou, Y. and Sun, Y. (2022), \"Bird-strike damage analysis of composite panels with different stiffeners\", Aircraft Engineering and Aerospace Technology, Vol. 94 No. 3, pp. 456-471. https://doi.org/10.1108/AEAT-07-2021-0223"
-  url: "https://www.researchgate.net/publication/358591119_Bird-strike_damage_analysis_of_composite_panels_with_different_stiffeners"
-  add: "2024-10-30"
-
-- mat: MAT_018/MAT_POWER_LAW_PLASTICITY
-  eos: null
-  app:
-    - Ballistic clay modeling
-    - Impact deformation analysis
-  dis: FEM
-  ref: "Zochowski, P. (2019), \"Numerical Methods for the Analysis of Behind Armor Ballistic Trauma\", 12th European LS-DYNA Conference 2019, Koblenz, Germany"
-  url: "https://www.researchgate.net/publication/349412692_Numerical_Methods_for_the_Analysis_of_Behind_Armor_Ballistic_Trauma"
-  add: "2024-10-30"
-
-- mat: MAT_107/MAT_MODIFIED_JOHNSON_COOK
-  eos: null
-  app:
-    - Projectile impact modeling
-    - Ballistic penetration analysis
-  dis: FEM
-  ref: "Zochowski, P. (2019), \"Numerical Methods for the Analysis of Behind Armor Ballistic Trauma\", 12th European LS-DYNA Conference 2019, Koblenz, Germany"
-  url: "https://www.researchgate.net/publication/349412692_Numerical_Methods_for_the_Analysis_of_Behind_Armor_Ballistic_Trauma"
-  add: "2024-10-30"
-
-- mat: MAT_003/MAT_PLASTIC_KINEMATIC
-  eos: null
-  app:
-    - UHMWPE soft layers modeling
-    - Bone material modeling
-  dis: FEM
-  ref: "Zochowski, P. (2019), \"Numerical Methods for the Analysis of Behind Armor Ballistic Trauma\", 12th European LS-DYNA Conference 2019, Koblenz, Germany"
-  url: "https://www.researchgate.net/publication/349412692_Numerical_Methods_for_the_Analysis_of_Behind_Armor_Ballistic_Trauma"
-  add: "2024-10-30"
-
-- mat: MAT_001/MAT_ELASTIC
-  eos: null
-  app:
-    - Skin modeling
-    - Internal organs modeling
-    - Diaphragm modeling
-  dis: 
-    - FEM
-    - ALE
-  ref: "Zochowski, P. (2019), \"Numerical Methods for the Analysis of Behind Armor Ballistic Trauma\", 12th European LS-DYNA Conference 2019, Koblenz, Germany"
-  url: "https://www.researchgate.net/publication/349412692_Numerical_Methods_for_the_Analysis_of_Behind_Armor_Ballistic_Trauma"
-  add: "2024-10-30"
-
-- mat: MAT_006/MAT_VISCOELASTIC
-  eos: null
-  app:
-    - Muscle modeling
-    - Soft tissue modeling
-    - Internal organs modeling
-  dis: 
-    - FEM
-    - ALE
-  ref: "Zochowski, P. (2019), \"Numerical Methods for the Analysis of Behind Armor Ballistic Trauma\", 12th European LS-DYNA Conference 2019, Koblenz, Germany"
-  url: "https://www.researchgate.net/publication/349412692_Numerical_Methods_for_the_Analysis_of_Behind_Armor_Ballistic_Trauma"
-  add: "2024-10-30"
-
-- mat: MAT_001/MAT_FLUID_ELASTIC_FLUID
-  eos: null
-  app:
-    - Blood modeling
-    - Air modeling
-    - Body fluids modeling
-  dis: 
-    - SPH
-    - ALE
-  ref: "Zochowski, P. (2019), \"Numerical Methods for the Analysis of Behind Armor Ballistic Trauma\", 12th European LS-DYNA Conference 2019, Koblenz, Germany"
-  url: "https://www.researchgate.net/publication/349412692_Numerical_Methods_for_the_Analysis_of_Behind_Armor_Ballistic_Trauma"
-  add: "2024-10-30"
+- mat_id: 240
+  mat: MAT_COHESIVE_MIXED_MODE_ELASTOPLASTIC_RATE
+  eos: N/A
+  app: BETAFORCE 2850L adhesive for automotive structures
+  ref: "Betz, N., Holzapfel, M., Behling, T., Vinot, M., & Toso, N. (2023). Characterization of a cohesive zone model for adhesives with *MAT_240 and curve mapping method in LS-OPT. 14th European LS-DYNA Conference 2023, Baden-Baden, Germany"
+  add: 2024-02-11
+  data:   
+    density: 1.200E-09
+    roflg: 0
+    intfail: 1
+    emod: 70.00    # MPa, tensile modulus
+    gmod: 5.80     # MPa, shear modulus
+    thick: 2.00    # mm, thickness
+    output: 0
+    ft: 8.00       # MPa, tensile strength
+    fc: 0.0        # MPa, compressive strength
+    t0: 8.00       # MPa, peak traction in normal direction
+    s0: 10.00      # MPa, peak traction in tangential direction
+    g1c: 12.00     # N/mm, mode I energy release rate
+    g2c: 37.00     # N/mm, mode II energy release rate
+    fg1: 0.50      # shape parameter for mode I
+    fg2: 0.31      # shape parameter for mode II
+    damage: 0.0    # damage flag
+    enddir: 1.00   # end direction flag
