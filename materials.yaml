@@ -1,12 +1,12 @@
 - mat_id: 240
   mat: MAT_COHESIVE_MIXED_MODE_ELASTOPLASTIC_RATE
-  eos: N/A
+  eos: null
   app: 
     - BETAFORCE 2850L 
     - adhesive for automotive structures
   ref: "Betz, N., Holzapfel, M., Behling, T., Vinot, M., & Toso, N. (2023). Characterization of a cohesive zone model for adhesives with *MAT_240 and curve mapping method in LS-OPT. 14th European LS-DYNA Conference 2023, Baden-Baden, Germany"
   add: 2024-02-11
-  data:   
+  mat_data:   
     density: 1.200E-09
     roflg: 0
     intfail: 1
@@ -24,3 +24,4 @@
     fg2: 0.31      # shape parameter for mode II
     damage: 0.0    # damage flag
     enddir: 1.00   # end direction flag
+  eos_date: null
