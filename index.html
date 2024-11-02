@@ -217,7 +217,7 @@
     <!-- Main container -->
     <div class="container" role="main">
         <!-- Page title -->
-        <h1>Materials Database</h1>
+        <h1>Materials MAP</h1>
         
         <!-- Loading indicator -->
         <div id="loading" role="status" aria-live="polite">Loading data...</div>
@@ -231,7 +231,9 @@
                 <tr role="row">
                     <!-- Column headers with semantic roles -->
                     <th role="columnheader" aria-sort="ascending">ID</th>
+                    <th role="columnheader">Material ID</th>
                     <th role="columnheader">Material</th>
+                    <th role="columnheader">EOS</th>
                     <th role="columnheader">Applications</th>
                     <th role="columnheader">Reference</th>
                     <th role="columnheader">URL</th>
@@ -276,10 +278,11 @@
                 // Transform data for DataTable format
                 const tableData = materials.map(material => [
                     material.mat_id,
-                    material.mat,
+                    material.mat_name,
                     material.eos || '-',
                     material.app.join(', '),
                     material.ref,
+                    material.url,
                     formatDate(material.add)
                 ]);
 
