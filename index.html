@@ -230,10 +230,9 @@
             <thead>
                 <tr role="row">
                     <!-- Column headers with semantic roles -->
-                    <th role="columnheader" aria-sort="ascending">Material</th>
-                    <th role="columnheader">EOS</th>
+                    <th role="columnheader" aria-sort="ascending">ID</th>
+                    <th role="columnheader">Material</th>
                     <th role="columnheader">Applications</th>
-                    <th role="columnheader">Discretization</th>
                     <th role="columnheader">Reference</th>
                     <th role="columnheader">URL</th>
                     <th role="columnheader">Added</th>
@@ -276,12 +275,11 @@
                 
                 // Transform data for DataTable format
                 const tableData = materials.map(material => [
+                    material.mat_id,
                     material.mat,
                     material.eos || '-',
                     material.app.join(', '),
-                    material.dis,
                     material.ref,
-                    `<a href="${material.url}" class="url-link" target="_blank" rel="noopener" aria-label="Open reference link in new tab">Link</a>`,
                     formatDate(material.add)
                 ]);
 
