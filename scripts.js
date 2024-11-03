@@ -13,13 +13,16 @@ function formatDate(dateString) {
 }
 
 /**
- * Формирует HTML для отображения данных из mat_data
- * @param {object} matData - объект с данными из mat_data
- * @return {string} HTML с произвольными полями mat_data
+ * Формирует HTML для отображения данных из объекта (например, mat_data или eos_data)
+ * @param {object} dataObj - объект с данными для отображения
+ * @param {string} sectionName - имя секции для заголовка
+ * @return {string} HTML с произвольными полями объекта
  */
-function formatMatData(matData) {
-    let detailsHtml = '<div style="padding: 10px; border-top: 1px solid #e2e8f0;">';
-    for (const [key, value] of Object.entries(matData)) {
+function formatDataSection(dataObj, sectionName) {
+    if (!dataObj || Object.keys(dataObj).length === 0) return ''; // Если объект пустой, вернуть пустую строку
+
+    let detailsHtml = `<div style="padding: 10px; border-top: 1px solid #e2e8f0;"><strong>${sectionName}:</strong><br>`;
+    for (const [key, value] of Object.entries(dataObj)) {
         detailsHtml += `<strong>${key}:</strong> ${value} <br>`;
     }
     detailsHtml += '</div>';
@@ -86,8 +89,9 @@ async function loadMaterials() {
             } else {
                 // Развернуть строку и показать дополнительные данные
                 const material = row.data()[6]; // Получаем объект материала из скрытой колонки
-                const matDataHtml = formatMatData(material.mat_data || {}); // Генерируем HTML для mat_data, если он есть
-                row.child(matDataHtml).show();
+                const matDataHtml = formatDataSection(material.mat_data, 'Material Data'); // Генерируем HTML для mat_data
+                const eosDataHtml = formatDataSection(material.eos_data, 'EOS Data'); // Генерируем HTML для eos_data
+                row.child(matDataHtml + eosDataHtml).show();
                 tr.addClass('shown');
             }
         });
