@@ -116,21 +116,21 @@
   add: 2024-11-02
   url: "https://www.dynalook.com/conferences/14th-european-ls-dyna-conference-2023/adhesives/betz_dlr.pdf/view"
   mat_data:   
-    density: 1.200E-09
-    roflg: 0
-    intfail: 1
-    emod: 70.00    # MPa, tensile modulus
-    gmod: 5.80     # MPa, shear modulus
-    thick: 2.00    # mm, thickness
-    output: 0
-    ft: 8.00       # MPa, tensile strength
-    fc: 0.0        # MPa, compressive strength
-    t0: 8.00       # MPa, peak traction in normal direction
-    s0: 10.00      # MPa, peak traction in tangential direction
-    g1c: 12.00     # N/mm, mode I energy release rate
-    g2c: 37.00     # N/mm, mode II energy release rate
-    fg1: 0.50      # shape parameter for mode I
-    fg2: 0.31      # shape parameter for mode II
-    damage: 0.0    # damage flag
-    enddir: 1.00   # end direction flag
+    RO: 1.200E-09            # density, Tonnes/mm^3
+    ROFLG: 0                 # density flag
+    INTFAIL: 1               # failure indicator for interface
+    EMOD: 70.00              # Young's modulus in tension, MPa
+    GMOD: 5.80               # shear modulus, MPa
+    THICK: 2.00              # thickness, mm
+    OUTPUT: 0                # output flag
+    FT: 8.00                 # tensile strength, MPa
+    FC: 0.0                  # compressive strength, MPa
+    T0: 8.00                 # peak traction in the normal direction, MPa
+    S0: 10.00                # peak traction in the tangential direction, MPa
+    G1C: 12.00               # mode I energy release rate, N/mm
+    G2C: 37.00               # mode II energy release rate, N/mm
+    FG1: 0.50                # shape parameter for mode I
+    FG2: 0.31                # shape parameter for mode II
+    DAMAGE: 0.0              # damage flag
+    ENDDIR: 1.00             # end direction flag
   eos_date: null
