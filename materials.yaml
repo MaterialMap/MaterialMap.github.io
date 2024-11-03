@@ -4,7 +4,11 @@
   - ballistic gelatin
   - soft tissue simulation
   eos: EOS_LINEAR_POLYNOMIAL
-  units: mm, MPa, tonnes, sec
+  units: |
+    mm 
+    MPa 
+    tonnes
+    sec
   eos_data: |
     *EOS_LINEAR_POLYNOMIAL
     $#   EOSID        C1        C2        C3
