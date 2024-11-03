@@ -235,7 +235,6 @@
                     <th role="columnheader">EOS</th>
                     <th role="columnheader">Applications</th>
                     <th role="columnheader">Reference</th>
-                    <th role="columnheader">URL</th>
                     <th role="columnheader">Added</th>
                 </tr>
             </thead>
@@ -280,8 +279,7 @@
                     material.mat_name,
                     material.eos || '-',
                     material.app.join(', '),
-                    material.ref,
-                    material.url,
+                    <a href= material.url>material.ref</a>,                   
                     formatDate(material.add)
                 ]);
 
