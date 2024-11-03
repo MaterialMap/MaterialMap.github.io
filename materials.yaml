@@ -1,5 +1,5 @@
 - mat_id: MAT_010
-  mat_name: *MAT_ELASTIC_PLASTIC_HYDRO
+  mat_name: MAT_ELASTIC_PLASTIC_HYDRO
   app: 
     - ballistic gelatin 
     - soft tissue simulation
