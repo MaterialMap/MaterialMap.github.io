@@ -5,7 +5,7 @@
     - soft tissue simulation
   ref: "Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany"
   add: 2024-11-03
-  url: "https://lsdyna.ansys.com/wp-content/uploads/attachments/zochowski_military_institute_of_armament_technology.pdf"
+  url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view"
   mat_data:
     units: mm, MPa, tonnes, sec
     RO: 1.030E-09         # density, Tonnes/mm^3
@@ -29,7 +29,7 @@
     - ultra-high molecular weight polyethylene (UHMWPE)
   ref: "Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany"
   add: 2024-11-03
-  url: "https://lsdyna.ansys.com/wp-content/uploads/attachments/zochowski_military_institute_of_armament_technology.pdf"
+  url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view"
   mat_data:
     units: mm, MPa, tonnes, sec
     RO: 9.62E-10          # density, Tonnes/mm^3
@@ -51,7 +51,7 @@
     - brass
   ref: "Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany"
   add: 2024-11-03
-  url: "https://lsdyna.ansys.com/wp-content/uploads/attachments/zochowski_military_institute_of_armament_technology.pdf"
+  url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view"
   mat_data:
     units: mm, MPa, tonnes, sec
     RO: 8.52E-09          # density, Tonnes/mm^3
@@ -72,7 +72,7 @@
     - lead
   ref: "Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany"
   add: 2024-11-03
-  url: "https://lsdyna.ansys.com/wp-content/uploads/attachments/zochowski_military_institute_of_armament_technology.pdf"
+  url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view
   mat_data:
     units: mm, MPa, tonnes, sec
     RO: 1.01E-08          # density, Tonnes/mm^3
@@ -97,7 +97,7 @@
     - backing material in body armor testing
   ref: "Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany"
   add: 2024-11-03
-  url: "https://lsdyna.ansys.com/wp-content/uploads/attachments/zochowski_military_institute_of_armament_technology.pdf"
+  url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view"
   mat_data:
     units: mm, MPa, tonnes, sec
     RO: 1.878E-03         # density, Tonnes/mm^3
