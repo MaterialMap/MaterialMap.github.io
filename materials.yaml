@@ -1,26 +1,21 @@
 - mat_id: MAT_010
-  mat_name: MAT_ELASTIC_PLASTIC_HYDRO
-  app: 
-    - ballistic gelatin 
-    - soft tissue simulation
-  ref: "Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany"
   add: 2024-11-03
-  url: "https://lsdyna.ansys.com/wp-content/uploads/attachments/zochowski_military_institute_of_armament_technology.pdf"
-  mat_data:
-    units: mm, MPa, tonnes, sec
-    RO: 1.030E-09         # density, Tonnes/mm^3
-    G: 0.85               # shear modulus, MPa
-    SIGY: 0.22            # yield strength, MPa
-    EH: 0.001             # hardening modulus, MPa
-    PC: 0.0140            # pressure cutoff, MPa
-    FS: 0.9
-    CHARL: 0.0
+  app:
+  - ballistic gelatin
+  - soft tissue simulation
   eos: EOS_LINEAR_POLYNOMIAL
-  eos_data:
-    units: mm, MPa, tonnes, sec
-    C1: 2380              # speed of sound in material
-    C2: 7140              # second coefficient of polynomial EOS
-    C3: 11900             # third coefficient of polynomial EOS
+  units: mm, MPa, tonnes, sec
+  eos_data: |
+    *EOS_LINEAR_POLYNOMIAL
+    $#   EOSID        C1        C2        C3
+            10      2380      7140     11900
+  mat_name: MAT_ELASTIC_PLASTIC_HYDRO
+  mat_data: |
+    *MAT_ELASTIC_PLASTIC_HYDRO
+    $#     MID        RO         G      SIGY        EH        PC        FS     CHARL
+            10 1.030E-09      0.85      0.22     0.001     0.014       0.9       0.0
+  ref: "Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany"
+  url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view"
     
 - mat_id: MAT_003
   mat_name: MAT_PLASTIC_KINEMATIC
