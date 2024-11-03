@@ -13,6 +13,20 @@ function formatDate(dateString) {
 }
 
 /**
+ * Формирует HTML для отображения данных из mat_data
+ * @param {object} matData - объект с данными из mat_data
+ * @return {string} HTML с произвольными полями mat_data
+ */
+function formatMatData(matData) {
+    let detailsHtml = '<div style="padding: 10px; border-top: 1px solid #e2e8f0;">';
+    for (const [key, value] of Object.entries(matData)) {
+        detailsHtml += `<strong>${key}:</strong> ${value} <br>`;
+    }
+    detailsHtml += '</div>';
+    return detailsHtml;
+}
+
+/**
  * Загружает и отображает данные о материалах
  * Получает данные в YAML формате и инициализирует DataTable
  */
@@ -31,14 +45,24 @@ async function loadMaterials() {
             material.eos || '-',
             material.app.join(', '),
             `<a href="${material.url}" class="url-link" target="_blank">${material.ref}</a>`,
-            formatDate(material.add)
+            formatDate(material.add),
+            material // добавляем весь объект как скрытое значение для строки
         ]);
 
-        // Инициализация DataTable
-        $('#materials-table').DataTable({
+        // Инициализация DataTable с опцией развертывания строк
+        const table = $('#materials-table').DataTable({
             data: tableData,
+            columns: [
+                { title: "Material ID" },
+                { title: "Material" },
+                { title: "EOS" },
+                { title: "Applications" },
+                { title: "Reference" },
+                { title: "Added" },
+                { visible: false } // Скрытая колонка для хранения объекта материала
+            ],
             order: [[0, 'asc']],
-            pageLength: 25,
+            pageLength: 10,
             responsive: true,
             language: {
                 search: "Search:",
@@ -47,6 +71,24 @@ async function loadMaterials() {
                 infoEmpty: "Showing 0 to 0 of 0 entries",
                 infoFiltered: "(filtered from _MAX_ total entries)",
                 paginate: { first: "First", last: "Last", next: "Next", previous: "Previous" }
+            }
+        });
+
+        // Обработчик клика по строке для развертывания дополнительных данных
+        $('#materials-table tbody').on('click', 'tr', function () {
+            const tr = $(this);
+            const row = table.row(tr);
+
+            if (row.child.isShown()) {
+                // Если строка уже развернута, скрыть дополнительные данные
+                row.child.hide();
+                tr.removeClass('shown');
+            } else {
+                // Развернуть строку и показать дополнительные данные
+                const material = row.data()[6]; // Получаем объект материала из скрытой колонки
+                const matDataHtml = formatMatData(material.mat_data || {}); // Генерируем HTML для mat_data, если он есть
+                row.child(matDataHtml).show();
+                tr.addClass('shown');
             }
         });
     } catch (error) {
