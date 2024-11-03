@@ -72,7 +72,7 @@
     - lead
   ref: "Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany"
   add: 2024-11-03
-  url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view
+  url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view”
   mat_data:
     units: mm, MPa, tonnes, sec
     RO: 1.01E-08          # density, Tonnes/mm^3
