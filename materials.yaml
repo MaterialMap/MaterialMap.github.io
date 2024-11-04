@@ -1,3 +1,30 @@
+- mat_id: MAT_015
+  mat_name: MAT_JOHNSON_COOK
+  app:
+    - shell casing for impact simulations
+    - steel SEA 1006
+  ref: "Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact Simulation. 12th European LS-DYNA Conference, Koblenz, Germany"
+  add: 2024-11-04
+  url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/balaban_fe-tech.pdf"
+  mat_data:
+    units: cm, g, μs, Mbar
+    RO: 7.896           # density, g/cm^3
+    G: 0.818            # shear modulus, Mbar
+    PR: 0.3             # Poisson's ratio
+    A: 0.0035           # yield stress parameter, Mbar
+    B: 0.00275          # hardening parameter, Mbar
+    N: 0.36             # hardening exponent
+    C: 0.022            # strain rate parameter
+    M: 1                # thermal softening exponent
+    TM: 1811            # melting temperature, K
+    TR: 300             # reference temperature, K
+  eos: EOS_GRUNEISEN
+  eos_data:
+    units: cm, g, μs, Mbar
+    C: 0.4568           # speed of sound in the material
+    S1: 1.49            # EOS coefficient
+    GAMAO: 2.17         # Gruneisen gamma at zero pressure
+    
 - mat_id: MAT_010
   mat_name: MAT_ELASTIC_PLASTIC_HYDRO
   app:
