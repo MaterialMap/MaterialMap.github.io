@@ -8,6 +8,14 @@ body {
     padding: 0;
 }
 
+/* Добавьте стиль для иконки: */
+.expand-icon {
+    cursor: pointer;
+    margin-right: 0.5rem;
+    display: inline-block;
+    transition: transform 0.2s;
+}
+
 /* Контейнер для центрирования и максимальной ширины */
 .container {
     max-width: 1200px;
