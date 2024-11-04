@@ -1,3 +1,38 @@
+- mat_id: MAT_010
+  mat_name: MAT_ELASTIC_PLASTIC_HYDRO
+  app:
+    - high explosive simulations involving COMP-B
+  ref: "Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact Simulation. 12th European LS-DYNA Conference, Koblenz, Germany"
+  add: 2024-11-04
+  url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/balaban_fe-tech.pdf"
+  mat_data:
+    units: cm, g, μs, Mbar
+    RO: 1.717           # density, g/cm^3
+    G: 0.035            # shear modulus, Mbar
+    SIGY: 0.002         # yield strength, Mbar
+  eos: EOS_IGNITION_AND_GROWTH_OF_REACTION_IN_HE
+  eos_data:
+    units: cm, g, μs, Mbar
+    A: 5.242            # reacted state JWL parameter A
+    B: 0.07678          # reacted state JWL parameter B
+    R1: 4.2             # reacted state JWL parameter R1
+    R2: 1.1             # reacted state JWL parameter R2
+    W: 0.34             # reacted state JWL parameter w
+    AUR: 778.1          # unreacted state JWL parameter A
+    BUR: -0.05031       # unreacted state JWL parameter B
+    WU: 0.8938          # unreacted state JWL parameter w
+    R1U: 11.3           # unreacted state JWL parameter R1
+    R2U: 1.13           # unreacted state JWL parameter R2
+    FIGMAX: 0.022       # max reaction ratio for ignition
+    RRI: 4.00E+06       # ignition parameter I (1/μs)
+    RRG1: 850           # growth parameter G1 (Mbar^-2/μs)
+    RRY: 2              # growth pressure exponent Y
+    RRG2: 660           # growth parameter G2 (Mbar^-2/μs)
+    RRG: 1              # growth reaction ratio exponent G
+    RRE: 0.333          # growth reaction ratio exponent E
+    DETV: 0.798         # C-J detonation velocity (cm/μs)
+    PCJ: 0.295          # C-J pressure (Mbar)
+
 - mat_id: MAT_015
   mat_name: MAT_JOHNSON_COOK
   app:
