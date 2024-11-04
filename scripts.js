@@ -1,4 +1,4 @@
-const tableData = materials.map/**
+/**
  * Форматирует дату в формат DD/MM/YYYY
  * @param {string} dateString - строка с датой в ISO формате
  * @return {string} отформатированная дата
@@ -41,7 +41,7 @@ async function loadMaterials() {
         const yamlText = await response.text();
         const materials = jsyaml.load(yamlText);
 
-        // Подготовка данных для таблицы, включая ссылку в Reference
+        // Подготовка данных для таблицы, включая иконку для раскрытия
         const tableData = materials.map(material => [
             '<span class="expand-icon">▶</span>',  // Иконка для раскрытия
             material.mat_id,
@@ -57,6 +57,7 @@ async function loadMaterials() {
         const table = $('#materials-table').DataTable({
             data: tableData,
             columns: [
+                { title: "" },  // Колонка для иконки раскрытия
                 { title: "Material ID" },
                 { title: "Material" },
                 { title: "EOS" },
@@ -65,7 +66,7 @@ async function loadMaterials() {
                 { title: "Added" },
                 { visible: false } // Скрытая колонка для хранения объекта материала
             ],
-            order: [[0, 'asc']],
+            order: [[1, 'asc']], // Сортировка по Material ID
             pageLength: 10,
             responsive: true,
             language: {
@@ -78,21 +79,23 @@ async function loadMaterials() {
             }
         });
 
-        // Модифицируйте обработчик клика для работы с иконкой
+        // Обработчик клика по строке для развертывания дополнительных данных
         $('#materials-table tbody').on('click', 'tr', function (event) {
-            // Игнорируйте клик на ячейке с иконкой
+            // Игнорируем клик, если он не на иконке
             if ($(event.target).hasClass('expand-icon')) {
                 const tr = $(this);
                 const row = table.row(tr);
-        
+
                 if (row.child.isShown()) {
+                    // Если строка уже развернута, скрыть дополнительные данные
                     row.child.hide();
                     tr.removeClass('shown');
                     tr.find('.expand-icon').text('▶'); // Меняем иконку на закрытую
                 } else {
-                    const material = row.data()[6]; // Получаем объект материала из скрытой колонки
-                    const matDataHtml = formatDataSection(material.mat_data, 'Material Data');
-                    const eosDataHtml = formatDataSection(material.eos_data, 'EOS Data');
+                    // Развернуть строку и показать дополнительные данные
+                    const material = row.data()[7]; // Получаем объект материала из скрытой колонки
+                    const matDataHtml = formatDataSection(material.mat_data, 'Material Data'); // Генерируем HTML для mat_data
+                    const eosDataHtml = formatDataSection(material.eos_data, 'EOS Data'); // Генерируем HTML для eos_data
                     row.child(matDataHtml + eosDataHtml).show();
                     tr.addClass('shown');
                     tr.find('.expand-icon').text('▼'); // Меняем иконку на открытую
