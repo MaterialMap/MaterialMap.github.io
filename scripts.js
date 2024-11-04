@@ -1,4 +1,4 @@
-/**
+const tableData = materials.map/**
  * Форматирует дату в формат DD/MM/YYYY
  * @param {string} dateString - строка с датой в ISO формате
  * @return {string} отформатированная дата
@@ -43,6 +43,7 @@ async function loadMaterials() {
 
         // Подготовка данных для таблицы, включая ссылку в Reference
         const tableData = materials.map(material => [
+            '<span class="expand-icon">▶</span>',  // Иконка для раскрытия
             material.mat_id,
             material.mat_name,
             material.eos || '-',
@@ -77,22 +78,25 @@ async function loadMaterials() {
             }
         });
 
-        // Обработчик клика по строке для развертывания дополнительных данных
-        $('#materials-table tbody').on('click', 'tr', function () {
-            const tr = $(this);
-            const row = table.row(tr);
-
-            if (row.child.isShown()) {
-                // Если строка уже развернута, скрыть дополнительные данные
-                row.child.hide();
-                tr.removeClass('shown');
-            } else {
-                // Развернуть строку и показать дополнительные данные
-                const material = row.data()[6]; // Получаем объект материала из скрытой колонки
-                const matDataHtml = formatDataSection(material.mat_data, 'Material Data'); // Генерируем HTML для mat_data
-                const eosDataHtml = formatDataSection(material.eos_data, 'EOS Data'); // Генерируем HTML для eos_data
-                row.child(matDataHtml + eosDataHtml).show();
-                tr.addClass('shown');
+        // Модифицируйте обработчик клика для работы с иконкой
+        $('#materials-table tbody').on('click', 'tr', function (event) {
+            // Игнорируйте клик на ячейке с иконкой
+            if ($(event.target).hasClass('expand-icon')) {
+                const tr = $(this);
+                const row = table.row(tr);
+        
+                if (row.child.isShown()) {
+                    row.child.hide();
+                    tr.removeClass('shown');
+                    tr.find('.expand-icon').text('▶'); // Меняем иконку на закрытую
+                } else {
+                    const material = row.data()[6]; // Получаем объект материала из скрытой колонки
+                    const matDataHtml = formatDataSection(material.mat_data, 'Material Data');
+                    const eosDataHtml = formatDataSection(material.eos_data, 'EOS Data');
+                    row.child(matDataHtml + eosDataHtml).show();
+                    tr.addClass('shown');
+                    tr.find('.expand-icon').text('▼'); // Меняем иконку на открытую
+                }
             }
         });
     } catch (error) {
