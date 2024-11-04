@@ -1,5 +1,29 @@
 - mat_id: MAT_010
   mat_name: MAT_ELASTIC_PLASTIC_HYDRO
+  app:
+    - detonation simulations
+    - projectile casings
+  ref: "Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact Simulation. 12th European LS-DYNA Conference, Koblenz, Germany"
+  add: 2024-11-04
+  url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/balaban_fe-tech.pdf"
+  mat_data:
+    units: cm, g, μs, Mbar
+    RO: 11.34           # density, g/cm^3
+    G: 0.1113           # shear modulus, Mbar
+    SIGY: 0.0003        # yield strength, Mbar
+    EH: 0               # hardening modulus, Mbar
+    PC: 0               # pressure cutoff, Mbar
+    FS: 0               # failure stress, Mbar
+    CHARL: 0            # characteristic length, Mbar
+  eos: EOS_GRUNEISEN
+  eos_data:
+    units: cm, g, μs, Mbar
+    C: 0.2092           # speed of sound in the material
+    S1: 1.452           # EOS coefficient
+    GAMAO: 2            # Gruneisen gamma at zero pressure
+    
+- mat_id: MAT_010
+  mat_name: MAT_ELASTIC_PLASTIC_HYDRO
   app: 
     - ballistic gelatin 
     - soft tissue simulation
