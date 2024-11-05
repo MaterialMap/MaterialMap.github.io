@@ -41,14 +41,13 @@ async function loadMaterials() {
         const yamlText = await response.text();
         const materials = jsyaml.load(yamlText);
 
-        // Подготовка данных для таблицы, включая иконку для раскрытия
+        // Подготовка данных для таблицы
         const tableData = materials.map(material => [
             '<span class="expand-icon">▶</span>',  // Иконка для раскрытия
             material.mat_id,
             material.mat_name,
             material.eos || '-',
             material.app.join(', '),
-            `<a href="${material.url}" class="url-link" target="_blank">${material.ref}</a>`,
             formatDate(material.add),
             material // добавляем весь объект как скрытое значение для строки
         ]);
@@ -62,7 +61,6 @@ async function loadMaterials() {
                 { title: "Material" },
                 { title: "EOS" },
                 { title: "Applications" },
-                { title: "Reference" },
                 { title: "Added" },
                 { visible: false } // Скрытая колонка для хранения объекта материала
             ],
@@ -81,24 +79,23 @@ async function loadMaterials() {
 
         // Обработчик клика по строке для развертывания дополнительных данных
         $('#materials-table tbody').on('click', 'tr', function (event) {
-            // Игнорируем клик, если он не на иконке
             if ($(event.target).hasClass('expand-icon')) {
                 const tr = $(this);
                 const row = table.row(tr);
 
                 if (row.child.isShown()) {
-                    // Если строка уже развернута, скрыть дополнительные данные
                     row.child.hide();
                     tr.removeClass('shown');
-                    tr.find('.expand-icon').text('▶'); // Меняем иконку на закрытую
+                    tr.find('.expand-icon').text('▶');
                 } else {
-                    // Развернуть строку и показать дополнительные данные
-                    const material = row.data()[7]; // Получаем объект материала из скрытой колонки
-                    const matDataHtml = formatDataSection(material.mat_data, 'Material Data'); // Генерируем HTML для mat_data
-                    const eosDataHtml = formatDataSection(material.eos_data, 'EOS Data'); // Генерируем HTML для eos_data
-                    row.child(matDataHtml + eosDataHtml).show();
+                    const material = row.data()[6]; // Получаем объект материала из скрытой колонки
+                    const matDataHtml = formatDataSection(material.mat_data, 'Material Data');
+                    const eosDataHtml = formatDataSection(material.eos_data, 'EOS Data');
+                    const referenceHtml = `<div style="padding: 10px; border-top: 1px solid #e2e8f0;"><strong>Reference:</strong> <a href="${material.url}" class="url-link" target="_blank">${material.ref}</a></div>`;
+                    
+                    row.child(matDataHtml + eosDataHtml + referenceHtml).show();
                     tr.addClass('shown');
-                    tr.find('.expand-icon').text('▼'); // Меняем иконку на открытую
+                    tr.find('.expand-icon').text('▼');
                 }
             }
         });
