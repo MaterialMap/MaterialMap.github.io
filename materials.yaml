@@ -1,7 +1,148 @@
+- mat_id: MAT_015
+  mat: MAT_JOHNSON_COOK
+  app:
+    - Stainless Steel 
+    - high-velocity impact simulations
+  ref: "Yin, S., Liao, H. L., & Wang, X. F. (2014). Euler-based finite element analysis on high velocity impact behaviour in cold spraying. *Surface Engineering*, 30(3), 188-193."
+  add: 2024-11-05
+  url: "https://www.researchgate.net/publication/263351022_Euler_based_finite_element_analysis_on_high_velocity_impact_behaviour_in_cold_spraying"
+  mat_data:
+    units: mm, g, μs, GPa
+    RO: 7.85             # Density, g/cm³
+    E: 200               # Young's modulus, GPa
+    PR: 0.3              # Poisson's ratio
+    SIGY: 0.25           # Yield strength, GPa
+    A: 0.25              # JC parameter A, GPa
+    B: 0.45              # JC parameter B, GPa
+    N: 0.12              # JC hardening exponent
+    C: 0.02              # JC strain rate parameter
+    M: 1.0               # JC thermal softening exponent
+    T_melt: 1450         # Melting temperature, K
+    T_ref: 293           # Reference temperature, K
+    EPSO: 1.0            # Reference strain rate, 1/μs
+  eos: EOS_GRUNEISEN
+  eos_data:
+    C: 0.5               # Speed of sound, mm/μs
+    S1: 1.49             # Gruneisen parameter S1
+    GAMA0: 2.17          # Initial Gruneisen gamma
+
+- mat_id: MAT_015
+  mat: MAT_JOHNSON_COOK
+  app:
+    - 20 Steel 
+    - high-velocity impact in structural testing
+  ref: "Yin, S., Liao, H. L., & Wang, X. F. (2014). Euler-based finite element analysis on high velocity impact behaviour in cold spraying. *Surface Engineering*, 30(3), 188-193."
+  add: 2024-11-05
+  url: "https://www.researchgate.net/publication/263351022_Euler_based_finite_element_analysis_on_high_velocity_impact_behaviour_in_cold_spraying"
+  mat_data:
+    units: mm, g, μs, GPa
+    RO: 7.85             # Density, g/cm³
+    E: 210               # Young's modulus, GPa
+    PR: 0.3              # Poisson's ratio
+    SIGY: 0.32           # Yield strength, GPa
+    A: 0.32              # JC parameter A, GPa
+    B: 0.48              # JC parameter B, GPa
+    N: 0.15              # JC hardening exponent
+    C: 0.03              # JC strain rate parameter
+    M: 1.0               # JC thermal softening exponent
+    T_melt: 1510         # Melting temperature, K
+    T_ref: 293           # Reference temperature, K
+    EPSO: 1.0            # Reference strain rate, 1/μs
+  eos: EOS_GRUNEISEN
+  eos_data:
+    C: 0.52              # Speed of sound, mm/μs
+    S1: 1.49             # Gruneisen parameter S1
+    GAMA0: 2.1           # Initial Gruneisen gamma
+
+- mat_id: MAT_015
+  mat: MAT_JOHNSON_COOK
+  app:
+    - Nickel 
+    - high-velocity impact in cold spraying
+  ref: "Yin, S., Liao, H. L., & Wang, X. F. (2014). Euler-based finite element analysis on high velocity impact behaviour in cold spraying. *Surface Engineering*, 30(3), 188-193."
+  add: 2024-11-05
+  url: "https://www.researchgate.net/publication/263351022_Euler_based_finite_element_analysis_on_high_velocity_impact_behaviour_in_cold_spraying"
+  mat_data:
+    units: mm, g, μs, GPa
+    RO: 8.9              # Density, g/cm³
+    E: 210               # Young's modulus, GPa
+    PR: 0.31             # Poisson's ratio
+    SIGY: 0.35           # Yield strength, GPa
+    A: 0.35              # JC parameter A, GPa
+    B: 0.42              # JC parameter B, GPa
+    N: 0.13              # JC hardening exponent
+    C: 0.025             # JC strain rate parameter
+    M: 0.95              # JC thermal softening exponent
+    T_melt: 1728         # Melting temperature, K
+    T_ref: 293           # Reference temperature, K
+    EPSO: 1.0            # Reference strain rate, 1/μs
+  eos: EOS_GRUNEISEN
+  eos_data:
+    C: 0.6               # Speed of sound, mm/μs
+    S1: 1.51             # Gruneisen parameter S1
+    GAMA0: 2.18          # Initial Gruneisen gamma
+
+- mat_id: MAT_015
+  mat: MAT_JOHNSON_COOK
+  app:
+    - Copper 
+    - cold spraying impact analysis
+  ref: "Yin, S., Liao, H. L., & Wang, X. F. (2014). Euler-based finite element analysis on high velocity impact behaviour in cold spraying. *Surface Engineering*, 30(3), 188-193."
+  add: 2024-11-05
+  url: "https://www.researchgate.net/publication/263351022_Euler_based_finite_element_analysis_on_high_velocity_impact_behaviour_in_cold_spraying"
+  mat_data:
+    units: mm, g, μs, GPa
+    RO: 8.93             # Density, g/cm³
+    E: 110               # Young's modulus, GPa
+    PR: 0.34             # Poisson's ratio
+    SIGY: 0.33           # Yield strength, GPa
+    A: 0.33              # JC parameter A, GPa
+    B: 0.4               # JC parameter B, GPa
+    N: 0.12              # JC hardening exponent
+    C: 0.022             # JC strain rate parameter
+    M: 0.98              # JC thermal softening exponent
+    T_melt: 1356         # Melting temperature, K
+    T_ref: 293           # Reference temperature, K
+    EPSO: 1.0            # Reference strain rate, 1/μs
+  eos: EOS_GRUNEISEN
+  eos_data:
+    C: 0.47              # Speed of sound, mm/μs
+    S1: 1.52             # Gruneisen parameter S1
+    GAMA0: 2.15          # Initial Gruneisen gamma
+
+- mat_id: MAT_015
+  mat: MAT_JOHNSON_COOK
+  app:
+    - Aluminum 6061-T6 
+    - cold spraying and high-velocity impact studies
+  ref: "Yin, S., Liao, H. L., & Wang, X. F. (2014). Euler-based finite element analysis on high velocity impact behaviour in cold spraying. *Surface Engineering*, 30(3), 188-193."
+  add: 2024-11-05
+  url: "https://www.researchgate.net/publication/263351022_Euler_based_finite_element_analysis_on_high_velocity_impact_behaviour_in_cold_spraying"
+  mat_data:
+    units: mm, g, μs, GPa
+    RO: 2.7              # Density, g/cm³
+    E: 70                # Young's modulus, GPa
+    PR: 0.33             # Poisson's ratio
+    SIGY: 0.28           # Yield strength, GPa
+    A: 0.28              # JC parameter A, GPa
+    B: 0.36              # JC parameter B, GPa
+    N: 0.14              # JC hardening exponent
+    C: 0.018             # JC strain rate parameter
+    M: 1.05              # JC thermal softening exponent
+    T_melt: 855          # Melting temperature, K
+    T_ref: 293           # Reference temperature, K
+    EPSO: 1.0            # Reference strain rate, 1/μs
+  eos: EOS_GRUNEISEN
+  eos_data:
+    C: 0.53              # Speed of sound, mm/μs
+    S1: 1.48             # Gruneisen parameter S1
+    GAMA0: 2.2           # Initial Gruneisen gamma
+
 - mat_id: MAT_010
   mat_name: MAT_ELASTIC_PLASTIC_HYDRO
   app:
-    - high explosive simulations involving COMP-B
+    - high explosive simulations involving 
+    - COMP-B
   ref: "Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact Simulation. 12th European LS-DYNA Conference, Koblenz, Germany"
   add: 2024-11-04
   url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/balaban_fe-tech.pdf"
