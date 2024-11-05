@@ -1,3 +1,124 @@
+- mat_id: MAT_107
+  mat: MAT_MODIFIED_JOHNSON_COOK
+  app:
+    - Ballistic performance of multi-layered metallic plates 
+    - Weldox 700E
+  ref: "Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile. *International Journal of Impact Engineering*, 38(12), 1022-1032."
+  add: 2024-11-05
+  url: "https://www.researchgate.net/publication/241096550"
+  mat_data:
+    units: mm, g, μs, GPa
+    RO: 7850            # Density for Weldox 700E, kg/m³
+    E: 210              # Young's modulus, GPa
+    PR: 0.33            # Poisson's ratio
+    Cp: 452             # Specific heat, J/kg·K
+    T_melt: 1800        # Melting temperature, K
+    T_ref: 293          # Reference temperature, K
+    EPSO: 5.0E-4        # Reference strain rate, 1/s
+    A: 819              # JC parameter A, MPa
+    B: 308              # JC parameter B, MPa
+    N: 0.64             # JC hardening exponent
+    C: 0.0098           # JC strain rate parameter
+    m: 1                # JC thermal softening exponent
+    WCR: 1486           # Critical plastic work for Cockcroft-Latham criterion, MPa
+
+- mat_id: MAT_107
+  mat: MAT_MODIFIED_JOHNSON_COOK
+  app:
+    - Ballistic performance 
+    - Al 7075-T651
+  ref: "Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile. *International Journal of Impact Engineering*, 38(12), 1022-1032."
+  add: 2024-11-05
+  url: "https://www.researchgate.net/publication/241096550"
+  mat_data:
+    units: mm, g, μs, GPa
+    RO: 2700            # Density for Al 7075-T651, kg/m³
+    E: 70               # Young's modulus, GPa
+    PR: 0.3             # Poisson's ratio
+    Cp: 910             # Specific heat, J/kg·K
+    T_melt: 893         # Melting temperature, K
+    T_ref: 293          # Reference temperature, K
+    EPSO: 5.0E-4        # Reference strain rate, 1/s
+    A: 520              # JC parameter A, MPa
+    B: 477              # JC parameter B, MPa
+    N: 0.52             # JC hardening exponent
+    C: 0.001            # JC strain rate parameter
+    m: 1                # JC thermal softening exponent
+    WCR: 106            # Critical plastic work for Cockcroft-Latham criterion, MPa
+
+- mat_id: MAT_107
+  mat: MAT_MODIFIED_JOHNSON_COOK
+  app:
+    - Steel core 
+    - 7.62-mm APM2 projectile
+  ref: "Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile. *International Journal of Impact Engineering*, 38(12), 1022-1032."
+  add: 2024-11-05
+  url: "https://www.researchgate.net/publication/241096550"
+  mat_data:
+    units: mm, g, μs, GPa
+    RO: 7850            # Density for steel core, kg/m³
+    E: 210              # Young's modulus, GPa
+    PR: 0.33            # Poisson's ratio
+    Cp: 452             # Specific heat, J/kg·K
+    T_melt: 1800        # Melting temperature, K
+    T_ref: 293          # Reference temperature, K
+    EPSO: 5.0E-4        # Reference strain rate, 1/s
+    A: 1200             # JC parameter A, MPa
+    B: 50000            # JC parameter B, MPa
+    N: 1                # JC hardening exponent
+    C: 0                # JC strain rate parameter
+    m: 1                # JC thermal softening exponent
+    WCR: Not specified  # Critical plastic work not specified
+  failure_criteria: COCKCROFT_LATHAM
+
+- mat_id: MAT_107
+  mat: MAT_MODIFIED_JOHNSON_COOK
+  app:
+    - Lead cap 
+    - 7.62-mm APM2 projectile
+  ref: "Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile. *International Journal of Impact Engineering*, 38(12), 1022-1032."
+  add: 2024-11-05
+  url: "https://www.researchgate.net/publication/241096550"
+  mat_data:
+    units: mm, g, μs, GPa
+    RO: 10660           # Density for lead cap, kg/m³
+    E: 1                # Young's modulus, GPa
+    PR: 0.42            # Poisson's ratio
+    Cp: 124             # Specific heat, J/kg·K
+    T_melt: 760         # Melting temperature, K
+    T_ref: 293          # Reference temperature, K
+    EPSO: 5.0E-4        # Reference strain rate, 1/s
+    A: 24               # JC parameter A, MPa
+    B: 300              # JC parameter B, MPa
+    N: 1                # JC hardening exponent
+    C: 0.1              # JC strain rate parameter
+    m: 1                # JC thermal softening exponent
+    WCR: 175            # Critical plastic work, MPa
+
+- mat_id: MAT_107
+  mat: MAT_MODIFIED_JOHNSON_COOK
+  app:
+    - Brass jacket 
+    - 7.62-mm APM2 projectile
+  ref: "Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile. *International Journal of Impact Engineering*, 38(12), 1022-1032."
+  add: 2024-11-05
+  url: "https://www.researchgate.net/publication/241096550"
+  mat_data:
+    units: mm, g, μs, GPa
+    RO: 8520            # Density for brass jacket, kg/m³
+    E: 115              # Young's modulus, GPa
+    PR: 0.31            # Poisson's ratio
+    Cp: 385             # Specific heat, J/kg·K
+    T_melt: 1189        # Melting temperature, K
+    T_ref: 293          # Reference temperature, K
+    EPSO: 5.0E-4        # Reference strain rate, 1/s
+    A: 206              # JC parameter A, MPa
+    B: 505              # JC parameter B, MPa
+    N: 0.42             # JC hardening exponent
+    C: 0.01             # JC strain rate parameter
+    m: 1.68             # JC thermal softening exponent
+    WCR: 914            # Critical plastic work, MPa
+ 
 - mat_id: MAT_015
   mat: MAT_JOHNSON_COOK
   app:
