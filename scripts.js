@@ -52,7 +52,7 @@ async function loadMaterials() {
             material // добавляем весь объект как скрытое значение для строки
         ]);
 
-        // Инициализация DataTable с опцией развертывания строк
+        // Инициализация DataTable с фиксированной шириной таблицы
         const table = $('#materials-table').DataTable({
             data: tableData,
             columns: [
@@ -64,8 +64,7 @@ async function loadMaterials() {
                 { title: "Added" },
                 { visible: false } // Скрытая колонка для хранения объекта материала
             ],
-            order: [[1, 'asc']], // Сортировка по Material ID
-            pageLength: 10,
+            autoWidth: false, // Отключаем автоматическое вычисление ширины DataTables
             responsive: true,
             language: {
                 search: "Search:",
