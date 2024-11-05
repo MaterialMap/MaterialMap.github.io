@@ -8,7 +8,7 @@
   add: 2024-11-05
   url: "https://www.researchgate.net/publication/241096550"
   mat_data:
-    units: mm, g, μs, GPa
+    units: mm, g, μs, GPa 
     RO: 7850            # Density for Weldox 700E, kg/m³
     E: 210              # Young's modulus, GPa
     PR: 0.33            # Poisson's ratio
@@ -265,7 +265,7 @@
     GAMA0: 2.2           # Initial Gruneisen gamma
 
 - mat_id: MAT_010
-  mat_name: MAT_ELASTIC_PLASTIC_HYDRO
+  mat: MAT_ELASTIC_PLASTIC_HYDRO
   app:
     - high explosive simulations involving 
     - COMP-B
@@ -301,7 +301,7 @@
     PCJ: 0.295          # C-J pressure (Mbar)
 
 - mat_id: MAT_015
-  mat_name: MAT_JOHNSON_COOK
+  mat: MAT_JOHNSON_COOK
   app:
     - shell casing for impact simulations
     - steel SEA 1006
@@ -328,7 +328,7 @@
     GAMAO: 2.17         # Gruneisen gamma at zero pressure
     
 - mat_id: MAT_010
-  mat_name: MAT_ELASTIC_PLASTIC_HYDRO
+  mat: MAT_ELASTIC_PLASTIC_HYDRO
   app:
     - detonation simulations
     - projectile casings
@@ -352,7 +352,7 @@
     GAMAO: 2            # Gruneisen gamma at zero pressure
     
 - mat_id: MAT_010
-  mat_name: MAT_ELASTIC_PLASTIC_HYDRO
+  mat: MAT_ELASTIC_PLASTIC_HYDRO
   app: 
     - ballistic gelatin 
     - soft tissue simulation
@@ -376,7 +376,7 @@
     C3: 11900             # third coefficient of polynomial EOS
     
 - mat_id: MAT_003
-  mat_name: MAT_PLASTIC_KINEMATIC
+  mat: MAT_PLASTIC_KINEMATIC
   app: 
     - soft layers for ballistic protection
     - ultra-high molecular weight polyethylene (UHMWPE)
@@ -398,7 +398,7 @@
   eos: null
   
 - mat_id: MAT_107
-  mat_name: MAT_MODIFIED_JOHNSON_COOK
+  mat: MAT_MODIFIED_JOHNSON_COOK
   app: 
     - jacket for ballistic projectiles
     - brass
@@ -419,7 +419,7 @@
   eos: null
 
 - mat_id: MAT_107
-  mat_name: MAT_MODIFIED_JOHNSON_COOK
+  mat: MAT_MODIFIED_JOHNSON_COOK
   app: 
     - lead core for ballistic projectiles
     - lead
@@ -444,7 +444,7 @@
   eos: null
   
 - mat_id: MAT_018
-  mat_name: MAT_POWER_LAW_PLASTICITY
+  mat: MAT_POWER_LAW_PLASTICITY
   app: 
     - ballistic clay 
     - backing material in body armor testing
@@ -466,7 +466,7 @@
   eos: null
   
 - mat_id: MAT_240
-  mat_name: MAT_COHESIVE_MIXED_MODE_ELASTOPLASTIC_RATE
+  mat: MAT_COHESIVE_MIXED_MODE_ELASTOPLASTIC_RATE
   eos: null
   app: 
     - BETAFORCE 2850L 
