@@ -1,5 +1,6 @@
 - mat_id: MAT_107
   mat: MAT_MODIFIED_JOHNSON_COOK
+  eos: null
   app:
     - Ballistic performance of multi-layered metallic plates 
     - Weldox 700E
@@ -24,6 +25,7 @@
 
 - mat_id: MAT_107
   mat: MAT_MODIFIED_JOHNSON_COOK
+  eos: null
   app:
     - Ballistic performance 
     - Al 7075-T651
@@ -48,6 +50,7 @@
 
 - mat_id: MAT_107
   mat: MAT_MODIFIED_JOHNSON_COOK
+  eos: null
   app:
     - Steel core 
     - 7.62-mm APM2 projectile
@@ -73,6 +76,7 @@
 
 - mat_id: MAT_107
   mat: MAT_MODIFIED_JOHNSON_COOK
+  eos: null
   app:
     - Lead cap 
     - 7.62-mm APM2 projectile
@@ -97,6 +101,7 @@
 
 - mat_id: MAT_107
   mat: MAT_MODIFIED_JOHNSON_COOK
+  eos: null
   app:
     - Brass jacket 
     - 7.62-mm APM2 projectile
