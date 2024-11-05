@@ -45,7 +45,7 @@ async function loadMaterials() {
         const tableData = materials.map(material => [
             '<span class="expand-icon">▶</span>',  // Иконка для раскрытия
             material.mat_id,
-            material.mat_name,
+            material.mat,
             material.eos || '-',
             material.app.join(', '),
             formatDate(material.add),
