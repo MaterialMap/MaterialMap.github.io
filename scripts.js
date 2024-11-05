@@ -52,7 +52,7 @@ async function loadMaterials() {
             material // добавляем весь объект как скрытое значение для строки
         ]);
 
-        // Инициализация DataTable с фиксированной шириной таблицы
+        // Инициализация DataTable с опцией развертывания строк
         const table = $('#materials-table').DataTable({
             data: tableData,
             columns: [
@@ -64,7 +64,8 @@ async function loadMaterials() {
                 { title: "Added" },
                 { visible: false } // Скрытая колонка для хранения объекта материала
             ],
-            autoWidth: false, // Отключаем автоматическое вычисление ширины DataTables
+            order: [[1, 'asc']], // Сортировка по Material ID
+            pageLength: 10,
             responsive: true,
             language: {
                 search: "Search:",
@@ -82,4 +83,30 @@ async function loadMaterials() {
                 const tr = $(this);
                 const row = table.row(tr);
 
-                if (row.child.isShown())
+                if (row.child.isShown()) {
+                    row.child.hide();
+                    tr.removeClass('shown');
+                    tr.find('.expand-icon').text('▶');
+                } else {
+                    const material = row.data()[6]; // Получаем объект материала из скрытой колонки
+                    const matDataHtml = formatDataSection(material.mat_data, 'Material Data');
+                    const eosDataHtml = formatDataSection(material.eos_data, 'EOS Data');
+                    const referenceHtml = `<div style="padding: 10px; border-top: 1px solid #e2e8f0;"><strong>Reference:</strong> <a href="${material.url}" class="url-link" target="_blank">${material.ref}</a></div>`;
+                    
+                    row.child(matDataHtml + eosDataHtml + referenceHtml).show();
+                    tr.addClass('shown');
+                    tr.find('.expand-icon').text('▼');
+                }
+            }
+        });
+    } catch (error) {
+        const errorElement = document.getElementById('error-message');
+        errorElement.textContent = 'Error loading materials: ' + error.message;
+        errorElement.style.display = 'block';
+    } finally {
+        document.getElementById('loading').style.display = 'none';
+    }
+}
+
+// Запуск загрузки данных при загрузке страницы
+window.addEventListener('load', loadMaterials);
