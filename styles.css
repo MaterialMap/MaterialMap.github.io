@@ -30,7 +30,7 @@ h1 {
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     border: 1px solid #e2e8f0;
     width: 100%; /* Полная ширина таблицы */
-    table-layout: fixed; /* Фиксированная ширина колонок */
+    table-layout: auto; /* Автоматическое распределение ширины колонок */
 }
 
 /* Стили заголовка таблицы */
@@ -53,12 +53,15 @@ h1 {
     text-overflow: ellipsis; /* Многоточие при переполнении текста */
 }
 
-/* Ширина колонок */
+/* Минимальная ширина для первых двух колонок и последней */
+#materials-table th:nth-child(2),
+#materials-table td:nth-child(2),
 #materials-table th:nth-child(3),
 #materials-table td:nth-child(3),
-#materials-table th:nth-child(4),
-#materials-table td:nth-child(4) {
-    white-space: nowrap; /* Запрет на перенос строк для Material и EOS */
+#materials-table th:nth-child(6),
+#materials-table td:nth-child(6) {
+    min-width: 150px; /* Настройте ширину под ваши требования */
+    white-space: nowrap; /* Запрет на перенос строк */
 }
 
 /* Стили инпута поиска */
@@ -125,4 +128,34 @@ h1 {
 
 /* Hover-состояние строк таблицы */
 #materials-table tbody tr:hover {
-    background-color: #f1f5f
+    background-color: #f1f5f9;
+}
+
+/* Стили кнопок пагинации */
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 0.5rem 1rem;
+    margin: 0 0.25rem;
+    border-radius: 6px;
+    border: none;
+}
+
+/* Стили текущей страницы */
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    background: #4a90e2;
+    color: white !important;
+    border: none;
+}
+
+/* Hover-состояние для кнопок пагинации */
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background: #e2e8f0;
+    border: none;
+}
+
+/* Адаптивные стили для различных размеров экрана */
+@media (max-width: 768px) {
+    #materials-table th,
+    #materials-table td {
+        font-size: 0.875rem;
+    }
+}
