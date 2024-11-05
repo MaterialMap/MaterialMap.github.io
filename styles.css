@@ -8,14 +8,6 @@ body {
     padding: 0;
 }
 
-/* Добавьте стиль для иконки: */
-.expand-icon {
-    cursor: pointer;
-    margin-right: 0.5rem;
-    display: inline-block;
-    transition: transform 0.2s;
-}
-
 /* Контейнер для центрирования и максимальной ширины */
 .container {
     max-width: 1200px;
@@ -38,6 +30,7 @@ h1 {
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     border: 1px solid #e2e8f0;
     width: 100%; /* Полная ширина таблицы */
+    table-layout: fixed; /* Фиксированная ширина колонок */
 }
 
 /* Стили заголовка таблицы */
@@ -47,6 +40,7 @@ h1 {
     color: #2c3e50;
     padding: 1rem;
     border-bottom: 2px solid #e2e8f0;
+    white-space: nowrap; /* Запрет на перенос строк */
 }
 
 /* Стили ячеек таблицы */
@@ -54,6 +48,17 @@ h1 {
     padding: 1rem;
     border-bottom: 1px solid #e2e8f0;
     color: #4a5568;
+    white-space: nowrap; /* Запрет на перенос строк */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Многоточие при переполнении текста */
+}
+
+/* Ширина колонок */
+#materials-table th:nth-child(3),
+#materials-table td:nth-child(3),
+#materials-table th:nth-child(4),
+#materials-table td:nth-child(4) {
+    white-space: nowrap; /* Запрет на перенос строк для Material и EOS */
 }
 
 /* Стили инпута поиска */
@@ -120,71 +125,4 @@ h1 {
 
 /* Hover-состояние строк таблицы */
 #materials-table tbody tr:hover {
-    background-color: #f1f5f9;
-}
-
-/* Стили кнопок пагинации */
-.dataTables_wrapper .dataTables_paginate .paginate_button {
-    padding: 0.5rem 1rem;
-    margin: 0 0.25rem;
-    border-radius: 6px;
-    border: none;
-}
-
-/* Стили текущей страницы */
-.dataTables_wrapper .dataTables_paginate .paginate_button.current {
-    background: #4a90e2;
-    color: white !important;
-    border: none;
-}
-
-/* Hover-состояние для кнопок пагинации */
-.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-    background: #e2e8f0;
-    border: none;
-}
-
-/* Адаптивные стили для различных размеров экрана */
-@media (max-width: 1024px) {
-    .container {
-        padding: 1.5rem;
-    }
-    
-    body {
-        font-size: 0.95rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .container {
-        padding: 1rem;
-    }
-    
-    #materials-table {
-        font-size: 0.875rem;
-    }
-    
-    #materials-table thead th,
-    #materials-table tbody td {
-        padding: 0.75rem;
-    }
-    
-    h1 {
-        font-size: 1.5rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .container {
-        padding: 0.5rem;
-    }
-    
-    #materials-table {
-        font-size: 0.8rem;
-    }
-    
-    #materials-table thead th,
-    #materials-table tbody td {
-        padding: 0.5rem;
-    }
-}
+    background-color: #f1f5f
