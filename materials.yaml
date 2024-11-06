@@ -2,8 +2,8 @@
   mat: MAT_MODIFIED_JOHNSON_COOK
   eos: null
   app:
-    - Ballistic performance of multi-layered metallic plates 
     - Weldox 700E
+    - Ballistic performance
   ref: "Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile. *International Journal of Impact Engineering*, 38(12), 1022-1032."
   add: 2024-11-05
   url: "https://www.researchgate.net/publication/241096550"
@@ -27,8 +27,8 @@
   mat: MAT_MODIFIED_JOHNSON_COOK
   eos: null
   app:
-    - Ballistic performance 
     - Al 7075-T651
+    - Ballistic performance 
   ref: "Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile. *International Journal of Impact Engineering*, 38(12), 1022-1032."
   add: 2024-11-05
   url: "https://www.researchgate.net/publication/241096550"
@@ -128,7 +128,7 @@
   mat: MAT_JOHNSON_COOK
   app:
     - Stainless Steel 
-    - high-velocity impact simulations
+    - High-velocity impact
   ref: "Yin, S., Liao, H. L., & Wang, X. F. (2014). Euler-based finite element analysis on high velocity impact behaviour in cold spraying. *Surface Engineering*, 30(3), 188-193."
   add: 2024-11-05
   url: "https://www.researchgate.net/publication/263351022_Euler_based_finite_element_analysis_on_high_velocity_impact_behaviour_in_cold_spraying"
@@ -156,7 +156,7 @@
   mat: MAT_JOHNSON_COOK
   app:
     - 20 Steel 
-    - high-velocity impact in structural testing
+    - High-velocity impact
   ref: "Yin, S., Liao, H. L., & Wang, X. F. (2014). Euler-based finite element analysis on high velocity impact behaviour in cold spraying. *Surface Engineering*, 30(3), 188-193."
   add: 2024-11-05
   url: "https://www.researchgate.net/publication/263351022_Euler_based_finite_element_analysis_on_high_velocity_impact_behaviour_in_cold_spraying"
@@ -184,7 +184,7 @@
   mat: MAT_JOHNSON_COOK
   app:
     - Nickel 
-    - high-velocity impact in cold spraying
+    - High-velocity impact
   ref: "Yin, S., Liao, H. L., & Wang, X. F. (2014). Euler-based finite element analysis on high velocity impact behaviour in cold spraying. *Surface Engineering*, 30(3), 188-193."
   add: 2024-11-05
   url: "https://www.researchgate.net/publication/263351022_Euler_based_finite_element_analysis_on_high_velocity_impact_behaviour_in_cold_spraying"
@@ -212,7 +212,7 @@
   mat: MAT_JOHNSON_COOK
   app:
     - Copper 
-    - cold spraying impact analysis
+    - High-velocity impact
   ref: "Yin, S., Liao, H. L., & Wang, X. F. (2014). Euler-based finite element analysis on high velocity impact behaviour in cold spraying. *Surface Engineering*, 30(3), 188-193."
   add: 2024-11-05
   url: "https://www.researchgate.net/publication/263351022_Euler_based_finite_element_analysis_on_high_velocity_impact_behaviour_in_cold_spraying"
@@ -240,7 +240,7 @@
   mat: MAT_JOHNSON_COOK
   app:
     - Aluminum 6061-T6 
-    - cold spraying and high-velocity impact studies
+    - High-velocity impact
   ref: "Yin, S., Liao, H. L., & Wang, X. F. (2014). Euler-based finite element analysis on high velocity impact behaviour in cold spraying. *Surface Engineering*, 30(3), 188-193."
   add: 2024-11-05
   url: "https://www.researchgate.net/publication/263351022_Euler_based_finite_element_analysis_on_high_velocity_impact_behaviour_in_cold_spraying"
@@ -267,8 +267,8 @@
 - mat_id: MAT_010
   mat: MAT_ELASTIC_PLASTIC_HYDRO
   app:
-    - high explosive simulations involving 
     - COMP-B
+    - High explosive simulations
   ref: "Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact Simulation. 12th European LS-DYNA Conference, Koblenz, Germany"
   add: 2024-11-04
   url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/balaban_fe-tech.pdf"
@@ -303,8 +303,8 @@
 - mat_id: MAT_015
   mat: MAT_JOHNSON_COOK
   app:
-    - shell casing for impact simulations
-    - steel SEA 1006
+    - Steel SEA 1006
+    - Impact simulations
   ref: "Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact Simulation. 12th European LS-DYNA Conference, Koblenz, Germany"
   add: 2024-11-04
   url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/balaban_fe-tech.pdf"
@@ -330,8 +330,8 @@
 - mat_id: MAT_010
   mat: MAT_ELASTIC_PLASTIC_HYDRO
   app:
-    - detonation simulations
-    - projectile casings
+    - Projectile casings
+    - Detonation simulations
   ref: "Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact Simulation. 12th European LS-DYNA Conference, Koblenz, Germany"
   add: 2024-11-04
   url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/balaban_fe-tech.pdf"
@@ -354,8 +354,8 @@
 - mat_id: MAT_010
   mat: MAT_ELASTIC_PLASTIC_HYDRO
   app: 
-    - ballistic gelatin 
-    - soft tissue simulation
+    - Ballistic gelatin 
+    - Soft tissue simulation
   ref: "Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany"
   add: 2024-11-03
   url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view"
@@ -378,8 +378,8 @@
 - mat_id: MAT_003
   mat: MAT_PLASTIC_KINEMATIC
   app: 
-    - soft layers for ballistic protection
-    - ultra-high molecular weight polyethylene (UHMWPE)
+    - Ultra-high molecular weight polyethylene (UHMWPE)
+    - Soft layers for ballistic protection
   ref: "Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany"
   add: 2024-11-03
   url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view"
@@ -400,8 +400,8 @@
 - mat_id: MAT_107
   mat: MAT_MODIFIED_JOHNSON_COOK
   app: 
-    - jacket for ballistic projectiles
-    - brass
+    - Brass
+    - Ballistic projectiles
   ref: "Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany"
   add: 2024-11-03
   url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view"
@@ -421,8 +421,9 @@
 - mat_id: MAT_107
   mat: MAT_MODIFIED_JOHNSON_COOK
   app: 
-    - lead core for ballistic projectiles
-    - lead
+  - Lead core 
+  - Ballistic projectiles
+
   ref: "Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany"
   add: 2024-11-03
   url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view"
@@ -446,8 +447,8 @@
 - mat_id: MAT_018
   mat: MAT_POWER_LAW_PLASTICITY
   app: 
-    - ballistic clay 
-    - backing material in body armor testing
+    - Ballistic clay 
+    - Backing material in body armor testing
   ref: "Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany"
   add: 2024-11-03
   url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view"
@@ -470,7 +471,7 @@
   eos: null
   app: 
     - BETAFORCE 2850L 
-    - adhesive for automotive structures
+    - Adhesive for automotive structures
   ref: "Betz, N., Holzapfel, M., Behling, T., Vinot, M., & Toso, N. (2023). Characterization of a cohesive zone model for adhesives with *MAT_240 and curve mapping method in LS-OPT. 14th European LS-DYNA Conference 2023, Baden-Baden, Germany"
   add: 2024-11-02
   url: "https://www.dynalook.com/conferences/14th-european-ls-dyna-conference-2023/adhesives/betz_dlr.pdf/view"
