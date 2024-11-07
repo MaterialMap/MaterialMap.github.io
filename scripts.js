@@ -1,37 +1,43 @@
 /**
- * Форматирует дату в формат DD/MM/YYYY
- * @param {string} dateString - строка с датой в ISO формате
- * @return {string} отформатированная дата
+ * Formats mat_data and eos_data as a two-column table layout.
+ * @param {object} dataObj - The data object (mat_data or eos_data).
+ * @param {string} sectionName - The section name for the heading.
+ * @return {string} HTML representing a two-column table of the data object.
  */
-function formatDate(dateString) {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-GB', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric'
-    });
-}
+function formatDataSectionAsTable(dataObj, sectionName) {
+    if (!dataObj || Object.keys(dataObj).length === 0) return ''; // Return empty string if no data
 
-/**
- * Формирует HTML для отображения данных из объекта (например, mat_data или eos_data)
- * @param {object} dataObj - объект с данными для отображения
- * @param {string} sectionName - имя секции для заголовка
- * @return {string} HTML с произвольными полями объекта
- */
-function formatDataSection(dataObj, sectionName) {
-    if (!dataObj || Object.keys(dataObj).length === 0) return ''; // Если объект пустой, вернуть пустую строку
+    let detailsHtml = `<div style="padding: 10px; border-top: 1px solid #e2e8f0;">
+        <strong>${sectionName}:</strong>
+        <table style="width: 100%; margin-top: 10px; border-collapse: collapse;">
+    `;
 
-    let detailsHtml = `<div style="padding: 10px; border-top: 1px solid #e2e8f0;"><strong>${sectionName}:</strong><br>`;
-    for (const [key, value] of Object.entries(dataObj)) {
-        detailsHtml += `<strong>${key}:</strong> ${value} <br>`;
+    // Loop through data entries and add them in two columns
+    const entries = Object.entries(dataObj);
+    for (let i = 0; i < entries.length; i += 2) {
+        detailsHtml += '<tr>';
+        
+        // Add first cell
+        const [key1, value1] = entries[i];
+        detailsHtml += `<td style="padding: 5px; border-bottom: 1px solid #e2e8f0;"><strong>${key1}:</strong> ${value1}</td>`;
+        
+        // Add second cell if it exists
+        if (i + 1 < entries.length) {
+            const [key2, value2] = entries[i + 1];
+            detailsHtml += `<td style="padding: 5px; border-bottom: 1px solid #e2e8f0;"><strong>${key2}:</strong> ${value2}</td>`;
+        } else {
+            detailsHtml += '<td></td>'; // Empty cell if no second item
+        }
+
+        detailsHtml += '</tr>';
     }
-    detailsHtml += '</div>';
+    detailsHtml += '</table></div>';
     return detailsHtml;
 }
 
 /**
- * Загружает и отображает данные о материалах
- * Получает данные в YAML формате и инициализирует DataTable
+ * Loads and displays materials data with expandable rows for mat_data, eos_data, and reference.
+ * Fetches YAML data and initializes DataTable.
  */
 async function loadMaterials() {
     try {
@@ -41,30 +47,30 @@ async function loadMaterials() {
         const yamlText = await response.text();
         const materials = jsyaml.load(yamlText);
 
-        // Подготовка данных для таблицы
+        // Prepare data for table
         const tableData = materials.map(material => [
-            '<span class="expand-icon">▶</span>',  // Иконка для раскрытия
+            '<span class="expand-icon">▶</span>',  // Expand icon
             material.mat_id,
             material.mat,
             material.eos || '-',
             material.app.join(', '),
             formatDate(material.add),
-            material // добавляем весь объект как скрытое значение для строки
+            material // Store entire material object as hidden data
         ]);
 
-        // Инициализация DataTable с опцией развертывания строк
+        // Initialize DataTable with row expansion
         const table = $('#materials-table').DataTable({
             data: tableData,
             columns: [
-                { title: "" },  // Колонка для иконки раскрытия
+                { title: "" },
                 { title: "Material ID" },
                 { title: "Material" },
                 { title: "EOS" },
                 { title: "Applications" },
                 { title: "Added" },
-                { visible: false } // Скрытая колонка для хранения объекта материала
+                { visible: false } // Hidden column for material object storage
             ],
-            order: [[1, 'asc']], // Сортировка по Material ID
+            order: [[1, 'asc']],
             pageLength: 10,
             responsive: true,
             language: {
@@ -77,7 +83,7 @@ async function loadMaterials() {
             }
         });
 
-        // Обработчик клика по строке для развертывания дополнительных данных
+        // Row click handler for expanding additional data
         $('#materials-table tbody').on('click', 'tr', function (event) {
             if ($(event.target).hasClass('expand-icon')) {
                 const tr = $(this);
@@ -88,11 +94,14 @@ async function loadMaterials() {
                     tr.removeClass('shown');
                     tr.find('.expand-icon').text('▶');
                 } else {
-                    const material = row.data()[6]; // Получаем объект материала из скрытой колонки
-                    const matDataHtml = formatDataSection(material.mat_data, 'Material Data');
-                    const eosDataHtml = formatDataSection(material.eos_data, 'EOS Data');
-                    const referenceHtml = `<div style="padding: 10px; border-top: 1px solid #e2e8f0;"><strong>Reference:</strong> <a href="${material.url}" class="url-link" target="_blank">${material.ref}</a></div>`;
+                    const material = row.data()[6]; // Get material object from hidden column
+                    const matDataHtml = formatDataSectionAsTable(material.mat_data, 'Material Data');
+                    const eosDataHtml = formatDataSectionAsTable(material.eos_data, 'EOS Data');
+                    const referenceHtml = `<div style="padding: 10px; border-top: 1px solid #e2e8f0; text-align: center;">
+                        <strong>Reference:</strong> <a href="${material.url}" class="url-link" target="_blank">${material.ref}</a>
+                    </div>`;
                     
+                    // Show mat_data and eos_data as a two-column table with reference at the bottom
                     row.child(matDataHtml + eosDataHtml + referenceHtml).show();
                     tr.addClass('shown');
                     tr.find('.expand-icon').text('▼');
@@ -108,5 +117,5 @@ async function loadMaterials() {
     }
 }
 
-// Запуск загрузки данных при загрузке страницы
+// Start data loading on page load
 window.addEventListener('load', loadMaterials);
