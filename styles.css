@@ -1,4 +1,4 @@
-/* Базовые стили */
+/* Base styling for the page */
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     line-height: 1.5;
@@ -8,63 +8,66 @@ body {
     padding: 0;
 }
 
-/* Контейнер для центрирования и максимальной ширины */
+/* Container for central alignment and padding */
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
+    max-width: 100%; /* Allow container to take full width */
+    margin: 0 auto; /* Center container horizontally */
+    padding: 0 2rem; /* Equal padding on left and right */
 }
 
-/* Стили заголовков */
+/* Header styling */
 h1 {
     font-weight: 600;
     color: #2c3e50;
     margin-bottom: 2rem;
     font-size: 2rem;
+    text-align: center; /* Center align title */
 }
 
-/* Стили таблицы */
+/* Table styling */
 #materials-table {
+    max-width: 100%; /* Ensure table doesn't exceed container width */
+    margin: 0 auto; /* Center table within container */
     background: white;
     border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     border: 1px solid #e2e8f0;
-    width: 100%; /* Полная ширина таблицы */
-    table-layout: auto; /* Автоматическое распределение ширины колонок */
+    overflow-x: auto; /* Allow horizontal scroll if table overflows */
+    table-layout: auto; /* Auto-adjust column widths */
 }
 
-/* Стили заголовка таблицы */
+/* Header row styling for table */
 #materials-table thead th {
     background-color: #f8f9fa;
     font-weight: 500;
     color: #2c3e50;
     padding: 1rem;
     border-bottom: 2px solid #e2e8f0;
-    white-space: nowrap; /* Запрет на перенос строк */
+    white-space: nowrap; /* Prevent header text from wrapping */
 }
 
-/* Стили ячеек таблицы */
+/* Table cell styling */
 #materials-table tbody td {
     padding: 1rem;
     border-bottom: 1px solid #e2e8f0;
     color: #4a5568;
-    white-space: nowrap; /* Запрет на перенос строк */
+    white-space: nowrap; /* Prevent cell text from wrapping */
     overflow: hidden;
-    text-overflow: ellipsis; /* Многоточие при переполнении текста */
+    text-overflow: ellipsis; /* Add ellipsis for overflow text */
 }
 
-/* Минимальная ширина для первых двух колонок и последней */
+/* Minimum width settings for key columns */
 #materials-table th:nth-child(2),
 #materials-table td:nth-child(2),
 #materials-table th:nth-child(3),
 #materials-table td:nth-child(3),
 #materials-table th:nth-child(6),
 #materials-table td:nth-child(6) {
-    min-width: 150px; /* Настройте ширину под ваши требования */
-    white-space: nowrap; /* Запрет на перенос строк */
+    min-width: 150px; /* Set minimum width for certain columns */
+    white-space: nowrap;
 }
 
-/* Стили инпута поиска */
+/* Styling for search input */
 .dataTables_wrapper .dataTables_filter input {
     border: 1px solid #e2e8f0;
     border-radius: 6px;
@@ -73,14 +76,14 @@ h1 {
     font-family: inherit;
 }
 
-/* Фокусное состояние инпута поиска */
+/* Focus styling for search input */
 .dataTables_wrapper .dataTables_filter input:focus {
     outline: none;
     border-color: #4a90e2;
-    box-shadow: 0 0 0 2px rgba(74,144,226,0.2);
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
 }
 
-/* Стили для выбора количества записей */
+/* Entries selection dropdown styling */
 .dataTables_wrapper .dataTables_length select {
     border: 1px solid #e2e8f0;
     border-radius: 6px;
@@ -88,7 +91,7 @@ h1 {
     font-family: inherit;
 }
 
-/* Стили ссылок URL */
+/* URL link styling */
 .url-link {
     color: #4a90e2;
     text-decoration: none;
@@ -98,20 +101,20 @@ h1 {
     transition: background-color 0.2s;
 }
 
-/* Hover-состояние для ссылок URL */
+/* Hover effect for URL links */
 .url-link:hover {
-    background-color: rgba(74,144,226,0.1);
+    background-color: rgba(74, 144, 226, 0.1);
     text-decoration: none;
 }
 
-/* Стили загрузки данных */
+/* Loading message styling */
 #loading {
     display: none;
     color: #4a5568;
     margin-bottom: 1rem;
 }
 
-/* Стили сообщения об ошибке */
+/* Error message styling */
 #error-message {
     color: #e53e3e;
     padding: 1rem;
@@ -121,17 +124,17 @@ h1 {
     display: none;
 }
 
-/* Зебра-стилизация строк таблицы */
+/* Zebra striping for table rows */
 #materials-table tbody tr:nth-child(even) {
     background-color: #f8f9fa;
 }
 
-/* Hover-состояние строк таблицы */
+/* Hover effect for table rows */
 #materials-table tbody tr:hover {
     background-color: #f1f5f9;
 }
 
-/* Стили кнопок пагинации */
+/* Pagination button styling */
 .dataTables_wrapper .dataTables_paginate .paginate_button {
     padding: 0.5rem 1rem;
     margin: 0 0.25rem;
@@ -139,23 +142,26 @@ h1 {
     border: none;
 }
 
-/* Стили текущей страницы */
+/* Current page styling */
 .dataTables_wrapper .dataTables_paginate .paginate_button.current {
     background: #4a90e2;
     color: white !important;
     border: none;
 }
 
-/* Hover-состояние для кнопок пагинации */
+/* Hover effect for pagination buttons */
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
     background: #e2e8f0;
     border: none;
 }
 
-/* Адаптивные стили для различных размеров экрана */
+/* Responsive styling for smaller screens */
 @media (max-width: 768px) {
+    .container {
+        padding: 0 1rem; /* Reduce padding for smaller screens */
+    }
     #materials-table th,
     #materials-table td {
-        font-size: 0.875rem;
+        font-size: 0.875rem; /* Smaller font size for mobile */
     }
 }
