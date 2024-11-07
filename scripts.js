@@ -1,48 +1,92 @@
 /**
- * Formats mat_data and eos_data as a two-column table layout.
- * @param {object} dataObj - The data object (mat_data or eos_data).
- * @param {string} sectionName - The section name for the heading.
- * @return {string} HTML representing a two-column table of the data object.
+ * Formats a date string to DD/MM/YYYY format.
+ * @param {string} dateString - ISO date string.
+ * @return {string} Formatted date.
  */
-function formatDataSectionAsTable(dataObj, sectionName) {
-    if (!dataObj || Object.keys(dataObj).length === 0) return ''; // Return empty string if no data
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+    });
+}
 
-    let detailsHtml = `<div style="padding: 10px; border-top: 1px solid #e2e8f0;">
-        <strong>${sectionName}:</strong>
-        <table style="width: 100%; margin-top: 10px; border-collapse: collapse;">
-    `;
+/**
+ * Formats the mat_id and mat to display in a single Material column.
+ * @param {string} matId - Material ID.
+ * @param {string} mat - Material name.
+ * @return {string} HTML for Material column with mat_id and mat on separate lines.
+ */
+function formatMaterialColumn(matId, mat) {
+    return `<div><strong>ID:</strong> ${matId}</div><div><strong>Name:</strong> ${mat}</div>`;
+}
 
-    // Loop through data entries and add them in two columns
-    const entries = Object.entries(dataObj);
-    for (let i = 0; i < entries.length; i += 2) {
-        detailsHtml += '<tr>';
-        
-        // Add first cell
-        const [key1, value1] = entries[i];
-        detailsHtml += `<td style="padding: 5px; border-bottom: 1px solid #e2e8f0;"><strong>${key1}:</strong> ${value1}</td>`;
-        
-        // Add second cell if it exists
-        if (i + 1 < entries.length) {
-            const [key2, value2] = entries[i + 1];
-            detailsHtml += `<td style="padding: 5px; border-bottom: 1px solid #e2e8f0;"><strong>${key2}:</strong> ${value2}</td>`;
-        } else {
-            detailsHtml += '<td></td>'; // Empty cell if no second item
-        }
+/**
+ * Formats the app array as a list for display in the Applications column.
+ * @param {Array} appList - Array of applications.
+ * @return {string} HTML for applications formatted as a list.
+ */
+function formatApplications(appList) {
+    if (!appList || appList.length === 0) return '-';
+    return appList.map(app => `<div>${app}</div>`).join('');
+}
 
-        detailsHtml += '</tr>';
+/**
+ * Formats mat_data as a single row for display.
+ * @param {object} matData - Material data object.
+ * @return {string} HTML for mat_data row.
+ */
+function formatMatDataRow(matData) {
+    if (!matData || Object.keys(matData).length === 0) return '';
+    
+    let matDataHtml = `<tr><td colspan="5" style="padding: 10px; border-top: 1px solid #e2e8f0;">
+        <strong>Material Data:</strong><br>`;
+    for (const [key, value] of Object.entries(matData)) {
+        matDataHtml += `<strong>${key}:</strong> ${value}<br>`;
     }
-    detailsHtml += '</table></div>';
-    return detailsHtml;
+    matDataHtml += '</td></tr>';
+    return matDataHtml;
+}
+
+/**
+ * Formats eos_data as a single row for display.
+ * @param {object} eosData - EOS data object.
+ * @return {string} HTML for eos_data row.
+ */
+function formatEosDataRow(eosData) {
+    if (!eosData || Object.keys(eosData).length === 0) return '';
+    
+    let eosDataHtml = `<tr><td colspan="5" style="padding: 10px; border-top: 1px solid #e2e8f0;">
+        <strong>EOS Data:</strong><br>`;
+    for (const [key, value] of Object.entries(eosData)) {
+        eosDataHtml += `<strong>${key}:</strong> ${value}<br>`;
+    }
+    eosDataHtml += '</td></tr>';
+    return eosDataHtml;
+}
+
+/**
+ * Formats the reference as a single row spanning the table.
+ * @param {string} url - URL of the reference.
+ * @param {string} ref - Reference text.
+ * @return {string} HTML for a single-row reference spanning the table width.
+ */
+function formatReferenceRow(url, ref) {
+    return `<tr>
+                <td colspan="5" style="padding: 10px; border-top: 1px solid #e2e8f0; text-align: center;">
+                    <strong>Reference:</strong> <a href="${url}" class="url-link" target="_blank">${ref}</a>
+                </td>
+            </tr>`;
 }
 
 /**
  * Loads and displays materials data with expandable rows for mat_data, eos_data, and reference.
- * Fetches YAML data and initializes DataTable.
  */
 async function loadMaterials() {
     try {
         document.getElementById('loading').style.display = 'block';
-        
+
         const response = await fetch('materials.yaml');
         const yamlText = await response.text();
         const materials = jsyaml.load(yamlText);
@@ -50,10 +94,9 @@ async function loadMaterials() {
         // Prepare data for table
         const tableData = materials.map(material => [
             '<span class="expand-icon">▶</span>',  // Expand icon
-            material.mat_id,
-            material.mat,
+            formatMaterialColumn(material.mat_id, material.mat), // Combine mat_id and mat in one column
             material.eos || '-',
-            material.app.join(', '),
+            formatApplications(material.app), // Format applications as a list
             formatDate(material.add),
             material // Store entire material object as hidden data
         ]);
@@ -63,7 +106,6 @@ async function loadMaterials() {
             data: tableData,
             columns: [
                 { title: "" },
-                { title: "Material ID" },
                 { title: "Material" },
                 { title: "EOS" },
                 { title: "Applications" },
@@ -94,15 +136,15 @@ async function loadMaterials() {
                     tr.removeClass('shown');
                     tr.find('.expand-icon').text('▶');
                 } else {
-                    const material = row.data()[6]; // Get material object from hidden column
-                    const matDataHtml = formatDataSectionAsTable(material.mat_data, 'Material Data');
-                    const eosDataHtml = formatDataSectionAsTable(material.eos_data, 'EOS Data');
-                    const referenceHtml = `<div style="padding: 10px; border-top: 1px solid #e2e8f0; text-align: center;">
-                        <strong>Reference:</strong> <a href="${material.url}" class="url-link" target="_blank">${material.ref}</a>
-                    </div>`;
+                    const material = row.data()[5]; // Get material object from hidden column
+                    const matDataHtml = formatMatDataRow(material.mat_data);
+                    const eosDataHtml = formatEosDataRow(material.eos_data);
+                    const referenceHtml = formatReferenceRow(material.url, material.ref);
                     
-                    // Show mat_data and eos_data as a two-column table with reference at the bottom
-                    row.child(matDataHtml + eosDataHtml + referenceHtml).show();
+                    // Show mat_data, eos_data, and reference each in their own row
+                    const expandedRowHtml = `<table style="width: 100%;">${matDataHtml}${eosDataHtml}${referenceHtml}</table>`;
+                    
+                    row.child(expandedRowHtml).show();
                     tr.addClass('shown');
                     tr.find('.expand-icon').text('▼');
                 }
@@ -118,4 +160,4 @@ async function loadMaterials() {
 }
 
 // Start data loading on page load
-window.addEventListener('load', loadMaterials);
+window.addEventListener('load', loadMaterials);s
