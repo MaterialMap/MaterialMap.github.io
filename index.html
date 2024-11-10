@@ -1,41 +1,62 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <title>Material MAP</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- External resources -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
-    <link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    
-    <!-- External CSS file -->
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="container" role="main">
-        <h1>Materials MAP</h1>
-        <div id="loading" role="status" aria-live="polite">Loading data...</div>
-        <div id="error-message" role="alert" aria-live="assertive"></div>
-        <table id="materials-table" class="display" aria-label="Materials database">
-            <thead>
-                <tr role="row">
-                    <th role="columnheader" aria-label="Expand Row"></th>
-                    <th role="columnheader" aria-sort="ascending">Material ID</th>
-                    <th role="columnheader">Material</th>
-                    <th role="columnheader">EOS</th>
-                    <th role="columnheader">Applications</th>
-                    <th role="columnheader">Added</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </div>
+    <head>
+        <title>Material MAP</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- External JavaScript file -->
-    <script src="scripts.js"></script>
-</body>
+        <!-- External resources -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+        <link
+            href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css"
+            rel="stylesheet"
+        />
+        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+        <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+            rel="stylesheet"
+        />
+
+        <!-- External CSS file -->
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+        <div class="container" role="main">
+            <h1>Materials MAP</h1>
+            <div id="loading" role="status" aria-live="polite">
+                Loading data...
+            </div>
+            <div id="error-message" role="alert" aria-live="assertive"></div>
+
+            <!-- Таблица материалов -->
+            <table
+                id="materials-table"
+                class="display"
+                aria-label="Materials database"
+            >
+                <thead>
+                    <tr role="row">
+                        <th role="columnheader" aria-label="Expand Row"></th>
+                        <th role="columnheader" aria-sort="ascending">
+                            Material ID
+                        </th>
+                        <th role="columnheader">Material</th>
+                        <th role="columnheader">EOS</th>
+                        <th role="columnheader">Applications</th>
+                        <th role="columnheader">Added</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+            <!-- Ссылка на страницу About внизу по центру -->
+            <div class="about-link">
+                <p><a href="about.html">Learn more about this project</a></p>
+            </div>
+        </div>
+
+        <!-- External JavaScript file -->
+        <script src="scripts.js"></script>
+    </body>
 </html>

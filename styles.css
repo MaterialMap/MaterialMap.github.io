@@ -1,4 +1,4 @@
-/* Base styling for the page */
+/* Основные стили для страницы */
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     line-height: 1.5;
@@ -8,90 +8,65 @@ body {
     padding: 0;
 }
 
-/* Container for central alignment and padding */
+/* Центрирование и отступы контейнера */
 .container {
-    max-width: 100%; /* Allow container to take full width */
-    margin: 0 auto; /* Center container horizontally */
-    padding: 0 2rem; /* Equal padding on left and right */
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 2rem;
 }
 
-/* Header styling */
+/* Стили заголовка */
 h1 {
     font-weight: 600;
     color: #2c3e50;
     margin-bottom: 2rem;
     font-size: 2rem;
-    text-align: center; /* Center align title */
+    text-align: center;
 }
 
-/* Table styling */
+/* Таблица материалов */
 #materials-table {
-    max-width: 100%; /* Ensure table doesn't exceed container width */
-    margin: 0 auto; /* Center table within container */
+    max-width: 100%;
+    margin: 0 auto;
     background: white;
     border-radius: 8px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     border: 1px solid #e2e8f0;
-    overflow-x: auto; /* Allow horizontal scroll if table overflows */
-    table-layout: auto; /* Auto-adjust column widths */
+    overflow-x: auto;
+    table-layout: auto;
 }
 
-/* Header row styling for table */
+/* Заголовок таблицы */
 #materials-table thead th {
     background-color: #f8f9fa;
     font-weight: 500;
     color: #2c3e50;
     padding: 1rem;
     border-bottom: 2px solid #e2e8f0;
-    white-space: nowrap; /* Prevent header text from wrapping */
+    white-space: nowrap;
 }
 
-/* Table cell styling */
+/* Ячейки таблицы */
 #materials-table tbody td {
     padding: 1rem;
     border-bottom: 1px solid #e2e8f0;
     color: #4a5568;
-    white-space: nowrap; /* Prevent cell text from wrapping */
-    overflow: hidden;
-    text-overflow: ellipsis; /* Add ellipsis for overflow text */
-}
-
-/* Minimum width settings for key columns */
-#materials-table th:nth-child(2),
-#materials-table td:nth-child(2),
-#materials-table th:nth-child(3),
-#materials-table td:nth-child(3),
-#materials-table th:nth-child(6),
-#materials-table td:nth-child(6) {
-    min-width: 150px; /* Set minimum width for certain columns */
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-/* Styling for search input */
-.dataTables_wrapper .dataTables_filter input {
-    border: 1px solid #e2e8f0;
-    border-radius: 6px;
-    padding: 0.5rem 1rem;
-    margin-left: 0.5rem;
-    font-family: inherit;
+/* Полосатая раскраска строк */
+#materials-table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
 }
 
-/* Focus styling for search input */
-.dataTables_wrapper .dataTables_filter input:focus {
-    outline: none;
-    border-color: #4a90e2;
-    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+/* Эффект при наведении на строки таблицы */
+#materials-table tbody tr:hover {
+    background-color: #f1f5f9;
 }
 
-/* Entries selection dropdown styling */
-.dataTables_wrapper .dataTables_length select {
-    border: 1px solid #e2e8f0;
-    border-radius: 6px;
-    padding: 0.25rem 2rem 0.25rem 0.5rem;
-    font-family: inherit;
-}
-
-/* URL link styling */
+/* Стили для ссылки на источник */
 .url-link {
     color: #4a90e2;
     text-decoration: none;
@@ -101,67 +76,83 @@ h1 {
     transition: background-color 0.2s;
 }
 
-/* Hover effect for URL links */
 .url-link:hover {
     background-color: rgba(74, 144, 226, 0.1);
     text-decoration: none;
 }
 
-/* Loading message styling */
-#loading {
-    display: none;
+/* Стили для ссылки на страницу About */
+.about-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.about-link a {
+    color: #4a90e2;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.125rem;
+}
+
+.about-link a:hover {
+    text-decoration: underline;
+}
+
+/* Стили для раздела About */
+.about-section {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.about-section h1 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.about-section p {
+    font-size: 1.125rem;
+    line-height: 1.75;
     color: #4a5568;
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
+    text-align: justify;
 }
 
-/* Error message styling */
-#error-message {
-    color: #e53e3e;
-    padding: 1rem;
-    background-color: #fff5f5;
+.about-section a {
+    color: #4a90e2;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.about-section a:hover {
+    text-decoration: underline;
+}
+
+/* Стили для ссылки назад на главную страницу */
+.back-link {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.back-link a {
+    color: #4a90e2;
+    font-size: 1.125rem;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.back-link a:hover {
+    text-decoration: underline;
+}
+
+/* Стили для поиска и выбора количества записей */
+.dataTables_wrapper .dataTables_filter input {
+    border: 1px solid #e2e8f0;
     border-radius: 6px;
-    margin-bottom: 1rem;
-    display: none;
-}
-
-/* Zebra striping for table rows */
-#materials-table tbody tr:nth-child(even) {
-    background-color: #f8f9fa;
-}
-
-/* Hover effect for table rows */
-#materials-table tbody tr:hover {
-    background-color: #f1f5f9;
-}
-
-/* Pagination button styling */
-.dataTables_wrapper .dataTables_paginate .paginate_button {
     padding: 0.5rem 1rem;
-    margin: 0 0.25rem;
-    border-radius: 6px;
-    border: none;
-}
-
-/* Current page styling */
-.dataTables_wrapper .dataTables_paginate .paginate_button.current {
-    background: #4a90e2;
-    color: white !important;
-    border: none;
-}
-
-/* Hover effect for pagination buttons */
-.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-    background: #e2e8f0;
-    border: none;
-}
-
-/* Responsive styling for smaller screens */
-@media (max-width: 768px) {
-    .container {
-        padding: 0 1rem; /* Reduce padding for smaller screens */
-    }
-    #materials-table th,
-    #materials-table td {
-        font-size: 0.875rem; /* Smaller font size for mobile */
-    }
-}
+    margin-left:
