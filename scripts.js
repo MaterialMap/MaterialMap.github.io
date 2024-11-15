@@ -38,7 +38,7 @@ async function loadMaterials() {
         `<ul>${(material.app || [])
           .map((app) => `<li>${app}</li>`)
           .join("")}</ul>`,
-        material.add || "N/A", // Отображение даты из YAML
+        material.add || "N/A",
         material,
       ];
     });
@@ -76,10 +76,10 @@ async function loadMaterials() {
           if (!content) return "";
           const highlightedContent = highlightCode(content);
           return `
-            <div class="code-block">
+            <div class="code-container">
               <div class="code-header">
-                <strong>${title}</strong>
-                <button onclick="copyToClipboard('${encodeURIComponent(
+                <span>${title}</span>
+                <button class="copy-button" onclick="copyToClipboard('${encodeURIComponent(
                   content
                 )}')">Copy</button>
               </div>
@@ -87,8 +87,8 @@ async function loadMaterials() {
             </div>`;
         };
 
-        const matDataHtml = createCodeBlock("*MAT", material.mat_data);
-        const eosDataHtml = createCodeBlock("*EOS", material.eos_data);
+        const matDataHtml = createCodeBlock("MAT", material.mat_data);
+        const eosDataHtml = createCodeBlock("EOS", material.eos_data);
         const referenceHtml = material.ref
           ? `<a href="${material.url}" target="_blank">${material.ref}</a>`
           : "No reference available";
@@ -112,9 +112,9 @@ async function loadMaterials() {
 
 // Подсветка синтаксиса
 function highlightCode(content) {
-  const commentRegex = /^\s*\$(?!#).*/gm; // Строки с комментариями, начинающимися с $
-  const specialCommentRegex = /^\s*\$#.*$/gm; // Строки с комментариями, начинающимися с $#
-  const keywordRegex = /^\s*\*.+$/gm; // Строки с ключевыми словами, начинающимися с *
+  const commentRegex = /^\s*\$(?!#).*/gm;
+  const specialCommentRegex = /^\s*\$#.*$/gm;
+  const keywordRegex = /^\s*\*.+$/gm;
   return content
     .replace(commentRegex, (match) => `<span class="comment">${match}</span>`)
     .replace(
