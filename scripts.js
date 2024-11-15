@@ -77,9 +77,8 @@ async function loadMaterials() {
           ? `<div class="reference-block"><strong>Reference:</strong><a href="${material.url}" target="_blank">${material.ref}</a></div>`
           : '<div class="reference-block"><strong>Reference:</strong> No reference available</div>';
 
-        // Вставка HTML-контента
         row.child(
-          `${referenceHtml}${matDataHtml}${eosDataHtml}`
+          `${referenceHtml}<pre>${material.mat_data || "No MAT data available"}</pre><pre>${material.eos_data || "No EOS data available"}</pre>`
         ).show();
         tr.addClass("shown");
       }
@@ -92,43 +91,6 @@ async function loadMaterials() {
   } finally {
     document.getElementById("loading").style.display = "none";
   }
-}
-
-// Создание блока кода с подсветкой
-function createCodeBlock(title, content) {
-  if (!content) return "";
-  const highlightedContent = highlightCode(content); // Формируем подсвеченный HTML
-  return `
-    <div class="code-container">
-      <div class="code-header">
-        <span>${title}</span>
-        <button class="copy-button" onclick="copyToClipboard('${encodeURIComponent(content)}')">Copy</button>
-      </div>
-      <pre><code>${highlightedContent}</code></pre>
-    </div>`;
-}
-
-// Подсветка синтаксиса
-function highlightCode(content) {
-  try {
-    return content
-      .replace(/^\s*\$(?!#).*/gm, (match) => `<span class="comment">${match}</span>`) // Обычные комментарии
-      .replace(/^\s*\$#.*$/gm, (match) => `<span class="special-comment">${match}</span>`) // Специальные комментарии
-      .replace(/^\s*\*.+$/gm, (match) => `<strong class="keyword">${match}</strong>`) // Ключевые слова
-      .replace(/\b(\d+(\.\d+)?(e[+-]?\d+)?|[a-zA-Z_][a-zA-Z0-9_]*)\b/g, (match) => `<span class="variable-value">${match}</span>`); // Переменные
-  } catch (e) {
-    console.error("Error highlighting code:", e, content);
-    return content; // Возвращаем исходный текст в случае ошибки
-  }
-}
-
-// Копирование текста в буфер обмена
-function copyToClipboard(content) {
-  const decodedContent = decodeURIComponent(content);
-  navigator.clipboard
-    .writeText(decodedContent)
-    .then(() => alert("Copied to clipboard!"))
-    .catch((err) => alert("Failed to copy: " + err));
 }
 
 // Форматирование даты в формате DD.MM.YYYY
