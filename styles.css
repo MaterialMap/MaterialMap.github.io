@@ -1,49 +1,63 @@
-/* Стили для блоков кода */
-.code-block {
-    margin-top: 1rem;
+/* Стили для строк таблицы при наведении */
+#materials-table tbody tr {
+    cursor: pointer; /* Указывает, что строка кликабельна */
+    transition: background-color 0.2s;
+}
+
+#materials-table tbody tr:hover {
+    background-color: #f1f5f9; /* Цвет при наведении */
+}
+
+/* Другие существующие стили */
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.5;
+    color: #1a1a1a;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+h1 {
+    font-weight: 600;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+#materials-table {
+    width: 100%;
+    margin: 0 auto;
     border: 1px solid #e2e8f0;
     border-radius: 8px;
-    padding: 1rem;
+}
+
+#materials-table thead th {
     background-color: #f8f9fa;
-    position: relative;
+    color: #2c3e50;
+    padding: 1rem;
+    border-bottom: 2px solid #e2e8f0;
 }
 
-.code-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.5rem;
+#materials-table tbody td {
+    padding: 1rem;
+    border-bottom: 1px solid #e2e8f0;
 }
 
-.code-header button {
-    padding: 0.5rem 1rem;
-    font-size: 0.875rem;
-    border: none;
-    border-radius: 4px;
+/* Стили для гиперссылок */
+a {
+    color: #4a90e2;
+    text-decoration: none;
     cursor: pointer;
-    background-color: #4a90e2;
-    color: white;
 }
 
-.code-header button:hover {
-    background-color: #357ab8;
-}
-
-pre {
-    overflow-x: auto;
-}
-
-.comment {
-    color: #6a9955; /* Зеленый для обычных комментариев */
-    font-style: italic;
-}
-
-.special-comment {
-    color: #b65e00; /* Оранжевый для специальных комментариев */
-    font-style: italic;
-}
-
-.keyword {
-    font-weight: bold;
-    color: #007acc; /* Синий для ключевых слов */
+a:hover {
+    text-decoration: underline;
+    color: #357ab8;
 }
