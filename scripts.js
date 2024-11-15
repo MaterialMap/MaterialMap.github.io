@@ -38,7 +38,7 @@ async function loadMaterials() {
         `<ul>${(material.app || [])
           .map((app) => `<li>${app}</li>`)
           .join("")}</ul>`,
-        material.add || "N/A",
+        material.add || "N/A", // Отображение даты из YAML
         material,
       ];
     });
