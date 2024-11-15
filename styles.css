@@ -1,22 +1,23 @@
-/* Центрирование и стилизация блока кода */
+/* Стили для центрации и оформления блока кода */
 .code-container {
     max-width: 80%;
     margin: 1.5rem auto;
     border: 1px solid #e2e8f0;
     border-radius: 8px;
     overflow: hidden;
-    background-color: #282c34; /* Тёмный фон для кода */
-    color: #abb2bf; /* Цвет текста */
+    background-color: #f5f5f5; /* Светло-серый фон */
+    color: #333; /* Основной цвет текста */
     font-family: 'Courier New', Courier, monospace;
 }
 
+/* Заголовок и кнопка копирования */
 .code-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0.5rem 1rem;
-    background-color: #1f232a; /* Тёмный заголовок */
-    color: #61dafb; /* Цвет текста заголовка */
+    background-color: #e9ecef; /* Светло-серый заголовок */
+    color: #333; /* Основной цвет заголовка */
     font-weight: bold;
 }
 
@@ -26,32 +27,37 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    background-color: #61dafb;
-    color: #282c34;
+    background-color: #007bff;
+    color: #fff;
 }
 
 .copy-button:hover {
-    background-color: #4b9fcc;
+    background-color: #0056b3;
 }
 
-/* Стили для блока кода */
+/* Основной блок кода */
 pre {
     margin: 0;
     padding: 1rem;
     overflow-x: auto;
 }
 
+/* Подсветка синтаксиса */
 .comment {
-    color: #6a9955; /* Зелёный для обычных комментариев */
+    color: #008000; /* Зелёный для обычных комментариев */
     font-style: italic;
 }
 
 .special-comment {
-    color: #b65e00; /* Оранжевый для специальных комментариев */
+    color: #006400; /* Тёмно-зелёный для специальных комментариев */
     font-style: italic;
 }
 
 .keyword {
     font-weight: bold;
-    color: #61dafb; /* Синий для ключевых слов */
+    color: #800080; /* Фиолетовый для названий карт (начинаются с *) */
+}
+
+.variable-value {
+    color: #555555; /* Тёмно-серый для значений переменных */
 }
