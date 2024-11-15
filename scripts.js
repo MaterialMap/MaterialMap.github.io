@@ -38,7 +38,7 @@ async function loadMaterials() {
         `<ul>${(material.app || [])
           .map((app) => `<li>${app}</li>`)
           .join("")}</ul>`,
-        formatDate(material.add), // Используем функцию для форматирования даты
+        formatDate(material.add),
         material,
       ];
     });
@@ -90,11 +90,11 @@ async function loadMaterials() {
         const matDataHtml = createCodeBlock("*MAT", material.mat_data);
         const eosDataHtml = createCodeBlock("*EOS", material.eos_data);
         const referenceHtml = material.ref
-          ? `<a href="${material.url}" target="_blank">${material.ref}</a>`
-          : "No reference available";
+          ? `<div class="centered-text"><a href="${material.url}" target="_blank">${material.ref}</a></div>`
+          : '<div class="centered-text">No reference available</div>';
 
         row.child(
-          `<div><strong>Reference:</strong> ${referenceHtml}</div>
+          `${referenceHtml}
            ${matDataHtml}${eosDataHtml}`
         ).show();
         tr.addClass("shown");
@@ -112,7 +112,7 @@ async function loadMaterials() {
 
 // Функция для форматирования даты в формат DD.MM.YYYY
 function formatDate(dateString) {
-  if (!dateString) return "N/A"; // Возвращаем "N/A", если дата не указана
+  if (!dateString) return "N/A";
   const date = new Date(dateString);
   const day = String(date.getDate()).padStart(2, "0");
   const month = String(date.getMonth() + 1).padStart(2, "0");
