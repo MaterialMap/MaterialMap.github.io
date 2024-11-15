@@ -83,23 +83,21 @@ async function loadMaterials() {
                   content
                 )}')">Copy</button>
               </div>
-              <pre><code class="highlighted-code">${highlightedContent}</code></pre>
+              <pre><code>${highlightedContent}</code></pre>
             </div>`;
         };
 
         const matDataHtml = createCodeBlock("*MAT", material.mat_data);
         const eosDataHtml = createCodeBlock("*EOS", material.eos_data);
         const referenceHtml = material.ref
-          ? `<div class="centered-text"><a href="${material.url}" target="_blank">${material.ref}</a></div>`
-          : '<div class="centered-text">No reference available</div>';
+          ? `<div class="reference-block"><strong>Reference:</strong><a href="${material.url}" target="_blank">${material.ref}</a></div>`
+          : '<div class="reference-block"><strong>Reference:</strong> No reference available</div>';
 
-        row.child().show();
-
-        // Вставляем HTML-разметку с подсветкой синтаксиса
+        row.child(
+          `${referenceHtml}
+           ${matDataHtml}${eosDataHtml}`
+        ).show();
         tr.addClass("shown");
-        tr.find(".highlighted-code").each(function () {
-          this.innerHTML = highlightedContent;
-        });
       }
     });
 
