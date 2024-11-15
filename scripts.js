@@ -38,7 +38,7 @@ async function loadMaterials() {
         `<ul>${(material.app || [])
           .map((app) => `<li>${app}</li>`)
           .join("")}</ul>`,
-        material.add || "N/A",
+        formatDate(material.add), // Используем функцию для форматирования даты
         material,
       ];
     });
@@ -108,6 +108,16 @@ async function loadMaterials() {
   } finally {
     document.getElementById("loading").style.display = "none";
   }
+}
+
+// Функция для форматирования даты в формат DD.MM.YYYY
+function formatDate(dateString) {
+  if (!dateString) return "N/A"; // Возвращаем "N/A", если дата не указана
+  const date = new Date(dateString);
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = date.getFullYear();
+  return `${day}.${month}.${year}`;
 }
 
 // Подсветка синтаксиса
