@@ -1,63 +1,57 @@
-/* Стили для строк таблицы при наведении */
-#materials-table tbody tr {
-    cursor: pointer; /* Указывает, что строка кликабельна */
-    transition: background-color 0.2s;
-}
-
-#materials-table tbody tr:hover {
-    background-color: #f1f5f9; /* Цвет при наведении */
-}
-
-/* Другие существующие стили */
-body {
-    font-family: 'Inter', sans-serif;
-    line-height: 1.5;
-    color: #1a1a1a;
-    background-color: #f8f9fa;
-    margin: 0;
-    padding: 0;
-}
-
-.container {
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
-
-h1 {
-    font-weight: 600;
-    color: #2c3e50;
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-#materials-table {
-    width: 100%;
-    margin: 0 auto;
+/* Центрирование и стилизация блока кода */
+.code-container {
+    max-width: 80%;
+    margin: 1.5rem auto;
     border: 1px solid #e2e8f0;
     border-radius: 8px;
+    overflow: hidden;
+    background-color: #282c34; /* Тёмный фон для кода */
+    color: #abb2bf; /* Цвет текста */
+    font-family: 'Courier New', Courier, monospace;
 }
 
-#materials-table thead th {
-    background-color: #f8f9fa;
-    color: #2c3e50;
-    padding: 1rem;
-    border-bottom: 2px solid #e2e8f0;
+.code-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background-color: #1f232a; /* Тёмный заголовок */
+    color: #61dafb; /* Цвет текста заголовка */
+    font-weight: bold;
 }
 
-#materials-table tbody td {
-    padding: 1rem;
-    border-bottom: 1px solid #e2e8f0;
-}
-
-/* Стили для гиперссылок */
-a {
-    color: #4a90e2;
-    text-decoration: none;
+.copy-button {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.875rem;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
+    background-color: #61dafb;
+    color: #282c34;
 }
 
-a:hover {
-    text-decoration: underline;
-    color: #357ab8;
+.copy-button:hover {
+    background-color: #4b9fcc;
+}
+
+/* Стили для блока кода */
+pre {
+    margin: 0;
+    padding: 1rem;
+    overflow-x: auto;
+}
+
+.comment {
+    color: #6a9955; /* Зелёный для обычных комментариев */
+    font-style: italic;
+}
+
+.special-comment {
+    color: #b65e00; /* Оранжевый для специальных комментариев */
+    font-style: italic;
+}
+
+.keyword {
+    font-weight: bold;
+    color: #61dafb; /* Синий для ключевых слов */
 }
