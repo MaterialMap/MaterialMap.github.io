@@ -1,497 +1,362 @@
-- mat_id: MAT_107
-  mat: MAT_MODIFIED_JOHNSON_COOK
-  eos: null
-  app:
-    - Weldox 700E
-    - Ballistic performance
-  ref: "Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile. *International Journal of Impact Engineering*, 38(12), 1022-1032."
-  add: 2024-11-05
-  url: "https://www.researchgate.net/publication/241096550"
-  mat_data:
-    units: mm, g, μs, GPa 
-    RO: 7850            # Density for Weldox 700E, kg/m³
-    E: 210              # Young's modulus, GPa
-    PR: 0.33            # Poisson's ratio
-    Cp: 452             # Specific heat, J/kg·K
-    T_melt: 1800        # Melting temperature, K
-    T_ref: 293          # Reference temperature, K
-    EPSO: 5.0E-4        # Reference strain rate, 1/s
-    A: 819              # JC parameter A, MPa
-    B: 308              # JC parameter B, MPa
-    N: 0.64             # JC hardening exponent
-    C: 0.0098           # JC strain rate parameter
-    m: 1                # JC thermal softening exponent
-    WCR: 1486           # Critical plastic work for Cockcroft-Latham criterion, MPa
+- material:
+    id: MAT_107
+    mat: MAT_MODIFIED_JOHNSON_COOK
+    mat_data: |
+      *MAT_MODIFIED_JOHNSON_COOK_TITLE
+      Brass jacket
+      $ Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance
+      $ of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile.
+      $ *International Journal of Impact Engineering*, 38(12), 1022-1032."
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+      $#     MID        RO         E        PR      BETA       XS1        CP     ALPHA
+             107      8520       115      0.31                 0.9       385    1.9E-5
+      $#   E0DOT        TR        TM        T0     FLAG1     FLAG2
+            5E-4       293      1189                   0         1
+      $#       A         B         N         C         M
+             206       505      0.42      0.01      1.68
+      $#      DC        WC       PHI     GAMMA
+                       914
+    app:
+      - Brass jacket
+      - Balistic perfomance
+    ref: "Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile. *International Journal of Impact Engineering*, 38(12), 1022-1032."
+    add: 2024-11-05
+    url: "https://www.researchgate.net/publication/241096550"
 
-- mat_id: MAT_107
-  mat: MAT_MODIFIED_JOHNSON_COOK
-  eos: null
-  app:
-    - Al 7075-T651
-    - Ballistic performance 
-  ref: "Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile. *International Journal of Impact Engineering*, 38(12), 1022-1032."
-  add: 2024-11-05
-  url: "https://www.researchgate.net/publication/241096550"
-  mat_data:
-    units: mm, g, μs, GPa
-    RO: 2700            # Density for Al 7075-T651, kg/m³
-    E: 70               # Young's modulus, GPa
-    PR: 0.3             # Poisson's ratio
-    Cp: 910             # Specific heat, J/kg·K
-    T_melt: 893         # Melting temperature, K
-    T_ref: 293          # Reference temperature, K
-    EPSO: 5.0E-4        # Reference strain rate, 1/s
-    A: 520              # JC parameter A, MPa
-    B: 477              # JC parameter B, MPa
-    N: 0.52             # JC hardening exponent
-    C: 0.001            # JC strain rate parameter
-    m: 1                # JC thermal softening exponent
-    WCR: 106            # Critical plastic work for Cockcroft-Latham criterion, MPa
+- material:
+    id: MAT_107
+    mat: MAT_MODIFIED_JOHNSON_COOK
+    mat_data: |
+      *MAT_MODIFIED_JOHNSON_COOK_TITLE
+      Steel core
+      $ Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance
+      $ of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile.
+      $ *International Journal of Impact Engineering*, 38(12), 1022-1032."
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+      $#     MID        RO         E        PR      BETA       XS1        CP     ALPHA
+             107      7850       210      0.33                 0.9       442    1.2E-5
+      $#   E0DOT        TR        TM        T0     FLAG1     FLAG2
+            5E-4       293      1800                   0         1
+      $#       A         B         N         C         M
+            1200     50000         1         0         1
+      $#      DC        WC       PHI     GAMMA
 
-- mat_id: MAT_107
-  mat: MAT_MODIFIED_JOHNSON_COOK
-  eos: null
-  app:
-    - Steel core 
-    - 7.62-mm APM2 projectile
-  ref: "Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile. *International Journal of Impact Engineering*, 38(12), 1022-1032."
-  add: 2024-11-05
-  url: "https://www.researchgate.net/publication/241096550"
-  mat_data:
-    units: mm, g, μs, GPa
-    RO: 7850            # Density for steel core, kg/m³
-    E: 210              # Young's modulus, GPa
-    PR: 0.33            # Poisson's ratio
-    Cp: 452             # Specific heat, J/kg·K
-    T_melt: 1800        # Melting temperature, K
-    T_ref: 293          # Reference temperature, K
-    EPSO: 5.0E-4        # Reference strain rate, 1/s
-    A: 1200             # JC parameter A, MPa
-    B: 50000            # JC parameter B, MPa
-    N: 1                # JC hardening exponent
-    C: 0                # JC strain rate parameter
-    m: 1                # JC thermal softening exponent
-    WCR: Not specified  # Critical plastic work not specified
-  failure_criteria: COCKCROFT_LATHAM
+    app:
+      - Steel core
+      - Balistic perfomance
+    ref: "Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile. *International Journal of Impact Engineering*, 38(12), 1022-1032."
+    add: 2024-11-05
+    url: "https://www.researchgate.net/publication/241096550"
 
-- mat_id: MAT_107
-  mat: MAT_MODIFIED_JOHNSON_COOK
-  eos: null
-  app:
-    - Lead cap 
-    - 7.62-mm APM2 projectile
-  ref: "Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile. *International Journal of Impact Engineering*, 38(12), 1022-1032."
-  add: 2024-11-05
-  url: "https://www.researchgate.net/publication/241096550"
-  mat_data:
-    units: mm, g, μs, GPa
-    RO: 10660           # Density for lead cap, kg/m³
-    E: 1                # Young's modulus, GPa
-    PR: 0.42            # Poisson's ratio
-    Cp: 124             # Specific heat, J/kg·K
-    T_melt: 760         # Melting temperature, K
-    T_ref: 293          # Reference temperature, K
-    EPSO: 5.0E-4        # Reference strain rate, 1/s
-    A: 24               # JC parameter A, MPa
-    B: 300              # JC parameter B, MPa
-    N: 1                # JC hardening exponent
-    C: 0.1              # JC strain rate parameter
-    m: 1                # JC thermal softening exponent
-    WCR: 175            # Critical plastic work, MPa
+- material:
+    id: MAT_107
+    mat: MAT_MODIFIED_JOHNSON_COOK
+    mat_data: |
+      *MAT_MODIFIED_JOHNSON_COOK_TITLE
+      Al 7075-T651
+      $ Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance
+      $ of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile.
+      $ *International Journal of Impact Engineering*, 38(12), 1022-1032."
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+      $#     MID        RO         E        PR      BETA       XS1        CP     ALPHA
+             107      2700        70       0.3                 0.9       910    2.3E-5
+      $#   E0DOT        TR        TM        T0     FLAG1     FLAG2
+            5E-4       293       893                   0         1
+      $#       A         B         N         C         M
+             520       477      0.52     0.001         1
+      $#      DC        WC       PHI     GAMMA
+                       106
+    app:
+      - Al 7075-T651
+      - Balistic perfomance
+    ref: "Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile. *International Journal of Impact Engineering*, 38(12), 1022-1032."
+    add: 2024-11-05
+    url: "https://www.researchgate.net/publication/241096550"
 
-- mat_id: MAT_107
-  mat: MAT_MODIFIED_JOHNSON_COOK
-  eos: null
-  app:
-    - Brass jacket 
-    - 7.62-mm APM2 projectile
-  ref: "Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile. *International Journal of Impact Engineering*, 38(12), 1022-1032."
-  add: 2024-11-05
-  url: "https://www.researchgate.net/publication/241096550"
-  mat_data:
-    units: mm, g, μs, GPa
-    RO: 8520            # Density for brass jacket, kg/m³
-    E: 115              # Young's modulus, GPa
-    PR: 0.31            # Poisson's ratio
-    Cp: 385             # Specific heat, J/kg·K
-    T_melt: 1189        # Melting temperature, K
-    T_ref: 293          # Reference temperature, K
-    EPSO: 5.0E-4        # Reference strain rate, 1/s
-    A: 206              # JC parameter A, MPa
-    B: 505              # JC parameter B, MPa
-    N: 0.42             # JC hardening exponent
-    C: 0.01             # JC strain rate parameter
-    m: 1.68             # JC thermal softening exponent
-    WCR: 914            # Critical plastic work, MPa
- 
-- mat_id: MAT_015
-  mat: MAT_JOHNSON_COOK
-  app:
-    - Stainless Steel 
-    - High-velocity impact
-  ref: "Yin, S., Liao, H. L., & Wang, X. F. (2014). Euler-based finite element analysis on high velocity impact behaviour in cold spraying. *Surface Engineering*, 30(3), 188-193."
-  add: 2024-11-05
-  url: "https://www.researchgate.net/publication/263351022_Euler_based_finite_element_analysis_on_high_velocity_impact_behaviour_in_cold_spraying"
-  mat_data:
-    units: mm, g, μs, GPa
-    RO: 7.85             # Density, g/cm³
-    E: 200               # Young's modulus, GPa
-    PR: 0.3              # Poisson's ratio
-    SIGY: 0.25           # Yield strength, GPa
-    A: 0.25              # JC parameter A, GPa
-    B: 0.45              # JC parameter B, GPa
-    N: 0.12              # JC hardening exponent
-    C: 0.02              # JC strain rate parameter
-    M: 1.0               # JC thermal softening exponent
-    T_melt: 1450         # Melting temperature, K
-    T_ref: 293           # Reference temperature, K
-    EPSO: 1.0            # Reference strain rate, 1/μs
-  eos: EOS_GRUNEISEN
-  eos_data:
-    C: 0.5               # Speed of sound, mm/μs
-    S1: 1.49             # Gruneisen parameter S1
-    GAMA0: 2.17          # Initial Gruneisen gamma
+- material:
+    id: MAT_107
+    mat: MAT_MODIFIED_JOHNSON_COOK
+    mat_data: |
+      *MAT_MODIFIED_JOHNSON_COOK_TITLE
+      Weldox 700E
+      $ Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance
+      $ of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile.
+      $ *International Journal of Impact Engineering*, 38(12), 1022-1032."
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+      $#     MID        RO         E        PR      BETA       XS1        CP     ALPHA
+             107      7850       210      0.33                 0.9       452    1.2E-5
+      $#   E0DOT        TR        TM        T0     FLAG1     FLAG2
+            5E-4       293      1800                   0         1
+      $#       A         B         N         C         M
+             819       308      0.64    0.0098         1
+      $#      DC        WC       PHI     GAMMA
+                      1486
+    app:
+      - Weldox 700E
+      - Balistic perfomance
+    ref: "Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile. *International Journal of Impact Engineering*, 38(12), 1022-1032."
+    add: 2024-11-05
+    url: "https://www.researchgate.net/publication/241096550"
 
-- mat_id: MAT_015
-  mat: MAT_JOHNSON_COOK
-  app:
-    - 20 Steel 
-    - High-velocity impact
-  ref: "Yin, S., Liao, H. L., & Wang, X. F. (2014). Euler-based finite element analysis on high velocity impact behaviour in cold spraying. *Surface Engineering*, 30(3), 188-193."
-  add: 2024-11-05
-  url: "https://www.researchgate.net/publication/263351022_Euler_based_finite_element_analysis_on_high_velocity_impact_behaviour_in_cold_spraying"
-  mat_data:
-    units: mm, g, μs, GPa
-    RO: 7.85             # Density, g/cm³
-    E: 210               # Young's modulus, GPa
-    PR: 0.3              # Poisson's ratio
-    SIGY: 0.32           # Yield strength, GPa
-    A: 0.32              # JC parameter A, GPa
-    B: 0.48              # JC parameter B, GPa
-    N: 0.15              # JC hardening exponent
-    C: 0.03              # JC strain rate parameter
-    M: 1.0               # JC thermal softening exponent
-    T_melt: 1510         # Melting temperature, K
-    T_ref: 293           # Reference temperature, K
-    EPSO: 1.0            # Reference strain rate, 1/μs
-  eos: EOS_GRUNEISEN
-  eos_data:
-    C: 0.52              # Speed of sound, mm/μs
-    S1: 1.49             # Gruneisen parameter S1
-    GAMA0: 2.1           # Initial Gruneisen gamma
+- material:
+    id: MAT_107
+    mat: MAT_MODIFIED_JOHNSON_COOK
+    mat_data: |
+      *MAT_MODIFIED_JOHNSON_COOK_TITLE
+      Lead cap
+      $ Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance
+      $ of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile.
+      $ *International Journal of Impact Engineering*, 38(12), 1022-1032."
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+      $#     MID        RO         E        PR      BETA       XS1        CP     ALPHA
+             107     10660         1      0.42                 0.9       124    1.9E-5
+      $#   E0DOT        TR        TM        T0     FLAG1     FLAG2
+          5.0E-4       293       760                   0         1
+      $#       A         B         N         C         M
+              24       300         1       0.1         1
+      $#      DC        WC       PHI     GAMMA
+                       175
+    app:
+      - Lead cap
+      - 7.62-mm APM2 projectile
+    ref: "Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile. *International Journal of Impact Engineering*, 38(12), 1022-1032."
+    add: 2024-11-05
+    url: "https://www.researchgate.net/publication/241096550"
 
-- mat_id: MAT_015
-  mat: MAT_JOHNSON_COOK
-  app:
-    - Nickel 
-    - High-velocity impact
-  ref: "Yin, S., Liao, H. L., & Wang, X. F. (2014). Euler-based finite element analysis on high velocity impact behaviour in cold spraying. *Surface Engineering*, 30(3), 188-193."
-  add: 2024-11-05
-  url: "https://www.researchgate.net/publication/263351022_Euler_based_finite_element_analysis_on_high_velocity_impact_behaviour_in_cold_spraying"
-  mat_data:
-    units: mm, g, μs, GPa
-    RO: 8.9              # Density, g/cm³
-    E: 210               # Young's modulus, GPa
-    PR: 0.31             # Poisson's ratio
-    SIGY: 0.35           # Yield strength, GPa
-    A: 0.35              # JC parameter A, GPa
-    B: 0.42              # JC parameter B, GPa
-    N: 0.13              # JC hardening exponent
-    C: 0.025             # JC strain rate parameter
-    M: 0.95              # JC thermal softening exponent
-    T_melt: 1728         # Melting temperature, K
-    T_ref: 293           # Reference temperature, K
-    EPSO: 1.0            # Reference strain rate, 1/μs
-  eos: EOS_GRUNEISEN
-  eos_data:
-    C: 0.6               # Speed of sound, mm/μs
-    S1: 1.51             # Gruneisen parameter S1
-    GAMA0: 2.18          # Initial Gruneisen gamma
+- material:
+    id: MAT_010
+    mat: MAT_ELASTIC_PLASTIC_HYDRO
+    mat_data: |
+      *MAT_ELASTIC_PLASTIC_HYDRO_TITLE
+      COMPB-JJ3
+      $ Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact
+      $ Simulation. 12th European LS-DYNA Conference, Koblenz, Germany
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+      $#     MID        RO         G      SIG0        EH        PC        FS     CHARL
+              10     1.717     0.035     0.002         0         0         0         0
+    eos: EOS_IGNITION_AND_GROWTH_OF_REACTION_IN_HE
+    eos_data: |
+      *EOS_IGNITION_AND_GROWTH_OF_REACTION_IN_HE_TITLE
+      COMPB-JJ3
+      $ Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact
+      $ Simulation. 12th European LS-DYNA Conference, Koblenz, Germany
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+      $#   EOSID         A         B       XP1       XP2      FRER         G        R1
+              10     5.242   0.07678       4.2       1.1     0.667    3.4E-6       780
+      $#      R2        R3        R5        R6     FMXIG      FREQ     GROW1        EM
+        -0.05031   2.22E-5      11.3      1.13     0.022       4E6       850         2
+      $#     AR1       ES1       CVP       CVR     EETAL     CCRIT       ENQ      TMP0
+           0.667     0.222      1E-5   2.49E-5         7         0     0.085       298
+      $#   GROW2       AR2       ES2        EN     FMXGR     FMNGR
+             660         1     0.333         3       0.6         0
+    app:
+      - COMPB-JJ3
+      - High explosive simulations
+    ref: "Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact Simulation. 12th European LS-DYNA Conference, Koblenz, Germany"
+    add: 2024-11-04
+    url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/balaban_fe-tech.pdf"
 
-- mat_id: MAT_015
-  mat: MAT_JOHNSON_COOK
-  app:
-    - Copper 
-    - High-velocity impact
-  ref: "Yin, S., Liao, H. L., & Wang, X. F. (2014). Euler-based finite element analysis on high velocity impact behaviour in cold spraying. *Surface Engineering*, 30(3), 188-193."
-  add: 2024-11-05
-  url: "https://www.researchgate.net/publication/263351022_Euler_based_finite_element_analysis_on_high_velocity_impact_behaviour_in_cold_spraying"
-  mat_data:
-    units: mm, g, μs, GPa
-    RO: 8.93             # Density, g/cm³
-    E: 110               # Young's modulus, GPa
-    PR: 0.34             # Poisson's ratio
-    SIGY: 0.33           # Yield strength, GPa
-    A: 0.33              # JC parameter A, GPa
-    B: 0.4               # JC parameter B, GPa
-    N: 0.12              # JC hardening exponent
-    C: 0.022             # JC strain rate parameter
-    M: 0.98              # JC thermal softening exponent
-    T_melt: 1356         # Melting temperature, K
-    T_ref: 293           # Reference temperature, K
-    EPSO: 1.0            # Reference strain rate, 1/μs
-  eos: EOS_GRUNEISEN
-  eos_data:
-    C: 0.47              # Speed of sound, mm/μs
-    S1: 1.52             # Gruneisen parameter S1
-    GAMA0: 2.15          # Initial Gruneisen gamma
+- material:
+    id: MAT_015
+    mat: MAT_JOHNSON_COOK
+    mat_data: |
+      *MAT_JOHNSON_COOK_TITLE
+      Steel SEA 1006
+      $ Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact
+      $ Simulation. 12th European LS-DYNA Conference, Koblenz, Germany
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+      $#     MID        RO         G         E        PR       DTF        VP    RATEOP
+              15     7.896     0.818         0       0.3         0         0         0
+      $#       A         B         N         C         M        TM        TR      EPS0
+          0.0035   0.00275      0.36     0.022         1      1811       300         1
+      $#      CP        PC     SPALL        IT        D1        D2        D3        D4
+         4.62E-6         0         2         0         0         0         0         0
+      $#      D5       C2/P     EROD     EFMIN    NUMINT
+               0         0         0         0         0
+    eos: EOS_GRUNEISEN
+    eos_data: |
+      *EOS_GRUNEISEN_TITLE
+      Steel SEA 1006
+      $ Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact
+      $ Simulation. 12th European LS-DYNA Conference, Koblenz, Germany
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+      $#   EOSID         C        S1        S2        S3    GAMMAO         A        E0
+              15    0.4568      1.49         0         0      2.17
+      $#      V0                LCID
+               0
+    app:
+      - Steel SEA 1006
+      - Impact simulations
+    ref: "Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact Simulation. 12th European LS-DYNA Conference, Koblenz, Germany"
+    add: 2024-11-04
+    url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/balaban_fe-tech.pdf"
 
-- mat_id: MAT_015
-  mat: MAT_JOHNSON_COOK
-  app:
-    - Aluminum 6061-T6 
-    - High-velocity impact
-  ref: "Yin, S., Liao, H. L., & Wang, X. F. (2014). Euler-based finite element analysis on high velocity impact behaviour in cold spraying. *Surface Engineering*, 30(3), 188-193."
-  add: 2024-11-05
-  url: "https://www.researchgate.net/publication/263351022_Euler_based_finite_element_analysis_on_high_velocity_impact_behaviour_in_cold_spraying"
-  mat_data:
-    units: mm, g, μs, GPa
-    RO: 2.7              # Density, g/cm³
-    E: 70                # Young's modulus, GPa
-    PR: 0.33             # Poisson's ratio
-    SIGY: 0.28           # Yield strength, GPa
-    A: 0.28              # JC parameter A, GPa
-    B: 0.36              # JC parameter B, GPa
-    N: 0.14              # JC hardening exponent
-    C: 0.018             # JC strain rate parameter
-    M: 1.05              # JC thermal softening exponent
-    T_melt: 855          # Melting temperature, K
-    T_ref: 293           # Reference temperature, K
-    EPSO: 1.0            # Reference strain rate, 1/μs
-  eos: EOS_GRUNEISEN
-  eos_data:
-    C: 0.53              # Speed of sound, mm/μs
-    S1: 1.48             # Gruneisen parameter S1
-    GAMA0: 2.2           # Initial Gruneisen gamma
+- material:
+    id: MAT_010
+    mat: MAT_ELASTIC_PLASTIC_HYDRO
+    mat_data: |
+      *MAT_ELASTIC_PLASTIC_HYDRO_TITLE
+      Projectile casings
+      $ Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact
+      $ Simulation. 12th European LS-DYNA Conference, Koblenz, Germany
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+      $#     MID        RO         G      SIG0        EH        PC        FS     CHARL
+              10     11.34    0.1113    0.0003         0         0         0         0
+    eos: EOS_GRUNEISEN
+    eos_data: |
+      *EOS_GRUNEISEN_TITLE
+      Projectile casings
+      $ Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact
+      $ Simulation. 12th European LS-DYNA Conference, Koblenz, Germany
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+      $#   EOSID         C        S1        S2        S3    GAMMAO         A        E0
+              10    0.2092     1.452         0         0         2
+      $#      V0                LCID
+               0
+      app:
+        - Projectile casings
+        - Detonation simulations
+    ref: "Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact Simulation. 12th European LS-DYNA Conference, Koblenz, Germany"
+    add: 2024-11-04
+    url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/balaban_fe-tech.pdf"
 
-- mat_id: MAT_010
-  mat: MAT_ELASTIC_PLASTIC_HYDRO
-  app:
-    - COMP-B
-    - High explosive simulations
-  ref: "Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact Simulation. 12th European LS-DYNA Conference, Koblenz, Germany"
-  add: 2024-11-04
-  url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/balaban_fe-tech.pdf"
-  mat_data:
-    units: cm, g, μs, Mbar
-    RO: 1.717           # density, g/cm^3
-    G: 0.035            # shear modulus, Mbar
-    SIGY: 0.002         # yield strength, Mbar
-  eos: EOS_IGNITION_AND_GROWTH_OF_REACTION_IN_HE
-  eos_data:
-    units: cm, g, μs, Mbar
-    A: 5.242            # reacted state JWL parameter A
-    B: 0.07678          # reacted state JWL parameter B
-    R1: 4.2             # reacted state JWL parameter R1
-    R2: 1.1             # reacted state JWL parameter R2
-    W: 0.34             # reacted state JWL parameter w
-    AUR: 778.1          # unreacted state JWL parameter A
-    BUR: -0.05031       # unreacted state JWL parameter B
-    WU: 0.8938          # unreacted state JWL parameter w
-    R1U: 11.3           # unreacted state JWL parameter R1
-    R2U: 1.13           # unreacted state JWL parameter R2
-    FIGMAX: 0.022       # max reaction ratio for ignition
-    RRI: 4.00E+06       # ignition parameter I (1/μs)
-    RRG1: 850           # growth parameter G1 (Mbar^-2/μs)
-    RRY: 2              # growth pressure exponent Y
-    RRG2: 660           # growth parameter G2 (Mbar^-2/μs)
-    RRG: 1              # growth reaction ratio exponent G
-    RRE: 0.333          # growth reaction ratio exponent E
-    DETV: 0.798         # C-J detonation velocity (cm/μs)
-    PCJ: 0.295          # C-J pressure (Mbar)
+- material:
+    id: MAT_010
+    mat: MAT_ELASTIC_PLASTIC_HYDRO
+    mat_data: |
+      *MAT_ELASTIC_PLASTIC_HYDRO_TITLE
+      Ballistic gelatin
+      $ Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor
+      $ Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+      $#     MID        RO         G      SIG0        EH        PC        FS     CHARL
+              10 1.030E-09      0.85      0.22     0.001    0.0140       0.9       0.0
+    eos: EOS_LINEAR_POLYNOMIAL
+    eos_data: |
+      *EOS_LINEAR_POLYNOMIAL_TITLE
+      Ballistic gelatin
+      $ Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor
+      $ Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+      $#   EOSID        C0        C1        C2        C3        C4        C5        C6
+              10                2380      7140     11900
+      $#      E0        V0
+               0         0
+    app:
+      - Ballistic gelatin
+      - Soft tissue simulation
+    ref: "Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany"
+    add: 2024-11-03
+    url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view"
 
-- mat_id: MAT_015
-  mat: MAT_JOHNSON_COOK
-  app:
-    - Steel SEA 1006
-    - Impact simulations
-  ref: "Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact Simulation. 12th European LS-DYNA Conference, Koblenz, Germany"
-  add: 2024-11-04
-  url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/balaban_fe-tech.pdf"
-  mat_data:
-    units: cm, g, μs, Mbar
-    RO: 7.896           # density, g/cm^3
-    G: 0.818            # shear modulus, Mbar
-    PR: 0.3             # Poisson's ratio
-    A: 0.0035           # yield stress parameter, Mbar
-    B: 0.00275          # hardening parameter, Mbar
-    N: 0.36             # hardening exponent
-    C: 0.022            # strain rate parameter
-    M: 1                # thermal softening exponent
-    TM: 1811            # melting temperature, K
-    TR: 300             # reference temperature, K
-  eos: EOS_GRUNEISEN
-  eos_data:
-    units: cm, g, μs, Mbar
-    C: 0.4568           # speed of sound in the material
-    S1: 1.49            # EOS coefficient
-    GAMAO: 2.17         # Gruneisen gamma at zero pressure
-    
-- mat_id: MAT_010
-  mat: MAT_ELASTIC_PLASTIC_HYDRO
-  app:
-    - Projectile casings
-    - Detonation simulations
-  ref: "Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact Simulation. 12th European LS-DYNA Conference, Koblenz, Germany"
-  add: 2024-11-04
-  url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/balaban_fe-tech.pdf"
-  mat_data:
-    units: cm, g, μs, Mbar
-    RO: 11.34           # density, g/cm^3
-    G: 0.1113           # shear modulus, Mbar
-    SIGY: 0.0003        # yield strength, Mbar
-    EH: 0               # hardening modulus, Mbar
-    PC: 0               # pressure cutoff, Mbar
-    FS: 0               # failure stress, Mbar
-    CHARL: 0            # characteristic length, Mbar
-  eos: EOS_GRUNEISEN
-  eos_data:
-    units: cm, g, μs, Mbar
-    C: 0.2092           # speed of sound in the material
-    S1: 1.452           # EOS coefficient
-    GAMAO: 2            # Gruneisen gamma at zero pressure
-    
-- mat_id: MAT_010
-  mat: MAT_ELASTIC_PLASTIC_HYDRO
-  app: 
-    - Ballistic gelatin 
-    - Soft tissue simulation
-  ref: "Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany"
-  add: 2024-11-03
-  url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view"
-  mat_data:
-    units: mm, MPa, tonnes, sec
-    RO: 1.030E-09         # density, Tonnes/mm^3
-    G: 0.85               # shear modulus, MPa
-    SIGY: 0.22            # yield strength, MPa
-    EH: 0.001             # hardening modulus, MPa
-    PC: 0.0140            # pressure cutoff, MPa
-    FS: 0.9
-    CHARL: 0.0
-  eos: EOS_LINEAR_POLYNOMIAL
-  eos_data:
-    units: mm, MPa, tonnes, sec
-    C1: 2380              # speed of sound in material
-    C2: 7140              # second coefficient of polynomial EOS
-    C3: 11900             # third coefficient of polynomial EOS
-    
-- mat_id: MAT_003
-  mat: MAT_PLASTIC_KINEMATIC
-  app: 
-    - Ultra-high molecular weight polyethylene (UHMWPE)
-    - Soft layers for ballistic protection
-  ref: "Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany"
-  add: 2024-11-03
-  url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view"
-  mat_data:
-    units: mm, MPa, tonnes, sec
-    RO: 9.62E-10          # density, Tonnes/mm^3
-    E: 21330              # Young's modulus, MPa
-    PR: 0.27              # Poisson's ratio
-    SIGY: 320             # yield strength, MPa
-    ETAN: 7040            # tangent modulus, MPa
-    BETA: 0
-    SRC: 0
-    SRP: 1
-    FS: 0
-    VP: 1
-  eos: null
-  
-- mat_id: MAT_107
-  mat: MAT_MODIFIED_JOHNSON_COOK
-  app: 
-    - Brass
-    - Ballistic projectiles
-  ref: "Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany"
-  add: 2024-11-03
-  url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view"
-  mat_data:
-    units: mm, MPa, tonnes, sec
-    RO: 8.52E-09          # density, Tonnes/mm^3
-    E: 115000             # Young's modulus, MPa
-    PR: 0.31              # Poisson's ratio
-    A: 206                # MPa
-    B: 899                # MPa
-    N: 0.42
-    C: 0.01
-    M: 1.68
-    WC: 1414
-  eos: null
+- materila:
+    id: MAT_003
+    mat: MAT_PLASTIC_KINEMATIC
+    mat_data: |
+      *MAT_PLASTIC_KINEMATIC_TITLE
+      Ultra-high molecular weight polyethylene
+      $ Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor
+      $ Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+      $#     MID        RO         E        PR      SIGY      ETAN      BETA
+               3  9.62E-10     21330      0.27       320      7040         0
+      $#     SRC       SRP        FS        VP
+                         1                   1
+    app:
+      - Ultra-high molecular weight polyethylene (UHMWPE)
+      - Soft layers for ballistic protection
+    ref: "Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany"
+    add: 2024-11-03
+    url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view"
 
-- mat_id: MAT_107
-  mat: MAT_MODIFIED_JOHNSON_COOK
-  app: 
-  - Lead core 
-  - Ballistic projectiles
+- material:
+    id: MAT_107
+    mat: MAT_MODIFIED_JOHNSON_COOK
+    mat_data: |
+      *MAT_MODIFIED_JOHNSON_COOK_TITLE
+      Brass
+      $ Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor
+      $ Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+      $#     MID        RO         E        PR      BETA       XS1
+             107  8.52E-09    115000      0.31
+      $#   E0DOT        TR        TM        T0     FLAG1     FLAG2
+                                                       1         0
+      $#       A         B         N         C         M
+             206       899         1      0.01      1.68
+      $#      DC        WC       PHI     GAMMA
+                      1414
+    app:
+      - Brass
+      - Ballistic projectiles
+    ref: "Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany"
+    add: 2024-11-03
+    url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view"
 
-  ref: "Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany"
-  add: 2024-11-03
-  url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view"
-  mat_data:
-    units: mm, MPa, tonnes, sec
-    RO: 1.01E-08          # density, Tonnes/mm^3
-    E: 18400              # Young's modulus, MPa
-    PR: 0.42              # Poisson's ratio
-    A: 24                 # MPa
-    B: 40                 # MPa
-    N: 1
-    C: 0.01
-    M: 1
-    D1: 3
-    D2: 0
-    D3: 0
-    D4: 0
-    D5: 0
-  eos: null
-  
-- mat_id: MAT_018
-  mat: MAT_POWER_LAW_PLASTICITY
-  app: 
-    - Ballistic clay 
-    - Backing material in body armor testing
-  ref: "Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany"
-  add: 2024-11-03
-  url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view"
-  mat_data:
-    units: mm, MPa, tonnes, sec
-    RO: 1.878E-03         # density, Tonnes/mm^3
-    E: 14.2               # Young's modulus, MPa
-    PR: 0.49              # Poisson's ratio
-    K: 0.24               # hardening modulus, MPa
-    N: 0.0140             # hardening exponent
-    SRC: 0
-    SRP: 0
-    SIGY: 2.5             # yield strength, MPa
-    EPSF: 1
-    VP: 1
-  eos: null
-  
-- mat_id: MAT_240
-  mat: MAT_COHESIVE_MIXED_MODE_ELASTOPLASTIC_RATE
-  eos: null
-  app: 
-    - BETAFORCE 2850L 
-    - Adhesive for automotive structures
-  ref: "Betz, N., Holzapfel, M., Behling, T., Vinot, M., & Toso, N. (2023). Characterization of a cohesive zone model for adhesives with *MAT_240 and curve mapping method in LS-OPT. 14th European LS-DYNA Conference 2023, Baden-Baden, Germany"
-  add: 2024-11-02
-  url: "https://www.dynalook.com/conferences/14th-european-ls-dyna-conference-2023/adhesives/betz_dlr.pdf/view"
-  mat_data:
-    units: mm, MPa, tonnes, sec
-    RO: 1.200E-09            # density, Tonnes/mm^3
-    ROFLG: 0                 # density flag
-    INTFAIL: 1               # failure indicator for interface
-    EMOD: 70.00              # Young's modulus in tension, MPa
-    GMOD: 5.80               # shear modulus, MPa
-    THICK: 2.00              # thickness, mm
-    OUTPUT: 0                # output flag
-    FT: 8.00                 # tensile strength, MPa
-    FC: 0.0                  # compressive strength, MPa
-    T0: 8.00                 # peak traction in the normal direction, MPa
-    S0: 10.00                # peak traction in the tangential direction, MPa
-    G1C: 12.00               # mode I energy release rate, N/mm
-    G2C: 37.00               # mode II energy release rate, N/mm
-    FG1: 0.50                # shape parameter for mode I
-    FG2: 0.31                # shape parameter for mode II
-    DAMAGE: 0.0              # damage flag
-    ENDDIR: 1.00             # end direction flag
-  eos_date: null
+- material:
+    id: MAT_107
+    mat: MAT_MODIFIED_JOHNSON_COOK
+    mat_data: |
+      *MAT_MODIFIED_JOHNSON_COOK_TITLE
+      Lead core
+      $ Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor
+      $ Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+      $#     MID        RO         E        PR      BETA       XS1
+             107   1.01e-8     18400      0.42
+      $#   E0DOT        TR        TM        T0     FLAG1     FLAG2
+                                                       0         0
+      $#       A         B         N         C         M
+              24        40         1      0.01         1
+      $#      DC        PD        D1        D2        D3        D4        D5
+                                   3         0         0         0         0
+    app:
+      - Lead core
+      - Ballistic projectiles
+    ref: "Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany"
+    add: 2024-11-03
+    url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view"
+
+- material:
+    id: MAT_018
+    mat: MAT_POWER_LAW_PLASTICITY
+    mat_data: |
+      *MAT_POWER_LAW_PLASTICITY_TITLE
+      Ballistic clay
+      $ Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor
+      $ Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+      $#     MID        RO         E        PR         K         N       SRC       SRP
+              18 1.878E-03      14.2      0.49      0.24    0.0140         0         0
+      $#    SIGY        VP      EPSF
+             2.5         1         1
+    app:
+      - Ballistic clay
+      - Backing material in body armor testing
+    ref: "Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany"
+    add: 2024-11-03
+    url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view"
+
+- material:
+    id: MAT_240
+    mat: MAT_COHESIVE_MIXED_MODE_ELASTOPLASTIC_RATE
+    mat_data: |
+      *MAT_COHESIVE_MIXED_MODE_ELASTOPLASTIC_RATE_TITLE
+      BETAFORCE 2850L
+      $ Betz, N., Holzapfel, M., Behling, T., Vinot, M., & Toso, N. (2023).
+      $ Characterization of a cohesive zone model for adhesives with *MAT_240 and
+      $ curve mapping method in LS-OPT. 14th European LS-DYNA Conference 2023,
+      $ Baden-Baden, Germany
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+      $#     MID        RO     ROFLG   INTFAIL      EMOD      GMOD     THICK    OUTPUT
+             240 1.200E-09         0         4      0.07     0.007         0     0.002
+      $#   G1C_0   G1C_INF   EDOT_G1        T0        T1    EDOT_T       FG1     LCG1C
+          0.013                         0.008                           0.5
+      $#   G2C_0   G2C_INF   EDOT_G2        S0        S1    EDOT_S       FG2     LCG2C
+          0.037                         0.012                           0.1
+    app:
+      - BETAFORCE 2850L
+      - Adhesive for automotive structures
+    ref: "Betz, N., Holzapfel, M., Behling, T., Vinot, M., & Toso, N. (2023). Characterization of a cohesive zone model for adhesives with *MAT_240 and curve mapping method in LS-OPT. 14th European LS-DYNA Conference 2023, Baden-Baden, Germany"
+    add: 2024-11-02
+    url: "https://www.dynalook.com/conferences/14th-european-ls-dyna-conference-2023/adhesives/betz_dlr.pdf/view"
