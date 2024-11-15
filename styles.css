@@ -8,10 +8,6 @@ body {
     padding: 0;
 }
 
-.centered-text {
-    text-align: center;
-    margin: 1rem 0; /* Добавим немного отступа сверху и снизу */
-}
 .container {
     max-width: 100%;
     margin: 0 auto;
@@ -129,6 +125,12 @@ pre {
 
 .variable-value {
     color: #555555; /* Тёмно-серый для значений переменных */
+}
+
+/* Центрирование текста для строки Reference */
+.centered-text {
+    text-align: center;
+    margin: 1rem 0; /* Отступ сверху и снизу */
 }
 
 /* Стили для блока с гиперссылкой внизу */
