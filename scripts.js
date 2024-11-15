@@ -77,7 +77,10 @@ async function loadMaterials() {
           ? `<div class="reference-block"><strong>Reference:</strong><a href="${material.url}" target="_blank">${material.ref}</a></div>`
           : '<div class="reference-block"><strong>Reference:</strong> No reference available</div>';
 
-        row.child(`${referenceHtml}${matDataHtml}${eosDataHtml}`).show();
+        // Вставка HTML-контента
+        row.child(
+          `${referenceHtml}${matDataHtml}${eosDataHtml}`
+        ).show();
         tr.addClass("shown");
       }
     });
@@ -94,7 +97,7 @@ async function loadMaterials() {
 // Создание блока кода с подсветкой
 function createCodeBlock(title, content) {
   if (!content) return "";
-  const highlightedContent = highlightCode(content);
+  const highlightedContent = highlightCode(content); // Формируем подсвеченный HTML
   return `
     <div class="code-container">
       <div class="code-header">
