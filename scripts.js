@@ -110,11 +110,16 @@ function createCodeBlock(title, content) {
 
 // Подсветка синтаксиса
 function highlightCode(content) {
-  return content
-    .replace(/^\s*\$(?!#).*/gm, (match) => `<span class="comment">${match}</span>`) // Обычные комментарии
-    .replace(/^\s*\$#.*$/gm, (match) => `<span class="special-comment">${match}</span>`) // Специальные комментарии
-    .replace(/^\s*\*.+$/gm, (match) => `<strong class="keyword">${match}</strong>`) // Ключевые слова
-    .replace(/\b(\d+(\.\d+)?(e[+-]?\d+)?|[a-zA-Z_][a-zA-Z0-9_]*)\b/g, (match) => `<span class="variable-value">${match}</span>`); // Значения переменных
+  try {
+    return content
+      .replace(/^\s*\$(?!#).*/gm, (match) => `<span class="comment">${match}</span>`) // Обычные комментарии
+      .replace(/^\s*\$#.*$/gm, (match) => `<span class="special-comment">${match}</span>`) // Специальные комментарии
+      .replace(/^\s*\*.+$/gm, (match) => `<strong class="keyword">${match}</strong>`) // Ключевые слова
+      .replace(/\b(\d+(\.\d+)?(e[+-]?\d+)?|[a-zA-Z_][a-zA-Z0-9_]*)\b/g, (match) => `<span class="variable-value">${match}</span>`); // Переменные
+  } catch (e) {
+    console.error("Error highlighting code:", e, content);
+    return content; // Возвращаем исходный текст в случае ошибки
+  }
 }
 
 // Копирование текста в буфер обмена
