@@ -2,7 +2,7 @@ async function loadMaterials() {
   try {
     document.getElementById("loading").style.display = "block";
 
-    // Попытка загрузки YAML-файла
+    // Загружаем YAML
     const response = await fetch("materials.yaml");
 
     if (!response.ok) {
@@ -13,7 +13,7 @@ async function loadMaterials() {
 
     const yamlText = await response.text();
 
-    // Попытка парсинга YAML
+    // Парсим YAML
     let materials;
     try {
       materials = jsyaml.load(yamlText);
@@ -25,7 +25,7 @@ async function loadMaterials() {
       throw new Error("YAML file does not contain a valid array of materials.");
     }
 
-    // Формирование данных таблицы
+    // Формируем данные таблицы
     const tableData = materials.map(({ material }) => {
       if (!material || typeof material !== "object") {
         console.warn("Invalid material format", material);
@@ -51,19 +51,10 @@ async function loadMaterials() {
         { title: "EOS" },
         { title: "Applications" },
         { title: "Added" },
-        { visible: false }, // Скрытый столбец
+        { visible: false },
       ],
       order: [[0, "asc"]],
       pageLength: 10,
-      responsive: true,
-      language: {
-        search: "Search:",
-        lengthMenu: "Show _MENU_ entries",
-        info: "Showing _START_ to _END_ of _TOTAL_ entries",
-        infoEmpty: "Showing 0 to 0 of 0 entries",
-        infoFiltered: "(filtered from _MAX_ total entries)",
-        paginate: { first: "First", last: "Last", next: "Next", previous: "Previous" },
-      },
     });
 
     // Обработка кликов для разворачивания строк
@@ -81,10 +72,23 @@ async function loadMaterials() {
         row.child.hide();
         tr.removeClass("shown");
       } else {
-        const matDataHtml = `<pre>${material.mat_data || "No material data available"}</pre>`;
-        const eosDataHtml = material.eos_data
-          ? `<pre>${material.eos_data}</pre>`
-          : "";
+        const createCodeBlock = (title, content) => {
+          if (!content) return "";
+          const highlightedContent = highlightCode(content);
+          return `
+            <div class="code-block">
+              <div class="code-header">
+                <strong>${title}</strong>
+                <button onclick="copyToClipboard('${encodeURIComponent(
+                  content
+                )}')">Copy</button>
+              </div>
+              <pre><code>${highlightedContent}</code></pre>
+            </div>`;
+        };
+
+        const matDataHtml = createCodeBlock("*MAT", material.mat_data);
+        const eosDataHtml = createCodeBlock("*EOS", material.eos_data);
         const referenceHtml = material.ref
           ? `<a href="${material.url}" target="_blank">${material.ref}</a>`
           : "No reference available";
@@ -97,21 +101,39 @@ async function loadMaterials() {
       }
     });
 
-    // Лог успешной загрузки
     console.log("Materials successfully loaded:", materials);
   } catch (error) {
-    // Расширенное сообщение об ошибке
-    const errorElement = document.getElementById("error-message");
-    errorElement.textContent = `An error occurred: ${error.message}`;
-    errorElement.style.display = "block";
-
-    // Дополнительный вывод для разработчиков
+    document.getElementById("error-message").textContent = `An error occurred: ${error.message}`;
     console.error("Error details:", error);
   } finally {
-    // Скрытие индикатора загрузки
     document.getElementById("loading").style.display = "none";
   }
 }
 
-// Запуск загрузки данных при загрузке страницы
+// Подсветка синтаксиса
+function highlightCode(content) {
+  const commentRegex = /^\s*\$(?!#).*/gm; // Строки с комментариями, начинающимися с $
+  const specialCommentRegex = /^\s*\$#.*$/gm; // Строки с комментариями, начинающимися с $#
+  const keywordRegex = /^\s*\*.+$/gm; // Строки с ключевыми словами, начинающимися с *
+  return content
+    .replace(commentRegex, (match) => `<span class="comment">${match}</span>`)
+    .replace(
+      specialCommentRegex,
+      (match) => `<span class="special-comment">${match}</span>`
+    )
+    .replace(
+      keywordRegex,
+      (match) => `<strong class="keyword">${match}</strong>`
+    );
+}
+
+// Копирование текста в буфер обмена
+function copyToClipboard(content) {
+  const decodedContent = decodeURIComponent(content);
+  navigator.clipboard
+    .writeText(decodedContent)
+    .then(() => alert("Copied to clipboard!"))
+    .catch((err) => alert("Failed to copy: " + err));
+}
+
 window.addEventListener("load", loadMaterials);
