@@ -71,15 +71,14 @@ async function loadMaterials() {
         row.child.hide();
         tr.removeClass("shown");
       } else {
-        const matDataHtml = escapeHtml(material.mat_data || "No MAT data available");
-        const eosDataHtml = escapeHtml(material.eos_data || "No EOS data available");
+        const matDataHtml = createCodeBlock("*MAT", material.mat_data || "No MAT data available");
+        const eosDataHtml = createCodeBlock("*EOS", material.eos_data || "No EOS data available");
         const referenceHtml = material.ref
           ? `<div class="reference-block"><strong>Reference:</strong><a href="${material.url}" target="_blank">${material.ref}</a></div>`
           : '<div class="reference-block"><strong>Reference:</strong> No reference available</div>';
 
-        // Вставка HTML-контента
         row.child(
-          `${referenceHtml}<pre>${matDataHtml}</pre><pre>${eosDataHtml}</pre>`
+          `${referenceHtml}${matDataHtml}${eosDataHtml}`
         ).show();
         tr.addClass("shown");
       }
@@ -94,6 +93,19 @@ async function loadMaterials() {
   }
 }
 
+// Создание блока кода с заголовком и кнопкой копирования
+function createCodeBlock(title, content) {
+  const escapedContent = escapeHtml(content); // Экранируем HTML для безопасного отображения
+  return `
+    <div class="code-container">
+      <div class="code-header">
+        <span class="code-title">${title}</span>
+        <button class="copy-button" onclick="copyToClipboard('${encodeURIComponent(content)}')">Copy</button>
+      </div>
+      <pre><code>${escapedContent}</code></pre>
+    </div>`;
+}
+
 // Экранирование HTML
 function escapeHtml(unsafe) {
   return unsafe
@@ -102,6 +114,15 @@ function escapeHtml(unsafe) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
+}
+
+// Копирование текста в буфер обмена
+function copyToClipboard(content) {
+  const decodedContent = decodeURIComponent(content);
+  navigator.clipboard
+    .writeText(decodedContent)
+    .then(() => alert("Copied to clipboard!"))
+    .catch((err) => alert("Failed to copy: " + err));
 }
 
 // Форматирование даты в формате DD.MM.YYYY
