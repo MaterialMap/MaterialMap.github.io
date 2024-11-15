@@ -1,69 +1,4 @@
-/* Основные стили для страницы */
-body {
-    font-family: 'Inter', sans-serif;
-    line-height: 1.5;
-    color: #1a1a1a;
-    background-color: #f8f9fa;
-    margin: 0;
-    padding: 0;
-}
-
-.container {
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
-
-h1 {
-    font-weight: 600;
-    color: #2c3e50;
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-/* Таблица материалов */
-#materials-table {
-    width: 100%;
-    margin: 0 auto;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-}
-
-#materials-table thead th {
-    background-color: #f8f9fa;
-    color: #2c3e50;
-    padding: 1rem;
-    border-bottom: 2px solid #e2e8f0;
-}
-
-#materials-table tbody td {
-    padding: 1rem;
-    border-bottom: 1px solid #e2e8f0;
-}
-
-/* Эффект при наведении на строки таблицы */
-#materials-table tbody tr {
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-#materials-table tbody tr:hover {
-    background-color: #f1f5f9;
-}
-
-/* Стили для гиперссылок */
-a {
-    color: #4a90e2;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-a:hover {
-    text-decoration: underline;
-    color: #357ab8;
-}
-
-/* Оформление блока кода с кнопкой копирования */
+/* Стили для блока кода */
 .code-container {
     max-width: 80%;
     margin: 1.5rem auto;
@@ -86,6 +21,7 @@ a:hover {
     font-weight: bold;
 }
 
+/* Кнопка копирования */
 .copy-button {
     padding: 0.25rem 0.75rem;
     font-size: 0.875rem;
@@ -107,6 +43,33 @@ pre {
     overflow-x: auto;
 }
 
+/* Стили для блока Reference */
+.reference-block {
+    max-width: 80%;
+    margin: 1rem auto;
+    padding: 0.5rem 1rem;
+    text-align: left;
+    font-size: 0.875rem;
+    color: #333;
+    line-height: 1.4;
+}
+
+.reference-block strong {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.reference-block a {
+    color: #4a90e2;
+    text-decoration: none;
+    word-break: break-word; /* Позволяет переносить длинные ссылки */
+}
+
+.reference-block a:hover {
+    text-decoration: underline;
+    color: #357ab8;
+}
+
 /* Подсветка синтаксиса */
 .comment {
     color: #008000; /* Зелёный для обычных комментариев */
@@ -125,22 +88,4 @@ pre {
 
 .variable-value {
     color: #555555; /* Тёмно-серый для значений переменных */
-}
-
-/* Центрирование текста для строки Reference */
-.centered-text {
-    text-align: center;
-    margin: 1rem 0; /* Отступ сверху и снизу */
-}
-
-/* Стили для блока с гиперссылкой внизу */
-.about-link {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.about-link a {
-    color: #4a90e2;
-    text-decoration: none;
-    font-weight: 500;
 }
