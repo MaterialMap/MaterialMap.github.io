@@ -213,7 +213,7 @@
               10    0.2092     1.452         0         0         2
       $#      V0                LCID
                0
-      app:
+    app:
         - Projectile casings
         - Detonation simulations
     ref: "Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact Simulation. 12th European LS-DYNA Conference, Koblenz, Germany"
