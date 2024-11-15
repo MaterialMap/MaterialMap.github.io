@@ -83,7 +83,7 @@ async function loadMaterials() {
                   content
                 )}')">Copy</button>
               </div>
-              <pre><code>${highlightedContent}</code></pre>
+              <pre><code class="highlighted-code">${highlightedContent}</code></pre>
             </div>`;
         };
 
@@ -93,11 +93,13 @@ async function loadMaterials() {
           ? `<div class="centered-text"><a href="${material.url}" target="_blank">${material.ref}</a></div>`
           : '<div class="centered-text">No reference available</div>';
 
-        row.child(
-          `${referenceHtml}
-           ${matDataHtml}${eosDataHtml}`
-        ).show();
+        row.child().show();
+
+        // Вставляем HTML-разметку с подсветкой синтаксиса
         tr.addClass("shown");
+        tr.find(".highlighted-code").each(function () {
+          this.innerHTML = highlightedContent;
+        });
       }
     });
 
