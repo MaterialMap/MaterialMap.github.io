@@ -87,8 +87,8 @@ async function loadMaterials() {
             </div>`;
         };
 
-        const matDataHtml = createCodeBlock("MAT", material.mat_data);
-        const eosDataHtml = createCodeBlock("EOS", material.eos_data);
+        const matDataHtml = createCodeBlock("*MAT", material.mat_data);
+        const eosDataHtml = createCodeBlock("*EOS", material.eos_data);
         const referenceHtml = material.ref
           ? `<a href="${material.url}" target="_blank">${material.ref}</a>`
           : "No reference available";
@@ -112,9 +112,11 @@ async function loadMaterials() {
 
 // Подсветка синтаксиса
 function highlightCode(content) {
-  const commentRegex = /^\s*\$(?!#).*/gm;
-  const specialCommentRegex = /^\s*\$#.*$/gm;
-  const keywordRegex = /^\s*\*.+$/gm;
+  const commentRegex = /^\s*\$(?!#).*/gm; // Обычные комментарии
+  const specialCommentRegex = /^\s*\$#.*$/gm; // Специальные комментарии
+  const keywordRegex = /^\s*\*.+$/gm; // Названия карт (начинаются с *)
+  const variableValueRegex = /\b(\d+(\.\d+)?(e[+-]?\d+)?|[a-zA-Z_][a-zA-Z0-9_]*)\b/g; // Значения переменных
+
   return content
     .replace(commentRegex, (match) => `<span class="comment">${match}</span>`)
     .replace(
@@ -124,6 +126,10 @@ function highlightCode(content) {
     .replace(
       keywordRegex,
       (match) => `<strong class="keyword">${match}</strong>`
+    )
+    .replace(
+      variableValueRegex,
+      (match) => `<span class="variable-value">${match}</span>`
     );
 }
 
