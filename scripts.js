@@ -1,14 +1,13 @@
+// Загружаем материалы из YAML-файла
 async function loadMaterials() {
   try {
     document.getElementById("loading").style.display = "block";
 
-    // Загружаем YAML
+    // Загружаем YAML-файл
     const response = await fetch("materials.yaml");
 
     if (!response.ok) {
-      throw new Error(
-        `Failed to fetch the file. Status: ${response.status} ${response.statusText}`
-      );
+      throw new Error(`Failed to fetch the file. Status: ${response.status} ${response.statusText}`);
     }
 
     const yamlText = await response.text();
@@ -58,7 +57,7 @@ async function loadMaterials() {
     });
 
     // Обработка кликов для разворачивания строк
-    $("#materials-table tbody").on("click", "tr", function (event) {
+    $("#materials-table tbody").on("click", "tr", function () {
       const tr = $(this);
       const row = table.row(tr);
       const material = row.data()[4];
@@ -72,31 +71,13 @@ async function loadMaterials() {
         row.child.hide();
         tr.removeClass("shown");
       } else {
-        const createCodeBlock = (title, content) => {
-          if (!content) return "";
-          const highlightedContent = highlightCode(content);
-          return `
-            <div class="code-container">
-              <div class="code-header">
-                <span>${title}</span>
-                <button class="copy-button" onclick="copyToClipboard('${encodeURIComponent(
-                  content
-                )}')">Copy</button>
-              </div>
-              <pre><code>${highlightedContent}</code></pre>
-            </div>`;
-        };
-
         const matDataHtml = createCodeBlock("*MAT", material.mat_data);
         const eosDataHtml = createCodeBlock("*EOS", material.eos_data);
         const referenceHtml = material.ref
           ? `<div class="reference-block"><strong>Reference:</strong><a href="${material.url}" target="_blank">${material.ref}</a></div>`
           : '<div class="reference-block"><strong>Reference:</strong> No reference available</div>';
 
-        row.child(
-          `${referenceHtml}
-           ${matDataHtml}${eosDataHtml}`
-        ).show();
+        row.child(`${referenceHtml}${matDataHtml}${eosDataHtml}`).show();
         tr.addClass("shown");
       }
     });
@@ -110,37 +91,27 @@ async function loadMaterials() {
   }
 }
 
-// Функция для форматирования даты в формат DD.MM.YYYY
-function formatDate(dateString) {
-  if (!dateString) return "N/A";
-  const date = new Date(dateString);
-  const day = String(date.getDate()).padStart(2, "0");
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const year = date.getFullYear();
-  return `${day}.${month}.${year}`;
+// Создание блока кода с подсветкой
+function createCodeBlock(title, content) {
+  if (!content) return "";
+  const highlightedContent = highlightCode(content);
+  return `
+    <div class="code-container">
+      <div class="code-header">
+        <span>${title}</span>
+        <button class="copy-button" onclick="copyToClipboard('${encodeURIComponent(content)}')">Copy</button>
+      </div>
+      <pre><code>${highlightedContent}</code></pre>
+    </div>`;
 }
 
 // Подсветка синтаксиса
 function highlightCode(content) {
-  const commentRegex = /^\s*\$(?!#).*/gm; // Обычные комментарии
-  const specialCommentRegex = /^\s*\$#.*$/gm; // Специальные комментарии
-  const keywordRegex = /^\s*\*.+$/gm; // Названия карт (начинаются с *)
-  const variableValueRegex = /\b(\d+(\.\d+)?(e[+-]?\d+)?|[a-zA-Z_][a-zA-Z0-9_]*)\b/g; // Значения переменных
-
   return content
-    .replace(commentRegex, (match) => `<span class="comment">${match}</span>`)
-    .replace(
-      specialCommentRegex,
-      (match) => `<span class="special-comment">${match}</span>`
-    )
-    .replace(
-      keywordRegex,
-      (match) => `<strong class="keyword">${match}</strong>`
-    )
-    .replace(
-      variableValueRegex,
-      (match) => `<span class="variable-value">${match}</span>`
-    );
+    .replace(/^\s*\$(?!#).*/gm, (match) => `<span class="comment">${match}</span>`) // Обычные комментарии
+    .replace(/^\s*\$#.*$/gm, (match) => `<span class="special-comment">${match}</span>`) // Специальные комментарии
+    .replace(/^\s*\*.+$/gm, (match) => `<strong class="keyword">${match}</strong>`) // Ключевые слова
+    .replace(/\b(\d+(\.\d+)?(e[+-]?\d+)?|[a-zA-Z_][a-zA-Z0-9_]*)\b/g, (match) => `<span class="variable-value">${match}</span>`); // Значения переменных
 }
 
 // Копирование текста в буфер обмена
@@ -152,4 +123,15 @@ function copyToClipboard(content) {
     .catch((err) => alert("Failed to copy: " + err));
 }
 
+// Форматирование даты в формате DD.MM.YYYY
+function formatDate(dateString) {
+  if (!dateString) return "N/A";
+  const date = new Date(dateString);
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = date.getFullYear();
+  return `${day}.${month}.${year}`;
+}
+
+// Загрузка материалов при открытии страницы
 window.addEventListener("load", loadMaterials);
