@@ -71,14 +71,15 @@ async function loadMaterials() {
         row.child.hide();
         tr.removeClass("shown");
       } else {
-        const matDataHtml = createCodeBlock("*MAT", material.mat_data);
-        const eosDataHtml = createCodeBlock("*EOS", material.eos_data);
+        const matDataHtml = escapeHtml(material.mat_data || "No MAT data available");
+        const eosDataHtml = escapeHtml(material.eos_data || "No EOS data available");
         const referenceHtml = material.ref
           ? `<div class="reference-block"><strong>Reference:</strong><a href="${material.url}" target="_blank">${material.ref}</a></div>`
           : '<div class="reference-block"><strong>Reference:</strong> No reference available</div>';
 
+        // Вставка HTML-контента
         row.child(
-          `${referenceHtml}<pre>${material.mat_data || "No MAT data available"}</pre><pre>${material.eos_data || "No EOS data available"}</pre>`
+          `${referenceHtml}<pre>${matDataHtml}</pre><pre>${eosDataHtml}</pre>`
         ).show();
         tr.addClass("shown");
       }
@@ -91,6 +92,16 @@ async function loadMaterials() {
   } finally {
     document.getElementById("loading").style.display = "none";
   }
+}
+
+// Экранирование HTML
+function escapeHtml(unsafe) {
+  return unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
 // Форматирование даты в формате DD.MM.YYYY
