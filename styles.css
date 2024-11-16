@@ -1,4 +1,4 @@
-/* Общее оформление */
+/* Общий стиль страницы */
 body {
     font-family: 'Inter', sans-serif;
     background-color: #fff;
@@ -7,14 +7,20 @@ body {
     padding: 0;
 }
 
+/* Контейнер */
 .container {
-    max-width: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh; /* Контейнер на всю высоту */
+    max-width: 800px; /* Ограничение ширины */
     margin: 0 auto;
     padding: 20px;
     text-align: center; /* Центровка содержимого */
 }
 
-/* Оформление заголовков */
+/* Заголовки */
 h1 {
     font-size: 2rem;
     color: #444; /* Темно-серый цвет */
@@ -24,10 +30,10 @@ h1 {
 
 /* Таблицы */
 #materials-table {
-    margin: 0 auto; /* Центровка таблицы */
-    width: 100%;
-    max-width: 800px; /* Ограничение ширины */
-    border-collapse: collapse;
+    margin: 0 auto;
+    width: 100%; /* Таблица заполняет родительский контейнер */
+    max-width: 1600px; /* Увеличено на 30% */
+    border-collapse: collapse; /* Удалить промежутки между ячейками */
     text-align: left;
 }
 
@@ -35,8 +41,12 @@ h1 {
 #materials-table td {
     border: 1px solid #ddd;
     padding: 8px;
-    text-align: left;
 }
+
+.about-section p {
+    text-align: justify; /* Выравнивание текста по ширине */
+}
+
 
 #materials-table th {
     background-color: #f4f4f4;
@@ -44,28 +54,28 @@ h1 {
 }
 
 #materials-table td {
-    word-wrap: break-word; /* Перенос слов в ячейках */
+    word-break: break-word; /* Перенос длинных слов */
 }
 
-/* Выравнивание ширины столбцов */
+/* Настройка ширины столбцов */
 #materials-table th:nth-child(1),
 #materials-table td:nth-child(1) {
-    width: 25%;
+    width: 40%; /* Увеличено на 20% */
 }
 
 #materials-table th:nth-child(2),
 #materials-table td:nth-child(2) {
-    width: 20%;
+    width: 25%; /* Увеличено на 20% */
 }
 
 #materials-table th:nth-child(3),
 #materials-table td:nth-child(3) {
-    width: 35%;
+    width: 25%; /* Увеличено на 20% */
 }
 
 #materials-table th:nth-child(4),
 #materials-table td:nth-child(4) {
-    width: 20%;
+    width: 10%; /* Увеличено на 20% */
 }
 
 /* Сообщения о загрузке и ошибках */
@@ -79,41 +89,47 @@ h1 {
 
 /* Ссылки */
 a {
-    color: #555; /* Темно-серый цвет ссылок */
-    text-decoration: none;
+    color: #4169E1; /* Королевский синий (Royal Blue) */
+    text-decoration: underline; /* Подчеркивание текста */
+}
+
+a:hover {
+    color: #27408B; /* Более темный оттенок синего при наведении */
+    text-decoration: underline; /* Сохраняем подчеркивание */
 }
 
 a:hover {
     text-decoration: underline;
 }
 
-/* Оформление блоков кода */
+/* Блоки кода */
 .code-container {
     background-color: #f7f7f7; /* Светло-серый фон */
     border: 1px solid #ddd;
     border-radius: 4px;
     padding: 1rem;
     margin: 1rem auto;
-    max-width: 640px; /* Ограничение ширины блока */
-    text-align: left;
+    max-width: 800px; /* Ограничение ширины */
+    overflow-x: auto; /* Горизонтальная прокрутка для длинных строк */
 }
 
 .code-container pre {
     margin: 0;
-    font-family: 'Fira Code', monospace; /* Красивый моноширинный шрифт */
-    font-size: 16px; /* Увеличенный шрифт */
-    line-height: 1.5; /* Пространство между строками */
+    font-family: 'Courier New', monospace; /* Моноширинный шрифт для стабильности */
+    font-size: 16px;
+    line-height: 1.5;
     color: #333;
-    max-width: 90ch; /* Не шире 90 символов */
-    white-space: pre-wrap; /* Перенос строк в блоке кода */
-    word-wrap: break-word; /* Перенос длинных слов */
+    max-width: 90ch; /* Ограничение ширины строки в символах */
+    white-space: pre; /* Отключение переноса строк */
+    overflow-x: auto; /* Горизонтальная прокрутка */
 }
 
+/* Заголовок в блоках кода */
 .code-container .code-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #eaeaea; /* Немного темнее, чем основной фон */
+    background-color: #eaeaea;
     padding: 0.5rem;
     border-bottom: 1px solid #ccc;
 }
@@ -123,7 +139,7 @@ a:hover {
 }
 
 .copy-button {
-    background: #ccc; /* Серый цвет кнопки */
+    background: #ccc;
     color: #333;
     border: none;
     padding: 0.5rem 1rem;
@@ -132,11 +148,26 @@ a:hover {
 }
 
 .copy-button:hover {
-    background: #bbb; /* Более темный серый при наведении */
+    background: #bbb;
 }
 
 /* Кнопка возврата */
 .back-link {
     margin-top: 20px;
     text-align: center;
+}
+
+/* Мелкие устройства */
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+
+    #materials-table {
+        font-size: 0.9rem; /* Уменьшенный шрифт */
+    }
+
+    .code-container {
+        padding: 0.5rem;
+    }
 }

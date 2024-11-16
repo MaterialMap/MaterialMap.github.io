@@ -74,8 +74,8 @@ async function loadMaterials() {
         const matDataHtml = createCodeBlock("*MAT", material.mat_data || "No MAT data available");
         const eosDataHtml = createCodeBlock("*EOS", material.eos_data || "No EOS data available");
         const referenceHtml = material.ref
-          ? `<div class="reference-block"><strong>Reference:</strong><a href="${material.url}" target="_blank">${material.ref}</a></div>`
-          : '<div class="reference-block"><strong>Reference:</strong> No reference available</div>';
+          ? `<div class="reference-block"><strong>Reference: </strong><a href="${material.url}" target="_blank">${material.ref}</a></div>`
+          : '<div class="reference-block"><strong>Reference: </strong> No reference available</div>';
 
         row.child(
           `${referenceHtml}${matDataHtml}${eosDataHtml}`
