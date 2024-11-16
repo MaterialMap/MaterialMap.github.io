@@ -1,139 +1,105 @@
-// Загружаем материалы из YAML-файла
-async function loadMaterials() {
-  try {
-    document.getElementById("loading").style.display = "block";
-
-    // Загружаем YAML-файл
-    const response = await fetch("materials.yaml");
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch the file. Status: ${response.status} ${response.statusText}`);
-    }
-
-    const yamlText = await response.text();
-
-    // Парсим YAML
-    let materials;
-    try {
-      materials = jsyaml.load(yamlText);
-    } catch (yamlError) {
-      throw new Error(`YAML parsing error: ${yamlError.message}`);
-    }
-
-    if (!Array.isArray(materials) || materials.length === 0) {
-      throw new Error("YAML file does not contain a valid array of materials.");
-    }
-
-    // Формируем данные таблицы
-    const tableData = materials.map(({ material }) => {
-      if (!material || typeof material !== "object") {
-        console.warn("Invalid material format", material);
-        return ["Invalid data", "-", "-", "-", null];
-      }
-      return [
-        `<div><strong>ID:</strong> ${material.id || "N/A"}</div>
-         <div><strong>MAT:</strong> ${material.mat || "N/A"}</div>`,
-        material.eos || "-",
-        `<ul>${(material.app || [])
-          .map((app) => `<li>${app}</li>`)
-          .join("")}</ul>`,
-        formatDate(material.add),
-        material,
-      ];
-    });
-
-    // Инициализация DataTable
-    const table = $("#materials-table").DataTable({
-      data: tableData,
-      columns: [
-        { title: "Material Model" },
-        { title: "EOS" },
-        { title: "Applications" },
-        { title: "Added" },
-        { visible: false },
-      ],
-      order: [[0, "asc"]],
-      pageLength: 10,
-    });
-
-    // Обработка кликов для разворачивания строк
-    $("#materials-table tbody").on("click", "tr", function () {
-      const tr = $(this);
-      const row = table.row(tr);
-      const material = row.data()[4];
-
-      if (!material) {
-        console.warn("No material data available for row:", row.data());
-        return;
-      }
-
-      if (row.child.isShown()) {
-        row.child.hide();
-        tr.removeClass("shown");
-      } else {
-        const matDataHtml = createCodeBlock("*MAT", material.mat_data || "No MAT data available");
-        const eosDataHtml = createCodeBlock("*EOS", material.eos_data || "No EOS data available");
-        const referenceHtml = material.ref
-          ? `<div class="reference-block"><strong>Reference:</strong><a href="${material.url}" target="_blank">${material.ref}</a></div>`
-          : '<div class="reference-block"><strong>Reference:</strong> No reference available</div>';
-
-        row.child(
-          `${referenceHtml}${matDataHtml}${eosDataHtml}`
-        ).show();
-        tr.addClass("shown");
-      }
-    });
-
-    console.log("Materials successfully loaded:", materials);
-  } catch (error) {
-    document.getElementById("error-message").textContent = `An error occurred: ${error.message}`;
-    console.error("Error details:", error);
-  } finally {
-    document.getElementById("loading").style.display = "none";
-  }
+/* Общее оформление */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #fff;
+    color: #333;
+    margin: 0;
+    padding: 0;
 }
 
-// Создание блока кода с заголовком и кнопкой копирования
-function createCodeBlock(title, content) {
-  const escapedContent = escapeHtml(content); // Экранируем HTML для безопасного отображения
-  return `
-    <div class="code-container">
-      <div class="code-header">
-        <span class="code-title">${title}</span>
-        <button class="copy-button" onclick="copyToClipboard('${encodeURIComponent(content)}')">Copy</button>
-      </div>
-      <pre><code>${escapedContent}</code></pre>
-    </div>`;
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
-// Экранирование HTML
-function escapeHtml(unsafe) {
-  return unsafe
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+/* Оформление заголовков */
+h1 {
+    font-size: 2rem;
+    color: #007bff;
+    margin-bottom: 20px;
 }
 
-// Копирование текста в буфер обмена
-function copyToClipboard(content) {
-  const decodedContent = decodeURIComponent(content);
-  navigator.clipboard
-    .writeText(decodedContent)
-    .then(() => alert("Copied to clipboard!"))
-    .catch((err) => alert("Failed to copy: " + err));
+/* Таблицы */
+#materials-table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-// Форматирование даты в формате DD.MM.YYYY
-function formatDate(dateString) {
-  if (!dateString) return "N/A";
-  const date = new Date(dateString);
-  const day = String(date.getDate()).padStart(2, "0");
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const year = date.getFullYear();
-  return `${day}.${month}.${year}`;
+#materials-table th,
+#materials-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
 }
 
-// Загрузка материалов при открытии страницы
-window.addEventListener("load", loadMaterials);
+#materials-table th {
+    background-color: #f4f4f4;
+    text-align: left;
+}
+
+/* Сообщения о загрузке и ошибках */
+#loading,
+#error-message {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 1.2rem;
+    color: #555;
+}
+
+/* Оформление блоков кода */
+.code-container {
+    background-color: #f7f7f7; /* Светло-серый фон */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.code-container pre {
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace; /* Шрифт кода */
+    font-size: 14px;
+    color: #333;
+}
+
+.code-container .code-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #eaeaea; /* Немного темнее, чем основной фон */
+    padding: 0.5rem;
+    border-bottom: 1px solid #ccc;
+}
+
+.code-container .code-title {
+    font-weight: bold;
+}
+
+.copy-button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.copy-button:hover {
+    background: #0056b3;
+}
+
+/* Ссылки */
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Кнопка возврата */
+.back-link {
+    margin-top: 20px;
+    text-align: center;
+}
