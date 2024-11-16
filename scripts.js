@@ -30,9 +30,21 @@ async function loadMaterials() {
         console.warn("Invalid material format", material);
         return ["Invalid data", "-", "-", "-", null];
       }
+      
+      // Формируем разметку для первой колонки
+      let materialModelHTML = `
+        <div><strong>ID:</strong> ${material.id || "N/A"}</div>
+        <div><strong>MAT:</strong> ${material.mat || "N/A"}</div>
+      `;
+    
+      // Добавляем MAT_ADD только если оно существует
+      if (material.mat_add) {
+        materialModelHTML += `<div><strong>MAT_ADD:</strong> ${material.mat_add}</div>`;
+      }
+    
+      // Возвращаем строки таблицы
       return [
-        `<div><strong>ID:</strong> ${material.id || "N/A"}</div>
-         <div><strong>MAT:</strong> ${material.mat || "N/A"}</div>`,
+        materialModelHTML,
         material.eos || "-",
         `<ul>${(material.app || [])
           .map((app) => `<li>${app}</li>`)
@@ -41,7 +53,7 @@ async function loadMaterials() {
         material,
       ];
     });
-
+    
     // Инициализация DataTable
     const table = $("#materials-table").DataTable({
       data: tableData,
@@ -72,13 +84,18 @@ async function loadMaterials() {
         tr.removeClass("shown");
       } else {
         const matDataHtml = createCodeBlock("*MAT", material.mat_data || "No MAT data available");
-        const eosDataHtml = createCodeBlock("*EOS", material.eos_data || "No EOS data available");
+        const eosDataHtml = material.eos_data
+          ? createCodeBlock("*EOS", material.eos_data)
+          : ""; // Если eos_data нет, блок не создается
+        const matAddDataHtml = material.mat_add_data
+          ? createCodeBlock("*MAT_ADD", material.mat_add_data)
+          : ""; // Если mat_add_data нет, блок не создается
         const referenceHtml = material.ref
           ? `<div class="reference-block"><strong>Reference: </strong><a href="${material.url}" target="_blank">${material.ref}</a></div>`
           : '<div class="reference-block"><strong>Reference: </strong> No reference available</div>';
-
+    
         row.child(
-          `${referenceHtml}${matDataHtml}${eosDataHtml}`
+          `${referenceHtml}${matDataHtml}${eosDataHtml}${matAddDataHtml}`
         ).show();
         tr.addClass("shown");
       }
