@@ -375,7 +375,7 @@
     add: 2024-11-03
     url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view"
 
-- materiaд:
+- material:
     id: MAT_003
     mat: MAT_PLASTIC_KINEMATIC
     mat_data: |

@@ -14,10 +14,11 @@ body {
     align-items: center;
     flex-direction: column;
     min-height: 100vh; /* Контейнер на всю высоту */
-    max-width: 800px; /* Ограничение ширины */
+    width: 90%; /* Адаптивная ширина */
     margin: 0 auto;
     padding: 20px;
     text-align: center; /* Центровка содержимого */
+    max-width: none; /* Убираем ограничение */
 }
 
 /* Заголовки */
@@ -28,56 +29,39 @@ h1 {
     text-align: center;
 }
 
-/* Таблицы */
-#materials-table {
-    margin: 0 auto;
-    width: 100%; /* Таблица заполняет родительский контейнер */
-    max-width: 1600px; 
-    border-collapse: collapse; /* Удалить промежутки между ячейками */
-    text-align: left;
-}
+/* Пример новых правил */
 
-#materials-table th,
-#materials-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-.about-section p {
-    text-align: justify; /* Выравнивание текста по ширине */
-}
-
-
-#materials-table th {
-    background-color: #f4f4f4;
-    font-weight: 600;
-}
-
-#materials-table td {
-    word-break: break-word; /* Перенос длинных слов */
-}
-
-/* Настройка ширины столбцов */
+/* Столбец 1 */
 #materials-table th:nth-child(1),
 #materials-table td:nth-child(1) {
-    width: 35%; /* Увеличено на 20% */
+    width: 40%;
+    text-align: left; /* Текст выравнивается по левому краю */
 }
 
+/* Столбец 2 */
 #materials-table th:nth-child(2),
 #materials-table td:nth-child(2) {
-    width: 25%; /* Увеличено на 20% */
+    width: 30git reset --hard HEAD~1
+%;
+    text-align: left; /* Текст выравнивается по левому краю */
 }
 
+/* Столбец 3 */
 #materials-table th:nth-child(3),
 #materials-table td:nth-child(3) {
-    width: 25%; /* Увеличено на 20% */
+    width: 30%;
+    text-align: left; /* Текст выравнивается по левому краю */
 }
 
+/* Столбец 4: фиксированная ширина под 12 символов */
 #materials-table th:nth-child(4),
 #materials-table td:nth-child(4) {
-    width: 15%; /* Увеличено на 20% */
+    width: 12ch; /* Ширина под 12 символов */
+    white-space: nowrap; /* Запрет на перенос строк */
+    text-align: center; /* Текст выравнивается по центру */
+    overflow: hidden; /* Убираем текст, который выходит за пределы */
+    text-overflow: ellipsis; /* Добавляем многоточие при переполнении */
 }
-
 /* Сообщения о загрузке и ошибках */
 #loading,
 #error-message {
@@ -98,10 +82,6 @@ a:hover {
     text-decoration: underline; /* Сохраняем подчеркивание */
 }
 
-a:hover {
-    text-decoration: underline;
-}
-
 /* Блоки кода */
 .code-container {
     background-color: #f7f7f7; /* Светло-серый фон */
@@ -109,8 +89,9 @@ a:hover {
     border-radius: 4px;
     padding: 1rem;
     margin: 1rem auto;
-    max-width: 800px; /* Ограничение ширины */
+    width: 100%; /* Контейнер будет занимать всю ширину */
     overflow-x: auto; /* Горизонтальная прокрутка для длинных строк */
+    box-sizing: border-box; /* Учитываем padding в ширине */
 }
 
 .code-container pre {
@@ -157,17 +138,43 @@ a:hover {
     text-align: center;
 }
 
+#materials-table td:last-child {
+    width: 10ch; /* Ширина колонки под 10 символов */
+    white-space: nowrap; /* Запрет на перенос строки */
+    text-align: center; /* Выравнивание по центру */
+    overflow: hidden; /* Удаляем текст, который выходит за пределы */
+    text-overflow: ellipsis; /* Добавляем многоточие, если текст превышает длину */
+}
+
+#materials-table th:last-child {
+    width: 10ch; /* Убедимся, что заголовок совпадает по ширине */
+    text-align: center;
+}
+
 /* Мелкие устройства */
 @media (max-width: 600px) {
+    body {
+        font-size: 0.9rem; /* Уменьшение текста */
+    }
+
+    h1 {
+        font-size: 1.5rem; /* Уменьшение заголовков */
+    }
+
     .container {
-        padding: 10px;
+        padding: 10px; /* Уменьшение внутреннего отступа */
     }
 
     #materials-table {
         font-size: 0.9rem; /* Уменьшенный шрифт */
     }
 
+    #materials-table th, 
+    #materials-table td {
+        padding: 6px; /* Уменьшение отступов в таблице */
+    }
+
     .code-container {
-        padding: 0.5rem;
+        padding: 0.5rem; /* Уменьшение отступов */
     }
 }
