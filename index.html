@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <!-- Google Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 
         <!-- External resources -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
@@ -17,10 +17,15 @@
     </head>
     <body>
         <div class="container" role="main">
+            <!-- Заголовок -->
             <h1>Materials MAP</h1>
+
+            <!-- Сообщение о загрузке -->
             <div id="loading" role="status" aria-live="polite">
                 Loading data...
             </div>
+
+            <!-- Сообщение об ошибке -->
             <div id="error-message" role="alert" aria-live="assertive"></div>
 
             <!-- Таблица материалов -->
@@ -40,13 +45,13 @@
                 <tbody></tbody>
             </table>
 
-            <!-- Ссылка на страницу About -->
+            <!-- Информация о проекте -->
             <div class="about-link">
                 <p><a href="about.html">Learn more about this project</a></p>
             </div>
         </div>
 
-        <!-- External JavaScript file -->
+        <!-- Скрипт -->
         <script src="scripts.js"></script>
     </body>
 </html>
