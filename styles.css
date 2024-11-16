@@ -11,30 +11,61 @@ body {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
+    text-align: center; /* Центровка содержимого */
 }
 
 /* Оформление заголовков */
 h1 {
     font-size: 2rem;
-    color: #007bff;
+    color: #444; /* Темно-серый цвет */
     margin-bottom: 20px;
+    text-align: center;
 }
 
 /* Таблицы */
 #materials-table {
+    margin: 0 auto; /* Центровка таблицы */
     width: 100%;
+    max-width: 800px; /* Ограничение ширины */
     border-collapse: collapse;
+    text-align: left;
 }
 
 #materials-table th,
 #materials-table td {
     border: 1px solid #ddd;
     padding: 8px;
+    text-align: left;
 }
 
 #materials-table th {
     background-color: #f4f4f4;
-    text-align: left;
+    font-weight: 600;
+}
+
+#materials-table td {
+    word-wrap: break-word; /* Перенос слов в ячейках */
+}
+
+/* Выравнивание ширины столбцов */
+#materials-table th:nth-child(1),
+#materials-table td:nth-child(1) {
+    width: 25%;
+}
+
+#materials-table th:nth-child(2),
+#materials-table td:nth-child(2) {
+    width: 20%;
+}
+
+#materials-table th:nth-child(3),
+#materials-table td:nth-child(3) {
+    width: 35%;
+}
+
+#materials-table th:nth-child(4),
+#materials-table td:nth-child(4) {
+    width: 20%;
 }
 
 /* Сообщения о загрузке и ошибках */
@@ -46,20 +77,36 @@ h1 {
     color: #555;
 }
 
+/* Ссылки */
+a {
+    color: #555; /* Темно-серый цвет ссылок */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
 /* Оформление блоков кода */
 .code-container {
     background-color: #f7f7f7; /* Светло-серый фон */
     border: 1px solid #ddd;
     border-radius: 4px;
     padding: 1rem;
-    margin: 1rem 0;
+    margin: 1rem auto;
+    max-width: 640px; /* Ограничение ширины блока */
+    text-align: left;
 }
 
 .code-container pre {
     margin: 0;
-    font-family: 'Courier New', Courier, monospace; /* Шрифт кода */
-    font-size: 14px;
+    font-family: 'Fira Code', monospace; /* Красивый моноширинный шрифт */
+    font-size: 16px; /* Увеличенный шрифт */
+    line-height: 1.5; /* Пространство между строками */
     color: #333;
+    max-width: 90ch; /* Не шире 90 символов */
+    white-space: pre-wrap; /* Перенос строк в блоке кода */
+    word-wrap: break-word; /* Перенос длинных слов */
 }
 
 .code-container .code-header {
@@ -76,8 +123,8 @@ h1 {
 }
 
 .copy-button {
-    background: #007bff;
-    color: white;
+    background: #ccc; /* Серый цвет кнопки */
+    color: #333;
     border: none;
     padding: 0.5rem 1rem;
     border-radius: 3px;
@@ -85,17 +132,7 @@ h1 {
 }
 
 .copy-button:hover {
-    background: #0056b3;
-}
-
-/* Ссылки */
-a {
-    color: #007bff;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
+    background: #bbb; /* Более темный серый при наведении */
 }
 
 /* Кнопка возврата */
