@@ -33,13 +33,13 @@ async function loadMaterials() {
       
       // Формируем разметку для первой колонки
       let materialModelHTML = `
-        <div><strong>ID:</strong> ${material.id || "N/A"}</div>
-        <div><strong>MAT:</strong> ${material.mat || "N/A"}</div>
+        <div><strong>ID:</strong> *${material.id || "N/A"}</div>
+        <div> *${material.mat || "N/A"}</div>
       `;
     
       // Добавляем MAT_ADD только если оно существует
       if (material.mat_add) {
-        materialModelHTML += `<div><strong>MAT_ADD:</strong> ${material.mat_add}</div>`;
+        materialModelHTML += `<div>*${material.mat_add}</div>`;
       }
     
       // Возвращаем строки таблицы
@@ -90,7 +90,7 @@ async function loadMaterials() {
         const matAddDataHtml = material.mat_add_data
           ? createCodeBlock("*MAT_ADD", material.mat_add_data)
           : ""; // Если mat_add_data нет, блок не создается
-        const referenceHtml = material.ref
+          const referenceHtml = material.ref
           ? `<div class="reference-block"><strong>Reference: </strong><a href="${material.url}" target="_blank">${material.ref}</a></div>`
           : '<div class="reference-block"><strong>Reference: </strong> No reference available</div>';
     

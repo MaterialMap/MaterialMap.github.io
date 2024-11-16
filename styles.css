@@ -1,180 +1,194 @@
-/* Общий стиль страницы */
+/* Global styles for the page */
 body {
-    font-family: 'Inter', sans-serif;
-    background-color: #fff;
-    color: #333;
-    margin: 0;
-    padding: 0;
+    font-family: 'Inter', sans-serif; /* Main font family */
+    background-color: #fff; /* Set background to white */
+    color: #333; /* Main text color (dark gray) */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
 }
 
-/* Контейнер */
+.reference-block {
+    word-wrap: break-word; /* Разрешает перенос слов на новую строку */
+    word-break: break-all; /* Перенос длинных слов, если это необходимо */
+    white-space: normal; /* Позволяет тексту переноситься на новую строку */
+    overflow-wrap: break-word; /* Современный способ переноса текста */
+    text-overflow: ellipsis; /* Обрезает текст с добавлением троеточия, если нужно */
+    max-width: 1200px; /* Устанавливает максимальную ширину блока */
+    text-align: left; /* Align text inside the container */
+    overflow: hidden; /* Прячет содержимое, выходящее за границы */
+}
+
+/* Container for aligning content centrally */
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    min-height: 100vh; /* Контейнер на всю высоту */
-    width: 90%; /* Адаптивная ширина */
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center; /* Центровка содержимого */
-    max-width: none; /* Убираем ограничение */
+    display: flex; /* Enable flexbox layout */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    flex-direction: column; /* Stack elements vertically */
+    min-height: 100vh; /* Minimum height to cover full viewport */
+    width: 1200px; /* Fixed container width */
+    margin: 0 auto; /* Center container horizontally */
+    padding: 20px; /* Inner padding for spacing */
+    text-align: center; /* Align text inside the container */
+    max-width: 1200px; /* Restrict maximum width */
 }
 
-/* Заголовки */
+/* Styles for main headings */
 h1 {
-    font-size: 2rem;
-    color: #444; /* Темно-серый цвет */
-    margin-bottom: 20px;
-    text-align: center;
+    font-size: 2rem; /* Font size for the heading */
+    color: #444; /* Dark gray color for headings */
+    margin-bottom: 20px; /* Spacing below the heading */
+    text-align: center; /* Center-align the text */
 }
 
-/* Пример новых правил */
-
-/* Столбец 1 */
+/* Styles for the first column in the table */
 #materials-table th:nth-child(1),
 #materials-table td:nth-child(1) {
-    width: 40%;
-    text-align: left; /* Текст выравнивается по левому краю */
+    width: 40%; /* Set column width to 40% */
+    text-align: left; /* Align text to the left */
 }
 
-/* Столбец 2 */
+/* Styles for the second column in the table */
 #materials-table th:nth-child(2),
 #materials-table td:nth-child(2) {
-    width: 30git reset --hard HEAD~1
-%;
-    text-align: left; /* Текст выравнивается по левому краю */
+    width: 30%; /* Set column width to 30% */
+    text-align: left; /* Align text to the left */
 }
 
-/* Столбец 3 */
+/* Styles for the third column in the table */
 #materials-table th:nth-child(3),
 #materials-table td:nth-child(3) {
-    width: 30%;
-    text-align: left; /* Текст выравнивается по левому краю */
+    width: 30%; /* Set column width to 30% */
+    text-align: left; /* Align text to the left */
 }
 
-/* Столбец 4: фиксированная ширина под 12 символов */
+/* Styles for the fourth column (fixed width for text display) */
 #materials-table th:nth-child(4),
 #materials-table td:nth-child(4) {
-    width: 12ch; /* Ширина под 12 символов */
-    white-space: nowrap; /* Запрет на перенос строк */
-    text-align: center; /* Текст выравнивается по центру */
-    overflow: hidden; /* Убираем текст, который выходит за пределы */
-    text-overflow: ellipsis; /* Добавляем многоточие при переполнении */
-}
-/* Сообщения о загрузке и ошибках */
-#loading,
-#error-message {
-    text-align: center;
-    margin: 20px 0;
-    font-size: 1.2rem;
-    color: #555;
+    width: 12ch; /* Fixed width for 12 characters */
+    white-space: nowrap; /* Prevent text wrapping */
+    text-align: center; /* Center-align text */
+    overflow: hidden; /* Hide overflowed content */
+    text-overflow: ellipsis; /* Add ellipsis (...) for overflowing text */
 }
 
-/* Ссылки */
+/* Styles for loading and error messages */
+#loading,
+#error-message {
+    text-align: center; /* Center-align the text */
+    margin: 20px 0; /* Add vertical spacing */
+    font-size: 1.2rem; /* Slightly larger font size */
+    color: #555; /* Medium gray color */
+}
+
+/* Link styles */
 a {
-    color: #4169E1; /* Королевский синий (Royal Blue) */
-    text-decoration: underline; /* Подчеркивание текста */
+    color: #4169E1; /* Royal blue for links */
+    text-decoration: underline; /* Underline links */
 }
 
 a:hover {
-    color: #27408B; /* Более темный оттенок синего при наведении */
-    text-decoration: underline; /* Сохраняем подчеркивание */
+    color: #27408B; /* Darker shade of blue when hovered */
+    text-decoration: underline; /* Maintain underline on hover */
 }
 
-/* Блоки кода */
+/* Code block container styles */
 .code-container {
-    background-color: #f7f7f7; /* Светло-серый фон */
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 1rem;
-    margin: 1rem auto;
-    width: 100%; /* Контейнер будет занимать всю ширину */
-    overflow-x: auto; /* Горизонтальная прокрутка для длинных строк */
-    box-sizing: border-box; /* Учитываем padding в ширине */
+    background-color: #f7f7f7; /* Light gray background */
+    border: 1px solid #ddd; /* Light gray border */
+    border-radius: 4px; /* Rounded corners */
+    padding: 1rem; /* Inner padding for spacing */
+    margin: 1rem auto; /* Add margin and center horizontally */
+    width: 90ch; /* Fixed width for 90 characters */
+    overflow-x: auto; /* Add horizontal scrolling for overflow */
+    box-sizing: border-box; /* Include padding in width */
+    text-align: left; /* Align text to the left */
 }
 
+/* Styles for code content inside the container */
 .code-container pre {
-    margin: 0;
-    font-family: 'Courier New', monospace; /* Моноширинный шрифт для стабильности */
-    font-size: 16px;
-    line-height: 1.5;
-    color: #333;
-    max-width: 90ch; /* Ограничение ширины строки в символах */
-    white-space: pre; /* Отключение переноса строк */
-    overflow-x: auto; /* Горизонтальная прокрутка */
+    margin: 0; /* Remove default margin */
+    font-family: 'Courier New', monospace; /* Use monospace font */
+    font-size: 16px; /* Set font size */
+    line-height: 1.5; /* Increase line height for readability */
+    color: #333; /* Dark gray for text */
+    white-space: pre; /* Preserve spaces and line breaks */
+    overflow-x: auto; /* Add horizontal scrolling */
+    width: 100%; /* Make content fill the container */
 }
 
-/* Заголовок в блоках кода */
+/* Header styles inside code blocks */
 .code-container .code-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #eaeaea;
-    padding: 0.5rem;
-    border-bottom: 1px solid #ccc;
+    display: flex; /* Use flex layout */
+    justify-content: space-between; /* Distribute space between elements */
+    align-items: center; /* Align items vertically */
+    background-color: #eaeaea; /* Light gray background */
+    padding: 0.5rem; /* Inner padding */
+    border-bottom: 1px solid #ccc; /* Separator line below header */
 }
 
+/* Title styles inside code headers */
 .code-container .code-title {
-    font-weight: bold;
+    font-weight: bold; /* Bold font for titles */
 }
 
+/* Button styles for copy functionality */
 .copy-button {
-    background: #ccc;
-    color: #333;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 3px;
-    cursor: pointer;
+    background: #ccc; /* Light gray background */
+    color: #333; /* Dark gray text */
+    border: none; /* Remove default border */
+    padding: 0.5rem 1rem; /* Add padding for spacing */
+    border-radius: 3px; /* Rounded corners */
+    cursor: pointer; /* Show pointer cursor on hover */
 }
 
 .copy-button:hover {
-    background: #bbb;
+    background: #bbb; /* Slightly darker background on hover */
 }
 
-/* Кнопка возврата */
+/* Back link styles */
 .back-link {
-    margin-top: 20px;
-    text-align: center;
+    margin-top: 20px; /* Add spacing above */
+    text-align: center; /* Center-align text */
 }
 
+/* Styles for the last column in the table */
 #materials-table td:last-child {
-    width: 10ch; /* Ширина колонки под 10 символов */
-    white-space: nowrap; /* Запрет на перенос строки */
-    text-align: center; /* Выравнивание по центру */
-    overflow: hidden; /* Удаляем текст, который выходит за пределы */
-    text-overflow: ellipsis; /* Добавляем многоточие, если текст превышает длину */
+    width: 10ch; /* Fixed width for 10 characters */
+    white-space: nowrap; /* Prevent text wrapping */
+    text-align: center; /* Center-align text */
+    overflow: hidden; /* Hide overflowed content */
+    text-overflow: ellipsis; /* Add ellipsis (...) for overflowing text */
 }
 
 #materials-table th:last-child {
-    width: 10ch; /* Убедимся, что заголовок совпадает по ширине */
-    text-align: center;
+    width: 10ch; /* Ensure header matches column width */
+    text-align: center; /* Center-align text */
 }
 
-/* Мелкие устройства */
+/* Responsive styles for smaller devices */
 @media (max-width: 600px) {
     body {
-        font-size: 0.9rem; /* Уменьшение текста */
+        font-size: 0.9rem; /* Reduce font size for smaller screens */
     }
 
     h1 {
-        font-size: 1.5rem; /* Уменьшение заголовков */
+        font-size: 1.5rem; /* Reduce heading size for smaller screens */
     }
 
     .container {
-        padding: 10px; /* Уменьшение внутреннего отступа */
+        padding: 10px; /* Reduce padding for smaller screens */
     }
 
     #materials-table {
-        font-size: 0.9rem; /* Уменьшенный шрифт */
+        font-size: 0.9rem; /* Reduce table font size */
     }
 
     #materials-table th, 
     #materials-table td {
-        padding: 6px; /* Уменьшение отступов в таблице */
+        padding: 6px; /* Reduce cell padding */
     }
 
     .code-container {
-        padding: 0.5rem; /* Уменьшение отступов */
+        padding: 0.5rem; /* Reduce padding for code blocks */
     }
 }
