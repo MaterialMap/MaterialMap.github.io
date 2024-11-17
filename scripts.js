@@ -153,4 +153,22 @@ function formatDate(dateString) {
 }
 
 // Загрузка материалов при открытии страницы
-window.addEventListener("load", loadMaterials);
+window.addEventListener("load", () => {
+  loadMaterials();
+
+  // Меняем вид курсора при наведении на строки таблицы
+  const tableElement = document.getElementById("materials-table");
+  if (tableElement) {
+    tableElement.addEventListener("mouseenter", (event) => {
+      if (event.target && event.target.closest("tr")) {
+        event.target.closest("tr").style.cursor = "pointer";
+      }
+    }, true);
+
+    tableElement.addEventListener("mouseleave", (event) => {
+      if (event.target && event.target.closest("tr")) {
+        event.target.closest("tr").style.cursor = "default";
+      }
+    }, true);
+  }
+});
