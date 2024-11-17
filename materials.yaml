@@ -45,7 +45,8 @@
       $#   eta09     eta10     eta11     eta12     eta13        b2       a2f       a2y
            0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000
       $--------1---------2---------3---------4---------5---------6---------7---------8
-      *DEFINE_CURVE
+      *DEFINE_CURVE_TITLE
+      DIF
       $--------1---------2---------3---------4---------5---------6---------7---------8
       $#    lcid      sidr       sfa       sfo      offa      offo    dattyp
              723         0 1000.0000     0.000     0.000     0.000         0
@@ -141,35 +142,6 @@
     ref: "ftp.lstc.com concrete model FAQ"
     add: 2024-11-17
     url: "https://ftp.lstc.com/anonymous/outgoing/support/FAQ/concrete_models_faq"
-
-- material:
-    id: MAT_005
-    mat: MAT_SOIL_AND_FOAM
-    mat_data: |
-      *MAT_SOIL_AND_FOAM_TITLE
-      Concrete
-      $ LS-DYNA Support: concrete
-      $ https://www.dynasupport.com/howtos/material/concrete-models
-      $ Psi, inch, sec, lbf-s2/inch4, lbf
-      $--------1---------2---------3---------4---------5---------6---------7---------8
-      $#     MID        RO         G       KUN        A0        A1        A2        PC
-               5 2.16920-4 7.88000+5 6.00000+6 2.43900+6 6025.0000-0.0519000-300.00000
-      $#     VCR       REF      LCID
-       0.0000000 0.0000000
-      $#    EPS1      EPS2      EPS3      EPS4      EPS5      EPS6      EPS7      EPS8
-       0.0000000 0.0200000 0.0377000 0.0418000 0.0513000 0.1000000 0.5000000 0.0000000
-      $#    EPS9     EPS10
-       0.0000000 0.0000000
-      $#      P1        P2        P3        P4        P5        P6        P7        P8
-       0.0000000 21000.000 34800.000 45000.000 58000.000 1.25000+5 9.44500+5 0.0000000
-      $#      P9       P10
-       0.0000000 0.0000000
-      $--------1---------2---------3---------4---------5---------6---------7---------8
-    app:
-      - Concrete input example
-    ref: "LS-DYNA Support"
-    add: 2024-11-17
-    url: "https://www.dynasupport.com/howtos/material/concrete-models"
 
 - material:
     id: MAT_009
