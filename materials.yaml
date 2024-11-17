@@ -1,3 +1,175 @@
+- material:
+    id: MAT_150
+    mat: MAT_CSCM_CONCRETE
+    mat_data: |
+      *MAT_CSCM_CONCRETE_TITLE
+      Concrete model input sample
+      $ ftp.lstc.com concrete model FAQ
+      $ https://ftp.lstc.com/anonymous/outgoing/support/FAQ/concrete_models_faq
+      $ Psi, inch, sec, lbf-s2/inch4, lbf
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+      $#     mid        ro     nplot     incre     irate     erode     recov   itretrc
+             159 2.2000E-4         1     0.000         0  1.000000     0.000         0
+      $#    pred
+           0.000
+      $#     fpc      dagg     units
+          5000.0     0.000         3
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+    app:
+      - Concrete input example
+    ref: "ftp.lstc.com concrete model FAQ"
+    add: 2024-11-17
+    url: "https://ftp.lstc.com/anonymous/outgoing/support/FAQ/concrete_models_faq"
+
+- material:
+    id: MAT_072R3
+    mat: MAT_CONCRETE_DAMAGE_REL3
+    mat_data: |
+      *MAT_CONCRETE_DAMAGE_REL3_TITLE
+      Concrete model input sample
+      $ ftp.lstc.com concrete model FAQ
+      $ https://ftp.lstc.com/anonymous/outgoing/support/FAQ/concrete_models_faq
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+      $#     mid        ro        pr
+              72 2.2000E-4     0.200
+      $#      ft        a0        a1        a2        b1     omega       a1f
+           0.000 -5000.000     0.000     0.000     0.000     0.000     0.000
+      $# slambda      nout     edrop     rsize       ucf    lcrate  locwidth      npts
+           0.000     0.000     0.000  1.000000  1.000000       723     0.000     0.000
+      $# lambda1   lambda2   lambda3   lambda4   lambda5   lambda6   lambda7   lambda8
+           0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000
+      $#lambda09  lambda10  lambda11  lambda12  lambda13        b3       a0y       a1y
+           0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000
+      $#    eta1      eta2      eta3      eta4      eta5      eta6      eta7      eta8
+           0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000
+      $#   eta09     eta10     eta11     eta12     eta13        b2       a2f       a2y
+           0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+      *DEFINE_CURVE
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+      $#    lcid      sidr       sfa       sfo      offa      offo    dattyp
+             723         0 1000.0000     0.000     0.000     0.000         0
+      $#                a1                  o1
+                -30.000000            9.700000
+                 -0.300000            9.700000
+                 -0.100000            6.720000
+                 -0.030000            4.500000
+                 -0.010000            3.120000
+                 -0.003000            2.090000
+                 -0.001000            1.450000
+             -1.000000e-04            1.360000
+             -1.000000e-05            1.280000
+             -1.000000e-06            1.200000
+             -1.000000e-07            1.130000
+             -1.000000e-08            1.060000
+                     0.000            1.000000
+              3.000000e-08            1.000000
+              1.000000e-07            1.030000
+              1.000000e-06            1.080000
+              1.000000e-05            1.140000
+              1.000000e-04            1.200000
+                  0.001000            1.260000
+                  0.003000            1.290000
+                  0.010000            1.330000
+                  0.030000            1.360000
+                  0.100000            2.040000
+                  0.300000            2.940000
+                 30.000000            2.940000
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+    app:
+      - Concrete input example
+    ref: "ftp.lstc.com concrete model FAQ"
+    add: 2024-11-17
+    url: "https://ftp.lstc.com/anonymous/outgoing/support/FAQ/concrete_models_faq"
+
+- material:
+    id: MAT_016
+    mat: MAT_PSEUDO_TENSOR
+    mat_data: |
+      *MAT_PSEUDO_TENSOR_TITLE
+      Concrete model input sample: Mode II Concrete Model Option with automatic EOS
+      $ ftp.lstc.com concrete model FAQ
+      $ https://ftp.lstc.com/anonymous/outgoing/support/FAQ/concrete_models_faq
+      $ Psi, inch, sec, lbf-s2/inch4, lbf
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+      $#     mid        ro         g        pr
+              16 2.2000E-4     0.000  0.200000
+      $#    sigf        a0        a1        a2       a0f       a1f        b1       per
+       5000.0000 -1.000000     0.000     0.000     0.000     0.000     0.000     0.000
+      $#      er       prr      sigy      etan       lcp       lcr
+       3.0000E+7  0.300000 60000.000    1.0E+5         0         0
+      $#      x1        x2        x3        x4        x5        x6        x7        x8
+           0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000
+      $#      x9       x10       x11       x12       x13       x14       x15       x16
+           0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000
+      $#     ys1       ys2       ys3       ys4       ys5       ys6       ys7       ys8
+           0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000
+      $#     ys9      ys10      ys11      ys12      ys13      ys14      ys15      ys16
+           0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+    app:
+      - Concrete input example
+    ref: "ftp.lstc.com concrete model FAQ"
+    add: 2024-11-17
+    url: "https://ftp.lstc.com/anonymous/outgoing/support/FAQ/concrete_models_faq"
+
+- material:
+    id: MAT_005
+    mat: MAT_SOIL_AND_FOAM
+    mat_data: |
+      *MAT_SOIL_AND_FOAM_TITLE
+      Concrete model input sample
+      $ ftp.lstc.com concrete model FAQ
+      $ https://ftp.lstc.com/anonymous/outgoing/support/FAQ/concrete_models_faq
+      $ Psi, inch, sec, lbf-s2/inch4, lbf
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+      $#     mid        ro         g      bulk        a0        a1        a2        pc
+               5 2.2000E-4 7.8800E+5 6.0000E+6 2.4390E+6 6025.0000 -0.051900-300.00000
+      $#     vcr       ref
+           0.000     0.000
+      $#    eps1      eps2      eps3      eps4      eps5      eps6      eps7      eps8
+           0.000  0.020000  0.037700  0.041800  0.051300  0.100000  0.500000     0.000
+      $#    eps9     eps10
+           0.000     0.000
+      $#      p1        p2        p3        p4        p5        p6        p7        p8
+           0.000 21000.000 34800.000 45000.000 58000.000 1.2500E+5 9.4450E+5     0.000
+      $#      p9       p10
+           0.000     0.000
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+    app:
+      - Concrete input example
+    ref: "ftp.lstc.com concrete model FAQ"
+    add: 2024-11-17
+    url: "https://ftp.lstc.com/anonymous/outgoing/support/FAQ/concrete_models_faq"
+
+- material:
+    id: MAT_005
+    mat: MAT_SOIL_AND_FOAM
+    mat_data: |
+      *MAT_SOIL_AND_FOAM_TITLE
+      Concrete
+      $ LS-DYNA Support: concrete
+      $ https://www.dynasupport.com/howtos/material/concrete-models
+      $ Psi, inch, sec, lbf-s2/inch4, lbf
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+      $#     MID        RO         G       KUN        A0        A1        A2        PC
+               5 2.16920-4 7.88000+5 6.00000+6 2.43900+6 6025.0000-0.0519000-300.00000
+      $#     VCR       REF      LCID
+       0.0000000 0.0000000
+      $#    EPS1      EPS2      EPS3      EPS4      EPS5      EPS6      EPS7      EPS8
+       0.0000000 0.0200000 0.0377000 0.0418000 0.0513000 0.1000000 0.5000000 0.0000000
+      $#    EPS9     EPS10
+       0.0000000 0.0000000
+      $#      P1        P2        P3        P4        P5        P6        P7        P8
+       0.0000000 21000.000 34800.000 45000.000 58000.000 1.25000+5 9.44500+5 0.0000000
+      $#      P9       P10
+       0.0000000 0.0000000
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+    app:
+      - Concrete input example
+    ref: "LS-DYNA Support"
+    add: 2024-11-17
+    url: "https://www.dynasupport.com/howtos/material/concrete-models"
 
 - material:
     id: MAT_009
