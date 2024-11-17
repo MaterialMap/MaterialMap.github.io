@@ -33,8 +33,8 @@ async function loadMaterials() {
       
       // Формируем разметку для первой колонки
       let materialModelHTML = `
-        <div><strong>ID:</strong> *${material.id || "N/A"}</div>
-        <div> *${material.mat || "N/A"}</div>
+        <div><strong>ID:</strong> ${material.id || "N/A"}</div>
+        <div> ${material.mat || "N/A"}</div>
       `;
     
       // Добавляем MAT_ADD только если оно существует
