@@ -39,7 +39,7 @@ async function loadMaterials() {
     
       // Добавляем MAT_ADD только если оно существует
       if (material.mat_add) {
-        materialModelHTML += `<div>*${material.mat_add}</div>`;
+        materialModelHTML += `<div>${material.mat_add}</div>`;
       }
     
       // Возвращаем строки таблицы

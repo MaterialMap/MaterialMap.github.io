@@ -1,4 +1,128 @@
 - material:
+    id: MAT_159
+    mat: MAT_CSCM
+    mat_data: |
+      *MAT_CSCM_TITLE 
+      Concrete C50
+      $ Dmitriev, A.; Lalin, V.; Novozhilov, Y.; Mikhalyuk, D. Simulation of 
+      $ Concrete Plate Perforation by Coupled Finite Element and Smooth Particle 
+      $ Hydrodynamics Methods. Constr. Unique Build. Struct. 2020, 92."
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+      $#     mid        ro     nplot     incre     irate     erode     recov   itretrc 
+             159    0.0024         1       0.0         0      0.99      10.0         0 
+      $#    pred     
+             0.0 
+      $#       g         k     alpha     theta     lamda      beta        nh        ch 
+         16100.0   21460.0      15.0    0.3271     8.111   0.02206       0.0       0.0 
+      $#  alpha1    theta1    lamda1     beta1    alpha2    theta2    lamda2     beta2 
+            0.82       0.0    0.2407  0.006974      0.76       0.0      0.26  0.006974 
+      $#       r        xd         w        d1        d2   
+           2.012     111.7     0.0656.11000E-42.22500E-6 
+      $#       b       gfc         d       gft       gfs      pwrc      pwrt      pmod 
+           100.0     10.67       0.1    0.1067    0.1067       5.0       1.0       0.0 
+      $#   eta0c        nc     etaot        nt     overc     overt     srate     rep0w 
+      2.22300E-4      0.788.60600E-5      0.48     34.55     34.55       1.0       1.0 
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+    app:
+      - Concrete C50
+    ref: "Dmitriev, A.; Lalin, V.; Novozhilov, Y.; Mikhalyuk, D. Simulation of Concrete Plate Perforation by Coupled Finite Element and Smooth Particle Hydrodynamics Methods. Constr. Unique Build. Struct. 2020, 92, doi:10.18720/CUBS.92.7."
+    add: 2024-11-18
+    url: "https://www.researchgate.net/publication/354765494_Simulation_of_Concrete_Plate_Perforation_by_Coupled_Finite_Element_and_Smooth_Particle_Hydrodynamics_Methods"
+
+- material:
+    id: MAT_159
+    mat: MAT_CSCM
+    mat_data: |
+      *MAT_CSCM_TITLE 
+      Concrete C40
+      $ Dmitriev, A.; Lalin, V.; Novozhilov, Y.; Mikhalyuk, D. Simulation of 
+      $ Concrete Plate Perforation by Coupled Finite Element and Smooth Particle 
+      $ Hydrodynamics Methods. Constr. Unique Build. Struct. 2020, 92."
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+      $#     mid        ro     nplot     incre     irate     erode     recov   itretrc 
+             159    0.0024         1       0.0         0      0.99      10.0         0 
+      $#    pred     
+             0.0 
+      $#       g         k     alpha     theta     lamda      beta        nh        ch 
+         15110.0   20150.0      11.1    0.3339     5.271   0.03235       0.0       0.0 
+      $#  alpha1    theta1    lamda1     beta1    alpha2    theta2    lamda2     beta2 
+            0.82       0.0    0.2407  0.008618      0.76       0.0      0.26  0.008618 
+      $#       r        xd         w        d1        d2   
+           2.092     92.77     0.0656.11000E-42.22500E-6 
+      $#       b       gfc         d       gft       gfs      pwrc      pwrt      pmod 
+           100.0     9.348       0.1   0.09348   0.09348       5.0       1.0       0.0
+      $#   eta0c        nc     etaot        nt     overc     overt     srate     rep0w 
+      1.34500E-4      0.787.22100E-5      0.48     26.69     26.69       1.0       1.0  
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+    app:
+      - Concrete C40
+    ref: "Dmitriev, A.; Lalin, V.; Novozhilov, Y.; Mikhalyuk, D. Simulation of Concrete Plate Perforation by Coupled Finite Element and Smooth Particle Hydrodynamics Methods. Constr. Unique Build. Struct. 2020, 92, doi:10.18720/CUBS.92.7."
+    add: 2024-11-18
+    url: "https://www.researchgate.net/publication/354765494_Simulation_of_Concrete_Plate_Perforation_by_Coupled_Finite_Element_and_Smooth_Particle_Hydrodynamics_Methods"
+
+- material:
+    id: MAT_159
+    mat: MAT_CSCM
+    mat_data: |
+      *MAT_CSCM_TITLE 
+      Concrete C30
+      $ Dmitriev, A.; Lalin, V.; Novozhilov, Y.; Mikhalyuk, D. Simulation of 
+      $ Concrete Plate Perforation by Coupled Finite Element and Smooth Particle 
+      $ Hydrodynamics Methods. Constr. Unique Build. Struct. 2020, 92."
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+      $#     mid        ro     nplot     incre     irate     erode     recov   itretrc 
+             159    0.0024         1       0.0         0      0.99      10.0         0 
+      $#    pred     
+             0.0 
+      $#       g         k     alpha     theta     lamda      beta        nh        ch 
+         13980.0   18640.0      7.72    0.3399      3.06   0.05301       0.0       0.0 
+      $#  alpha1    theta1    lamda1     beta1    alpha2    theta2    lamda2     beta2 
+            0.82       0.0    0.2407   0.01132      0.76       0.0      0.26   0.01132 
+      $#       r        xd         w        d1        d2   
+           2.283     73.85     0.0656.11000E-42.22500E-6 
+      $#       b       gfc         d       gft       gfs      pwrc      pwrt      pmod 
+           100.0     7.938       0.1   0.07938   0.07938       5.0       1.0       0.0 
+      $#   eta0c        nc     etaot        nt     overc     overt     srate     rep0w 
+      1.00300E-4      0.786.17600E-5      0.48     21.45     21.45       1.0       1.0 
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+    app:
+      - Concrete C30
+    ref: "Dmitriev, A.; Lalin, V.; Novozhilov, Y.; Mikhalyuk, D. Simulation of Concrete Plate Perforation by Coupled Finite Element and Smooth Particle Hydrodynamics Methods. Constr. Unique Build. Struct. 2020, 92, doi:10.18720/CUBS.92.7."
+    add: 2024-11-18
+    url: "https://www.researchgate.net/publication/354765494_Simulation_of_Concrete_Plate_Perforation_by_Coupled_Finite_Element_and_Smooth_Particle_Hydrodynamics_Methods"
+
+- material:
+    id: MAT_159
+    mat: MAT_CSCM
+    mat_data: |
+      *MAT_CSCM_TITLE 
+      Concrete C20
+      $ Dmitriev, A.; Lalin, V.; Novozhilov, Y.; Mikhalyuk, D. Simulation of 
+      $ Concrete Plate Perforation by Coupled Finite Element and Smooth Particle 
+      $ Hydrodynamics Methods. Constr. Unique Build. Struct. 2020, 92."
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+      $#     mid        ro     nplot     incre     irate     erode     recov   itretrc 
+             159    0.0024         1       0.0         0      0.99      10.0         0 
+      $#    pred     
+             0.0 
+      $#       g         k     alpha     theta     lamda      beta        nh        ch 
+         12630.0   16840.0     4.748    0.3454     1.295    0.1029       0.0       0.0 
+      $#  alpha1    theta1    lamda1     beta1    alpha2    theta2    lamda2     beta2 
+          0.8332       0.0    0.2559    0.0169    0.7646       0.0    0.2646    0.0169 
+      $#       r        xd         w        d1        d2   
+            2.68     51.14     0.0656.11000E-42.22500E-6 
+      $#       b       gfc         d       gft       gfs      pwrc      pwrt      pmod 
+           100.0      6.41       0.1    0.0641    0.0641       5.0       1.0       0.0 
+      $#   eta0c        nc     etaot        nt     overc     overt     srate     rep0w 
+      1.19900E-4      0.785.47000E-5      0.48     18.83     18.83       1.0       1.0
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+    app:
+      - Concrete C20
+    ref: "Dmitriev, A.; Lalin, V.; Novozhilov, Y.; Mikhalyuk, D. Simulation of Concrete Plate Perforation by Coupled Finite Element and Smooth Particle Hydrodynamics Methods. Constr. Unique Build. Struct. 2020, 92, doi:10.18720/CUBS.92.7."
+    add: 2024-11-18
+    url: "https://www.researchgate.net/publication/354765494_Simulation_of_Concrete_Plate_Perforation_by_Coupled_Finite_Element_and_Smooth_Particle_Hydrodynamics_Methods"
+
+- material:
     id: MAT_187
     mat: MAT_SAMP-1 
     mat_data: |
