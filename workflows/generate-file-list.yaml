@@ -1,0 +1,42 @@
+name: Generate YAML File List
+
+on:
+  push:
+    branches:
+      - main # Запускается при пуше в ветку main
+  workflow_dispatch: # Возможность ручного запуска
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16' # Или другая версия Node.js
+
+    - name: Install dependencies
+      run: npm install yamljs # Устанавливаем YAML-парсер
+
+    - name: Generate YAML file list
+      run: |
+        mkdir -p dist # Создаем директорию для вывода
+        node -e "
+        const fs = require('fs');
+        const path = require('path');
+        const dataDir = path.join(__dirname, 'data');
+        const files = fs.readdirSync(dataDir).filter(file => file.endsWith('.yaml'));
+        fs.writeFileSync('dist/file-list.json', JSON.stringify(files, null, 2));
+        console.log('Generated file-list.json:', files);
+        "
+    - name: Commit and push file list
+      run: |
+        git config --local user.name "GitHub Actions"
+        git config --local user.email "actions@github.com"
+        git add dist/file-list.json
+        git commit -m "Update file list [skip ci]" || echo "No changes to commit"
+        git push origin main
