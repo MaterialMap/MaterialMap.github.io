@@ -127,6 +127,7 @@ h2 {
 }
 
 /* Code block styles */
+/* Code block container */
 .code-container {
     background-color: #f7f7f7; /* Light gray background */
     border: 1px solid #ddd; /* Light gray border */
@@ -137,8 +138,40 @@ h2 {
     overflow-x: auto; /* Add horizontal scrolling for overflow */
     box-sizing: border-box; /* Include padding in width */
     text-align: left; /* Align text to the left */
+    position: relative; /* Enable positioning for header */
 }
 
+/* Header for the code block */
+.code-header {
+    display: flex; /* Use flexbox layout */
+    justify-content: space-between; /* Push elements to opposite sides */
+    align-items: center; /* Vertically center align items */
+    background-color: #CCCCCC; /* Dark gray background */
+    color: white; /* White text for contrast */
+    padding: 0.5rem 1rem; /* Padding inside the header */
+    font-weight: bold; /* Bold text for emphasis */
+    font-size: 1rem; /* Slightly larger font size */
+    border-top-left-radius: 4px; /* Match rounded corners */
+    border-top-right-radius: 4px; /* Match rounded corners */
+}
+
+/* Copy button inside the code header */
+.copy-button {
+    background: white; /* White background for the button */
+    color: #646464; /* Match main theme color */
+    border: none; /* Remove border */
+    padding: 0.2rem 0.5rem; /* Add padding for spacing */
+    border-radius: 3px; /* Slightly rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 0.9rem; /* Slightly smaller font size */
+}
+
+.copy-button:hover {
+    background: #ddd; /* Light gray on hover */
+    color: #27408B; /* Darker blue for hover state */
+}
+
+/* Preformatted code block */
 .code-container pre {
     margin: 0; /* Remove default margin */
     font-family: 'Courier New', monospace; /* Use monospace font */
@@ -147,6 +180,8 @@ h2 {
     color: #333; /* Dark gray for text */
     white-space: pre; /* Preserve spaces and line breaks */
     overflow-x: auto; /* Add horizontal scrolling */
+    padding: 1rem; /* Add padding for better readability */
+    background-color: #f7f7f7; /* Match container background */
 }
 
 /* Responsive styles for smaller devices */
