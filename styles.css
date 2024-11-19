@@ -1,38 +1,38 @@
 /* Global styles for the page */
 body {
     font-family: 'Inter', sans-serif; /* Main font family */
-    background-color: #fff; /* Set background to white */
+    background-color: #fff; /* White background */
     color: #333; /* Main text color (dark gray) */
     margin: 0; /* Remove default margin */
     padding: 0; /* Remove default padding */
 }
 
-.reference-block {
-    word-wrap: break-word; /* Разрешает перенос слов на новую строку */
-    word-break: break-all; /* Перенос длинных слов, если это необходимо */
-    white-space: normal; /* Позволяет тексту переноситься на новую строку */
-    overflow-wrap: break-word; /* Современный способ переноса текста */
-    text-overflow: ellipsis; /* Обрезает текст с добавлением троеточия, если нужно */
-    max-width: 1200px; /* Устанавливает максимальную ширину блока */
-    text-align: left; /* Align text inside the container */
-    overflow: hidden; /* Прячет содержимое, выходящее за границы */
+/* General link styles */
+a {
+    color: #4169E1; /* Royal blue for links */
+    text-decoration: underline; /* Underline links */
 }
 
-/* Container for aligning content centrally */
+a:hover {
+    color: #27408B; /* Darker shade of blue on hover */
+    text-decoration: underline; /* Maintain underline on hover */
+}
+
+/* Central container */
 .container {
     display: flex; /* Enable flexbox layout */
     justify-content: center; /* Center content horizontally */
     align-items: center; /* Center content vertically */
     flex-direction: column; /* Stack elements vertically */
     min-height: 100vh; /* Minimum height to cover full viewport */
-    width: 1200px; /* Fixed container width */
+    width: 100%; /* Full width for responsive design */
+    max-width: 1200px; /* Restrict maximum width */
     margin: 0 auto; /* Center container horizontally */
     padding: 20px; /* Inner padding for spacing */
     text-align: center; /* Align text inside the container */
-    max-width: 1200px; /* Restrict maximum width */
 }
 
-/* Styles for main headings */
+/* Headings */
 h1 {
     font-size: 2rem; /* Font size for the heading */
     color: #444; /* Dark gray color for headings */
@@ -40,63 +40,98 @@ h1 {
     text-align: center; /* Center-align the text */
 }
 
-/* Styles for the first column in the table */
-#materials-table th:nth-child(1),
-#materials-table td:nth-child(1) {
-    width: 40%; /* Set column width to 40% */
+h2 {
+    font-size: 1.5rem; /* Slightly smaller heading */
+    margin: 10px 0; /* Add vertical spacing */
+    color: #555; /* Medium gray */
+}
+
+/* Table styles */
+#materials-table {
+    width: 100%; /* Full width table */
+    border-collapse: collapse; /* Merge borders */
+    margin: 20px 0; /* Spacing above and below */
+    font-size: 1rem; /* Standard font size */
     text-align: left; /* Align text to the left */
 }
 
-/* Styles for the second column in the table */
-#materials-table th:nth-child(2),
-#materials-table td:nth-child(2) {
-    width: 30%; /* Set column width to 30% */
-    text-align: left; /* Align text to the left */
+#materials-table th,
+#materials-table td {
+    padding: 8px 12px; /* Add padding for cells */
+    border: 1px solid #ddd; /* Light gray border */
 }
 
-/* Styles for the third column in the table */
-#materials-table th:nth-child(3),
-#materials-table td:nth-child(3) {
-    width: 30%; /* Set column width to 30% */
-    text-align: left; /* Align text to the left */
+#materials-table th {
+    background-color: #f4f4f4; /* Light gray background */
+    font-weight: bold; /* Bold text for headers */
 }
 
-/* Styles for the fourth column (fixed width for text display) */
-#materials-table th:nth-child(4),
-#materials-table td:nth-child(4) {
-    width: 12ch; /* Fixed width for 12 characters */
+#materials-table td {
+    vertical-align: top; /* Align text at the top */
+}
+
+#materials-table td:last-child {
+    width: 10ch; /* Fixed width for 10 characters */
     white-space: nowrap; /* Prevent text wrapping */
     text-align: center; /* Center-align text */
-    overflow: hidden; /* Hide overflowed content */
-    text-overflow: ellipsis; /* Add ellipsis (...) for overflowing text */
+    overflow: hidden; /* Hide overflowing content */
+    text-overflow: ellipsis; /* Add ellipsis for overflowing text */
 }
 
-/* Styles for loading and error messages */
-#loading,
-#error-message {
-    text-align: center; /* Center-align the text */
-    margin: 20px 0; /* Add vertical spacing */
-    font-size: 1.2rem; /* Slightly larger font size */
-    color: #555; /* Medium gray color */
+/* Styles for blocks */
+.reference-block {
+    word-wrap: break-word; /* Allow words to wrap to the next line */
+    overflow-wrap: break-word; /* Modern method for text wrapping */
+    text-overflow: ellipsis; /* Add ellipsis for overflowing text */
+    max-width: 1200px; /* Set maximum block width */
+    text-align: left; /* Align text to the left */
+    overflow: hidden; /* Hide content overflowing the block */
 }
 
-/* Link styles */
-a {
-    color: #4169E1; /* Royal blue for links */
-    text-decoration: underline; /* Underline links */
+/* About page styles */
+.about-section {
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 1em;
 }
 
-a:hover {
-    color: #27408B; /* Darker shade of blue when hovered */
-    text-decoration: underline; /* Maintain underline on hover */
+.about-section h1 {
+    font-size: 2em; /* Main heading size */
+    font-weight: bold; /* Bold heading */
+    margin-bottom: 1em; /* Spacing below heading */
 }
 
-/* Code block container styles */
+.about-section p {
+    text-align: justify; /* Align text to both edges */
+    line-height: 1.6; /* Improve readability */
+}
+
+.back-link {
+    margin-top: 20px; /* Add spacing above */
+    text-align: center; /* Center-align text */
+}
+
+.back-link a {
+    display: inline-block; /* Make it look like a button */
+    margin-top: 2em; /* Spacing above */
+    padding: 0.5em 1em; /* Inner padding */
+    background-color: #4169E1; /* Match link color */
+    color: white; /* White text */
+    border-radius: 5px; /* Rounded corners */
+    text-decoration: none; /* Remove underline */
+    font-size: 1em; /* Standard font size */
+}
+
+.back-link a:hover {
+    background-color: #27408B; /* Darker blue on hover */
+}
+
+/* Code block styles */
 .code-container {
     background-color: #f7f7f7; /* Light gray background */
     border: 1px solid #ddd; /* Light gray border */
     border-radius: 4px; /* Rounded corners */
-    padding: 1rem; /* Inner padding for spacing */
+    padding: 1rem; /* Inner padding */
     margin: 1rem auto; /* Add margin and center horizontally */
     width: 90ch; /* Fixed width for 90 characters */
     overflow-x: auto; /* Add horizontal scrolling for overflow */
@@ -104,7 +139,6 @@ a:hover {
     text-align: left; /* Align text to the left */
 }
 
-/* Styles for code content inside the container */
 .code-container pre {
     margin: 0; /* Remove default margin */
     font-family: 'Courier New', monospace; /* Use monospace font */
@@ -113,56 +147,6 @@ a:hover {
     color: #333; /* Dark gray for text */
     white-space: pre; /* Preserve spaces and line breaks */
     overflow-x: auto; /* Add horizontal scrolling */
-    width: 100%; /* Make content fill the container */
-}
-
-/* Header styles inside code blocks */
-.code-container .code-header {
-    display: flex; /* Use flex layout */
-    justify-content: space-between; /* Distribute space between elements */
-    align-items: center; /* Align items vertically */
-    background-color: #eaeaea; /* Light gray background */
-    padding: 0.5rem; /* Inner padding */
-    border-bottom: 1px solid #ccc; /* Separator line below header */
-}
-
-/* Title styles inside code headers */
-.code-container .code-title {
-    font-weight: bold; /* Bold font for titles */
-}
-
-/* Button styles for copy functionality */
-.copy-button {
-    background: #ccc; /* Light gray background */
-    color: #333; /* Dark gray text */
-    border: none; /* Remove default border */
-    padding: 0.5rem 1rem; /* Add padding for spacing */
-    border-radius: 3px; /* Rounded corners */
-    cursor: pointer; /* Show pointer cursor on hover */
-}
-
-.copy-button:hover {
-    background: #bbb; /* Slightly darker background on hover */
-}
-
-/* Back link styles */
-.back-link {
-    margin-top: 20px; /* Add spacing above */
-    text-align: center; /* Center-align text */
-}
-
-/* Styles for the last column in the table */
-#materials-table td:last-child {
-    width: 10ch; /* Fixed width for 10 characters */
-    white-space: nowrap; /* Prevent text wrapping */
-    text-align: center; /* Center-align text */
-    overflow: hidden; /* Hide overflowed content */
-    text-overflow: ellipsis; /* Add ellipsis (...) for overflowing text */
-}
-
-#materials-table th:last-child {
-    width: 10ch; /* Ensure header matches column width */
-    text-align: center; /* Center-align text */
 }
 
 /* Responsive styles for smaller devices */
@@ -179,11 +163,7 @@ a:hover {
         padding: 10px; /* Reduce padding for smaller screens */
     }
 
-    #materials-table {
-        font-size: 0.9rem; /* Reduce table font size */
-    }
-
-    #materials-table th, 
+    #materials-table th,
     #materials-table td {
         padding: 6px; /* Reduce cell padding */
     }
