@@ -3,6 +3,56 @@
     mat: MAT_JOHNSON_HOLMQUIST_CERAMICS
     mat_data: |
       *MAT_JOHNSON_HOLMQUIST_CERAMICS_TITLE
+      Silica Float Glass
+      $ Duane S. Cronin, Khahn Bui, Christian Kaufmann* Grant McIntosh, Todd Berstad 
+      $ (2003). Implementation and Validation of the Johnson-Holmquist Ceramic 
+      $ Material Model in LS-Dyna. 4th European LS-DYNA Users Conference, Ulm, Germany
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+      $#     MID        RO         G         A         B         C         M         N
+             110  2530E-12    30.4E3     0.930     0.088     0.003      0.35      0.77
+      $#    EPS0         T     SFMAX       HEL      PHEL      BETA
+             1.0    0.15E3       0.5    5.95E3    2.92E3       1.0
+      $#      D1        D2        K1        K2        K3        FS
+           0.053      0.85    45.4E3      -138       290 
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+    app:
+      - Silica Float Glass
+      - Johnson-Holmquist Plasticity Damage Model
+      - High speed impact
+    ref: "Duane S. Cronin, Khahn Bui, Christian Kaufmann* Grant McIntosh, Todd Berstad (2003). Implementation and Validation of the Johnson-Holmquist Ceramic Material Model in LS-Dyna. 4th European LS-DYNA Users Conference, Ulm, Germany"
+    add: 2024-11-20
+    url: "https://www.dynalook.com/conferences/european-conf-2003/implementation-and-validation-of-the-johnson.pdf/view"
+
+- material:
+    id: MAT_110
+    mat: MAT_JOHNSON_HOLMQUIST_CERAMICS
+    mat_data: |
+      *MAT_JOHNSON_HOLMQUIST_CERAMICS_TITLE
+      99.5% Alumina (Al2O3)
+      $ Duane S. Cronin, Khahn Bui, Christian Kaufmann* Grant McIntosh, Todd Berstad 
+      $ (2003). Implementation and Validation of the Johnson-Holmquist Ceramic 
+      $ Material Model in LS-Dyna. 4th European LS-DYNA Users Conference, Ulm, Germany
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+      $#     MID        RO         G         A         B         C         M         N
+             110  3226E-12   90.16E3     0.930      0.31       0.0      0.60      0.60
+      $#    EPS0         T     SFMAX       HEL      PHEL      BETA
+             1.0    0.20E3       0.2    2.79E3    1.46E3       1.0
+      $#      D1        D2        K1        K2        K3        FS
+           0.005       1.0  130.95E3         0         0   0.01117
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+    app:
+      - 99.5% Alumina (Al2O3)
+      - Johnson-Holmquist Plasticity Damage Model
+      - High speed impact
+    ref: "Duane S. Cronin, Khahn Bui, Christian Kaufmann* Grant McIntosh, Todd Berstad (2003). Implementation and Validation of the Johnson-Holmquist Ceramic Material Model in LS-Dyna. 4th European LS-DYNA Users Conference, Ulm, Germany"
+    add: 2024-11-20
+    url: "https://www.dynalook.com/conferences/european-conf-2003/implementation-and-validation-of-the-johnson.pdf/view"
+
+- material:
+    id: MAT_110
+    mat: MAT_JOHNSON_HOLMQUIST_CERAMICS
+    mat_data: |
+      *MAT_JOHNSON_HOLMQUIST_CERAMICS_TITLE
       Aluminum Nitride (AlN)
       $ Duane S. Cronin, Khahn Bui, Christian Kaufmann* Grant McIntosh, Todd Berstad 
       $ (2003). Implementation and Validation of the Johnson-Holmquist Ceramic 
@@ -20,7 +70,7 @@
       - Johnson-Holmquist Plasticity Damage Model
       - High speed impact
     ref: "Duane S. Cronin, Khahn Bui, Christian Kaufmann* Grant McIntosh, Todd Berstad (2003). Implementation and Validation of the Johnson-Holmquist Ceramic Material Model in LS-Dyna. 4th European LS-DYNA Users Conference, Ulm, Germany"
-    add: 2024-11-04
+    add: 2024-11-20
     url: "https://www.dynalook.com/conferences/european-conf-2003/implementation-and-validation-of-the-johnson.pdf/view"
 
 - material:
@@ -45,7 +95,7 @@
       - Johnson-Holmquist Plasticity Damage Model
       - High speed impact
     ref: "Duane S. Cronin, Khahn Bui, Christian Kaufmann* Grant McIntosh, Todd Berstad (2003). Implementation and Validation of the Johnson-Holmquist Ceramic Material Model in LS-Dyna. 4th European LS-DYNA Users Conference, Ulm, Germany"
-    add: 2024-11-04
+    add: 2024-11-20
     url: "https://www.dynalook.com/conferences/european-conf-2003/implementation-and-validation-of-the-johnson.pdf/view"
 
 - material:
@@ -70,5 +120,5 @@
       - Johnson-Holmquist Plasticity Damage Model
       - High speed impact
     ref: "Duane S. Cronin, Khahn Bui, Christian Kaufmann* Grant McIntosh, Todd Berstad (2003). Implementation and Validation of the Johnson-Holmquist Ceramic Material Model in LS-Dyna. 4th European LS-DYNA Users Conference, Ulm, Germany"
-    add: 2024-11-04
+    add: 2024-11-20
     url: "https://www.dynalook.com/conferences/european-conf-2003/implementation-and-validation-of-the-johnson.pdf/view"

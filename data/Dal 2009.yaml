@@ -1,0 +1,20 @@
+material:
+    id: MAT_269
+    mat: MAT_BERGSTROM_BOYCE_RUBBER
+    mat_data: |
+      *MAT_BERGSTROM_BOYCE_RUBBER_TITLE
+      Bergstrom-Boyce viscoelastic rubber
+      $ Dal, H., Kaliske, M. Bergström–Boyce model for nonlinear finite rubber 
+      $ viscoelasticity: theoretical aspects and algorithmic treatment for the 
+      $ FE method. Comput Mech 44, 809–823 (2009)
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+      $#     MID        RO         K         G        GV         N        NV
+             269    1.e-9     500.0       0.7       2.0       5.5       6.0
+      $#       C         M      GAM0      TAUH
+            -0.8       4.0       0.2       1.0
+      $--------1---------2---------3---------4---------5---------6---------7---------8
+    app:
+      - Bergstrom-Boyce viscoelastic rubber
+    ref: "Dal, H., Kaliske, M. Bergström–Boyce model for nonlinear finite rubber viscoelasticity: theoretical aspects and algorithmic treatment for the FE method. Comput Mech 44, 809–823 (2009)"
+    add: 2024-11-20
+    url: "https://www.researchgate.net/publication/225224524_Bergstrom-Boyce_model_for_nonlinear_finite_rubber_viscoelasticity_Theoretical_aspects_and_algorithmic_treatment_for_the_FE_method"
