@@ -158,7 +158,7 @@ h2 {
 /* Copy button inside the code header */
 .copy-button {
     background: white; /* White background for the button */
-    color: #646464; /* Match main theme color */
+    color: #9c9c9c; /* Match main theme color */
     border: none; /* Remove border */
     padding: 0.2rem 0.5rem; /* Add padding for spacing */
     border-radius: 3px; /* Slightly rounded corners */

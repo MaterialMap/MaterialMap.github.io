@@ -1,4 +1,4 @@
-material:
+- material:
     id: MAT_269
     mat: MAT_BERGSTROM_BOYCE_RUBBER
     mat_data: |
