@@ -40,3 +40,9 @@ jobs:
         git add dist/file-list.json
         git commit -m "Update file list [skip ci]" || echo "No changes to commit"
         git push origin main
+    
+    - name: Upload file list artifact # Добавляем шаг для загрузки артефакта
+      uses: actions/upload-artifact@v3
+      with:
+        name: file-list-json # Имя артефакта
+        path: dist/file-list.json # Путь к файлу
