@@ -1,10 +1,31 @@
+// Универсальный вичислитель базового пути
+function getBasePath() {
+  const { origin, pathname, port } = window.location;
+
+  // Проверяем, запущен ли сайт через file://
+  if (origin.startsWith("file://")) {
+    const pathParts = pathname.split("/");
+    pathParts.pop(); // Убираем 'index.html' или последний сегмент
+    return pathParts.join("/");
+  }
+
+  // Проверяем, запущен ли сайт на localhost с непривилегированным портом
+  if (origin.includes("localhost") || origin.includes("127.0.0.1") || (port && parseInt(port) > 1024)) {
+    return "./";
+  }
+
+  // Для GitHub Pages
+  const repoName = pathname.split("/")[1];
+  return repoName ? `/${repoName}` : "/";
+}
+const basePath = getBasePath();
 // Загружаем материалы из указанных файлов
 async function loadMaterials() {
   try {
     document.getElementById("loading").style.display = "block";
 
     // Загружаем список файлов
-    const fileListResponse = await fetch("./dist/file-list.json");
+    const fileListResponse = await fetch(`${basePath}/dist/file-list.json`);
     if (!fileListResponse.ok) {
       throw new Error(`Failed to fetch file list. Status: ${fileListResponse.status} ${fileListResponse.statusText}`);
     }
@@ -19,7 +40,7 @@ async function loadMaterials() {
     // Последовательно загружаем файлы из списка
     for (const fileName of fileList) {
       try {
-        const fileResponse = await fetch(`./data/${fileName}`);
+        const fileResponse = await fetch(`${basePath}/data/${fileName}`);
         if (!fileResponse.ok) {
           console.warn(`Failed to fetch file ${fileName}. Status: ${fileResponse.status}`);
           continue;
