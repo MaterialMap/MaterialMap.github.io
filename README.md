@@ -10,7 +10,7 @@ Visit the website: [Material MAP](https://yurynovozhilov.github.io/MaterialMap)
 
 ## About the Project
 
-Material MAP is a static website, built to offer a reference library for material models used in LS-DYNA simulations. All site data is stored in a single file, `materials.yaml`, allowing easy updates and additions. Users are welcome to contribute by submitting new references with material models or correcting existing data.
+Material MAP is a static website, built to offer a reference library for material models used in LS-DYNA simulations. All site data is stored in a multiple `yaml` files form `data` directory, allowing easy updates and additions. Users are welcome to contribute by submitting new references with material models or correcting existing data.
 
 ### Key Features
 
