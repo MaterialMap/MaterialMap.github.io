@@ -80,14 +80,13 @@ async function loadMaterials() {
 
       // Формируем разметку для первой колонки
       let materialModelHTML = `
-        <div><strong>ID:</strong> ${material.id || "N/A"}</div>
-        <div>${material.mat || "N/A"}</div>
+        <div><strong>ID:</strong> ${material.id || "-"}</div>
+        <div>${material.mat || "-"}</div>
       `;
 
-      // Добавляем MAT_ADD только если оно существует
-      if (material.mat_add) {
-        materialModelHTML += `<div>${material.mat_add}</div>`;
-      }
+      // Добавляем MAT_ADD и ADD_TERM только если оно существует
+      if (material.mat_add) {materialModelHTML += `<div>${material.mat_add}</div>`}
+      if (material.mat_term) {materialModelHTML += `<div>${material.mat_term}</div>`}
 
       // Возвращаем строки таблицы
       return [
@@ -111,8 +110,8 @@ async function loadMaterials() {
         { title: "Added" },
         { visible: false },
       ],
-      order: [[0, "asc"]],
-      pageLength: 10,
+      order: [[0, "asc"]], // Сортировка по первой колонке (индекс 0) в порядке возрастания (asc)
+      pageLength: 20,
     });
 
     // Обработка кликов для разворачивания строк
@@ -129,20 +128,25 @@ async function loadMaterials() {
       if (row.child.isShown()) {
         row.child.hide();
         tr.removeClass("shown");
-      } else {
-        const matDataHtml = createCodeBlock("*MAT", material.mat_data || "No MAT data available");
+      } else {      
+        const matDataHtml = material.mat_data
+          ? createCodeBlock("*MAT", material.mat_data)
+          : ""; // Если mat_data нет, блок не создается
         const eosDataHtml = material.eos_data
           ? createCodeBlock("*EOS", material.eos_data)
           : ""; // Если eos_data нет, блок не создается
         const matAddDataHtml = material.mat_add_data
           ? createCodeBlock("*MAT_ADD", material.mat_add_data)
           : ""; // Если mat_add_data нет, блок не создается
+        const matTermDataHtml = material.mat_term_data
+          ? createCodeBlock("*MAT_TERMAL", material.mat_term_data)
+          : ""; // Если mat_term_data нет, блок не создается
         const referenceHtml = material.ref
           ? `<div class="reference-block"><strong>Reference: </strong><a href="${material.url}" target="_blank">${material.ref}</a></div>`
           : '<div class="reference-block"><strong>Reference: </strong> No reference available</div>';
 
         row.child(
-          `${referenceHtml}${matDataHtml}${eosDataHtml}${matAddDataHtml}`
+          `${referenceHtml}${matDataHtml}${eosDataHtml}${matAddDataHtml}${matTermDataHtml}`
         ).show();
         tr.addClass("shown");
       }
