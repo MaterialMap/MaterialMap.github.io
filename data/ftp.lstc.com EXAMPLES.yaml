@@ -1,4 +1,50 @@
 - material:
+    id: MAT_115
+    mat: MAT_UNIFIED_CREEP
+    mat_data: |
+      The material model as part of the LS-DYNA model can be found at the following link
+    app:
+      - anisotropic composite material
+    ref: "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat115_brick.k"
+    add: 2024-11-29
+    url: "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat115_brick.k"
+
+- material:
+    id: MAT_215
+    mat: MAT_4A_MICROMEC
+    mat_data: |
+      The material model as part of the LS-DYNA model can be found at the following link
+    app:
+      - anisotropic composite material
+    ref: "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/TESTING_MAT215.zip"
+    add: 2024-11-29
+    url: "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/TESTING_MAT215.zip"
+
+- material:
+    id: MAT_077_H
+    mat: MAT_HYPERELASTIC_RUBBER
+    mat_data: |
+      The material model as part of the LS-DYNA model can be found at the following link
+    app:
+      - rubber
+      - Christensen model
+    ref: "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat77.stiffdamping_vs_freqindepdampGandSIGF.k"
+    add: 2024-11-29
+    url: "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat77.stiffdamping_vs_freqindepdampGandSIGF.k"
+
+- material:
+    id: MAT_077_H
+    mat: MAT_OGDEN_RUBBER
+    mat_data: |
+      The material model as part of the LS-DYNA model can be found at the following link
+    app:
+      - rubber
+      - Odgen model
+    ref: "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat77_tbhys.tar"
+    add: 2024-11-29
+    url: "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat77_tbhys.tar"
+    
+- material:
     id: MAT_293
     mat: MAT_COMPRF
     mat_data: |
@@ -8,7 +54,7 @@
       - preforming process
       - CFRP
     ref: "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat293.tar.gz"
-    add: 2024-11-28
+    add: 2024-11-29
     url: "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat293.tar.gz"
 
 - material:
