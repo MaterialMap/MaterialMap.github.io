@@ -84,9 +84,9 @@ async function loadMaterials() {
         <div>${material.mat || "-"}</div>
       `;
 
-      // Добавляем MAT_ADD и ADD_TERM только если оно существует
-      if (material.mat_add) {materialModelHTML += `<div>${material.mat_add}</div>`}
-      if (material.mat_term) {materialModelHTML += `<div>${material.mat_term}</div>`}
+      // Добавляем MAT_ADD и ADD_THERMAL только если оно существует
+      if (material.mat_add)     {materialModelHTML += `<div>${material.mat_add}</div>`}
+      if (material.mat_thermal) {materialModelHTML += `<div>${material.mat_thermal}</div>`}
 
       // Возвращаем строки таблицы
       return [
@@ -115,20 +115,26 @@ async function loadMaterials() {
     });
 
     // Обработка кликов для разворачивания строк
-    $("#materials-table tbody").on("click", "tr", function () {
+    $("#materials-table tbody").on("click", "tr", function () 
+    {
       const tr = $(this);
       const row = table.row(tr);
       const material = row.data()[4];
 
-      if (!material) {
+      if (!material) 
+      {
         console.warn("No material data available for row:", row.data());
         return;
       }
 
-      if (row.child.isShown()) {
+      if (row.child.isShown()) 
+      {
         row.child.hide();
         tr.removeClass("shown");
-      } else {      
+      } 
+
+      else 
+      {      
         const matDataHtml = material.mat_data
           ? createCodeBlock("*MAT", material.mat_data)
           : ""; // Если mat_data нет, блок не создается
@@ -138,25 +144,29 @@ async function loadMaterials() {
         const matAddDataHtml = material.mat_add_data
           ? createCodeBlock("*MAT_ADD", material.mat_add_data)
           : ""; // Если mat_add_data нет, блок не создается
-        const matTermDataHtml = material.mat_term_data
-          ? createCodeBlock("*MAT_TERMAL", material.mat_term_data)
-          : ""; // Если mat_term_data нет, блок не создается
+        const matThermalDataHtml = material.mat_thermal_data
+          ? createCodeBlock("*MAT_THERMAL", material.mat_thermal_data)
+          : ""; // Если mat_thermal_data нет, блок не создается
         const referenceHtml = material.ref
           ? `<div class="reference-block"><strong>Reference: </strong><a href="${material.url}" target="_blank">${material.ref}</a></div>`
-          : '<div class="reference-block"><strong>Reference: </strong> No reference available</div>';
+          :  `<div class="reference-block"><strong>Reference: </strong><a href="${material.url}" target="_blank">${material.url}</a></div>`;
 
         row.child(
-          `${referenceHtml}${matDataHtml}${eosDataHtml}${matAddDataHtml}${matTermDataHtml}`
+          `${referenceHtml}${matDataHtml}${eosDataHtml}${matAddDataHtml}${matThermalDataHtml}`
         ).show();
         tr.addClass("shown");
       }
     });
 
     console.log("Materials successfully loaded:", allMaterials);
-  } catch (error) {
+  } 
+  catch (error) 
+  {
     document.getElementById("error-message").textContent = `An error occurred: ${error.message}`;
     console.error("Error details:", error);
-  } finally {
+  } 
+  finally 
+  {
     document.getElementById("loading").style.display = "none";
   }
 }
