@@ -98,19 +98,9 @@
 
                 <div class="form-group">
                     <label for="material-id">LS-DYNA Material Model <span class="required">*</span></label>
-                    <select id="material-id" name="materialId" required>
-                        <option value="">Select material model...</option>
-                        <option value="MAT_001">MAT_001 - MAT_ELASTIC</option>
-                        <option value="MAT_003">MAT_003 - MAT_PLASTIC_KINEMATIC</option>
-                        <option value="MAT_015">MAT_015 - MAT_JOHNSON_COOK</option>
-                        <option value="MAT_024">MAT_024 - MAT_PIECEWISE_LINEAR_PLASTICITY</option>
-                        <option value="MAT_077">MAT_077 - MAT_HYPERELASTIC_RUBBER</option>
-                        <option value="MAT_107">MAT_107 - MAT_MODIFIED_JOHNSON_COOK</option>
-                        <option value="MAT_159">MAT_159 - MAT_CSCM</option>
-                        <option value="MAT_224">MAT_224 - MAT_TABULATED_JOHNSON_COOK</option>
-                        <option value="MAT_258">MAT_258 - MAT_NON_QUADRATIC_FAILURE</option>
-                        <option value="other">Other (specify in material data)</option>
-                    </select>
+                    <input type="text" id="material-id" name="materialId" required
+                           placeholder="e.g., MAT_015, MAT_024, MAT_107">
+                    <div class="help-text">Enter the LS-DYNA material model ID</div>
                 </div>
 
                 <div class="form-group">
@@ -122,14 +112,9 @@
 
                 <div class="form-group">
                     <label for="eos-model">Equation of State (EOS)</label>
-                    <select id="eos-model" name="eosModel">
-                        <option value="">None</option>
-                        <option value="EOS_GRUNEISEN">EOS_GRUNEISEN</option>
-                        <option value="EOS_LINEAR_POLYNOMIAL">EOS_LINEAR_POLYNOMIAL</option>
-                        <option value="EOS_TABULATED">EOS_TABULATED</option>
-                        <option value="EOS_IDEAL_GAS">EOS_IDEAL_GAS</option>
-                        <option value="other">Other (specify in EOS data)</option>
-                    </select>
+                    <input type="text" id="eos-model" name="eosModel"
+                           placeholder="e.g., EOS_GRUNEISEN, EOS_LINEAR_POLYNOMIAL">
+                    <div class="help-text">Enter EOS model if applicable (leave empty if not used)</div>
                 </div>
 
                 <div class="form-group">

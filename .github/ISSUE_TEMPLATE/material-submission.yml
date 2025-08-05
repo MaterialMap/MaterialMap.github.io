@@ -19,22 +19,12 @@ body:
     validations:
       required: true
 
-  - type: dropdown
+  - type: input
     id: material_id
     attributes:
       label: LS-DYNA Material ID *
-      description: Select the LS-DYNA material model ID
-      options:
-        - MAT_001 - MAT_ELASTIC
-        - MAT_003 - MAT_PLASTIC_KINEMATIC
-        - MAT_015 - MAT_JOHNSON_COOK
-        - MAT_024 - MAT_PIECEWISE_LINEAR_PLASTICITY
-        - MAT_077 - MAT_HYPERELASTIC_RUBBER
-        - MAT_107 - MAT_MODIFIED_JOHNSON_COOK
-        - MAT_159 - MAT_CSCM
-        - MAT_224 - MAT_TABULATED_JOHNSON_COOK
-        - MAT_258 - MAT_NON_QUADRATIC_FAILURE
-        - Other (specify in material data)
+      description: Enter the LS-DYNA material model ID (e.g., MAT_015, MAT_024, MAT_107)
+      placeholder: ex. MAT_015
     validations:
       required: true
 
@@ -54,18 +44,12 @@ body:
     validations:
       required: true
 
-  - type: dropdown
+  - type: input
     id: eos_model
     attributes:
       label: Equation of State (EOS)
-      description: Select EOS if applicable
-      options:
-        - None
-        - EOS_GRUNEISEN
-        - EOS_LINEAR_POLYNOMIAL
-        - EOS_TABULATED
-        - EOS_IDEAL_GAS
-        - Other (specify in EOS data)
+      description: Enter EOS model if applicable (leave empty if not used)
+      placeholder: ex. EOS_GRUNEISEN, EOS_LINEAR_POLYNOMIAL
 
   - type: textarea
     id: eos_data
