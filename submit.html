@@ -26,10 +26,12 @@
         .form-group select,
         .form-group textarea {
             width: 100%;
+            max-width: 80ch; /* 80 characters width */
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 4px;
             font-family: inherit;
+            box-sizing: border-box;
         }
         
         .form-group textarea {
@@ -80,6 +82,14 @@
             font-size: 14px;
             color: #666;
             margin-top: 5px;
+        }
+        
+        #yaml-preview {
+            text-align: left;
+            white-space: pre;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.4;
         }
     </style>
 </head>
