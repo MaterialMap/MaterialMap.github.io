@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Submit Material - Material MAP</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        
+        .required {
+            color: #e74c3c;
+        }
+        
+        .submit-btn {
+            background-color: #4169E1;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        
+        .submit-btn:hover {
+            background-color: #27408B;
+        }
+        
+        .preview-btn {
+            background-color: #6c757d;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        .preview-container {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .help-text {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Submit New Material</h1>
+        
+        <div class="form-container">
+            <form id="material-form">
+                <div class="form-group">
+                    <label for="material-name">Material Name <span class="required">*</span></label>
+                    <input type="text" id="material-name" name="materialName" required
+                           placeholder="e.g., Steel AISI 4340, Aluminum 6061-T6">
+                    <div class="help-text">Descriptive name of the material</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="material-id">LS-DYNA Material Model <span class="required">*</span></label>
+                    <select id="material-id" name="materialId" required>
+                        <option value="">Select material model...</option>
+                        <option value="MAT_001">MAT_001 - MAT_ELASTIC</option>
+                        <option value="MAT_003">MAT_003 - MAT_PLASTIC_KINEMATIC</option>
+                        <option value="MAT_015">MAT_015 - MAT_JOHNSON_COOK</option>
+                        <option value="MAT_024">MAT_024 - MAT_PIECEWISE_LINEAR_PLASTICITY</option>
+                        <option value="MAT_077">MAT_077 - MAT_HYPERELASTIC_RUBBER</option>
+                        <option value="MAT_107">MAT_107 - MAT_MODIFIED_JOHNSON_COOK</option>
+                        <option value="MAT_159">MAT_159 - MAT_CSCM</option>
+                        <option value="MAT_224">MAT_224 - MAT_TABULATED_JOHNSON_COOK</option>
+                        <option value="MAT_258">MAT_258 - MAT_NON_QUADRATIC_FAILURE</option>
+                        <option value="other">Other (specify in material data)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="material-data">Material Data <span class="required">*</span></label>
+                    <textarea id="material-data" name="materialData" required
+                              placeholder="*MAT_JOHNSON_COOK_TITLE&#10;Steel AISI 4340&#10;$--------1---------2---------3---------4---------5---------6---------7---------8&#10;$#     MID        RO         E        PR       DTF        VP    RATEOP&#10;        15     7.83e-9    200000      0.29         0         0         0&#10;..."></textarea>
+                    <div class="help-text">Paste the complete LS-DYNA material card</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="eos-model">Equation of State (EOS)</label>
+                    <select id="eos-model" name="eosModel">
+                        <option value="">None</option>
+                        <option value="EOS_GRUNEISEN">EOS_GRUNEISEN</option>
+                        <option value="EOS_LINEAR_POLYNOMIAL">EOS_LINEAR_POLYNOMIAL</option>
+                        <option value="EOS_TABULATED">EOS_TABULATED</option>
+                        <option value="EOS_IDEAL_GAS">EOS_IDEAL_GAS</option>
+                        <option value="other">Other (specify in EOS data)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="eos-data">EOS Data</label>
+                    <textarea id="eos-data" name="eosData"
+                              placeholder="*EOS_GRUNEISEN_TITLE&#10;Steel AISI 4340&#10;$#   EOSID         C        S1        S2        S3    GAMMAO         A        E0&#10;        15    0.4610      1.73         0         0      2.17         0         0"></textarea>
+                    <div class="help-text">EOS parameters if applicable</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="applications">Applications <span class="required">*</span></label>
+                    <textarea id="applications" name="applications" required
+                              placeholder="High-strength steel applications&#10;Automotive components&#10;Ballistic applications"
+                              style="min-height: 80px;"></textarea>
+                    <div class="help-text">List applications, one per line</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="reference">Reference <span class="required">*</span></label>
+                    <textarea id="reference" name="reference" required
+                              placeholder="Smith, J. et al. (2023). Material characterization of AISI 4340 steel. Journal of Materials, 15(3), 123-145."
+                              style="min-height: 60px;"></textarea>
+                    <div class="help-text">Full citation of the source paper/document</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="reference-url">Reference URL <span class="required">*</span></label>
+                    <input type="url" id="reference-url" name="referenceUrl" required
+                           placeholder="https://doi.org/10.1000/example">
+                    <div class="help-text">Direct link to open access publication</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="additional-info">Additional Information</label>
+                    <textarea id="additional-info" name="additionalInfo"
+                              placeholder="Special notes, validation data, limitations, etc."
+                              style="min-height: 80px;"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <button type="button" class="preview-btn" onclick="generatePreview()">
+                        Preview YAML
+                    </button>
+                    <button type="submit" class="submit-btn">
+                        Submit via GitHub
+                    </button>
+                </div>
+            </form>
+
+            <div id="preview" class="preview-container">
+                <h3>Generated YAML Preview:</h3>
+                <pre id="yaml-preview"></pre>
+            </div>
+        </div>
+
+        <div class="about-link">
+            <p><a href="index.html">← Back to Materials Database</a></p>
+        </div>
+    </div>
+
+    <script>
+        function generatePreview() {
+            const formData = new FormData(document.getElementById('material-form'));
+            const data = Object.fromEntries(formData);
+            
+            // Generate YAML content
+            const today = new Date().toISOString().split('T')[0];
+            const applications = data.applications.split('\n')
+                .map(app => app.trim())
+                .filter(app => app.length > 0);
+            
+            let yaml = `- material:\n`;
+            yaml += `    id: ${data.materialId}\n`;
+            yaml += `    mat: ${data.materialId}\n`;
+            yaml += `    mat_data: |\n`;
+            
+            // Indent material data
+            const matLines = data.materialData.split('\n');
+            matLines.forEach(line => {
+                yaml += `      ${line}\n`;
+            });
+            
+            // Add EOS if present
+            if (data.eosModel && data.eosData) {
+                yaml += `    eos: ${data.eosModel}\n`;
+                yaml += `    eos_data: |\n`;
+                data.eosData.split('\n').forEach(line => {
+                    yaml += `      ${line}\n`;
+                });
+            }
+            
+            // Add applications
+            yaml += `    app:\n`;
+            applications.forEach(app => {
+                yaml += `      - ${app}\n`;
+            });
+            
+            // Add metadata
+            yaml += `    ref: "${data.reference}"\n`;
+            yaml += `    add: ${today}\n`;
+            yaml += `    url: "${data.referenceUrl}"\n`;
+            
+            document.getElementById('yaml-preview').textContent = yaml;
+            document.getElementById('preview').style.display = 'block';
+        }
+        
+        document.getElementById('material-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Validate required fields
+            const required = ['materialName', 'materialId', 'materialData', 'applications', 'reference', 'referenceUrl'];
+            const missing = required.filter(field => !data[field] || data[field].trim() === '');
+            
+            if (missing.length > 0) {
+                alert(`Please fill in all required fields: ${missing.join(', ')}`);
+                return;
+            }
+            
+            // Generate GitHub Issue URL
+            const title = `[MATERIAL] ${data.materialName}`;
+            let body = `### Material Name\n${data.materialName}\n\n`;
+            body += `### LS-DYNA Material ID\n${data.materialId}\n\n`;
+            body += `### Material Data\n\`\`\`\n${data.materialData}\n\`\`\`\n\n`;
+            
+            if (data.eosModel) {
+                body += `### Equation of State\n${data.eosModel}\n\n`;
+            }
+            if (data.eosData) {
+                body += `### EOS Data\n\`\`\`\n${data.eosData}\n\`\`\`\n\n`;
+            }
+            
+            body += `### Applications\n${data.applications}\n\n`;
+            body += `### Reference\n${data.reference}\n\n`;
+            body += `### Reference URL\n${data.referenceUrl}\n\n`;
+            
+            if (data.additionalInfo) {
+                body += `### Additional Information\n${data.additionalInfo}\n\n`;
+            }
+            
+            // Create GitHub Issue URL
+            const issueUrl = `https://github.com/yurynovozhilov/MaterialMap/issues/new?` +
+                `title=${encodeURIComponent(title)}&` +
+                `body=${encodeURIComponent(body)}&` +
+                `labels=material-submission`;
+            
+            // Open in new tab
+            window.open(issueUrl, '_blank');
+        });
+    </script>
+</body>
+</html>

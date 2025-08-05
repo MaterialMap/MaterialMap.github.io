@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📚 Documentation
+    url: https://yurynovozhilov.github.io/MaterialMap/about.html
+    about: Learn more about the MaterialMap project
+  - name: 🐛 Bug Report
+    url: https://github.com/yurynovozhilov/MaterialMap/issues/new
+    about: Report bugs or issues with the website

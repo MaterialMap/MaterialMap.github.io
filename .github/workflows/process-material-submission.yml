@@ -1,0 +1,262 @@
+name: Process Material Submission
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  process-submission:
+    if: contains(github.event.issue.labels.*.name, 'material-submission')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Parse Issue Content
+        id: parse-issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issueBody = context.payload.issue.body;
+            const issueTitle = context.payload.issue.title;
+            
+            // Parse form data using regex patterns
+            function extractField(body, fieldName) {
+              const regex = new RegExp(`### ${fieldName}\\s*\\n\\s*([\\s\\S]*?)(?=\\n### |\\n\\n###|$)`, 'i');
+              const match = body.match(regex);
+              return match ? match[1].trim() : '';
+            }
+            
+            const materialName = extractField(issueBody, 'Material Name');
+            const materialId = extractField(issueBody, 'LS-DYNA Material ID');
+            const materialData = extractField(issueBody, 'Material Data');
+            const eosModel = extractField(issueBody, 'Equation of State');
+            const eosData = extractField(issueBody, 'EOS Data');
+            const applications = extractField(issueBody, 'Applications');
+            const reference = extractField(issueBody, 'Reference');
+            const referenceUrl = extractField(issueBody, 'Reference URL');
+            const additionalInfo = extractField(issueBody, 'Additional Information');
+            
+            // Validate required fields
+            if (!materialName || !materialId || !materialData || !applications || !reference || !referenceUrl) {
+              throw new Error('Missing required fields');
+            }
+            
+            // Create YAML content
+            const today = new Date().toISOString().split('T')[0];
+            const authorName = context.payload.issue.user.login;
+            
+            // Parse applications into array
+            const appArray = applications.split('\n')
+              .map(app => app.trim())
+              .filter(app => app.length > 0);
+            
+            // Generate filename from reference (first author + year)
+            const refMatch = reference.match(/^([^,]+).*?(\d{4})/);
+            const filename = refMatch ? 
+              `${refMatch[1].trim().replace(/\s+/g, ' ')} ${refMatch[2]}.yaml` : 
+              `${materialName.replace(/[^a-zA-Z0-9]/g, '_')} ${today}.yaml`;
+            
+            // Build YAML structure
+            let yamlContent = `- material:\n`;
+            yamlContent += `    id: ${materialId}\n`;
+            yamlContent += `    mat: ${materialId.replace('MAT_', 'MAT_')}\n`;
+            yamlContent += `    mat_data: |\n`;
+            
+            // Indent material data
+            const indentedMatData = materialData.split('\n')
+              .map(line => `      ${line}`)
+              .join('\n');
+            yamlContent += `${indentedMatData}\n`;
+            
+            // Add EOS if present
+            if (eosModel && eosModel !== 'None' && eosData) {
+              yamlContent += `    eos: ${eosModel}\n`;
+              yamlContent += `    eos_data: |\n`;
+              const indentedEosData = eosData.split('\n')
+                .map(line => `      ${line}`)
+                .join('\n');
+              yamlContent += `${indentedEosData}\n`;
+            }
+            
+            // Add applications
+            yamlContent += `    app:\n`;
+            appArray.forEach(app => {
+              yamlContent += `      - ${app}\n`;
+            });
+            
+            // Add metadata
+            yamlContent += `    ref: "${reference}"\n`;
+            yamlContent += `    add: ${today}\n`;
+            yamlContent += `    url: "${referenceUrl}"\n`;
+            
+            // Set outputs
+            core.setOutput('yaml-content', yamlContent);
+            core.setOutput('filename', filename);
+            core.setOutput('material-name', materialName);
+            core.setOutput('author', authorName);
+            core.setOutput('issue-number', context.payload.issue.number);
+            
+            return {
+              yamlContent,
+              filename,
+              materialName,
+              author: authorName
+            };
+
+      - name: Validate YAML
+        id: validate-yaml
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const yaml = require('js-yaml');
+            const yamlContent = `${{ steps.parse-issue.outputs.yaml-content }}`;
+            
+            try {
+              const parsed = yaml.load(yamlContent);
+              console.log('YAML validation successful');
+              return true;
+            } catch (error) {
+              console.error('YAML validation failed:', error.message);
+              throw new Error(`Invalid YAML format: ${error.message}`);
+            }
+
+      - name: Create material file
+        run: |
+          mkdir -p data
+          echo '${{ steps.parse-issue.outputs.yaml-content }}' > "data/${{ steps.parse-issue.outputs.filename }}"
+
+      - name: Update file list
+        run: |
+          # Update dist/file-list.json
+          if [ -f "dist/file-list.json" ]; then
+            # Add new file to the list
+            python3 -c "
+            import json
+            import sys
+            
+            filename = '${{ steps.parse-issue.outputs.filename }}'
+            
+            try:
+                with open('dist/file-list.json', 'r') as f:
+                    files = json.load(f)
+            except:
+                files = []
+            
+            if filename not in files:
+                files.append(filename)
+                files.sort()
+                
+                with open('dist/file-list.json', 'w') as f:
+                    json.dump(files, f, indent=2)
+                    
+                print(f'Added {filename} to file list')
+            else:
+                print(f'{filename} already exists in file list')
+            "
+          else
+            echo "Warning: dist/file-list.json not found"
+          fi
+
+      - name: Create Pull Request
+        id: create-pr
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: |
+            Add material: ${{ steps.parse-issue.outputs.material-name }}
+            
+            - Added by: @${{ steps.parse-issue.outputs.author }}
+            - Source issue: #${{ steps.parse-issue.outputs.issue-number }}
+          title: "Add material: ${{ steps.parse-issue.outputs.material-name }}"
+          body: |
+            ## New Material Submission
+            
+            **Material:** ${{ steps.parse-issue.outputs.material-name }}
+            **Submitted by:** @${{ steps.parse-issue.outputs.author }}
+            **Source Issue:** #${{ steps.parse-issue.outputs.issue-number }}
+            
+            ### Changes
+            - Added `data/${{ steps.parse-issue.outputs.filename }}`
+            - Updated `dist/file-list.json`
+            
+            ### Review Checklist
+            - [ ] YAML format is valid
+            - [ ] Reference is accessible and open access
+            - [ ] Material parameters are reasonable
+            - [ ] Applications are accurate
+            - [ ] No duplicate entries
+            
+            Auto-generated from issue submission.
+          branch: material-submission-${{ steps.parse-issue.outputs.issue-number }}
+          delete-branch: true
+          labels: |
+            material-submission
+            needs-review
+
+      - name: Comment on Issue - Success
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prNumber = '${{ steps.create-pr.outputs.pull-request-number }}';
+            const prUrl = '${{ steps.create-pr.outputs.pull-request-url }}';
+            
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: ${{ steps.parse-issue.outputs.issue-number }},
+              body: `✅ **Submission processed successfully!**
+              
+              Your material submission has been automatically processed and a pull request has been created:
+              
+              **Pull Request:** ${prUrl}
+              **File:** \`data/${{ steps.parse-issue.outputs.filename }}\`
+              
+              The material will be reviewed by maintainers and merged if everything looks good. You'll be notified when the review is complete.
+              
+              Thank you for contributing to MaterialMap! 🎉`
+            });
+            
+            // Add labels
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: ${{ steps.parse-issue.outputs.issue-number }},
+              labels: ['auto-processed']
+            });
+
+      - name: Comment on Issue - Failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: ${{ steps.parse-issue.outputs.issue-number }},
+              body: `❌ **Submission processing failed**
+              
+              There was an error processing your material submission. This could be due to:
+              
+              - Invalid YAML format in material data
+              - Missing required fields
+              - Technical error in processing
+              
+              Please check your submission and try again, or contact the maintainers for help.
+              
+              **Error details can be found in the [workflow run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}).**`
+            });
+            
+            // Add labels
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: ${{ steps.parse-issue.outputs.issue-number }},
+              labels: ['invalid-format', 'needs-review']
+            });
