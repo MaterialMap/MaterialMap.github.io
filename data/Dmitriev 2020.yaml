@@ -1,6 +1,4 @@
 - material:
-    id: MAT_159
-    mat: MAT_CSCM
     mat_data: |
       *MAT_CSCM_TITLE 
       Concrete C50
@@ -30,8 +28,6 @@
     url: "https://www.researchgate.net/publication/354765494_Simulation_of_Concrete_Plate_Perforation_by_Coupled_Finite_Element_and_Smooth_Particle_Hydrodynamics_Methods"
 
 - material:
-    id: MAT_159
-    mat: MAT_CSCM
     mat_data: |
       *MAT_CSCM_TITLE 
       Concrete C40
@@ -61,8 +57,6 @@
     url: "https://www.researchgate.net/publication/354765494_Simulation_of_Concrete_Plate_Perforation_by_Coupled_Finite_Element_and_Smooth_Particle_Hydrodynamics_Methods"
 
 - material:
-    id: MAT_159
-    mat: MAT_CSCM
     mat_data: |
       *MAT_CSCM_TITLE 
       Concrete C30
@@ -92,8 +86,6 @@
     url: "https://www.researchgate.net/publication/354765494_Simulation_of_Concrete_Plate_Perforation_by_Coupled_Finite_Element_and_Smooth_Particle_Hydrodynamics_Methods"
 
 - material:
-    id: MAT_159
-    mat: MAT_CSCM
     mat_data: |
       *MAT_CSCM_TITLE 
       Concrete C20

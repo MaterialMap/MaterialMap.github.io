@@ -75,8 +75,6 @@
     add: 2024-11-17T00:00:00.000Z
     url: https://awg.ansys.com/AWG+LS-DYNA+%2AMAT_213+Resources
 - material:
-    id: MAT_213
-    mat: MAT_COMPOSITE_TABULATED_PLASTICITY_DAMAGE
     mat_data: |
       The material card is published on the website and is regularly updated and refined.    
     app:
@@ -86,8 +84,6 @@
     add: 2024-11-17T00:00:00.000Z
     url: https://awg.ansys.com/AWG+LS-DYNA+%2AMAT_213+Resources
 - material:
-    id: MAT_214
-    mat: MAT_DRY_FABRIC
     mat_data: |
       The material card is published on the website and is regularly updated and refined.    
     app:
@@ -97,8 +93,6 @@
     add: 2024-11-17T00:00:00.000Z
     url: https://awg.ansys.com/Material+Parameter+Sets
 - material:
-    id: MAT_155
-    mat: MAT_PLASTICITY_COMPRESSION_TENSION_EOS
     mat_data: |
       The material card is published on the website and is regularly updated and refined.    
     app:
@@ -107,8 +101,6 @@
     add: 2024-11-17T00:00:00.000Z
     url: https://awg.ansys.com/Material+Parameter+Sets
 - material:
-    id: MAT_264
-    mat: MAT_TABULATED_JOHNSON_COOK_ORTHO_PLASTICITY
     mat_data: |
       The material card is published on the website and is regularly updated and refined.    
     app:
@@ -118,8 +110,6 @@
     add: 2024-11-17T00:00:00.000Z
     url: https://awg.ansys.com/Material+Parameter+Sets
 - material:
-    id: MAT_224
-    mat: MAT_TABULATED_JOHNSON_COOK
     mat_data: |
       The material card is published on the website and is regularly updated and refined.    
     app:
@@ -129,8 +119,6 @@
     add: 2024-11-17T00:00:00.000Z
     url: https://awg.ansys.com/Material+Parameter+Sets
 - material:
-    id: MAT_224
-    mat: MAT_TABULATED_JOHNSON_COOK
     mat_data: |
       The material card is published on the website and is regularly updated and refined.    
     app:
@@ -139,8 +127,6 @@
     add: 2024-11-17T00:00:00.000Z
     url: https://awg.ansys.com/Material+Parameter+Sets
 - material:
-    id: MAT_224
-    mat: MAT_TABULATED_JOHNSON_COOK
     mat_data: |
       The material card is published on the website and is regularly updated and refined.    
     app:
