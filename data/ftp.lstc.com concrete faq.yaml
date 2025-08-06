@@ -1,6 +1,4 @@
 - material:
-    id: MAT_016
-    mat: MAT_PSEUDO_TENSOR
     mat_data: |
       *MAT_PSEUDO_TENSOR_TITLE
       Concrete model input sample: Mode II Concrete Model Option with automatic EOS
@@ -25,13 +23,10 @@
       $--------1---------2---------3---------4---------5---------6---------7---------8
     app:
       - Concrete input example
-    ref: "ftp.lstc.com concrete model FAQ"
-    add: 2024-11-17
-    url: "https://ftp.lstc.com/anonymous/outgoing/support/FAQ/concrete_models_faq"
-
+    ref: ftp.lstc.com concrete model FAQ
+    add: 2024-11-17T00:00:00.000Z
+    url: https://ftp.lstc.com/anonymous/outgoing/support/FAQ/concrete_models_faq
 - material:
-    id: MAT_005
-    mat: MAT_SOIL_AND_FOAM
     mat_data: |
       *MAT_SOIL_AND_FOAM_TITLE
       Concrete model input sample
@@ -54,6 +49,6 @@
       $--------1---------2---------3---------4---------5---------6---------7---------8
     app:
       - Concrete input example
-    ref: "ftp.lstc.com concrete model FAQ"
-    add: 2024-11-17
-    url: "https://ftp.lstc.com/anonymous/outgoing/support/FAQ/concrete_models_faq"
+    ref: ftp.lstc.com concrete model FAQ
+    add: 2024-11-17T00:00:00.000Z
+    url: https://ftp.lstc.com/anonymous/outgoing/support/FAQ/concrete_models_faq

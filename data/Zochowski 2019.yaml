@@ -1,6 +1,4 @@
 - material:
-    id: MAT_010
-    mat: MAT_ELASTIC_PLASTIC_HYDRO
     mat_data: |
       *MAT_ELASTIC_PLASTIC_HYDRO_TITLE
       Ballistic gelatin
@@ -18,7 +16,6 @@
       $#     es9      es10      es11      es12      es13      es14      es15      es16
              0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0
       $--------1---------2---------3---------4---------5---------6---------7---------8
-    eos: EOS_LINEAR_POLYNOMIAL
     eos_data: |
       *EOS_LINEAR_POLYNOMIAL_TITLE
       Ballistic gelatin
@@ -33,13 +30,10 @@
     app:
       - Ballistic gelatin
       - Soft tissue simulation
-    ref: "Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany"
-    add: 2024-11-03
-    url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view"
-
+    ref: Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany
+    add: 2024-11-03T00:00:00.000Z
+    url: https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view
 - material:
-    id: MAT_003
-    mat: MAT_PLASTIC_KINEMATIC
     mat_data: |
       *MAT_PLASTIC_KINEMATIC_TITLE
       Ultra-high molecular weight polyethylene
@@ -54,13 +48,10 @@
     app:
       - Ultra-high molecular weight polyethylene (UHMWPE)
       - Soft layers for ballistic protection
-    ref: "Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany"
-    add: 2024-11-03
-    url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view"
-
+    ref: Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany
+    add: 2024-11-03T00:00:00.000Z
+    url: https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view
 - material:
-    id: MAT_107
-    mat: MAT_MODIFIED_JOHNSON_COOK
     mat_data: |
       *MAT_MODIFIED_JOHNSON_COOK_TITLE
       Brass
@@ -79,13 +70,10 @@
     app:
       - Brass
       - Ballistic projectiles
-    ref: "Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany"
-    add: 2024-11-03
-    url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view"
-
+    ref: Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany
+    add: 2024-11-03T00:00:00.000Z
+    url: https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view
 - material:
-    id: MAT_107
-    mat: MAT_MODIFIED_JOHNSON_COOK
     mat_data: |
       *MAT_MODIFIED_JOHNSON_COOK_TITLE
       Lead core
@@ -104,13 +92,10 @@
     app:
       - Lead core
       - Ballistic projectiles
-    ref: "Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany"
-    add: 2024-11-03
-    url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view"
-
+    ref: Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany
+    add: 2024-11-03T00:00:00.000Z
+    url: https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view
 - material:
-    id: MAT_018
-    mat: MAT_POWER_LAW_PLASTICITY
     mat_data: |
       *MAT_POWER_LAW_PLASTICITY_TITLE
       Ballistic clay
@@ -125,6 +110,6 @@
     app:
       - Ballistic clay
       - Backing material in body armor testing
-    ref: "Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany"
-    add: 2024-11-03
-    url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view"
+    ref: Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany
+    add: 2024-11-03T00:00:00.000Z
+    url: https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view

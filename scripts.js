@@ -19,8 +19,92 @@ function getBasePath() {
   return repoName ? `/${repoName}` : "/";
 }
 const basePath = getBasePath();
+// Function to determine material ID and type from mat_data
+function determineMaterialInfo(matData) {
+  if (!matData) return { id: '-', mat: '-' };
+  
+  const lines = matData.split('\n');
+  if (lines.length === 0) return { id: '-', mat: '-' };
+  
+  let firstLine = lines[0].trim();
+  if (firstLine.endsWith('_TITLE')) {
+    firstLine = firstLine.slice(0, -6); // Remove '_TITLE'
+  }
+  
+  // Use reverse dictionary to find ID by material name
+  if (window.reverseDictionary && window.reverseDictionary[firstLine]) {
+    return {
+      id: window.reverseDictionary[firstLine],
+      mat: firstLine
+    };
+  }
+  
+  return { id: '-', mat: '-' };
+}
+
+
+// Function to determine EOS ID and type from eos_data
+function determineEosInfo(eosData) {
+  if (!eosData) return { id: '-', eos: '-' };
+  
+  const lines = eosData.split('\n');
+  if (lines.length === 0) return { id: '-', eos: '-' };
+  
+  let firstLine = lines[0].trim();
+  if (firstLine.endsWith('_TITLE')) {
+    firstLine = firstLine.slice(0, -6); // Remove '_TITLE'
+  }
+  
+  // Use reverse EOS dictionary to find ID by EOS name
+  if (window.reverseEosDictionary && window.reverseEosDictionary[firstLine]) {
+    return {
+      id: window.reverseEosDictionary[firstLine],
+      eos: firstLine
+    };
+  }
+  
+  return { id: '-', eos: '-' };
+}
+
+// Load material and EOS dictionaries
+async function loadMaterialDictionary() {
+  try {
+    // Load material dictionary
+    const matResponse = await fetch(`${basePath}/lib/mat.json`);
+    if (matResponse.ok) {
+      window.matDictionary = await matResponse.json();
+      // Create reverse dictionary: value -> key
+      window.reverseDictionary = {};
+      Object.entries(window.matDictionary).forEach(([key, value]) => {
+        window.reverseDictionary[value] = key;
+      });
+    }
+    
+    // Load EOS dictionary
+    const eosResponse = await fetch(`${basePath}/lib/eos.json`);
+    if (eosResponse.ok) {
+      window.eosDictionary = await eosResponse.json();
+      // Create reverse EOS dictionary: value -> key
+      window.reverseEosDictionary = {};
+      Object.entries(window.eosDictionary).forEach(([key, value]) => {
+        window.reverseEosDictionary[value] = key;
+      });
+    }
+  } catch (error) {
+    console.warn('Failed to load dictionaries:', error);
+    window.matDictionary = {};
+    window.reverseDictionary = {};
+    window.eosDictionary = {};
+    window.reverseEosDictionary = {};
+  }
+}
+
+
+
 // Загружаем материалы из указанных файлов
 async function loadMaterials() {
+    // Load material dictionary first
+    await loadMaterialDictionary();
   try {
     document.getElementById("loading").style.display = "block";
 
@@ -78,11 +162,14 @@ async function loadMaterials() {
         return ["Invalid data", "-", "-", "-", null];
       }
 
-      // Формируем разметку для первой колонки
-      let materialModelHTML = `
-        <div><strong>ID:</strong> ${material.id || "-"}</div>
-        <div>${material.mat || "-"}</div>
-      `;
+      // Determine material info automatically from mat_data
+        const materialInfo = determineMaterialInfo(material.mat_data);
+        
+        // Формируем разметку для первой колонки
+        let materialModelHTML = `
+          <div><strong>ID:</strong> ${materialInfo.id}</div>
+          <div>${materialInfo.mat}</div>
+        `;
 
       // Добавляем MAT_ADD и ADD_THERMAL только если оно существует
       if (material.mat_add)     {materialModelHTML += `<div>${material.mat_add}</div>`}
@@ -91,7 +178,7 @@ async function loadMaterials() {
       // Возвращаем строки таблицы
       return [
         materialModelHTML,
-        material.eos || "-",
+        determineEosInfo(material.eos_data).eos,
         `<ul>${(material.app || [])
           .map((app) => `<li>${app}</li>`)
           .join("")}</ul>`,

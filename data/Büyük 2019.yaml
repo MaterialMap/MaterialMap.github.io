@@ -1,6 +1,4 @@
 - material:
-    id: MAT_010
-    mat: MAT_ELASTIC_PLASTIC_HYDRO
     mat_data: |
       *MAT_ELASTIC_PLASTIC_HYDRO_TITLE
       COMPB-JJ3
@@ -18,7 +16,6 @@
       $#     es9      es10      es11      es12      es13      es14      es15      es16
              0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0
       $--------1---------2---------3---------4---------5---------6---------7---------8
-    eos: EOS_IGNITION_AND_GROWTH_OF_REACTION_IN_HE
     eos_data: |
       *EOS_IGNITION_AND_GROWTH_OF_REACTION_IN_HE_TITLE
       COMPB-JJ3
@@ -37,13 +34,10 @@
     app:
       - COMPB-JJ3
       - High explosive simulations
-    ref: "Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact Simulation. 12th European LS-DYNA Conference, Koblenz, Germany"
-    add: 2024-11-04
-    url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/balaban_fe-tech.pdf/view"
-
+    ref: Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact Simulation. 12th European LS-DYNA Conference, Koblenz, Germany
+    add: 2024-11-04T00:00:00.000Z
+    url: https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/balaban_fe-tech.pdf/view
 - material:
-    id: MAT_015
-    mat: MAT_JOHNSON_COOK
     mat_data: |
       *MAT_JOHNSON_COOK_TITLE
       Steel SEA 1006
@@ -59,7 +53,6 @@
       $#      D5       C2/P     EROD     EFMIN    NUMINT
                0         0         0         0         0
       $--------1---------2---------3---------4---------5---------6---------7---------8
-    eos: EOS_GRUNEISEN
     eos_data: |
       *EOS_GRUNEISEN_TITLE
       Steel SEA 1006
@@ -74,13 +67,10 @@
     app:
       - Steel SEA 1006
       - Impact simulations
-    ref: "Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact Simulation. 12th European LS-DYNA Conference, Koblenz, Germany"
-    add: 2024-11-04
-    url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/balaban_fe-tech.pdf/view"
-
+    ref: Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact Simulation. 12th European LS-DYNA Conference, Koblenz, Germany
+    add: 2024-11-04T00:00:00.000Z
+    url: https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/balaban_fe-tech.pdf/view
 - material:
-    id: MAT_010
-    mat: MAT_ELASTIC_PLASTIC_HYDRO
     mat_data: |
       *MAT_ELASTIC_PLASTIC_HYDRO_TITLE
       Projectile casings
@@ -98,7 +88,6 @@
       $#     es9      es10      es11      es12      es13      es14      es15      es16
              0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0
       $--------1---------2---------3---------4---------5---------6---------7---------8
-    eos: EOS_GRUNEISEN
     eos_data: |
       *EOS_GRUNEISEN_TITLE
       Projectile casings
@@ -111,8 +100,8 @@
                0
       $--------1---------2---------3---------4---------5---------6---------7---------8
     app:
-        - Projectile casings
-        - Detonation simulations
-    ref: "Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact Simulation. 12th European LS-DYNA Conference, Koblenz, Germany"
-    add: 2024-11-04
-    url: "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/balaban_fe-tech.pdf/view"
+      - Projectile casings
+      - Detonation simulations
+    ref: Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact Simulation. 12th European LS-DYNA Conference, Koblenz, Germany
+    add: 2024-11-04T00:00:00.000Z
+    url: https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/balaban_fe-tech.pdf/view

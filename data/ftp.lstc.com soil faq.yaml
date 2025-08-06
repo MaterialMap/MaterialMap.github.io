@@ -1,7 +1,5 @@
 - material:
-    ref: "ftp.lstc.com soil model FAQ, courtesy of Ala Tabiei"
-    id: MAT_005
-    mat: MAT_SOIL_AND_FOAM
+    ref: ftp.lstc.com soil model FAQ, courtesy of Ala Tabiei
     mat_data: |
       *MAT_SOIL_AND_FOAM_TITLE
       Antelope Lake Soil
@@ -27,13 +25,10 @@
     app:
       - Antelope Lake Soil
       - Stiff silty clay
-    add: 2024-11-17
-    url: "https://ftp.lstc.com/anonymous/outgoing/support/FAQ/soil_public"
-
+    add: 2024-11-17T00:00:00.000Z
+    url: https://ftp.lstc.com/anonymous/outgoing/support/FAQ/soil_public
 - material:
-    ref: "ftp.lstc.com soil model FAQ"
-    id: MAT_005
-    mat: MAT_SOIL_AND_FOAM
+    ref: ftp.lstc.com soil model FAQ
     mat_data: |
       *MAT_SOIL_AND_FOAM_TITLE
       Soil model input sample
@@ -56,5 +51,5 @@
       $--------1---------2---------3---------4---------5---------6---------7---------8
     app:
       - Soil input example
-    add: 2024-11-17
-    url: "https://ftp.lstc.com/anonymous/outgoing/support/FAQ/soil_public"
+    add: 2024-11-17T00:00:00.000Z
+    url: https://ftp.lstc.com/anonymous/outgoing/support/FAQ/soil_public

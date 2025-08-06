@@ -1,6 +1,4 @@
 - material:
-    id: MAT_009
-    mat: MAT_NULL
     mat_data: |
       *MAT_NULL_TITLE
       Water
@@ -10,7 +8,6 @@
       $#     MID        RO        PC        MU     TEROD     CEROD        YM        PR
                9     1.e‐9     ‐1E-4    1.0e‐3         0         0         0         0
       $--------1---------2---------3---------4---------5---------6---------7---------8
-    eos: EOS_GRUNEISEN
     eos_data: |
       *EOS_GRUNEISEN_TITLE
       Water
@@ -25,12 +22,9 @@
     app:
       - Water
     ref: "The LS-DYNA Aerospace Working Group (AWG): Modeling Guidelines Document (MGD)"
-    add: 2024-11-17
-    url: "https://awg.ansys.com/AWG+LS-DYNA+%2AMAT_213+Resources"
-
+    add: 2024-11-17T00:00:00.000Z
+    url: https://awg.ansys.com/AWG+LS-DYNA+%2AMAT_213+Resources
 - material:
-    id: MAT_009
-    mat: MAT_NULL
     mat_data: |
       *MAT_NULL_TITLE
       Air, initial pressure of 1 bar
@@ -40,7 +34,6 @@
       $#     MID        RO        PC        MU     TEROD     CEROD        YM        PR
                9   1.0e‐12         0         0         0         0         0         0
       $--------1---------2---------3---------4---------5---------6---------7---------8
-    eos: EOS_IDEAL_GAS
     eos_data: |
       *EOS_IDEAL_GAS_TITLE
       Air, initial pressure of 1 bar
@@ -53,13 +46,9 @@
     app:
       - Air, initial pressure of 1 bar
     ref: "The LS-DYNA Aerospace Working Group (AWG): Modeling Guidelines Document (MGD)"
-    add: 2024-11-17
-    url: "https://awg.ansys.com/AWG+LS-DYNA+%2AMAT_213+Resources"
-
-
+    add: 2024-11-17T00:00:00.000Z
+    url: https://awg.ansys.com/AWG+LS-DYNA+%2AMAT_213+Resources
 - material:
-    id: MAT_009
-    mat: MAT_NULL
     mat_data: |
       *MAT_NULL_TITLE
       Air, initial pressure of 1 bar
@@ -69,7 +58,6 @@
       $#     MID        RO        PC        MU     TEROD     CEROD        YM        PR
                9   1.0e‐12         0         0         0         0         0         0
       $--------1---------2---------3---------4---------5---------6---------7---------8
-    eos: EOS_LINEAR_POLYNOMIAL
     eos_data: |
       *EOS_LINEAR_POLYNOMIAL_TITLE
       Air, initial pressure of 1 bar
@@ -84,9 +72,8 @@
     app:
       - Air, initial pressure of 1 bar
     ref: "The LS-DYNA Aerospace Working Group (AWG): Modeling Guidelines Document (MGD)"
-    add: 2024-11-17
-    url: "https://awg.ansys.com/AWG+LS-DYNA+%2AMAT_213+Resources"
-
+    add: 2024-11-17T00:00:00.000Z
+    url: https://awg.ansys.com/AWG+LS-DYNA+%2AMAT_213+Resources
 - material:
     id: MAT_213
     mat: MAT_COMPOSITE_TABULATED_PLASTICITY_DAMAGE
@@ -95,10 +82,9 @@
     app:
       - T800-F3900 UD
       - Puck Failure Criterion
-    ref: "The LS-DYNA Aerospace Working Group (AWG)"
-    add: 2024-11-17
-    url: "https://awg.ansys.com/AWG+LS-DYNA+%2AMAT_213+Resources"
-
+    ref: The LS-DYNA Aerospace Working Group (AWG)
+    add: 2024-11-17T00:00:00.000Z
+    url: https://awg.ansys.com/AWG+LS-DYNA+%2AMAT_213+Resources
 - material:
     id: MAT_214
     mat: MAT_DRY_FABRIC
@@ -107,10 +93,9 @@
     app:
       - Kevlar
       - Aramid
-    ref: "The LS-DYNA Aerospace Working Group (AWG)"
-    add: 2024-11-17
-    url: "https://awg.ansys.com/Material+Parameter+Sets"
-
+    ref: The LS-DYNA Aerospace Working Group (AWG)
+    add: 2024-11-17T00:00:00.000Z
+    url: https://awg.ansys.com/Material+Parameter+Sets
 - material:
     id: MAT_155
     mat: MAT_PLASTICITY_COMPRESSION_TENSION_EOS
@@ -118,10 +103,9 @@
       The material card is published on the website and is regularly updated and refined.    
     app:
       - Ice
-    ref: "The LS-DYNA Aerospace Working Group (AWG)"
-    add: 2024-11-17
-    url: "https://awg.ansys.com/Material+Parameter+Sets"
-
+    ref: The LS-DYNA Aerospace Working Group (AWG)
+    add: 2024-11-17T00:00:00.000Z
+    url: https://awg.ansys.com/Material+Parameter+Sets
 - material:
     id: MAT_264
     mat: MAT_TABULATED_JOHNSON_COOK_ORTHO_PLASTICITY
@@ -130,10 +114,9 @@
     app:
       - Ti-6Al-4V P3
       - Titanium
-    ref: "The LS-DYNA Aerospace Working Group (AWG)"
-    add: 2024-11-17
-    url: "https://awg.ansys.com/Material+Parameter+Sets"
-
+    ref: The LS-DYNA Aerospace Working Group (AWG)
+    add: 2024-11-17T00:00:00.000Z
+    url: https://awg.ansys.com/Material+Parameter+Sets
 - material:
     id: MAT_224
     mat: MAT_TABULATED_JOHNSON_COOK
@@ -142,10 +125,9 @@
     app:
       - Ti-6Al-4V P4
       - Titanium
-    ref: "ti"
-    add: 2024-11-17
-    url: "https://awg.ansys.com/Material+Parameter+Sets"
-
+    ref: ti
+    add: 2024-11-17T00:00:00.000Z
+    url: https://awg.ansys.com/Material+Parameter+Sets
 - material:
     id: MAT_224
     mat: MAT_TABULATED_JOHNSON_COOK
@@ -153,10 +135,9 @@
       The material card is published on the website and is regularly updated and refined.    
     app:
       - Aluminum 2024
-    ref: "The LS-DYNA Aerospace Working Group (AWG)"
-    add: 2024-11-17
-    url: "https://awg.ansys.com/Material+Parameter+Sets"
-
+    ref: The LS-DYNA Aerospace Working Group (AWG)
+    add: 2024-11-17T00:00:00.000Z
+    url: https://awg.ansys.com/Material+Parameter+Sets
 - material:
     id: MAT_224
     mat: MAT_TABULATED_JOHNSON_COOK
@@ -164,6 +145,6 @@
       The material card is published on the website and is regularly updated and refined.    
     app:
       - Inconel 718
-    ref: "The LS-DYNA Aerospace Working Group (AWG)"
-    add: 2024-11-17
-    url: "https://awg.ansys.com/Material+Parameter+Sets"
+    ref: The LS-DYNA Aerospace Working Group (AWG)
+    add: 2024-11-17T00:00:00.000Z
+    url: https://awg.ansys.com/Material+Parameter+Sets
