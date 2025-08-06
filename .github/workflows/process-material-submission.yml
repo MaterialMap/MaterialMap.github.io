@@ -29,12 +29,24 @@ jobs:
             function extractField(body, fieldName) {
               const regex = new RegExp(`### ${fieldName}\\s*\\n\\s*([\\s\\S]*?)(?=\\n### |\\n\\n###|$)`, 'i');
               const match = body.match(regex);
-              return match ? match[1].trim() : '';
+              if (!match) return '';
+              
+              let content = match[1].trim();
+              
+              // Remove code block markers if present
+              if (content.startsWith('```') && content.endsWith('```')) {
+                content = content.slice(3, -3).trim();
+              }
+              
+              return content;
             }
             
             const materialName = extractField(issueBody, 'Material Name');
-            const materialId = extractField(issueBody, 'LS-DYNA Material ID');
+            const materialMat = extractField(issueBody, 'LS-DYNA Material ID');
             const materialData = extractField(issueBody, 'Material Data');
+            
+            // Extract numeric ID from material model (e.g., "MAT_015" -> "15")
+            const materialId = materialMat.match(/(\d+)/)?.[1] || materialMat;
             const eosModel = extractField(issueBody, 'Equation of State');
             const eosData = extractField(issueBody, 'EOS Data');
             const applications = extractField(issueBody, 'Applications');
@@ -43,7 +55,7 @@ jobs:
             const additionalInfo = extractField(issueBody, 'Additional Information');
             
             // Validate required fields
-            if (!materialName || !materialId || !materialData || !applications || !reference || !referenceUrl) {
+            if (!materialName || !materialMat || !materialData || !applications || !reference || !referenceUrl) {
               throw new Error('Missing required fields');
             }
             
@@ -65,7 +77,7 @@ jobs:
             // Build YAML structure
             let yamlContent = `- material:\n`;
             yamlContent += `    id: ${materialId}\n`;
-            yamlContent += `    mat: ${materialId.replace('MAT_', 'MAT_')}\n`;
+            yamlContent += `    mat: ${materialMat}\n`;
             yamlContent += `    mat_data: |\n`;
             
             // Indent material data

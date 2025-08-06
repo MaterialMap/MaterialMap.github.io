@@ -272,8 +272,7 @@
             // Generate GitHub Issue URL
             const title = `[MATERIAL] ${data.materialName}`;
             let body = `### Material Name\n${data.materialName}\n\n`;
-            body += `### Material ID\n${data.materialId}\n\n`;
-            body += `### LS-DYNA Material Model\n${data.materialMat}\n\n`;
+            body += `### LS-DYNA Material ID\n${data.materialMat}\n\n`;
             body += `### Material Data\n\`\`\`\n${data.materialData}\n\`\`\`\n\n`;
             
             if (data.eosModel) {
@@ -286,6 +285,10 @@
             body += `### Applications\n${data.applications}\n\n`;
             body += `### Reference\n${data.reference}\n\n`;
             body += `### Reference URL\n${data.referenceUrl}\n\n`;
+            
+            if (data.additionalInfo && data.additionalInfo.trim()) {
+                body += `### Additional Information\n${data.additionalInfo}\n\n`;
+            }
             
             // Create GitHub Issue URL
             const issueUrl = `https://github.com/yurynovozhilov/MaterialMap/issues/new?` +
