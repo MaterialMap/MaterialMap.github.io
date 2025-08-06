@@ -38,6 +38,18 @@
             min-height: 120px;
         }
         
+        /* Specific heights for different textarea fields */
+        #material-data,
+        #eos-data {
+            height: 315px; /* 15 lines × 21px line-height */
+            min-height: 315px;
+        }
+        
+        #applications {
+            height: 105px; /* 5 lines × 21px line-height */
+            min-height: 105px;
+        }
+        
         .required {
             color: #e74c3c;
         }
@@ -144,16 +156,14 @@
                 <div class="form-group">
                     <label for="applications">Applications</label>
                     <textarea id="applications" name="applications"
-                              placeholder="High-strength steel applications&#10;Automotive components&#10;Ballistic applications"
-                              style="min-height: 80px;"></textarea>
+                              placeholder="High-strength steel applications&#10;Automotive components&#10;Ballistic applications"></textarea>
                     <div class="help-text">List applications, one per line</div>
                 </div>
 
                 <div class="form-group">
                     <label for="reference">Reference <span class="required">*</span></label>
                     <textarea id="reference" name="reference" required
-                              placeholder="Smith, J. et al. (2023). Material characterization of AISI 4340 steel. Journal of Materials, 15(3), 123-145."
-                              style="min-height: 60px;"></textarea>
+                              placeholder="Smith, J. et al. (2023). Material characterization of AISI 4340 steel. Journal of Materials, 15(3), 123-145."></textarea>
                     <div class="help-text">Full citation of the source paper/document</div>
                 </div>
 
@@ -167,8 +177,7 @@
                 <div class="form-group">
                     <label for="additional-info">Additional Information</label>
                     <textarea id="additional-info" name="additionalInfo"
-                              placeholder="Special notes, validation data, limitations, etc."
-                              style="min-height: 80px;"></textarea>
+                              placeholder="Special notes, validation data, limitations, etc."></textarea>
                 </div>
 
                 <div class="form-group">
