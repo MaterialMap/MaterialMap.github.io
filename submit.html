@@ -126,10 +126,17 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="material-id">LS-DYNA Material Model</label>
+                    <label for="material-id">Material ID</label>
                     <input type="text" id="material-id" name="materialId"
+                           placeholder="e.g., 15, 24, 107">
+                    <div class="help-text">Enter the material ID number</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="material-mat">LS-DYNA Material Model</label>
+                    <input type="text" id="material-mat" name="materialMat"
                            placeholder="e.g., MAT_015, MAT_024, MAT_107">
-                    <div class="help-text">Enter the LS-DYNA material model ID</div>
+                    <div class="help-text">Enter the LS-DYNA material model name</div>
                 </div>
 
                 <div class="form-group">
@@ -214,7 +221,7 @@
             
             let yaml = `- material:\n`;
             yaml += `    id: ${data.materialId}\n`;
-            yaml += `    mat: ${data.materialId}\n`;
+            yaml += `    mat: ${data.materialMat}\n`;
             yaml += `    mat_data: |\n`;
             
             // Indent material data
@@ -265,7 +272,8 @@
             // Generate GitHub Issue URL
             const title = `[MATERIAL] ${data.materialName}`;
             let body = `### Material Name\n${data.materialName}\n\n`;
-            body += `### LS-DYNA Material ID\n${data.materialId}\n\n`;
+            body += `### Material ID\n${data.materialId}\n\n`;
+            body += `### LS-DYNA Material Model\n${data.materialMat}\n\n`;
             body += `### Material Data\n\`\`\`\n${data.materialData}\n\`\`\`\n\n`;
             
             if (data.eosModel) {
