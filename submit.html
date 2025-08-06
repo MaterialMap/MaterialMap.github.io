@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="styles.css" />
     <style>
         .form-container {
-            max-width: 800px;
+            max-width: 850px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -25,7 +25,7 @@
         .form-group input,
         .form-group select,
         .form-group textarea {
-            width: 694px; /* Точная ширина для 80 символов: 672px текст + 20px padding + 2px border */
+            width: 778px; /* Точная ширина для 90 символов: 756px текст + 20px padding + 2px border */
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 4px;
@@ -107,22 +107,22 @@
         <div class="form-container">
             <form id="material-form">
                 <div class="form-group">
-                    <label for="material-name">Material Name <span class="required">*</span></label>
-                    <input type="text" id="material-name" name="materialName" required
+                    <label for="material-name">Material Name</label>
+                    <input type="text" id="material-name" name="materialName"
                            placeholder="e.g., Steel AISI 4340, Aluminum 6061-T6">
                     <div class="help-text">Descriptive name of the material</div>
                 </div>
 
                 <div class="form-group">
-                    <label for="material-id">LS-DYNA Material Model <span class="required">*</span></label>
-                    <input type="text" id="material-id" name="materialId" required
+                    <label for="material-id">LS-DYNA Material Model</label>
+                    <input type="text" id="material-id" name="materialId"
                            placeholder="e.g., MAT_015, MAT_024, MAT_107">
                     <div class="help-text">Enter the LS-DYNA material model ID</div>
                 </div>
 
                 <div class="form-group">
-                    <label for="material-data">Material Data <span class="required">*</span></label>
-                    <textarea id="material-data" name="materialData" required
+                    <label for="material-data">Material Data</label>
+                    <textarea id="material-data" name="materialData"
                               placeholder="*MAT_JOHNSON_COOK_TITLE&#10;Steel AISI 4340&#10;$--------1---------2---------3---------4---------5---------6---------7---------8&#10;$#     MID        RO         E        PR       DTF        VP    RATEOP&#10;        15     7.83e-9    200000      0.29         0         0         0&#10;..."></textarea>
                     <div class="help-text">Paste the complete LS-DYNA material card</div>
                 </div>
@@ -142,8 +142,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="applications">Applications <span class="required">*</span></label>
-                    <textarea id="applications" name="applications" required
+                    <label for="applications">Applications</label>
+                    <textarea id="applications" name="applications"
                               placeholder="High-strength steel applications&#10;Automotive components&#10;Ballistic applications"
                               style="min-height: 80px;"></textarea>
                     <div class="help-text">List applications, one per line</div>
@@ -245,7 +245,7 @@
             const data = Object.fromEntries(formData);
             
             // Validate required fields
-            const required = ['materialName', 'materialId', 'materialData', 'applications', 'reference', 'referenceUrl'];
+            const required = ['reference', 'referenceUrl'];
             const missing = required.filter(field => !data[field] || data[field].trim() === '');
             
             if (missing.length > 0) {
@@ -269,10 +269,6 @@
             body += `### Applications\n${data.applications}\n\n`;
             body += `### Reference\n${data.reference}\n\n`;
             body += `### Reference URL\n${data.referenceUrl}\n\n`;
-            
-            if (data.additionalInfo) {
-                body += `### Additional Information\n${data.additionalInfo}\n\n`;
-            }
             
             // Create GitHub Issue URL
             const issueUrl = `https://github.com/yurynovozhilov/MaterialMap/issues/new?` +
