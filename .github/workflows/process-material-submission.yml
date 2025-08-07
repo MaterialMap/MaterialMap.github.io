@@ -70,28 +70,96 @@ jobs:
               return '';
             }
             
+            // Function to extract data from TOML content if present
+            function extractFromTOML(body) {
+              const tomlMatch = body.match(/```toml\s*([\s\S]*?)\s*```/);
+              if (!tomlMatch) return null;
+              
+              const tomlContent = tomlMatch[1];
+              
+              // Extract material name from TOML title
+              const titleMatch = tomlContent.match(/\*MAT_[A-Z_0-9]+_TITLE\s*\n([^\n$]+)/);
+              const materialName = titleMatch ? titleMatch[1].trim() : '';
+              
+              // Extract material ID from TOML
+              const matMatch = tomlContent.match(/\*MAT_([A-Z_0-9_]+)/);
+              const materialMat = matMatch ? `MAT_${matMatch[1]}` : '';
+              
+              // Extract applications from TOML
+              const appMatches = tomlContent.match(/app = \[\s*([\s\S]*?)\s*\]/);
+              let applications = '';
+              if (appMatches) {
+                applications = appMatches[1]
+                  .split(',')
+                  .map(app => app.trim().replace(/"/g, ''))
+                  .filter(app => app.length > 0)
+                  .join('\n');
+              }
+              
+              // Extract URL
+              const urlMatch = tomlContent.match(/url = "([^"]+)"/);
+              const referenceUrl = urlMatch ? urlMatch[1] : '';
+              
+              // Extract mat_data
+              const matDataMatch = tomlContent.match(/mat_data = """\s*([\s\S]*?)\s*"""/);
+              const materialData = matDataMatch ? matDataMatch[1].trim() : '';
+              
+              return {
+                materialName,
+                materialMat,
+                materialData,
+                applications,
+                referenceUrl,
+                reference: `Extracted from ${referenceUrl}`,
+                eosModel: '',
+                eosData: '',
+                additionalInfo: ''
+              };
+            }
+            
             // Debug: log the issue body structure
             console.log('Issue body structure:');
             console.log(issueBody);
             
-            const materialName = extractField(issueBody, 'Material Name');
-            const materialMat = extractField(issueBody, 'LS-DYNA Material ID');
-            const materialData = extractField(issueBody, 'Material Data');
+            // Try to extract from TOML first, then fall back to form fields
+            const tomlData = extractFromTOML(issueBody);
+            
+            let materialName, materialMat, materialData, applications, reference, referenceUrl, eosModel, eosData, additionalInfo;
+            
+            if (tomlData) {
+              console.log('Extracting from TOML content');
+              materialName = tomlData.materialName;
+              materialMat = tomlData.materialMat;
+              materialData = tomlData.materialData;
+              applications = tomlData.applications;
+              reference = tomlData.reference;
+              referenceUrl = tomlData.referenceUrl;
+              eosModel = tomlData.eosModel;
+              eosData = tomlData.eosData;
+              additionalInfo = tomlData.additionalInfo;
+            } else {
+              console.log('Extracting from form fields');
+              materialName = extractField(issueBody, 'Material Name');
+              materialMat = extractField(issueBody, 'LS-DYNA Material ID');
+              materialData = extractField(issueBody, 'Material Data');
+              eosModel = extractField(issueBody, 'Equation of State');
+              eosData = extractField(issueBody, 'EOS Data');
+              applications = extractField(issueBody, 'Applications');
+              reference = extractField(issueBody, 'Reference');
+              referenceUrl = extractField(issueBody, 'Reference URL');
+              additionalInfo = extractField(issueBody, 'Additional Information');
+            }
             
             // Debug: log extracted fields
             console.log('Extracted fields:');
             console.log('Material Name:', materialName);
             console.log('Material ID:', materialMat);
             console.log('Material Data length:', materialData.length);
+            console.log('Applications:', applications);
+            console.log('Reference URL:', referenceUrl);
             
             // Extract numeric ID from material model (e.g., "MAT_015" -> "15")
             const materialId = materialMat.match(/(\d+)/)?.[1] || materialMat;
-            const eosModel = extractField(issueBody, 'Equation of State');
-            const eosData = extractField(issueBody, 'EOS Data');
-            const applications = extractField(issueBody, 'Applications');
-            const reference = extractField(issueBody, 'Reference');
-            const referenceUrl = extractField(issueBody, 'Reference URL');
-            const additionalInfo = extractField(issueBody, 'Additional Information');
             
             // Validate required fields
             if (!materialName || !materialMat || !materialData || !applications || !reference || !referenceUrl) {
@@ -107,11 +175,17 @@ jobs:
               .map(app => app.trim())
               .filter(app => app.length > 0);
             
-            // Generate filename from reference (first author + year)
+            // Generate filename from reference (first author + year) or from URL
+            let filename;
             const refMatch = reference.match(/^([^,]+).*?(\d{4})/);
-            const filename = refMatch ? 
-              `${refMatch[1].trim().replace(/\s+/g, ' ')} ${refMatch[2]}.toml` : 
-              `${materialName.replace(/[^a-zA-Z0-9]/g, '_')} ${today.split('T')[0]}.toml`;
+            if (refMatch) {
+              filename = `${refMatch[1].trim().replace(/\s+/g, ' ')} ${refMatch[2]}.toml`;
+            } else if (referenceUrl.includes('ftp.lstc.com')) {
+              // For LSTC sources, use a descriptive name
+              filename = `ftp.lstc.com ${materialName.replace(/[^a-zA-Z0-9]/g, '_')}.toml`;
+            } else {
+              filename = `${materialName.replace(/[^a-zA-Z0-9]/g, '_')} ${today.split('T')[0]}.toml`;
+            }
             
             // Build TOML structure
             let tomlContent = `[[material]]\n`;
