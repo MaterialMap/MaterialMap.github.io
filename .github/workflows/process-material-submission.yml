@@ -59,8 +59,8 @@ jobs:
               throw new Error('Missing required fields');
             }
             
-            // Create YAML content
-            const today = new Date().toISOString().split('T')[0];
+            // Create TOML content
+            const today = new Date().toISOString();
             const authorName = context.payload.issue.user.login;
             
             // Parse applications into array
@@ -71,77 +71,69 @@ jobs:
             // Generate filename from reference (first author + year)
             const refMatch = reference.match(/^([^,]+).*?(\d{4})/);
             const filename = refMatch ? 
-              `${refMatch[1].trim().replace(/\s+/g, ' ')} ${refMatch[2]}.yaml` : 
-              `${materialName.replace(/[^a-zA-Z0-9]/g, '_')} ${today}.yaml`;
+              `${refMatch[1].trim().replace(/\s+/g, ' ')} ${refMatch[2]}.toml` : 
+              `${materialName.replace(/[^a-zA-Z0-9]/g, '_')} ${today.split('T')[0]}.toml`;
             
-            // Build YAML structure
-            let yamlContent = `- material:\n`;
-            yamlContent += `    id: ${materialId}\n`;
-            yamlContent += `    mat: ${materialMat}\n`;
-            yamlContent += `    mat_data: |\n`;
-            
-            // Indent material data
-            const indentedMatData = materialData.split('\n')
-              .map(line => `      ${line}`)
-              .join('\n');
-            yamlContent += `${indentedMatData}\n`;
+            // Build TOML structure
+            let tomlContent = `[[material]]\n`;
+            tomlContent += `mat_data = """\n`;
+            tomlContent += `${materialData}\n`;
+            tomlContent += `"""\n`;
             
             // Add EOS if present
             if (eosModel && eosModel !== 'None' && eosData) {
-              yamlContent += `    eos: ${eosModel}\n`;
-              yamlContent += `    eos_data: |\n`;
-              const indentedEosData = eosData.split('\n')
-                .map(line => `      ${line}`)
-                .join('\n');
-              yamlContent += `${indentedEosData}\n`;
+              tomlContent += `eos_data = """\n`;
+              tomlContent += `${eosData}\n`;
+              tomlContent += `"""\n`;
             }
             
-            // Add applications
-            yamlContent += `    app:\n`;
+            // Add applications array
+            tomlContent += `app = [\n`;
             appArray.forEach(app => {
-              yamlContent += `      - ${app}\n`;
+              tomlContent += `  "${app}",\n`;
             });
+            tomlContent += `]\n`;
             
             // Add metadata
-            yamlContent += `    ref: "${reference}"\n`;
-            yamlContent += `    add: ${today}\n`;
-            yamlContent += `    url: "${referenceUrl}"\n`;
+            tomlContent += `ref = "${reference}"\n`;
+            tomlContent += `add = "${today}"\n`;
+            tomlContent += `url = "${referenceUrl}"\n`;
             
             // Set outputs
-            core.setOutput('yaml-content', yamlContent);
+            core.setOutput('toml-content', tomlContent);
             core.setOutput('filename', filename);
             core.setOutput('material-name', materialName);
             core.setOutput('author', authorName);
             core.setOutput('issue-number', context.payload.issue.number);
             
             return {
-              yamlContent,
+              tomlContent,
               filename,
               materialName,
               author: authorName
             };
 
-      - name: Validate YAML
-        id: validate-yaml
+      - name: Validate TOML
+        id: validate-toml
         uses: actions/github-script@v7
         with:
           script: |
-            const yaml = require('js-yaml');
-            const yamlContent = `${{ steps.parse-issue.outputs.yaml-content }}`;
+            const toml = require('toml');
+            const tomlContent = `${{ steps.parse-issue.outputs.toml-content }}`;
             
             try {
-              const parsed = yaml.load(yamlContent);
-              console.log('YAML validation successful');
+              const parsed = toml.parse(tomlContent);
+              console.log('TOML validation successful');
               return true;
             } catch (error) {
-              console.error('YAML validation failed:', error.message);
-              throw new Error(`Invalid YAML format: ${error.message}`);
+              console.error('TOML validation failed:', error.message);
+              throw new Error(`Invalid TOML format: ${error.message}`);
             }
 
       - name: Create material file
         run: |
           mkdir -p data
-          echo '${{ steps.parse-issue.outputs.yaml-content }}' > "data/${{ steps.parse-issue.outputs.filename }}"
+          echo '${{ steps.parse-issue.outputs.toml-content }}' > "data/${{ steps.parse-issue.outputs.filename }}"
 
       - name: Update file list
         run: |
@@ -198,7 +190,7 @@ jobs:
             - Updated `dist/file-list.json`
             
             ### Review Checklist
-            - [ ] YAML format is valid
+            - [ ] TOML format is valid
             - [ ] Reference is accessible and open access
             - [ ] Material parameters are reasonable
             - [ ] Applications are accurate
@@ -256,7 +248,7 @@ jobs:
               
               There was an error processing your material submission. This could be due to:
               
-              - Invalid YAML format in material data
+              - Invalid TOML format in material data
               - Missing required fields
               - Technical error in processing
               

@@ -1,4 +1,4 @@
-name: Generate YAML File List
+name: Generate TOML File List
 
 on:
   push:
@@ -19,17 +19,14 @@ jobs:
       with:
         node-version: '20' # Или другая версия Node.js
 
-    - name: Install dependencies
-      run: npm install yamljs # Устанавливаем YAML-парсер
-
-    - name: Generate YAML file list
+    - name: Generate TOML file list
       run: |
         mkdir -p dist # Создаем директорию для вывода
         node -e "
         const fs = require('fs');
         const path = require('path');
         const dataDir = path.join(__dirname, 'data');
-        const files = fs.readdirSync(dataDir).filter(file => file.endsWith('.yaml'));
+        const files = fs.readdirSync(dataDir).filter(file => file.endsWith('.toml'));
         fs.writeFileSync('dist/file-list.json', JSON.stringify(files, null, 2));
         console.log('Generated file-list.json:', files);
         "

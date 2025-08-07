@@ -101,8 +101,18 @@ async function loadMaterialDictionary() {
 
 
 
+// Ожидание загрузки TOML парсера
+async function waitForTomlParser() {
+  while (typeof window.parseToml === 'undefined') {
+    await new Promise(resolve => setTimeout(resolve, 100));
+  }
+}
+
 // Загружаем материалы из указанных файлов
 async function loadMaterials() {
+    // Wait for TOML parser to load
+    await waitForTomlParser();
+    
     // Load material dictionary first
     await loadMaterialDictionary();
   try {
@@ -130,14 +140,15 @@ async function loadMaterials() {
           continue;
         }
 
-        const yamlText = await fileResponse.text();
+        const tomlText = await fileResponse.text();
 
-        // Парсим YAML
+        // Парсим TOML
         let materialsInFile;
         try {
-          materialsInFile = jsyaml.load(yamlText);
-        } catch (yamlError) {
-          console.warn(`YAML parsing error in file ${fileName}: ${yamlError.message}`);
+          const parsedToml = window.parseToml(tomlText);
+          materialsInFile = parsedToml.material;
+        } catch (tomlError) {
+          console.warn(`TOML parsing error in file ${fileName}: ${tomlError.message}`);
           continue;
         }
 
@@ -156,7 +167,7 @@ async function loadMaterials() {
     }
 
     // Формируем данные таблицы
-    const tableData = allMaterials.map(({ material }) => {
+    const tableData = allMaterials.map((material) => {
       if (!material || typeof material !== "object") {
         console.warn("Invalid material format", material);
         return ["Invalid data", "-", "-", "-", null];
