@@ -59,14 +59,6 @@ URL link to the original source or reference material.
 url = "https://example.com/material-data"
 ```
 
-#### `add` (string, required)
-Date when the material was added to the database. Should be in ISO 8601 format.
-
-**Example:**
-```toml
-add = "2024-11-29T00:00:00.000Z"
-```
-
 ### Optional Fields
 
 #### `eos_data` (string, optional)
@@ -113,21 +105,11 @@ $#    tmid        ro        tg      tgrl        hc
 """
 ```
 
-#### `mat_add` (string, optional)
-Display name for additional material model. Used in the UI to show what type of MAT_ADD is included.
+#### `mat_add` (automatically extracted)
+Display name for additional material model is automatically extracted from the first line of `mat_add_data` field. This field should not be manually specified in TOML files.
 
-**Example:**
-```toml
-mat_add = "MAT_ADD_EROSION"
-```
-
-#### `mat_thermal` (string, optional)
-Display name for thermal material model. Used in the UI to show what type of thermal model is included.
-
-**Example:**
-```toml
-mat_thermal = "MAT_THERMAL_ISOTROPIC"
-```
+#### `mat_thermal` (automatically extracted)
+Display name for thermal material model is automatically extracted from the first line of `mat_thermal_data` field. This field should not be manually specified in TOML files.
 
 #### `ref` (string, optional)
 Full citation or reference to the original source material.
@@ -165,14 +147,12 @@ $--------1---------2---------3---------4---------5---------6---------7---------8
 $#   addid    mxpres    mnpres      sigp      sigvm    mxeps1    mxeps2    mxeps3
          1       0.0      -1.0       0.0       0.0       0.3       0.0       0.0
 """
-mat_add = "MAT_ADD_EROSION"
 app = [
   "Steel AISI 1020",
   "Structural applications",
   "Automotive components"
 ]
 ref = "Smith, J. et al. (2024). Material Properties of Steel. Journal of Materials, 15(3), 123-145."
-add = "2024-11-29T00:00:00.000Z"
 url = "https://example.com/steel-properties"
 
 [[material]]
@@ -189,7 +169,6 @@ app = [
   "Aerospace applications"
 ]
 ref = "Johnson, A. (2023). Aluminum Properties Database. Materials Science Review, 8(2), 67-89."
-add = "2024-11-28T00:00:00.000Z"
 url = "https://example.com/aluminum-data"
 ```
 
@@ -199,9 +178,9 @@ url = "https://example.com/aluminum-data"
 
 2. **Material Name Extraction**: Material names are extracted from the first line of the respective data fields, with `_TITLE` suffix removed if present.
 
-3. **Field Validation**: The application expects at minimum `mat_data`, `app`, `url`, and `add` fields to be present.
+3. **Field Validation**: The application expects at minimum `mat_data`, `app`, and `url` fields to be present.
 
-4. **Date Format**: Dates should be in ISO 8601 format for consistency.
+4. **Date Handling**: The "Added" date is automatically calculated from the file's last modification date in Git history.
 
 5. **URL Validation**: URLs should be valid and accessible for reference purposes.
 
@@ -220,5 +199,8 @@ The following fields were previously used but are no longer supported:
 
 - `mat_id` - Material ID (now extracted automatically from `mat_data`)
 - `mat` - Material name (now extracted automatically from `mat_data`)
+- `mat_add` - MAT_ADD display name (now extracted automatically from `mat_add_data`)
+- `mat_thermal` - MAT_THERMAL display name (now extracted automatically from `mat_thermal_data`)
+- `add` - Date added (now calculated automatically from file's Git history)
 
 These fields should not be included in new TOML files and have been removed from existing files.

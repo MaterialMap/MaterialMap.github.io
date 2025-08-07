@@ -66,6 +66,36 @@ function determineEosInfo(eosData) {
   return { id: '-', eos: '-' };
 }
 
+// Function to determine MAT_ADD type from mat_add_data
+function determineMatAddInfo(matAddData) {
+  if (!matAddData) return null;
+  
+  const lines = matAddData.split('\n');
+  if (lines.length === 0) return null;
+  
+  let firstLine = lines[0].trim();
+  if (firstLine.endsWith('_TITLE')) {
+    firstLine = firstLine.slice(0, -6); // Remove '_TITLE'
+  }
+  
+  return firstLine;
+}
+
+// Function to determine MAT_THERMAL type from mat_thermal_data
+function determineMatThermalInfo(matThermalData) {
+  if (!matThermalData) return null;
+  
+  const lines = matThermalData.split('\n');
+  if (lines.length === 0) return null;
+  
+  let firstLine = lines[0].trim();
+  if (firstLine.endsWith('_TITLE')) {
+    firstLine = firstLine.slice(0, -6); // Remove '_TITLE'
+  }
+  
+  return firstLine;
+}
+
 // Load material and EOS dictionaries
 async function loadMaterialDictionary() {
   try {
@@ -124,15 +154,33 @@ async function loadMaterials() {
       throw new Error(`Failed to fetch file list. Status: ${fileListResponse.status} ${fileListResponse.statusText}`);
     }
 
-    const fileList = await fileListResponse.json();
-    if (!Array.isArray(fileList) || fileList.length === 0) {
+    const fileListData = await fileListResponse.json();
+    
+    // Support both old format (array of strings) and new format (array of objects)
+    let fileList;
+    if (Array.isArray(fileListData)) {
+      if (fileListData.length > 0 && typeof fileListData[0] === 'string') {
+        // Old format: array of filenames
+        fileList = fileListData.map(filename => ({ filename, lastModified: null }));
+      } else {
+        // New format: array of objects with filename and lastModified
+        fileList = fileListData;
+      }
+    } else {
+      throw new Error("File list format is not valid.");
+    }
+    
+    if (fileList.length === 0) {
       throw new Error("File list is empty or not valid.");
     }
 
     let allMaterials = [];
 
     // Последовательно загружаем файлы из списка
-    for (const fileName of fileList) {
+    for (const fileInfo of fileList) {
+      const fileName = fileInfo.filename;
+      const fileLastModified = fileInfo.lastModified;
+      
       try {
         const fileResponse = await fetch(`${basePath}/data/${fileName}`);
         if (!fileResponse.ok) {
@@ -153,7 +201,12 @@ async function loadMaterials() {
         }
 
         if (Array.isArray(materialsInFile)) {
-          allMaterials = allMaterials.concat(materialsInFile);
+          // Add file modification date to each material
+          const materialsWithDate = materialsInFile.map(material => ({
+            ...material,
+            fileLastModified: fileLastModified
+          }));
+          allMaterials = allMaterials.concat(materialsWithDate);
         } else {
           console.warn(`File ${fileName} does not contain a valid array of materials.`);
         }
@@ -176,15 +229,19 @@ async function loadMaterials() {
       // Determine material info automatically from mat_data
         const materialInfo = determineMaterialInfo(material.mat_data);
         
+        // Determine MAT_ADD and MAT_THERMAL info automatically from data fields
+        const matAddInfo = determineMatAddInfo(material.mat_add_data);
+        const matThermalInfo = determineMatThermalInfo(material.mat_thermal_data);
+        
         // Формируем разметку для первой колонки
         let materialModelHTML = `
           <div><strong>ID:</strong> ${materialInfo.id}</div>
           <div>${materialInfo.mat}</div>
         `;
 
-      // Добавляем MAT_ADD и ADD_THERMAL только если оно существует
-      if (material.mat_add)     {materialModelHTML += `<div>${material.mat_add}</div>`}
-      if (material.mat_thermal) {materialModelHTML += `<div>${material.mat_thermal}</div>`}
+      // Добавляем MAT_ADD и MAT_THERMAL только если они существуют в данных
+      if (matAddInfo)     {materialModelHTML += `<div>${matAddInfo}</div>`}
+      if (matThermalInfo) {materialModelHTML += `<div>${matThermalInfo}</div>`}
 
       // Возвращаем строки таблицы
       return [
@@ -193,7 +250,7 @@ async function loadMaterials() {
         `<ul>${(material.app || [])
           .map((app) => `<li>${app}</li>`)
           .join("")}</ul>`,
-        formatDate(material.add),
+        formatDate(material.fileLastModified || material.add),
         material,
       ];
     });

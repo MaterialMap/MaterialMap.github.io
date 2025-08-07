@@ -26,7 +26,7 @@ app = [
   "Concrete input example",
 ]
 ref = "ftp.lstc.com concrete model FAQ"
-add = "2024-11-17T00:00:00.000Z"
+
 url = "https://ftp.lstc.com/anonymous/outgoing/support/FAQ/concrete_models_faq"
 
 [[material]]
@@ -55,5 +55,5 @@ app = [
   "Concrete input example",
 ]
 ref = "ftp.lstc.com concrete model FAQ"
-add = "2024-11-17T00:00:00.000Z"
+
 url = "https://ftp.lstc.com/anonymous/outgoing/support/FAQ/concrete_models_faq"

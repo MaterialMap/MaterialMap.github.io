@@ -4,7 +4,7 @@ app = [
   "anisotropic composite material",
 ]
 ref = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat115_brick.k"
-add = "2024-11-29T00:00:00.000Z"
+
 url = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat115_brick.k"
 
 [[material]]
@@ -13,7 +13,7 @@ app = [
   "anisotropic composite material",
 ]
 ref = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/TESTING_MAT215.zip"
-add = "2024-11-29T00:00:00.000Z"
+
 url = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/TESTING_MAT215.zip"
 
 [[material]]
@@ -23,7 +23,7 @@ app = [
   "Christensen model",
 ]
 ref = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat77.stiffdamping_vs_freqindepdampGandSIGF.k"
-add = "2024-11-29T00:00:00.000Z"
+
 url = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat77.stiffdamping_vs_freqindepdampGandSIGF.k"
 
 [[material]]
@@ -33,7 +33,7 @@ app = [
   "Odgen model",
 ]
 ref = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat77_tbhys.tar"
-add = "2024-11-29T00:00:00.000Z"
+
 url = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat77_tbhys.tar"
 
 [[material]]
@@ -44,7 +44,7 @@ app = [
   "CFRP",
 ]
 ref = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat293.tar.gz"
-add = "2024-11-29T00:00:00.000Z"
+
 url = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat293.tar.gz"
 
 [[material]]
@@ -53,7 +53,7 @@ app = [
   "Paper",
 ]
 ref = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat274_twoexamples.tar.gz"
-add = "2024-11-28T00:00:00.000Z"
+
 url = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat274_twoexamples.tar.gz"
 
 [[material]]
@@ -62,7 +62,7 @@ app = [
   "Aluminium 6005-T6",
 ]
 ref = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/MAT_258_demo_material_20191029.zip"
-add = "2024-11-28T00:00:00.000Z"
+
 url = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/MAT_258_demo_material_20191029.zip"
 
 [[material]]
@@ -72,7 +72,7 @@ app = [
   "Windshield",
 ]
 ref = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/yaris_windshield_mat_280_pse.tgz"
-add = "2024-11-28T00:00:00.000Z"
+
 url = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/yaris_windshield_mat_280_pse.tgz"
 
 [[material]]
@@ -83,7 +83,7 @@ app = [
   "Prony series",
 ]
 ref = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat277_rev1.tar.gz"
-add = "2024-11-28T00:00:00.000Z"
+
 url = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat277_rev1.tar.gz"
 
 [[material]]
@@ -92,7 +92,7 @@ app = [
   "Powder Material",
 ]
 ref = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat271.papers_and_example.tar.gz"
-add = "2024-11-24T00:00:00.000Z"
+
 url = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat271.papers_and_example.tar.gz"
 
 [[material]]
@@ -321,7 +321,7 @@ app = [
   "Prony series",
 ]
 ref = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/shear_mat76.k"
-add = "2024-11-20T00:00:00.000Z"
+
 url = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/shear_mat76.k"
 
 [[material]]
@@ -331,7 +331,7 @@ app = [
   "Prony series",
 ]
 ref = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/shear_mat76.k"
-add = "2024-11-20T00:00:00.000Z"
+
 url = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/shear_mat76.k"
 
 [[material]]
@@ -340,5 +340,5 @@ app = [
   "Laminated glass",
 ]
 ref = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/alternate_glass_and_polymer_m32.k"
-add = "2024-11-20T00:00:00.000Z"
+
 url = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/alternate_glass_and_polymer_m32.k"

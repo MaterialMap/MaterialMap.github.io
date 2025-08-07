@@ -1,0 +1,135 @@
+# TOML Template for Material MAP
+# This template includes all possible parameters for material definitions
+# Copy this template and fill in the required fields for your material
+
+[[material]]
+# REQUIRED FIELDS
+
+# Material model definition (REQUIRED)
+# Contains the LS-DYNA material model keyword and parameters
+# Material ID and name are automatically extracted from this field
+mat_data = """
+*MAT_ELASTIC_TITLE
+Material Name Here
+$ Author, A. (Year). Title of the paper/source
+$ Additional source information or comments
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#     MID        RO         E        PR        DA        DB  NOT USED        
+         1   7.85e-6    200000      0.29       0.0       0.0         0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+# Applications list (REQUIRED)
+# List of material types, applications, or use cases
+app = [
+  "Primary material name",
+  "Application area 1",
+  "Application area 2",
+  "Use case description"
+]
+
+# Source URL (REQUIRED)
+# Direct link to the original source, paper, or reference
+url = "https://example.com/source-link"
+
+# OPTIONAL FIELDS
+
+# Equation of State definition (OPTIONAL)
+# Used when material requires EOS model
+# EOS ID and name are automatically extracted from this field
+eos_data = """
+*EOS_GRUNEISEN_TITLE
+EOS Name Here
+$ Author, A. (Year). Title of the paper/source
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#   EOSID         C         S     GAMMA         A        E0        V0
+         1      4569      1.49      2.17       0.0       0.0       1.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+# Additional material model data (OPTIONAL)
+# Contains MAT_ADD definitions (erosion, damage, etc.)
+# MAT_ADD ID and name are automatically extracted from this field
+mat_add_data = """
+*MAT_ADD_EROSION_TITLE
+Erosion criteria
+$ Author, A. (Year). Title of the paper/source
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#   ADDID    MXPRES    MNPRES      SIGP     SIGVM    MXEPS1    MXEPS2    MXEPS3
+         1       0.0      -1.0       0.0       0.0       0.3       0.0       0.0
+$#  MXEPS4    MXEPS5    MXEPS6    MXEPS7    MXEPS8    NUMFIP    MNEPS1    MNEPS2
+       0.0       0.0       0.0       0.0       0.0         0       0.0       0.0
+$#  MNEPS3    MNEPS4    MNEPS5    MNEPS6    MNEPS7    MNEPS8   IMPULSE    FAILTM
+       0.0       0.0       0.0       0.0       0.0       0.0       0.0       0.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+# Thermal material model data (OPTIONAL)
+# Contains thermal properties and models
+# Thermal ID and name are automatically extracted from this field
+mat_thermal_data = """
+*MAT_THERMAL_ISOTROPIC_TITLE
+Thermal properties
+$ Author, A. (Year). Title of the paper/source
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#    TMID        RO        TG      TGRL        HC
+         1   7.85e-6      20.0       0.0     460.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+# NOTE: mat_add and mat_thermal fields are automatically extracted from
+# mat_add_data and mat_thermal_data respectively and do not need to be specified
+
+# Full citation reference (OPTIONAL)
+# Complete bibliographic reference to the source
+ref = "Author, A., & Co-Author, B. (Year). Title of the Paper or Book. Journal Name, Volume(Issue), Page-Range. DOI: 10.xxxx/xxxxx"
+
+# EXAMPLE OF MULTIPLE MATERIALS IN ONE FILE
+# You can define multiple materials by repeating the [[material]] section
+
+[[material]]
+mat_data = """
+*MAT_PLASTIC_KINEMATIC_TITLE
+Second Material Example
+$ Another source reference
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#     MID        RO         E        PR      SIGY      ETAN      BETA       SRC
+         2   2.70e-6     69000      0.33     276.0    1000.0       0.0       0.0
+$#     SRP        FS        VP
+       0.0       0.0       0.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+app = [
+  "Second material name",
+  "Different application"
+]
+url = "https://example.com/second-source"
+ref = "Second Author, C. (Year). Another Reference. Conference Proceedings, Location."
+
+# NOTES FOR FILLING THE TEMPLATE:
+#
+# 1. REQUIRED FIELDS: mat_data, app, url must always be present
+#
+# 2. MATERIAL IDs: Use unique IDs for each material model within the same file
+#    - mat_data: Material ID (MID)
+#    - eos_data: EOS ID (EOSID) 
+#    - mat_add_data: Additional material ID (ADDID)
+#    - mat_thermal_data: Thermal material ID (TMID)
+#
+# 3. FORMATTING: Maintain LS-DYNA card formatting with proper column alignment
+#    Use the ruler: $--------1---------2---------3---------4---------5---------6---------7---------8
+#
+# 4. COMMENTS: Include source attribution in comments using $ prefix
+#
+# 5. APPLICATIONS: Be specific about material types and use cases
+#
+# 6. URLs: Provide direct links to accessible sources when possible
+#
+# 7. REFERENCES: Use standard academic citation format
+#
+# 8. MULTI-LINE STRINGS: Use triple quotes (""") for LS-DYNA card definitions
+#
+# 9. VALIDATION: Ensure all LS-DYNA syntax is correct and complete
+#
+# 10. DATE HANDLING: The "Added" date is automatically calculated from the file's
+#     last modification date in Git history, so no manual date field is needed

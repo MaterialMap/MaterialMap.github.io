@@ -21,7 +21,7 @@ app = [
   "Aluminium",
 ]
 ref = "Holmen, J. K., Johnsen, J., Morin, D., Børvik, T., & Langseth, M. (2020). Application of *MAT_258 for Bending and Crushing of Extruded Aluminum Profiles Using Shell Elements. 16th International LS-DYNA® Users Conference - Constitutive Modeling, June 10-11, 2020, 1–13."
-add = "2024-11-28T00:00:00.000Z"
+
 url = "https://www.dynalook.com/conferences/16th-international-ls-dyna-conference/constitutive-modeling-t6-2/t6-2-b-constitutive-modeling-152.pdf/vies"
 
 [[material]]
@@ -47,5 +47,5 @@ app = [
   "Aluminium",
 ]
 ref = "Holmen, J. K., Johnsen, J., Morin, D., Børvik, T., & Langseth, M. (2020). Application of *MAT_258 for Bending and Crushing of Extruded Aluminum Profiles Using Shell Elements. 16th International LS-DYNA® Users Conference - Constitutive Modeling, June 10-11, 2020, 1–13."
-add = "2024-11-28T00:00:00.000Z"
+
 url = "https://www.dynalook.com/conferences/16th-international-ls-dyna-conference/constitutive-modeling-t6-2/t6-2-b-constitutive-modeling-152.pdf/vies"

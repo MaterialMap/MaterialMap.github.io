@@ -25,7 +25,7 @@ app = [
   "Water",
 ]
 ref = "The LS-DYNA Aerospace Working Group (AWG): Modeling Guidelines Document (MGD)"
-add = "2024-11-17T00:00:00.000Z"
+
 url = "https://awg.ansys.com/AWG+LS-DYNA+%2AMAT_213+Resources"
 
 [[material]]
@@ -53,7 +53,7 @@ app = [
   "Air, initial pressure of 1 bar",
 ]
 ref = "The LS-DYNA Aerospace Working Group (AWG): Modeling Guidelines Document (MGD)"
-add = "2024-11-17T00:00:00.000Z"
+
 url = "https://awg.ansys.com/AWG+LS-DYNA+%2AMAT_213+Resources"
 
 [[material]]
@@ -83,7 +83,7 @@ app = [
   "Air, initial pressure of 1 bar",
 ]
 ref = "The LS-DYNA Aerospace Working Group (AWG): Modeling Guidelines Document (MGD)"
-add = "2024-11-17T00:00:00.000Z"
+
 url = "https://awg.ansys.com/AWG+LS-DYNA+%2AMAT_213+Resources"
 
 [[material]]
@@ -93,7 +93,7 @@ app = [
   "Puck Failure Criterion",
 ]
 ref = "The LS-DYNA Aerospace Working Group (AWG)"
-add = "2024-11-17T00:00:00.000Z"
+
 url = "https://awg.ansys.com/AWG+LS-DYNA+%2AMAT_213+Resources"
 
 [[material]]
@@ -103,7 +103,7 @@ app = [
   "Aramid",
 ]
 ref = "The LS-DYNA Aerospace Working Group (AWG)"
-add = "2024-11-17T00:00:00.000Z"
+
 url = "https://awg.ansys.com/Material+Parameter+Sets"
 
 [[material]]
@@ -112,7 +112,7 @@ app = [
   "Ice",
 ]
 ref = "The LS-DYNA Aerospace Working Group (AWG)"
-add = "2024-11-17T00:00:00.000Z"
+
 url = "https://awg.ansys.com/Material+Parameter+Sets"
 
 [[material]]
@@ -122,7 +122,7 @@ app = [
   "Titanium",
 ]
 ref = "The LS-DYNA Aerospace Working Group (AWG)"
-add = "2024-11-17T00:00:00.000Z"
+
 url = "https://awg.ansys.com/Material+Parameter+Sets"
 
 [[material]]
@@ -132,7 +132,7 @@ app = [
   "Titanium",
 ]
 ref = "ti"
-add = "2024-11-17T00:00:00.000Z"
+
 url = "https://awg.ansys.com/Material+Parameter+Sets"
 
 [[material]]
@@ -141,7 +141,7 @@ app = [
   "Aluminum 2024",
 ]
 ref = "The LS-DYNA Aerospace Working Group (AWG)"
-add = "2024-11-17T00:00:00.000Z"
+
 url = "https://awg.ansys.com/Material+Parameter+Sets"
 
 [[material]]
@@ -150,5 +150,5 @@ app = [
   "Inconel 718",
 ]
 ref = "The LS-DYNA Aerospace Working Group (AWG)"
-add = "2024-11-17T00:00:00.000Z"
+
 url = "https://awg.ansys.com/Material+Parameter+Sets"

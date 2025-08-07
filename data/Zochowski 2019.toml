@@ -34,7 +34,7 @@ app = [
   "Soft tissue simulation",
 ]
 ref = "Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany"
-add = "2024-11-03T00:00:00.000Z"
+
 url = "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view"
 
 [[material]]
@@ -55,7 +55,7 @@ app = [
   "Soft layers for ballistic protection",
 ]
 ref = "Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany"
-add = "2024-11-03T00:00:00.000Z"
+
 url = "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view"
 
 [[material]]
@@ -80,7 +80,7 @@ app = [
   "Ballistic projectiles",
 ]
 ref = "Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany"
-add = "2024-11-03T00:00:00.000Z"
+
 url = "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view"
 
 [[material]]
@@ -105,7 +105,7 @@ app = [
   "Ballistic projectiles",
 ]
 ref = "Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany"
-add = "2024-11-03T00:00:00.000Z"
+
 url = "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view"
 
 [[material]]
@@ -126,5 +126,5 @@ app = [
   "Backing material in body armor testing",
 ]
 ref = "Zochowski, P. (2019). Numerical Methods for the Analysis of Behind Armor Ballistic Trauma. 12th European LS-DYNA Conference, Koblenz, Germany"
-add = "2024-11-03T00:00:00.000Z"
+
 url = "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/zochowski_military_institute_of_armament_technology.pdf/view"

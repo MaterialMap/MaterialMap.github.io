@@ -21,7 +21,7 @@ app = [
   "Balistic perfomance",
 ]
 ref = "Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile. *International Journal of Impact Engineering*, 38(12), 1022-1032."
-add = "2024-11-05T00:00:00.000Z"
+
 url = "https://www.researchgate.net/publication/241096550"
 
 [[material]]
@@ -47,7 +47,7 @@ app = [
   "Balistic perfomance",
 ]
 ref = "Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile. *International Journal of Impact Engineering*, 38(12), 1022-1032."
-add = "2024-11-05T00:00:00.000Z"
+
 url = "https://www.researchgate.net/publication/241096550"
 
 [[material]]
@@ -73,7 +73,7 @@ app = [
   "Balistic perfomance",
 ]
 ref = "Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile. *International Journal of Impact Engineering*, 38(12), 1022-1032."
-add = "2024-11-05T00:00:00.000Z"
+
 url = "https://www.researchgate.net/publication/241096550"
 
 [[material]]
@@ -99,7 +99,7 @@ app = [
   "Balistic perfomance",
 ]
 ref = "Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile. *International Journal of Impact Engineering*, 38(12), 1022-1032."
-add = "2024-11-05T00:00:00.000Z"
+
 url = "https://www.researchgate.net/publication/241096550"
 
 [[material]]
@@ -125,5 +125,5 @@ app = [
   "7.62-mm APM2 projectile",
 ]
 ref = "Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile. *International Journal of Impact Engineering*, 38(12), 1022-1032."
-add = "2024-11-05T00:00:00.000Z"
+
 url = "https://www.researchgate.net/publication/241096550"

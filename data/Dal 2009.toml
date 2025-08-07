@@ -16,5 +16,5 @@ app = [
   "Bergstrom-Boyce viscoelastic rubber",
 ]
 ref = "Dal, H., Kaliske, M. Bergström–Boyce model for nonlinear finite rubber viscoelasticity: theoretical aspects and algorithmic treatment for the FE method. Comput Mech 44, 809–823 (2009)"
-add = "2024-11-20T00:00:00.000Z"
+
 url = "https://www.researchgate.net/publication/225224524_Bergstrom-Boyce_model_for_nonlinear_finite_rubber_viscoelasticity_Theoretical_aspects_and_algorithmic_treatment_for_the_FE_method"

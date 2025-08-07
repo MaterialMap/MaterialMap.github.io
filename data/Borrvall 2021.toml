@@ -12,7 +12,6 @@ $#     C10
       5.e6
 $--------1---------2---------3---------4---------5---------6---------7---------8
 """
-mat_add = "MAT_ADD_INELASTICITY"
 mat_add_data = """
 *MAT_ADD_INELASTICITY_TITLE
 Low-density polyethylene (LDPE) with Bergström-Boyce model
@@ -53,7 +52,7 @@ app = [
   "Low-density polyethylene (LDPE)",
 ]
 ref = "Borrvall, T., Bengzon, F., Jonsson, A., & Lindvall, M. (2021). Using MAT_ADD_INELASTICITY for Modelling of Polymeric Networks. In Proceedings of the 13th European LS-DYNA Conference. DYNAmore GmbH."
-add = "2024-11-16T00:00:00.000Z"
+
 url = "https://www.dynalook.com/conferences/13th-european-ls-dyna-conference-2021/elastomers-and-polymers/borrvall_dynamore_nordic.pdf/view"
 
 [[material]]
@@ -70,7 +69,6 @@ $#     C10
       5.e6
 $--------1---------2---------3---------4---------5---------6---------7---------8
 """
-mat_add = "MAT_ADD_INELASTICITY"
 mat_add_data = """
 *MAT_ADD_INELASTICITY_TITLE
 Low-density polyethylene (LDPE) with Norton-Bailey model
@@ -111,5 +109,5 @@ app = [
   "Low-density polyethylene (LDPE)",
 ]
 ref = "Borrvall, T., Bengzon, F., Jonsson, A., & Lindvall, M. (2021). Using MAT_ADD_INELASTICITY for Modelling of Polymeric Networks. In Proceedings of the 13th European LS-DYNA Conference. DYNAmore GmbH."
-add = "2024-11-16T00:00:00.000Z"
+
 url = "https://www.dynalook.com/conferences/13th-european-ls-dyna-conference-2021/elastomers-and-polymers/borrvall_dynamore_nordic.pdf/view"

@@ -19,16 +19,37 @@ jobs:
       with:
         node-version: '20' # Или другая версия Node.js
 
-    - name: Generate TOML file list
+    - name: Generate TOML file list with modification dates
       run: |
         mkdir -p dist # Создаем директорию для вывода
         node -e "
         const fs = require('fs');
         const path = require('path');
+        const { execSync } = require('child_process');
         const dataDir = path.join(__dirname, 'data');
         const files = fs.readdirSync(dataDir).filter(file => file.endsWith('.toml'));
-        fs.writeFileSync('dist/file-list.json', JSON.stringify(files, null, 2));
-        console.log('Generated file-list.json:', files);
+        
+        const fileData = files.map(file => {
+          const filePath = path.join(dataDir, file);
+          let lastModified;
+          
+          try {
+            // Try to get last commit date for the file
+            const gitDate = execSync(\`git log -1 --format=%cI -- \"\${filePath}\"\`, { encoding: 'utf8' }).trim();
+            lastModified = gitDate || new Date(fs.statSync(filePath).mtime).toISOString();
+          } catch (error) {
+            // Fallback to file system modification time
+            lastModified = new Date(fs.statSync(filePath).mtime).toISOString();
+          }
+          
+          return {
+            filename: file,
+            lastModified: lastModified
+          };
+        });
+        
+        fs.writeFileSync('dist/file-list.json', JSON.stringify(fileData, null, 2));
+        console.log('Generated file-list.json with modification dates:', fileData);
         "
     - name: Commit and push file list
       run: |

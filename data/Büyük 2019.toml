@@ -38,7 +38,7 @@ app = [
   "High explosive simulations",
 ]
 ref = "Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact Simulation. 12th European LS-DYNA Conference, Koblenz, Germany"
-add = "2024-11-04T00:00:00.000Z"
+
 url = "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/balaban_fe-tech.pdf/view"
 
 [[material]]
@@ -75,7 +75,7 @@ app = [
   "Impact simulations",
 ]
 ref = "Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact Simulation. 12th European LS-DYNA Conference, Koblenz, Germany"
-add = "2024-11-04T00:00:00.000Z"
+
 url = "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/balaban_fe-tech.pdf/view"
 
 [[material]]
@@ -114,5 +114,5 @@ app = [
   "Detonation simulations",
 ]
 ref = "Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact Simulation. 12th European LS-DYNA Conference, Koblenz, Germany"
-add = "2024-11-04T00:00:00.000Z"
+
 url = "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-2019/high-speed-impact/balaban_fe-tech.pdf/view"

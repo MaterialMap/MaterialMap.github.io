@@ -31,7 +31,7 @@ app = [
   "EOS_TABULATED with DEFINE_CURVE",
 ]
 ref = "Walvekar, V. (2010). Birdstrike Analysis on Leading Edge of an Aircraft Wing Using a Smooth Particle Hydrodynamics Bird Model (Master’s thesis, Wichita State University). Available from Wichita State University repository."
-add = "2024-11-29T00:00:00.000Z"
+
 url = "https://www.researchgate.net/publication/267592627_Birdstrike_Analysis_on_Leading_Edge_of_an_Aircraft_Wing_Using_a_Smooth_Particle_Hydrodynamics_Bird_Model"
 
 [[material]]
@@ -64,5 +64,5 @@ app = [
   "EOS_TABULATED",
 ]
 ref = "Walvekar, V. (2010). Birdstrike Analysis on Leading Edge of an Aircraft Wing Using a Smooth Particle Hydrodynamics Bird Model (Master’s thesis, Wichita State University). Available from Wichita State University repository."
-add = "2024-11-29T00:00:00.000Z"
+
 url = "https://www.researchgate.net/publication/267592627_Birdstrike_Analysis_on_Leading_Edge_of_an_Aircraft_Wing_Using_a_Smooth_Particle_Hydrodynamics_Bird_Model"

@@ -27,7 +27,7 @@ app = [
   "Antelope Lake Soil",
   "Stiff silty clay",
 ]
-add = "2024-11-17T00:00:00.000Z"
+
 url = "https://ftp.lstc.com/anonymous/outgoing/support/FAQ/soil_public"
 
 [[material]]
@@ -56,5 +56,5 @@ $--------1---------2---------3---------4---------5---------6---------7---------8
 app = [
   "Soil input example",
 ]
-add = "2024-11-17T00:00:00.000Z"
+
 url = "https://ftp.lstc.com/anonymous/outgoing/support/FAQ/soil_public"
