@@ -175,14 +175,11 @@ jobs:
               .map(app => app.trim())
               .filter(app => app.length > 0);
             
-            // Generate filename from reference (first author + year) or from URL
+            // Generate filename from reference (first author + year)
             let filename;
             const refMatch = reference.match(/^([^,]+).*?(\d{4})/);
             if (refMatch) {
               filename = `${refMatch[1].trim().replace(/\s+/g, ' ')} ${refMatch[2]}.toml`;
-            } else if (referenceUrl.includes('ftp.lstc.com')) {
-              // For LSTC sources, use a descriptive name
-              filename = `ftp.lstc.com ${materialName.replace(/[^a-zA-Z0-9]/g, '_')}.toml`;
             } else {
               filename = `${materialName.replace(/[^a-zA-Z0-9]/g, '_')} ${today.split('T')[0]}.toml`;
             }
