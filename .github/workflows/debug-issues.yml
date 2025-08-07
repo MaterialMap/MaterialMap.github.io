@@ -1,0 +1,50 @@
+name: Debug Issues
+
+on:
+  issues:
+    types: [opened, labeled]
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    
+    steps:
+      - name: Debug Issue Information
+        uses: actions/github-script@v7
+        with:
+          script: |
+            console.log('=== ISSUE DEBUG INFO ===');
+            console.log('Issue Title:', context.payload.issue.title);
+            console.log('Issue Number:', context.payload.issue.number);
+            console.log('Issue Author:', context.payload.issue.user.login);
+            console.log('Issue Labels:', context.payload.issue.labels.map(l => l.name));
+            console.log('Action Type:', context.payload.action);
+            
+            // Check if title contains [MATERIAL]
+            const hasMatTitle = context.payload.issue.title.includes('[MATERIAL]');
+            console.log('Title contains [MATERIAL]:', hasMatTitle);
+            
+            // Check if has material-submission label
+            const hasMatLabel = context.payload.issue.labels.some(l => l.name === 'material-submission');
+            console.log('Has material-submission label:', hasMatLabel);
+            
+            // Check workflow condition
+            const shouldTrigger = hasMatLabel || hasMatTitle;
+            console.log('Should trigger main workflow:', shouldTrigger);
+            
+            // Add a comment to the issue for debugging
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              body: `🔍 **Debug Info**
+              
+              - Title contains [MATERIAL]: ${hasMatTitle}
+              - Has material-submission label: ${hasMatLabel}
+              - Should trigger workflow: ${shouldTrigger}
+              - Labels: ${context.payload.issue.labels.map(l => l.name).join(', ') || 'none'}
+              
+              This is a debug message to help troubleshoot the workflow.`
+            });

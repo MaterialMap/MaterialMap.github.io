@@ -1,0 +1,28 @@
+name: Test Actions
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    
+    steps:
+      - name: Test Action
+        uses: actions/github-script@v7
+        with:
+          script: |
+            console.log('✅ GitHub Actions is working!');
+            console.log('Issue title:', context.payload.issue.title);
+            console.log('Issue number:', context.payload.issue.number);
+            
+            // Add a test comment
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              body: '🤖 **GitHub Actions Test**\n\nThis comment confirms that GitHub Actions is working correctly!'
+            });

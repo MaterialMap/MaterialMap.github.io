@@ -6,6 +6,7 @@ on:
 
 jobs:
   process-submission:
+    # Check if this is a material submission issue
     if: contains(github.event.issue.labels.*.name, 'material-submission') || contains(github.event.issue.title, '[MATERIAL]')
     runs-on: ubuntu-latest
     permissions:
