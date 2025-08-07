@@ -175,13 +175,16 @@ jobs:
               .map(app => app.trim())
               .filter(app => app.length > 0);
             
-            // Generate filename from reference (first author + year)
+            // Generate filename from reference (first author + year) or material name + hash
             let filename;
             const refMatch = reference.match(/^([^,]+).*?(\d{4})/);
             if (refMatch) {
               filename = `${refMatch[1].trim().replace(/\s+/g, ' ')} ${refMatch[2]}.toml`;
             } else {
-              filename = `${materialName.replace(/[^a-zA-Z0-9]/g, '_')} ${today.split('T')[0]}.toml`;
+              // Generate MD5 hash from material data for uniqueness
+              const crypto = require('crypto');
+              const hash = crypto.createHash('md5').update(materialData).digest('hex').substring(0, 8);
+              filename = `${materialName.replace(/[^a-zA-Z0-9]/g, '_')}_${hash}.toml`;
             }
             
             // Build TOML structure
