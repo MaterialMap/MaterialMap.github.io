@@ -263,28 +263,28 @@ jobs:
           if [ -f "dist/file-list.json" ]; then
             # Add new file to the list
             python3 -c "
-            import json
-            import sys
-            
-            filename = '${{ steps.parse-issue.outputs.filename }}'
-            
-            try:
-                with open('dist/file-list.json', 'r') as f:
-                    files = json.load(f)
-            except:
-                files = []
-            
-            if filename not in files:
-                files.append(filename)
-                files.sort()
-                
-                with open('dist/file-list.json', 'w') as f:
-                    json.dump(files, f, indent=2)
-                    
-                print(f'Added {filename} to file list')
-            else:
-                print(f'{filename} already exists in file list')
-            "
+import json
+import sys
+
+filename = '${{ steps.parse-issue.outputs.filename }}'
+
+try:
+    with open('dist/file-list.json', 'r') as f:
+        files = json.load(f)
+except:
+    files = []
+
+if filename not in files:
+    files.append(filename)
+    files.sort()
+    
+    with open('dist/file-list.json', 'w') as f:
+        json.dump(files, f, indent=2)
+        
+    print(f'Added {filename} to file list')
+else:
+    print(f'{filename} already exists in file list')
+"
           else
             echo "Warning: dist/file-list.json not found"
           fi
