@@ -208,24 +208,3 @@ h2 {
     }
 }
 
-/* Submit button styles */
-.submit-link {
-    margin-top: 30px;
-    text-align: center;
-}
-
-.submit-button {
-    display: inline-block;
-    background-color: #28a745;
-    color: white;
-    padding: 12px 24px;
-    text-decoration: none;
-    border-radius: 6px;
-    font-weight: 500;
-    transition: background-color 0.2s;
-}
-
-.submit-button:hover {
-    background-color: #218838;
-    text-decoration: none;
-}
