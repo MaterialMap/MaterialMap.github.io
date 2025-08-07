@@ -1,0 +1,59 @@
+[[material]]
+mat_data = """
+*MAT_PSEUDO_TENSOR_TITLE
+Concrete model input sample: Mode II Concrete Model Option with automatic EOS
+$ ftp.lstc.com concrete model FAQ
+$ https://ftp.lstc.com/anonymous/outgoing/support/FAQ/concrete_models_faq
+$ Psi, inch, sec, lbf-s2/inch4, lbf
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#     mid        ro         g        pr
+        16 2.2000E-4     0.000  0.200000
+$#    sigf        a0        a1        a2       a0f       a1f        b1       per
+ 5000.0000 -1.000000     0.000     0.000     0.000     0.000     0.000     0.000
+$#      er       prr      sigy      etan       lcp       lcr
+ 3.0000E+7  0.300000 60000.000    1.0E+5         0         0
+$#      x1        x2        x3        x4        x5        x6        x7        x8
+     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000
+$#      x9       x10       x11       x12       x13       x14       x15       x16
+     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000
+$#     ys1       ys2       ys3       ys4       ys5       ys6       ys7       ys8
+     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000
+$#     ys9      ys10      ys11      ys12      ys13      ys14      ys15      ys16
+     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+app = [
+  "Concrete input example",
+]
+ref = "ftp.lstc.com concrete model FAQ"
+add = "2024-11-17T00:00:00.000Z"
+url = "https://ftp.lstc.com/anonymous/outgoing/support/FAQ/concrete_models_faq"
+
+[[material]]
+mat_data = """
+*MAT_SOIL_AND_FOAM_TITLE
+Concrete model input sample
+$ ftp.lstc.com concrete model FAQ
+$ https://ftp.lstc.com/anonymous/outgoing/support/FAQ/concrete_models_faq
+$ Psi, inch, sec, lbf-s2/inch4, lbf
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#     mid        ro         g      bulk        a0        a1        a2        pc
+         5 2.2000E-4 7.8800E+5 6.0000E+6 2.4390E+6 6025.0000 -0.051900-300.00000
+$#     vcr       ref
+     0.000     0.000
+$#    eps1      eps2      eps3      eps4      eps5      eps6      eps7      eps8
+     0.000  0.020000  0.037700  0.041800  0.051300  0.100000  0.500000     0.000
+$#    eps9     eps10
+     0.000     0.000
+$#      p1        p2        p3        p4        p5        p6        p7        p8
+     0.000 21000.000 34800.000 45000.000 58000.000 1.2500E+5 9.4450E+5     0.000
+$#      p9       p10
+     0.000     0.000
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+app = [
+  "Concrete input example",
+]
+ref = "ftp.lstc.com concrete model FAQ"
+add = "2024-11-17T00:00:00.000Z"
+url = "https://ftp.lstc.com/anonymous/outgoing/support/FAQ/concrete_models_faq"
