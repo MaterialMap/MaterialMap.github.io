@@ -34,12 +34,41 @@ jobs:
           let lastModified;
           
           try {
-            // Try to get last commit date for the file
-            const gitDate = execSync(\`git log -1 --format=%cI -- \"\${filePath}\"\`, { encoding: 'utf8' }).trim();
-            lastModified = gitDate || new Date(fs.statSync(filePath).mtime).toISOString();
+            // Extract the base name without extension for searching in commit messages
+            const baseName = path.basename(file, '.toml');
+            
+            // Try to find a commit that specifically mentions this file or material
+            let gitDate = null;
+            
+            try {
+              // First, try to find commits that mention the file name in the message
+              const commitSearch = execSync(\`git log --all --grep=\"\${baseName}\" --format=%cI | head -1\`, { encoding: 'utf8' }).trim();
+              if (commitSearch) {
+                gitDate = commitSearch;
+              }
+            } catch (e) {
+              // Ignore grep errors
+            }
+            
+            // If no specific commit found, try to get the first commit that added this file
+            if (!gitDate) {
+              try {
+                const firstCommit = execSync(\`git log --reverse --format=%cI -- \"\${filePath}\" | head -1\`, { encoding: 'utf8' }).trim();
+                if (firstCommit) {
+                  gitDate = firstCommit;
+                }
+              } catch (e) {
+                // Ignore errors
+              }
+            }
+            
+            // Convert to date-only format (YYYY-MM-DD)
+            const dateOnly = gitDate ? new Date(gitDate).toISOString().split('T')[0] : new Date(fs.statSync(filePath).mtime).toISOString().split('T')[0];
+            lastModified = dateOnly;
+            
           } catch (error) {
-            // Fallback to file system modification time
-            lastModified = new Date(fs.statSync(filePath).mtime).toISOString();
+            // Fallback to file system modification time (date only)
+            lastModified = new Date(fs.statSync(filePath).mtime).toISOString().split('T')[0];
           }
           
           return {

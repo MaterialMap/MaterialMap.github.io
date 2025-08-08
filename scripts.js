@@ -447,7 +447,21 @@ document.addEventListener('click', function(event) {
 // Format date in DD.MM.YYYY format
 function formatDate(dateString) {
   if (!dateString) return "N/A";
-  const date = new Date(dateString);
+  
+  // Handle both ISO date strings and YYYY-MM-DD format
+  let date;
+  if (dateString.includes('T')) {
+    // Full ISO string
+    date = new Date(dateString);
+  } else if (dateString.match(/^\d{4}-\d{2}-\d{2}$/)) {
+    // YYYY-MM-DD format
+    const [year, month, day] = dateString.split('-');
+    date = new Date(year, month - 1, day); // month is 0-indexed
+  } else {
+    // Fallback
+    date = new Date(dateString);
+  }
+  
   const day = String(date.getDate()).padStart(2, "0");
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const year = date.getFullYear();
