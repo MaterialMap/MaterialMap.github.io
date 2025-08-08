@@ -1,20 +1,20 @@
-// Универсальный вичислитель базового пути
+// Universal base path calculator
 function getBasePath() {
   const { origin, pathname, port } = window.location;
 
-  // Проверяем, запущен ли сайт через file://
+  // Check if the site is running via file://
   if (origin.startsWith("file://")) {
     const pathParts = pathname.split("/");
-    pathParts.pop(); // Убираем 'index.html' или последний сегмент
+    pathParts.pop(); // Remove 'index.html' or the last segment
     return pathParts.join("/");
   }
 
-  // Проверяем, запущен ли сайт на localhost с непривилегированным портом
+  // Check if the site is running on localhost with a non-privileged port
   if (origin.includes("localhost") || origin.includes("127.0.0.1") || (port && parseInt(port) > 1024)) {
     return "./";
   }
 
-  // Для GitHub Pages
+  // For GitHub Pages
   const repoName = pathname.split("/")[1];
   return repoName ? `/${repoName}` : "/";
 }
@@ -31,17 +31,14 @@ function determineMaterialInfo(matData) {
     firstLine = firstLine.slice(0, -6); // Remove '_TITLE'
   }
   
-  // Use reverse dictionary to find ID by material name
-  if (window.reverseDictionary && window.reverseDictionary[firstLine]) {
-    return {
-      id: window.reverseDictionary[firstLine],
-      mat: firstLine
-    };
-  }
+  // Use material dictionaries class to find ID by material name
+  const id = materialDictionaries.getMaterialId(firstLine);
   
-  return { id: '-', mat: '-' };
+  return {
+    id: id,
+    mat: firstLine
+  };
 }
-
 
 // Function to determine EOS ID and type from eos_data
 function determineEosInfo(eosData) {
@@ -55,171 +52,217 @@ function determineEosInfo(eosData) {
     firstLine = firstLine.slice(0, -6); // Remove '_TITLE'
   }
   
-  // Use reverse EOS dictionary to find ID by EOS name
-  if (window.reverseEosDictionary && window.reverseEosDictionary[firstLine]) {
-    return {
-      id: window.reverseEosDictionary[firstLine],
-      eos: firstLine
-    };
-  }
+  // Use material dictionaries class to find ID by EOS name
+  const id = materialDictionaries.getEosId(firstLine);
   
-  return { id: '-', eos: '-' };
+  return {
+    id: id,
+    eos: firstLine
+  };
 }
 
-// Function to determine MAT_ADD type from mat_add_data
+// Generic function to determine material type from data
+function determineAdditionalInfo(data) {
+  if (!data) return null;
+  
+  const lines = data.split('\n');
+  if (lines.length === 0) return null;
+  
+  let firstLine = lines[0].trim();
+  if (firstLine.endsWith('_TITLE')) {
+    firstLine = firstLine.slice(0, -6); // Remove '_TITLE'
+  }
+  
+  return firstLine;
+}
+
+// Function to determine MAT_ADD type from mat_add_data (wrapper for backward compatibility)
 function determineMatAddInfo(matAddData) {
-  if (!matAddData) return null;
-  
-  const lines = matAddData.split('\n');
-  if (lines.length === 0) return null;
-  
-  let firstLine = lines[0].trim();
-  if (firstLine.endsWith('_TITLE')) {
-    firstLine = firstLine.slice(0, -6); // Remove '_TITLE'
-  }
-  
-  return firstLine;
+  return determineAdditionalInfo(matAddData);
 }
 
-// Function to determine MAT_THERMAL type from mat_thermal_data
+// Function to determine MAT_THERMAL type from mat_thermal_data (wrapper for backward compatibility)
 function determineMatThermalInfo(matThermalData) {
-  if (!matThermalData) return null;
-  
-  const lines = matThermalData.split('\n');
-  if (lines.length === 0) return null;
-  
-  let firstLine = lines[0].trim();
-  if (firstLine.endsWith('_TITLE')) {
-    firstLine = firstLine.slice(0, -6); // Remove '_TITLE'
-  }
-  
-  return firstLine;
+  return determineAdditionalInfo(matThermalData);
 }
 
-// Load material and EOS dictionaries
-async function loadMaterialDictionary() {
-  try {
-    // Load material dictionary
-    const matResponse = await fetch(`${basePath}/lib/mat.json`);
-    if (matResponse.ok) {
-      window.matDictionary = await matResponse.json();
-      // Create reverse dictionary: value -> key
-      window.reverseDictionary = {};
-      Object.entries(window.matDictionary).forEach(([key, value]) => {
-        window.reverseDictionary[value] = key;
-      });
-    }
-    
-    // Load EOS dictionary
-    const eosResponse = await fetch(`${basePath}/lib/eos.json`);
-    if (eosResponse.ok) {
-      window.eosDictionary = await eosResponse.json();
-      // Create reverse EOS dictionary: value -> key
-      window.reverseEosDictionary = {};
-      Object.entries(window.eosDictionary).forEach(([key, value]) => {
-        window.reverseEosDictionary[value] = key;
-      });
-    }
-  } catch (error) {
-    console.warn('Failed to load dictionaries:', error);
-    window.matDictionary = {};
-    window.reverseDictionary = {};
-    window.eosDictionary = {};
-    window.reverseEosDictionary = {};
+// Material dictionaries class for better encapsulation
+class MaterialDictionaries {
+  constructor() {
+    this.matDictionary = {};
+    this.reverseDictionary = {};
+    this.eosDictionary = {};
+    this.reverseEosDictionary = {};
   }
-}
-
-
-
-// Ожидание загрузки TOML парсера
-async function waitForTomlParser() {
-  while (typeof window.parseToml === 'undefined') {
-    await new Promise(resolve => setTimeout(resolve, 100));
-  }
-}
-
-// Загружаем материалы из указанных файлов
-async function loadMaterials() {
-    // Wait for TOML parser to load
-    await waitForTomlParser();
-    
-    // Load material dictionary first
-    await loadMaterialDictionary();
-  try {
-    document.getElementById("loading").style.display = "block";
-
-    // Загружаем список файлов
-    const fileListResponse = await fetch(`${basePath}/dist/file-list.json`);
-    if (!fileListResponse.ok) {
-      throw new Error(`Failed to fetch file list. Status: ${fileListResponse.status} ${fileListResponse.statusText}`);
-    }
-
-    const fileListData = await fileListResponse.json();
-    
-    // Support both old format (array of strings) and new format (array of objects)
-    let fileList;
-    if (Array.isArray(fileListData)) {
-      if (fileListData.length > 0 && typeof fileListData[0] === 'string') {
-        // Old format: array of filenames
-        fileList = fileListData.map(filename => ({ filename, lastModified: null }));
-      } else {
-        // New format: array of objects with filename and lastModified
-        fileList = fileListData;
+  
+  async load(basePath) {
+    try {
+      // Load material dictionary
+      const matResponse = await fetch(`${basePath}/lib/mat.json`);
+      if (matResponse.ok) {
+        this.matDictionary = await matResponse.json();
+        // Create reverse dictionary: value -> key
+        this.reverseDictionary = {};
+        Object.entries(this.matDictionary).forEach(([key, value]) => {
+          this.reverseDictionary[value] = key;
+        });
       }
-    } else {
-      throw new Error("File list format is not valid.");
-    }
-    
-    if (fileList.length === 0) {
-      throw new Error("File list is empty or not valid.");
-    }
-
-    let allMaterials = [];
-
-    // Последовательно загружаем файлы из списка
-    for (const fileInfo of fileList) {
-      const fileName = fileInfo.filename;
-      const fileLastModified = fileInfo.lastModified;
       
-      try {
-        const fileResponse = await fetch(`${basePath}/data/${fileName}`);
-        if (!fileResponse.ok) {
-          console.warn(`Failed to fetch file ${fileName}. Status: ${fileResponse.status}`);
-          continue;
-        }
-
-        const tomlText = await fileResponse.text();
-
-        // Парсим TOML
-        let materialsInFile;
-        try {
-          const parsedToml = window.parseToml(tomlText);
-          materialsInFile = parsedToml.material;
-        } catch (tomlError) {
-          console.warn(`TOML parsing error in file ${fileName}: ${tomlError.message}`);
-          continue;
-        }
-
-        if (Array.isArray(materialsInFile)) {
-          // Add file modification date to each material
-          const materialsWithDate = materialsInFile.map(material => ({
-            ...material,
-            fileLastModified: fileLastModified
-          }));
-          allMaterials = allMaterials.concat(materialsWithDate);
-        } else {
-          console.warn(`File ${fileName} does not contain a valid array of materials.`);
-        }
-      } catch (fileError) {
-        console.error(`Error processing file ${fileName}:`, fileError);
+      // Load EOS dictionary
+      const eosResponse = await fetch(`${basePath}/lib/eos.json`);
+      if (eosResponse.ok) {
+        this.eosDictionary = await eosResponse.json();
+        // Create reverse EOS dictionary: value -> key
+        this.reverseEosDictionary = {};
+        Object.entries(this.eosDictionary).forEach(([key, value]) => {
+          this.reverseEosDictionary[value] = key;
+        });
       }
+    } catch (error) {
+      console.warn('Failed to load dictionaries:', error);
+      this.matDictionary = {};
+      this.reverseDictionary = {};
+      this.eosDictionary = {};
+      this.reverseEosDictionary = {};
     }
+  }
+  
+  getMaterialId(materialName) {
+    return this.reverseDictionary[materialName] || '-';
+  }
+  
+  getEosId(eosName) {
+    return this.reverseEosDictionary[eosName] || '-';
+  }
+}
 
-    if (allMaterials.length === 0) {
-      throw new Error("No materials were successfully loaded.");
-    }
+// Global instance of material dictionaries
+const materialDictionaries = new MaterialDictionaries();
 
-    // Формируем данные таблицы
+// Load material and EOS dictionaries (for backward compatibility)
+async function loadMaterialDictionary() {
+  await materialDictionaries.load(basePath);
+  
+  // For backward compatibility with existing code
+  window.matDictionary = materialDictionaries.matDictionary;
+  window.reverseDictionary = materialDictionaries.reverseDictionary;
+  window.eosDictionary = materialDictionaries.eosDictionary;
+  window.reverseEosDictionary = materialDictionaries.reverseEosDictionary;
+}
+
+
+
+// Wait for TOML parser to load with timeout
+async function waitForTomlParser(timeout = 5000) {
+  return new Promise((resolve, reject) => {
+    const startTime = Date.now();
+    
+    const checkParser = () => {
+      if (typeof window.parseToml !== 'undefined') {
+        resolve();
+        return;
+      }
+      
+      if (Date.now() - startTime > timeout) {
+        reject(new Error('TOML parser failed to load within the timeout period'));
+        return;
+      }
+      
+      setTimeout(checkParser, 100);
+    };
+    
+    checkParser();
+  });
+}
+
+// Load materials from specified files
+async function loadMaterials() {
+    try {
+      // Wait for TOML parser to load with timeout
+      await waitForTomlParser();
+      
+      // Load material dictionary first
+      await loadMaterialDictionary();
+      
+      // Show loading indicator
+      document.getElementById("loading").classList.remove("hidden");
+  
+      // Load file list
+      const fileListResponse = await fetch(`${basePath}/dist/file-list.json`);
+      if (!fileListResponse.ok) {
+        throw new Error(`Failed to fetch file list. Status: ${fileListResponse.status} ${fileListResponse.statusText}`);
+      }
+  
+      const fileListData = await fileListResponse.json();
+      
+      // Support both old format (array of strings) and new format (array of objects)
+      let fileList;
+      if (Array.isArray(fileListData)) {
+        if (fileListData.length > 0 && typeof fileListData[0] === 'string') {
+          // Old format: array of filenames
+          fileList = fileListData.map(filename => ({ filename, lastModified: null }));
+        } else {
+          // New format: array of objects with filename and lastModified
+          fileList = fileListData;
+        }
+      } else {
+        throw new Error("File list format is not valid.");
+      }
+      
+      if (fileList.length === 0) {
+        throw new Error("File list is empty or not valid.");
+      }
+  
+      // Load files in parallel using Promise.all
+      const filePromises = fileList.map(async (fileInfo) => {
+        const fileName = fileInfo.filename;
+        const fileLastModified = fileInfo.lastModified;
+        
+        try {
+          const fileResponse = await fetch(`${basePath}/data/${fileName}`);
+          if (!fileResponse.ok) {
+            console.warn(`Failed to fetch file ${fileName}. Status: ${fileResponse.status}`);
+            return [];
+          }
+  
+          const tomlText = await fileResponse.text();
+  
+          // Parse TOML
+          try {
+            const parsedToml = window.parseToml(tomlText);
+            const materialsInFile = parsedToml.material || [];
+            
+            if (Array.isArray(materialsInFile)) {
+              // Add file modification date to each material
+              return materialsInFile.map(material => ({
+                ...material,
+                fileLastModified: fileLastModified
+              }));
+            } else {
+              console.warn(`File ${fileName} does not contain a valid array of materials.`);
+              return [];
+            }
+          } catch (tomlError) {
+            console.warn(`TOML parsing error in file ${fileName}: ${tomlError.message}`);
+            return [];
+          }
+        } catch (fileError) {
+          console.error(`Error processing file ${fileName}:`, fileError);
+          return [];
+        }
+      });
+  
+      // Wait for all file loading promises to resolve
+      const materialsArrays = await Promise.all(filePromises);
+      
+      // Flatten the array of arrays into a single array of materials
+      const allMaterials = materialsArrays.flat();
+  
+      if (allMaterials.length === 0) {
+        throw new Error("No materials were successfully loaded.");
+      }
+
+    // Prepare table data
     const tableData = allMaterials.map((material) => {
       if (!material || typeof material !== "object") {
         console.warn("Invalid material format", material);
@@ -227,23 +270,23 @@ async function loadMaterials() {
       }
 
       // Determine material info automatically from mat_data
-        const materialInfo = determineMaterialInfo(material.mat_data);
-        
-        // Determine MAT_ADD and MAT_THERMAL info automatically from data fields
-        const matAddInfo = determineMatAddInfo(material.mat_add_data);
-        const matThermalInfo = determineMatThermalInfo(material.mat_thermal_data);
-        
-        // Формируем разметку для первой колонки
-        let materialModelHTML = `
-          <div><strong>ID:</strong> ${materialInfo.id}</div>
-          <div>${materialInfo.mat}</div>
-        `;
+      const materialInfo = determineMaterialInfo(material.mat_data);
+      
+      // Determine MAT_ADD and MAT_THERMAL info automatically from data fields
+      const matAddInfo = determineMatAddInfo(material.mat_add_data);
+      const matThermalInfo = determineMatThermalInfo(material.mat_thermal_data);
+      
+      // Create markup for the first column
+      let materialModelHTML = `
+        <div><strong>ID:</strong> ${materialInfo.id}</div>
+        <div>${materialInfo.mat}</div>
+      `;
 
-      // Добавляем MAT_ADD и MAT_THERMAL только если они существуют в данных
-      if (matAddInfo)     {materialModelHTML += `<div>${matAddInfo}</div>`}
+      // Add MAT_ADD and MAT_THERMAL only if they exist in the data
+      if (matAddInfo) {materialModelHTML += `<div>${matAddInfo}</div>`}
       if (matThermalInfo) {materialModelHTML += `<div>${matThermalInfo}</div>`}
 
-      // Возвращаем строки таблицы
+      // Return table rows
       return [
         materialModelHTML,
         determineEosInfo(material.eos_data).eos,
@@ -255,7 +298,7 @@ async function loadMaterials() {
       ];
     });
 
-    // Инициализация DataTable
+    // Initialize DataTable
     const table = $("#materials-table").DataTable({
       data: tableData,
       columns: [
@@ -265,11 +308,11 @@ async function loadMaterials() {
         { title: "Added" },
         { visible: false },
       ],
-      order: [[0, "asc"]], // Сортировка по первой колонке (индекс 0) в порядке возрастания (asc)
+      order: [[0, "asc"]], // Sort by first column (index 0) in ascending order
       pageLength: 20,
     });
 
-    // Обработка кликов для разворачивания строк
+    // Handle clicks to expand rows
     $("#materials-table tbody").on("click", "tr", function () 
     {
       const tr = $(this);
@@ -287,28 +330,39 @@ async function loadMaterials() {
         row.child.hide();
         tr.removeClass("shown");
       } 
-
       else 
       {      
-        const matDataHtml = material.mat_data
-          ? createCodeBlock("*MAT", material.mat_data)
-          : ""; // Если mat_data нет, блок не создается
-        const eosDataHtml = material.eos_data
-          ? createCodeBlock("*EOS", material.eos_data)
-          : ""; // Если eos_data нет, блок не создается
-        const matAddDataHtml = material.mat_add_data
-          ? createCodeBlock("*MAT_ADD", material.mat_add_data)
-          : ""; // Если mat_add_data нет, блок не создается
-        const matThermalDataHtml = material.mat_thermal_data
-          ? createCodeBlock("*MAT_THERMAL", material.mat_thermal_data)
-          : ""; // Если mat_thermal_data нет, блок не создается
+        // Create HTML elements for each data type if it exists
+        const contentElements = [];
+        
+        // Add reference information
         const referenceHtml = material.ref
           ? `<div class="reference-block"><strong>Reference: </strong><a href="${material.url}" target="_blank">${material.ref}</a></div>`
-          :  `<div class="reference-block"><strong>Reference: </strong><a href="${material.url}" target="_blank">${material.url}</a></div>`;
-
-        row.child(
-          `${referenceHtml}${matDataHtml}${eosDataHtml}${matAddDataHtml}${matThermalDataHtml}`
-        ).show();
+          : `<div class="reference-block"><strong>Reference: </strong><a href="${material.url}" target="_blank">${material.url}</a></div>`;
+        contentElements.push(referenceHtml);
+        
+        // Add material data if it exists
+        if (material.mat_data) {
+          contentElements.push(createCodeBlock("*MAT", material.mat_data));
+        }
+        
+        // Add EOS data if it exists
+        if (material.eos_data) {
+          contentElements.push(createCodeBlock("*EOS", material.eos_data));
+        }
+        
+        // Add MAT_ADD data if it exists
+        if (material.mat_add_data) {
+          contentElements.push(createCodeBlock("*MAT_ADD", material.mat_add_data));
+        }
+        
+        // Add MAT_THERMAL data if it exists
+        if (material.mat_thermal_data) {
+          contentElements.push(createCodeBlock("*MAT_THERMAL", material.mat_thermal_data));
+        }
+        
+        // Join all elements and show
+        row.child(contentElements.join('')).show();
         tr.addClass("shown");
       }
     });
@@ -322,24 +376,26 @@ async function loadMaterials() {
   } 
   finally 
   {
-    document.getElementById("loading").style.display = "none";
+    document.getElementById("loading").classList.add("hidden");
   }
 }
 
-// Создание блока кода с заголовком и кнопкой копирования
+// Create a code block with header and copy button
 function createCodeBlock(title, content) {
-  const escapedContent = escapeHtml(content); // Экранируем HTML для безопасного отображения
+  const escapedContent = escapeHtml(content); // Escape HTML for safe display
+  const id = `code-block-${Math.random().toString(36).substring(2, 9)}`;
+  
   return `
     <div class="code-container">
       <div class="code-header">
         <span class="code-title">${title}</span>
-        <button class="copy-button" onclick="copyToClipboard('${encodeURIComponent(content)}')">Copy</button>
+        <button class="copy-button" data-content-id="${id}">Copy</button>
       </div>
-      <pre><code>${escapedContent}</code></pre>
+      <pre id="${id}"><code>${escapedContent}</code></pre>
     </div>`;
 }
 
-// Экранирование HTML
+// Escape HTML
 function escapeHtml(unsafe) {
   return unsafe
     .replace(/&/g, "&amp;")
@@ -349,16 +405,24 @@ function escapeHtml(unsafe) {
     .replace(/'/g, "&#039;");
 }
 
-// Копирование текста в буфер обмена
+// Copy text to clipboard
 function copyToClipboard(content) {
-  const decodedContent = decodeURIComponent(content);
   navigator.clipboard
-    .writeText(decodedContent)
+    .writeText(content)
     .then(() => alert("Copied to clipboard!"))
     .catch((err) => alert("Failed to copy: " + err));
 }
 
-// Форматирование даты в формате DD.MM.YYYY
+// Add event listener for copy buttons
+document.addEventListener('click', function(event) {
+  if (event.target.classList.contains('copy-button')) {
+    const contentId = event.target.getAttribute('data-content-id');
+    const content = document.getElementById(contentId).textContent;
+    copyToClipboard(content);
+  }
+});
+
+// Format date in DD.MM.YYYY format
 function formatDate(dateString) {
   if (!dateString) return "N/A";
   const date = new Date(dateString);
@@ -368,11 +432,30 @@ function formatDate(dateString) {
   return `${day}.${month}.${year}`;
 }
 
-// Загрузка материалов при открытии страницы
+// Register service worker for offline capabilities
+function registerServiceWorker() {
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register(`${basePath}/service-worker.js`)
+        .then(registration => {
+          console.log('Service Worker registered with scope:', registration.scope);
+        })
+        .catch(error => {
+          console.log('Service Worker registration failed:', error);
+        });
+    });
+  }
+}
+
+// Load materials when the page opens
 window.addEventListener("load", () => {
+  // Register service worker
+  registerServiceWorker();
+  
+  // Load materials data
   loadMaterials();
 
-  // Меняем вид курсора при наведении на строки таблицы
+  // Change cursor appearance when hovering over table rows
   const tableElement = document.getElementById("materials-table");
   if (tableElement) {
     tableElement.addEventListener("mouseenter", (event) => {

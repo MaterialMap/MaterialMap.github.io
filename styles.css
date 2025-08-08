@@ -184,6 +184,11 @@ h2 {
     background-color: #f7f7f7; /* Match container background */
 }
 
+/* Utility classes */
+.hidden {
+    display: none !important;
+}
+
 /* Responsive styles for smaller devices */
 @media (max-width: 600px) {
     body {
