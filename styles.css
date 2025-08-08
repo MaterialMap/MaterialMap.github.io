@@ -88,6 +88,90 @@ h2 {
     overflow: hidden; /* Hide content overflowing the block */
 }
 
+/* Filters container styles */
+.filters-container {
+    width: 100%;
+    margin: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+}
+
+.filter-group label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #495057;
+    font-size: 0.9rem;
+}
+
+.filter-count {
+    font-weight: normal;
+    color: #6c757d;
+    font-size: 0.8rem;
+}
+
+.filter-select {
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    background-color: white;
+    font-size: 0.9rem;
+    min-height: 120px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: #4169E1;
+    box-shadow: 0 0 0 2px rgba(65, 105, 225, 0.2);
+}
+
+.filter-select option {
+    padding: 4px 8px;
+}
+
+.filter-select option:checked {
+    background-color: #4169E1;
+    color: white;
+}
+
+.filter-actions {
+    display: flex;
+    align-items: flex-end;
+}
+
+.clear-button {
+    padding: 8px 16px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease;
+}
+
+.clear-button:hover {
+    background-color: #5a6268;
+}
+
+.clear-button:active {
+    background-color: #495057;
+}
+
 /* About page styles */
 .about-section {
     margin: 0 auto;

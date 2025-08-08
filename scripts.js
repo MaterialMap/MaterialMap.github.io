@@ -286,15 +286,29 @@ async function loadMaterials() {
       if (matAddInfo) {materialModelHTML += `<div>${matAddInfo}</div>`}
       if (matThermalInfo) {materialModelHTML += `<div>${matThermalInfo}</div>`}
 
+      // Get EOS info
+      const eosInfo = determineEosInfo(material.eos_data);
+      
+      // Collect all material types for search
+      const allMaterialTypes = [materialInfo.mat];
+      if (matAddInfo) {
+        allMaterialTypes.push(matAddInfo);
+      }
+      if (matThermalInfo) {
+        allMaterialTypes.push(matThermalInfo);
+      }
+      
       // Return table rows
       return [
         materialModelHTML,
-        determineEosInfo(material.eos_data).eos,
+        eosInfo.eos,
         `<ul>${(material.app || [])
           .map((app) => `<li>${app}</li>`)
           .join("")}</ul>`,
         formatDate(material.fileLastModified || material.add),
         material,
+        allMaterialTypes, // All material types for search (column 5)
+        eosInfo.eos // Clean EOS name for search (column 6)
       ];
     });
 
@@ -306,18 +320,26 @@ async function loadMaterials() {
         { title: "EOS" },
         { title: "Applications" },
         { title: "Added" },
-        { visible: false },
+        { visible: false }, // Material object
+        { visible: false }, // Clean material name for search
+        { visible: false }  // Clean EOS name for search
       ],
       order: [[0, "asc"]], // Sort by first column (index 0) in ascending order
-      pageLength: 20,
+      pageLength: 20
     });
+
+    // Populate filter dropdowns
+    populateFilters(tableData);
+
+    // Setup filter event handlers
+    setupFilterHandlers(table);
 
     // Handle clicks to expand rows
     $("#materials-table tbody").on("click", "tr", function () 
     {
       const tr = $(this);
       const row = table.row(tr);
-      const material = row.data()[4];
+      const material = row.data()[4]; // Material object is still in column 4
 
       if (!material) 
       {
@@ -445,6 +467,128 @@ function registerServiceWorker() {
         });
     });
   }
+}
+
+// Populate filter dropdowns with unique values
+function populateFilters(tableData) {
+  const materialSet = new Set();
+  const eosSet = new Set();
+  
+  tableData.forEach(row => {
+    const materialTypes = row[5]; // Array of material types
+    const eosName = row[6]; // Clean EOS name
+    
+    // Add all material types to the set
+    if (Array.isArray(materialTypes)) {
+      materialTypes.forEach(materialName => {
+        if (materialName && materialName !== '-') {
+          materialSet.add(materialName);
+        }
+      });
+    }
+    
+    if (eosName && eosName !== '-') {
+      eosSet.add(eosName);
+    }
+  });
+  
+  // Populate material filter
+  const materialFilter = document.getElementById('material-filter');
+  const sortedMaterials = Array.from(materialSet).sort();
+  sortedMaterials.forEach(material => {
+    const option = document.createElement('option');
+    option.value = material;
+    option.textContent = material;
+    materialFilter.appendChild(option);
+  });
+  
+  // Populate EOS filter
+  const eosFilter = document.getElementById('eos-filter');
+  const sortedEOS = Array.from(eosSet).sort();
+  sortedEOS.forEach(eos => {
+    const option = document.createElement('option');
+    option.value = eos;
+    option.textContent = eos;
+    eosFilter.appendChild(option);
+  });
+}
+
+// Setup filter event handlers
+function setupFilterHandlers(table) {
+  const materialFilter = document.getElementById('material-filter');
+  const eosFilter = document.getElementById('eos-filter');
+  const clearButton = document.getElementById('clear-filters');
+  
+  // Material filter change handler
+  materialFilter.addEventListener('change', function() {
+    updateFilterCounts();
+    applyFilters(table);
+  });
+  
+  // EOS filter change handler
+  eosFilter.addEventListener('change', function() {
+    updateFilterCounts();
+    applyFilters(table);
+  });
+  
+  // Clear filters button handler
+  clearButton.addEventListener('click', function() {
+    materialFilter.selectedIndex = -1;
+    eosFilter.selectedIndex = -1;
+    updateFilterCounts();
+    applyFilters(table);
+  });
+  
+  // Initial count update
+  updateFilterCounts();
+}
+
+// Update filter counts
+function updateFilterCounts() {
+  const materialFilter = document.getElementById('material-filter');
+  const eosFilter = document.getElementById('eos-filter');
+  const materialCount = document.getElementById('material-count');
+  const eosCount = document.getElementById('eos-count');
+  
+  const selectedMaterials = materialFilter.selectedOptions.length;
+  const selectedEOS = eosFilter.selectedOptions.length;
+  
+  materialCount.textContent = selectedMaterials > 0 ? `(${selectedMaterials} selected)` : '';
+  eosCount.textContent = selectedEOS > 0 ? `(${selectedEOS} selected)` : '';
+}
+
+// Apply filters to the table
+function applyFilters(table) {
+  const materialFilter = document.getElementById('material-filter');
+  const eosFilter = document.getElementById('eos-filter');
+  
+  const selectedMaterials = Array.from(materialFilter.selectedOptions).map(option => option.value);
+  const selectedEOS = Array.from(eosFilter.selectedOptions).map(option => option.value);
+  
+  // Custom search function
+  $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+    // Get the raw data for this row
+    const rowData = table.row(dataIndex).data();
+    const materialTypes = rowData[5]; // Array of material types
+    const eosName = rowData[6]; // Clean EOS name
+    
+    // Check material filter - if any of the material types match
+    let materialMatch = selectedMaterials.length === 0;
+    if (!materialMatch && Array.isArray(materialTypes)) {
+      materialMatch = materialTypes.some(materialType => selectedMaterials.includes(materialType));
+    }
+    
+    // Check EOS filter
+    let eosMatch = selectedEOS.length === 0 || selectedEOS.includes(eosName);
+    
+    return materialMatch && eosMatch;
+  });
+  
+  // Redraw the table
+  table.draw();
+  
+  // Remove the custom search function to avoid conflicts
+  $.fn.dataTable.ext.search.pop();
 }
 
 // Load materials when the page opens

@@ -53,6 +53,23 @@
             <!-- Error message -->
             <div id="error-message" role="alert" aria-live="assertive"></div>
 
+            <!-- Filters container -->
+            <div id="filters-container" class="filters-container">
+                <div class="filter-group">
+                    <label for="material-filter">Material Model: <span id="material-count" class="filter-count"></span></label>
+                    <select id="material-filter" multiple class="filter-select">
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="eos-filter">EOS: <span id="eos-count" class="filter-count"></span></label>
+                    <select id="eos-filter" multiple class="filter-select">
+                    </select>
+                </div>
+                <div class="filter-actions">
+                    <button id="clear-filters" class="clear-button">Clear Filters</button>
+                </div>
+            </div>
+
             <!-- Materials table -->
             <table
                 id="materials-table"
