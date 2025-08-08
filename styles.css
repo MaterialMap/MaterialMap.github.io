@@ -64,10 +64,24 @@ h2 {
 #materials-table th {
     background-color: #f4f4f4; /* Light gray background */
     font-weight: bold; /* Bold text for headers */
+    vertical-align: top; /* Align header text at the top */
 }
 
 #materials-table td {
     vertical-align: top; /* Align text at the top */
+}
+
+/* Specific styles for Applications column */
+#materials-table td ul {
+    margin: 0; /* Remove default margin */
+    padding-left: 1.2em; /* Adjust left padding for list items */
+    vertical-align: top; /* Ensure list aligns to top */
+}
+
+#materials-table td li {
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    vertical-align: top; /* Ensure list items align to top */
 }
 
 #materials-table td:last-child {
