@@ -532,37 +532,38 @@ function populateFilters(tableData) {
 
 // Update table headers with counts
 function updateTableHeaderCounts(tableData) {
-  const materialSet = new Set();
-  const eosSet = new Set();
+  let materialRecords = 0;
+  let eosRecords = 0;
+  let totalRecords = tableData.length;
   
-  tableData.forEach(row => {
-    const materialTypes = row[5]; // Array of material types
-    const eosName = row[6]; // Clean EOS name
+  console.log(`Total records in database: ${totalRecords}`);
+  
+  tableData.forEach((row, index) => {
+    const material = row[4]; // Material object
     
-    // Add all material types to the set
-    if (Array.isArray(materialTypes)) {
-      materialTypes.forEach(materialName => {
-        if (materialName && materialName !== '-') {
-          materialSet.add(materialName);
-        }
-      });
+    // Count material records (each row is one material record)
+    if (material && material.mat_data) {
+      materialRecords++;
     }
     
-    if (eosName && eosName !== '-') {
-      eosSet.add(eosName);
+    // Count EOS records
+    if (material && material.eos_data) {
+      eosRecords++;
     }
   });
   
-  // Update Material Model header
+  console.log(`Material records: ${materialRecords}, EOS records: ${eosRecords}`);
+  
+  // Update Material Model header - show total records
   const materialHeader = document.querySelector('#materials-table thead th:first-child');
   if (materialHeader) {
-    materialHeader.innerHTML = `Material Model <span class="header-count">(${materialSet.size})</span>`;
+    materialHeader.innerHTML = `Material Model <span class="header-count">(${totalRecords})</span>`;
   }
   
   // Update EOS header
   const eosHeader = document.querySelector('#materials-table thead th:nth-child(2)');
   if (eosHeader) {
-    eosHeader.innerHTML = `EOS <span class="header-count">(${eosSet.size})</span>`;
+    eosHeader.innerHTML = `EOS <span class="header-count">(${eosRecords})</span>`;
   }
 }
 
