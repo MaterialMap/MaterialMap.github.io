@@ -67,6 +67,13 @@ h2 {
     vertical-align: top; /* Align header text at the top */
 }
 
+/* Header count styles */
+.header-count {
+    font-weight: normal; /* Normal weight for count */
+    color: #6c757d; /* Gray color for count */
+    font-size: 0.9em; /* Slightly smaller font size */
+}
+
 #materials-table td {
     vertical-align: top; /* Align text at the top */
 }

@@ -331,6 +331,9 @@ async function loadMaterials() {
     // Populate filter dropdowns
     populateFilters(tableData);
 
+    // Update table headers with counts
+    updateTableHeaderCounts(tableData);
+
     // Setup filter event handlers
     setupFilterHandlers(table);
 
@@ -525,6 +528,42 @@ function populateFilters(tableData) {
     option.textContent = eos;
     eosFilter.appendChild(option);
   });
+}
+
+// Update table headers with counts
+function updateTableHeaderCounts(tableData) {
+  const materialSet = new Set();
+  const eosSet = new Set();
+  
+  tableData.forEach(row => {
+    const materialTypes = row[5]; // Array of material types
+    const eosName = row[6]; // Clean EOS name
+    
+    // Add all material types to the set
+    if (Array.isArray(materialTypes)) {
+      materialTypes.forEach(materialName => {
+        if (materialName && materialName !== '-') {
+          materialSet.add(materialName);
+        }
+      });
+    }
+    
+    if (eosName && eosName !== '-') {
+      eosSet.add(eosName);
+    }
+  });
+  
+  // Update Material Model header
+  const materialHeader = document.querySelector('#materials-table thead th:first-child');
+  if (materialHeader) {
+    materialHeader.innerHTML = `Material Model <span class="header-count">(${materialSet.size})</span>`;
+  }
+  
+  // Update EOS header
+  const eosHeader = document.querySelector('#materials-table thead th:nth-child(2)');
+  if (eosHeader) {
+    eosHeader.innerHTML = `EOS <span class="header-count">(${eosSet.size})</span>`;
+  }
 }
 
 // Setup filter event handlers
