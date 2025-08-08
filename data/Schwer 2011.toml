@@ -153,7 +153,7 @@ $#     MID        RO         D       PCJ      BETA
 $--------1---------2---------3---------4---------5---------6---------7---------8
 """
 eos_data = """
-*EOS_JWL_TILE
+*EOS_JWL_TITLE
 ANFO - Weidlinger
 $ units: simulation units: grams - millimeters - milliseconds
 $ https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz
@@ -184,7 +184,7 @@ $#     MID        RO         D       PCJ      BETA
 $--------1---------2---------3---------4---------5---------6---------7---------8
 """
 eos_data = """
-*EOS_JWL_TILE
+*EOS_JWL_TITLE
  DETASHEET EL-506C LLNL
 $ units: simulation units: grams - millimeters - milliseconds
 $ https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz
@@ -216,7 +216,7 @@ $#     MID        RO         D       PCJ      BETA
 $--------1---------2---------3---------4---------5---------6---------7---------8
 """
 eos_data = """
-*EOS_JWL_TILE
+*EOS_JWL_TITLE
 DETASHEET C-88 - SRI International
 $ units: simulation units: grams - millimeters - milliseconds
 $ https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz
@@ -245,7 +245,7 @@ $#     MID       RHO        PC        MU     TEROD     CEROD        YM        PR
 $--------1---------2---------3---------4---------5---------6---------7---------8
 """
 eos_data = """
-*EOS_GRUNEISEN_TILE
+*EOS_GRUNEISEN_TITLE
 Water
 $ units: simulation units: grams - millimeters - milliseconds
 $ https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz
@@ -725,7 +725,7 @@ $#     MID       RHO        PC        MU     TEROD     CEROD        YM        PR
 $--------1---------2---------3---------4---------5---------6---------7---------8
 """
 eos_data = """
-*EOS_GRUNEISEN_TILE
+*EOS_GRUNEISEN_TITLE
 Steel 
 $ https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz
 $ Urtiew et al. UCRL-CONF-222137
@@ -756,7 +756,7 @@ $#     MID       RHO        PC        MU     TEROD     CEROD        YM        PR
 $--------1---------2---------3---------4---------5---------6---------7---------8
 """
 eos_data = """
-*EOS_GRUNEISEN_TILE
+*EOS_GRUNEISEN_TITLE
 Aluminum  6061 
 $ https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz
 $ Urtiew et al. UCRL-CONF-222137
