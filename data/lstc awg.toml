@@ -87,7 +87,11 @@ ref = "The LS-DYNA Aerospace Working Group (AWG): Modeling Guidelines Document (
 url = "https://awg.ansys.com/AWG+LS-DYNA+%2AMAT_213+Resources"
 
 [[material]]
-mat_data = "The material card is published on the website and is regularly updated and refined."
+mat_data = """
+*MAT_COMPOSITE_TABULATED_PLASTICITY_DAMAGE_TITLE
+T800-F3900 UD
+$ The material card is published on the website and is regularly updated and refined.
+"""
 app = [
   "T800-F3900 UD",
   "Puck Failure Criterion",
@@ -96,8 +100,32 @@ ref = "The LS-DYNA Aerospace Working Group (AWG)"
 
 url = "https://awg.ansys.com/AWG+LS-DYNA+%2AMAT_213+Resources"
 
+
 [[material]]
-mat_data = "The material card is published on the website and is regularly updated and refined."
+mat_data = """
+*MAT_DRY_FABRIC_TITLE
+Kevlar
+$ "The LS-DYNA Aerospace Working Group (AWG)"
+$ "https://awg.ansys.com/Material+Parameter+Sets"
+$    Units:  in (length), s (time), lbf (force), 
+$            lbf-s^2/in (mass), psi (stress), lbf-in (energy)
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#     mid        ro        EA        EB      GAB1      GAB2      GAB3      
+         4   7.48E-5    4.68E6    4.68E6     6.0E2     6.0E3     5.0E4
+$#     GBC       GCA    GAMAB1    GAMAB2  
+     5.0E4     5.0E4     0.250     0.350
+$#    AOPT                  XP        YP        ZP        A1        A2        A3
+         3
+$#      V1        V2        V3        D1        D2        D3      BETA
+   -0.2588         0    0.9659
+$#   EACRF     EBCRF     EACRP     EBCRP
+      0.06      0.20    0.0070    0.0025
+$#    EASF      EBSF     EUNLF     ECOMF     EAMAX     EBMAX   SIGPOST
+      -2.2      -5.6       1.5     0.005    0.0223    0.0201     1.0E4
+$#     CCE       PCE       CSE       PSE      DFAC      EMAX    EAFAIL    EBFAIL
+       5.0      40.0       5.0      40.0       0.3      0.35       0.2       0.2
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
 app = [
   "Kevlar",
   "Aramid",
@@ -106,8 +134,129 @@ ref = "The LS-DYNA Aerospace Working Group (AWG)"
 
 url = "https://awg.ansys.com/Material+Parameter+Sets"
 
+
 [[material]]
-mat_data = "The material card is published on the website and is regularly updated and refined."
+mat_data = """
+*MAT_PLASTICITY_COMPRESSION_TENSION_EOS_TITLE
+Ice
+$ https://awg.ansys.com/Material+Parameter+Sets
+$ Reference:      Carney K., Benson D., DuBois P., Lee R., &quot;A Phenomenological
+$                 High Strain Rate Model with Failure for Ice&quot;, International
+$                 Journal of Structures and Solids 43 (2006) 7820-7839.
+$
+$                 Carney K., Benson D., DuBois P., Lee R., &quot;A Phenomenological
+$                 High Strain Rate Model with Failure for Ice&quot;, 9th International
+$                 Users Conference 2006.
+$ 
+$ Units:          in (length), s (time), lbf-s2/in (mass), psi (stress),
+$                 lbf-in (energy)  
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#     mid        ro         e        pr         c         p      fail      tdel
+      11008.40000E-5   1350000      0.33       0.0       0.01.00000E20       0.0
+$#   lcidc     lcidt     lcsrc     lcsrt    srflag    lcfail        ec      rpct
+      1001      1002      1016      1004       0.0         0       0.0       0.0
+$#      pc        pt     pcutc     pcutt     pcutf     
+       1.0      -1.0     715.5     -62.8       1.0
+$#       k 
+1.0650E-43
+$--------1---------2---------3---------4---------5---------6---------7---------8
+*DEFINE_CURVE
+$#    lcid      sidr       sfa       sfo      offa      offo    dattyp     lcint
+      1001         0       1.0       1.0       0.0       0.0         0         0
+$#                a1                  o1  
+                 0.0             25000.0
+                 2.0             27000.0
+*DEFINE_CURVE
+$#    lcid      sidr       sfa       sfo      offa      offo    dattyp     lcint
+      1002         0       1.0       1.0       0.0       0.0         0         0
+$#                a1                  o1  
+                 0.0              2500.0
+                 2.0              2700.0
+*DEFINE_CURVE
+$#    lcid      sidr       sfa       sfo      offa      offo    dattyp     lcint
+      1004         0       1.0       1.0       0.0       0.0         0         0
+$#                a1                  o1  
+               0.001                 1.0
+                0.01                 1.0
+                 0.1                 1.0
+                 1.0                 1.0
+                10.0                 1.0
+               107.0                 1.0
+               200.0                 1.0
+               295.0                 1.0
+              1212.0                 1.0
+              1757.0                 1.0
+              2000.0                 1.0
+             10000.0                 1.0
+            100000.0                 1.0
+*DEFINE_CURVE
+$#    lcid      sidr       sfa       sfo      offa      offo    dattyp     lcint
+      1016         0       1.0       1.0       0.0       0.0         0         0
+$#                a1                  o1  
+                 1.0                 1.0
+                10.0              1.2566
+               100.0              1.5132
+               200.0             1.59044
+               300.0             1.63562
+               400.0             1.66768
+               500.0             1.69255
+               600.0             1.71287
+               700.0             1.73005
+               800.0             1.74493
+               900.0             1.75805
+              1000.0             1.76979
+              1100.0             1.78042
+              1500.0             1.81498
+             10000.0             2.02639
+$
+$ Only rates at 10000. and below are documented in the journal article
+$
+            100000.0             2.28299
+$
+$ Strains of 1E6 are not reached and such high rates are not seen
+$ Including these values distorts rate sensitivity discretization
+$
+$             1000000             2.53959
+$             5000000             2.71894
+$
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+eos_data = """
+*EOS_TABULATED_COMPACTION_TITLE
+Ice
+$ https://awg.ansys.com/Material+Parameter+Sets
+$ Reference:      Carney K., Benson D., DuBois P., Lee R., &quot;A Phenomenological
+$                 High Strain Rate Model with Failure for Ice&quot;, International
+$                 Journal of Structures and Solids 43 (2006) 7820-7839.
+$
+$                 Carney K., Benson D., DuBois P., Lee R., &quot;A Phenomenological
+$                 High Strain Rate Model with Failure for Ice&quot;, 9th International
+$                 Users Conference 2006.
+$ 
+$ Units:          in (length), s (time), lbf-s2/in (mass), psi (stress),
+$                 lbf-in (energy)  
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#   eosid      gama        e0        vo  
+     70055       0.0       0.0       0.0
+$#           ev1             ev2             ev3             ev4             ev5
+             0.0       -0.019581         -0.0625           -20.0             0.0
+$#           ev6             ev7             ev8             ev9            ev10
+             0.0             0.0             0.0             0.0             0.0
+$#            c1              c2              c3              c4              c5
+             0.0         70000.0         70000.0         70000.0             0.0
+$#            c6              c7              c8              c9             c10
+             0.0             0.0             0.0             0.0             0.0
+$#            t1              t2              t3              t4              t5
+           270.0           270.0           270.0           270.0             0.0
+$#            t6              t7              t8              t9             t10
+             0.0             0.0             0.0             0.0             0.0
+$#            k1              k2              k3              k4              k5
+         1300000         1300000        320000.0          1000.0             0.0
+$#            k6              k7              k8              k9             k10
+             0.0             0.0             0.0             0.0             0.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
 app = [
   "Ice",
 ]
@@ -115,8 +264,13 @@ ref = "The LS-DYNA Aerospace Working Group (AWG)"
 
 url = "https://awg.ansys.com/Material+Parameter+Sets"
 
+
 [[material]]
-mat_data = "The material card is published on the website and is regularly updated and refined."
+mat_data = """
+*MAT_TABULATED_JOHNSON_COOK_TITLE
+Ti-6Al-4V P3
+$ The material card is published on the website and is regularly updated and refined.
+"""
 app = [
   "Ti-6Al-4V P3",
   "Titanium",
@@ -126,7 +280,11 @@ ref = "The LS-DYNA Aerospace Working Group (AWG)"
 url = "https://awg.ansys.com/Material+Parameter+Sets"
 
 [[material]]
-mat_data = "The material card is published on the website and is regularly updated and refined."
+mat_data = """
+*MAT_TABULATED_JOHNSON_COOK_TITLE
+Ti-6Al-4V P4
+$ The material card is published on the website and is regularly updated and refined.
+"""
 app = [
   "Ti-6Al-4V P4",
   "Titanium",
@@ -136,7 +294,11 @@ ref = "ti"
 url = "https://awg.ansys.com/Material+Parameter+Sets"
 
 [[material]]
-mat_data = "The material card is published on the website and is regularly updated and refined."
+mat_data = """
+*MAT_TABULATED_JOHNSON_COOK_TITLE
+Aluminum 2024
+$ The material card is published on the website and is regularly updated and refined.
+"""
 app = [
   "Aluminum 2024",
 ]
@@ -145,7 +307,11 @@ ref = "The LS-DYNA Aerospace Working Group (AWG)"
 url = "https://awg.ansys.com/Material+Parameter+Sets"
 
 [[material]]
-mat_data = "The material card is published on the website and is regularly updated and refined."
+mat_data = """
+*MAT_TABULATED_JOHNSON_COOK_TITLE
+Inconel 718
+$ The material card is published on the website and is regularly updated and refined.
+"""
 app = [
   "Inconel 718",
 ]
