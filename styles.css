@@ -91,13 +91,7 @@ h2 {
     vertical-align: top; /* Ensure list items align to top */
 }
 
-#materials-table td:last-child {
-    width: 10ch; /* Fixed width for 10 characters */
-    white-space: nowrap; /* Prevent text wrapping */
-    text-align: center; /* Center-align text */
-    overflow: hidden; /* Hide overflowing content */
-    text-overflow: ellipsis; /* Add ellipsis for overflowing text */
-}
+
 
 /* Styles for blocks */
 .reference-block {

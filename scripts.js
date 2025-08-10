@@ -200,10 +200,10 @@ async function loadMaterials() {
       if (Array.isArray(fileListData)) {
         if (fileListData.length > 0 && typeof fileListData[0] === 'string') {
           // Old format: array of filenames
-          fileList = fileListData.map(filename => ({ filename, lastModified: null }));
-        } else {
-          // New format: array of objects with filename and lastModified
           fileList = fileListData;
+        } else {
+          // New format: array of objects with filename - extract just filenames
+          fileList = fileListData.map(item => item.filename);
         }
       } else {
         throw new Error("File list format is not valid.");
@@ -214,9 +214,7 @@ async function loadMaterials() {
       }
   
       // Load files in parallel using Promise.all
-      const filePromises = fileList.map(async (fileInfo) => {
-        const fileName = fileInfo.filename;
-        const fileLastModified = fileInfo.lastModified;
+      const filePromises = fileList.map(async (fileName) => {
         
         try {
           const fileResponse = await fetch(`${basePath}/data/${fileName}`);
@@ -233,11 +231,7 @@ async function loadMaterials() {
             const materialsInFile = parsedToml.material || [];
             
             if (Array.isArray(materialsInFile)) {
-              // Add file modification date to each material
-              return materialsInFile.map(material => ({
-                ...material,
-                fileLastModified: fileLastModified
-              }));
+              return materialsInFile;
             } else {
               console.warn(`File ${fileName} does not contain a valid array of materials.`);
               return [];
@@ -266,7 +260,7 @@ async function loadMaterials() {
     const tableData = allMaterials.map((material) => {
       if (!material || typeof material !== "object") {
         console.warn("Invalid material format", material);
-        return ["Invalid data", "-", "-", "-", null];
+        return ["Invalid data", "-", "-", null];
       }
 
       // Determine material info automatically from mat_data
@@ -305,10 +299,9 @@ async function loadMaterials() {
         `<ul>${(material.app || [])
           .map((app) => `<li>${app}</li>`)
           .join("")}</ul>`,
-        formatDate(material.fileLastModified || material.add),
         material,
-        allMaterialTypes, // All material types for search (column 5)
-        eosInfo.eos // Clean EOS name for search (column 6)
+        allMaterialTypes, // All material types for search (column 4)
+        eosInfo.eos // Clean EOS name for search (column 5)
       ];
     });
 
@@ -319,7 +312,6 @@ async function loadMaterials() {
         { title: "Material Model" },
         { title: "EOS" },
         { title: "Applications" },
-        { title: "Added" },
         { visible: false }, // Material object
         { visible: false }, // Clean material name for search
         { visible: false }  // Clean EOS name for search
@@ -342,7 +334,7 @@ async function loadMaterials() {
     {
       const tr = $(this);
       const row = table.row(tr);
-      const material = row.data()[4]; // Material object is still in column 4
+      const material = row.data()[3]; // Material object is now in column 3
 
       if (!material) 
       {
@@ -447,29 +439,7 @@ document.addEventListener('click', function(event) {
   }
 });
 
-// Format date in DD.MM.YYYY format
-function formatDate(dateString) {
-  if (!dateString) return "N/A";
-  
-  // Handle both ISO date strings and YYYY-MM-DD format
-  let date;
-  if (dateString.includes('T')) {
-    // Full ISO string
-    date = new Date(dateString);
-  } else if (dateString.match(/^\d{4}-\d{2}-\d{2}$/)) {
-    // YYYY-MM-DD format
-    const [year, month, day] = dateString.split('-');
-    date = new Date(year, month - 1, day); // month is 0-indexed
-  } else {
-    // Fallback
-    date = new Date(dateString);
-  }
-  
-  const day = String(date.getDate()).padStart(2, "0");
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const year = date.getFullYear();
-  return `${day}.${month}.${year}`;
-}
+
 
 // Register service worker for offline capabilities
 function registerServiceWorker() {
