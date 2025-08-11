@@ -116,6 +116,8 @@ body {
     margin: 0;
     padding: 0;
     line-height: 1.6;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
 }
 
 /* General link styles */
@@ -141,20 +143,16 @@ a:hover {
     margin-bottom: 20px;
 }
 
-/* For index.html - different container behavior */
+/* For index.html - improved mobile-friendly container */
 .main-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    min-height: calc(100vh - 60px); /* Account for navigation height */
-    width: 100%;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 20px auto;
     padding: 20px;
-    text-align: center;
-    background: transparent;
-    box-shadow: none;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    min-height: auto;
 }
 
 /* Headings */
@@ -164,6 +162,11 @@ h1 {
     margin-bottom: 30px;
     text-align: center;
     font-weight: 600;
+}
+
+/* Main container headings */
+.main-container h1 {
+    text-align: center;
 }
 
 h2 {
@@ -250,6 +253,7 @@ table {
     font-size: 1rem;
     text-align: left;
     background: white;
+    table-layout: auto;
 }
 
 th, td {
@@ -263,6 +267,48 @@ th {
     color: white;
     font-weight: bold;
     vertical-align: top;
+}
+
+/* Remove DataTables sorting indicators */
+table.dataTable thead th,
+table.dataTable thead td {
+    cursor: default !important;
+}
+
+table.dataTable thead th:before,
+table.dataTable thead th:after,
+table.dataTable thead td:before,
+table.dataTable thead td:after {
+    display: none !important;
+}
+
+/* Fix table alignment issues */
+table.dataTable {
+    width: 100% !important;
+    table-layout: fixed;
+}
+
+table.dataTable thead th,
+table.dataTable tbody td {
+    box-sizing: border-box;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Ensure proper column widths */
+#materials-table th:nth-child(1),
+#materials-table td:nth-child(1) {
+    width: 35% !important;
+}
+
+#materials-table th:nth-child(2),
+#materials-table td:nth-child(2) {
+    width: 25% !important;
+}
+
+#materials-table th:nth-child(3),
+#materials-table td:nth-child(3) {
+    width: 40% !important;
 }
 
 td {
@@ -434,7 +480,7 @@ tr:nth-child(even) {
 /* Filters container styles */
 .filters-container {
     width: 100%;
-    margin: 20px 0;
+    margin: 20px auto;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -444,6 +490,7 @@ tr:nth-child(even) {
     background-color: #f8f9fa;
     border-radius: 8px;
     border: 1px solid #dee2e6;
+    box-sizing: border-box;
 }
 
 .filter-group {
@@ -585,10 +632,81 @@ tr:nth-child(even) {
     .filters-container {
         flex-direction: column;
         align-items: stretch;
+        padding: 15px;
+        gap: 15px;
     }
     
     .filter-group {
         min-width: auto;
+    }
+    
+    /* Mobile-specific main container adjustments */
+    .main-container {
+        margin: 10px;
+        padding: 15px;
+        border-radius: 8px;
+    }
+    
+    /* DataTables mobile improvements */
+    .dataTables_wrapper {
+        font-size: 14px;
+    }
+    
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter {
+        margin-bottom: 10px;
+    }
+    
+    .dataTables_wrapper .dataTables_info,
+    .dataTables_wrapper .dataTables_paginate {
+        margin-top: 10px;
+    }
+    
+    /* Responsive table wrapper */
+    .dataTables_wrapper .dataTables_scroll {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Mobile table styling */
+    table.dataTable {
+        font-size: 14px;
+    }
+    
+    table.dataTable th,
+    table.dataTable td {
+        padding: 8px 4px;
+        word-wrap: break-word;
+        max-width: 200px;
+    }
+    
+    /* Responsive details styling */
+    table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before,
+    table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before {
+        background-color: #3498db;
+        border: 2px solid white;
+        border-radius: 14px;
+        box-shadow: 0 0 3px #444;
+        box-sizing: content-box;
+        color: white;
+        content: '+';
+        display: block;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 14px;
+        font-weight: bold;
+        height: 14px;
+        line-height: 14px;
+        margin-left: -10px;
+        margin-top: -10px;
+        text-align: center;
+        text-indent: 0 !important;
+        width: 14px;
+    }
+    
+    table.dataTable.dtr-inline.collapsed > tbody > tr.parent > td.dtr-control:before,
+    table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th.dtr-control:before {
+        content: '-';
+        background-color: #d33333;
     }
 }
 
@@ -599,6 +717,7 @@ tr:nth-child(even) {
 
     h1 {
         font-size: 1.5rem;
+        margin-bottom: 20px;
     }
 
     .container {
@@ -607,8 +726,8 @@ tr:nth-child(even) {
     }
 
     th, td {
-        padding: 8px;
-        font-size: 0.9rem;
+        padding: 6px 4px;
+        font-size: 0.85rem;
     }
 
     .code-container {
@@ -623,5 +742,103 @@ tr:nth-child(even) {
     .code-container pre {
         padding: 0.75rem;
         font-size: 12px;
+    }
+    
+    /* Additional mobile improvements for very small screens */
+    .main-container {
+        margin: 5px;
+        padding: 10px;
+        border-radius: 6px;
+    }
+    
+    .filters-container {
+        padding: 10px;
+        gap: 10px;
+    }
+    
+    .filter-select {
+        min-height: 100px;
+        max-height: 150px;
+        font-size: 0.85rem;
+    }
+    
+    /* DataTables mobile pagination */
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+        padding: 0.3em 0.6em;
+        margin-left: 1px;
+        font-size: 0.85rem;
+    }
+    
+    /* Mobile search and length controls */
+    .dataTables_wrapper .dataTables_filter input {
+        width: 100%;
+        max-width: none;
+        margin-left: 0;
+        margin-top: 5px;
+    }
+    
+    .dataTables_wrapper .dataTables_length select {
+        width: auto;
+        min-width: 60px;
+    }
+    
+    /* Responsive table improvements */
+    table.dataTable th,
+    table.dataTable td {
+        max-width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    /* Applications column specific styling */
+    #materials-table td ul {
+        padding-left: 1em;
+        margin: 0;
+    }
+    
+    #materials-table td li {
+        font-size: 0.8rem;
+        line-height: 1.3;
+    }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+    /* Touch device specific styles */
+    .nav-links a {
+        padding: 18px 20px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .nav-toggle {
+        padding: 15px;
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    .clear-button {
+        padding: 12px 20px;
+        min-height: 44px;
+    }
+    
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+        min-height: 44px;
+        min-width: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Larger touch targets for table controls */
+    table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before,
+    table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before {
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        font-size: 16px;
+        margin-left: -12px;
+        margin-top: -12px;
     }
 }

@@ -311,15 +311,33 @@ async function loadMaterials() {
       table = $("#materials-table").DataTable({
         data: tableData,
         columns: [
-          { title: "Material Model" },
-          { title: "EOS" },
-          { title: "Applications" },
+          { 
+            responsivePriority: 1,
+            orderable: false,
+            width: "35%"
+          },
+          { 
+            responsivePriority: 3,
+            orderable: false,
+            width: "25%"
+          },
+          { 
+            responsivePriority: 2,
+            orderable: false,
+            width: "40%"
+          },
           { visible: false }, // Material object
           { visible: false }, // Clean material name for search
           { visible: false }  // Clean EOS name for search
         ],
-        order: [[0, "asc"]], // Sort by first column (index 0) in ascending order
-        pageLength: 20
+        ordering: false, // Disable all sorting
+        pageLength: 20,
+        responsive: true,
+        scrollX: false, // Disable horizontal scrolling
+        autoWidth: false,
+        columnDefs: [
+          { targets: [0, 1, 2], className: "dt-head-center dt-body-left" }
+        ]
       });
     } catch (tableError) {
       throw new Error(`Failed to initialize DataTable: ${tableError.message}`);
@@ -333,6 +351,16 @@ async function loadMaterials() {
 
     // Setup filter event handlers
     setupFilterHandlers(table);
+
+    // Fix table column alignment
+    setTimeout(() => {
+      table.columns.adjust().draw();
+    }, 100);
+
+    // Handle window resize to adjust table
+    $(window).on('resize', function() {
+      table.columns.adjust().draw();
+    });
 
     // Handle clicks to expand rows
     $("#materials-table tbody").on("click", "tr", function () 
