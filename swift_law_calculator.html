@@ -273,8 +273,25 @@
                 const strainStep = maxStrain / steps;
                 const elasticLimit = sigma_y / E;
 
+                // Create array of strain values, ensuring yield point is included
+                const strainValues = [];
+                let yieldPointIncluded = false;
+                
                 for (let i = 0; i <= steps; i++) {
                     const totalStrain = i * strainStep;
+                    
+                    // If we haven't included yield point yet and current strain > elasticLimit
+                    if (!yieldPointIncluded && totalStrain > elasticLimit) {
+                        // Add yield point first
+                        strainValues.push(elasticLimit);
+                        yieldPointIncluded = true;
+                    }
+                    
+                    strainValues.push(totalStrain);
+                }
+
+                // Generate table rows for all strain values
+                strainValues.forEach(totalStrain => {
                     let plasticStrain, stress;
 
                     if (totalStrain <= elasticLimit) {
@@ -282,6 +299,7 @@
                         stress = E * totalStrain;
                     } else {
                         plasticStrain = totalStrain - elasticLimit;
+                        
                         if (epsilon_0 === 0) {
                             // Traditional Swift's law: σ = K(ε_plastic)ⁿ
                             const eps_y_calc = Math.pow(E / K, 1 / (n - 1));
@@ -296,7 +314,7 @@
                     row.insertCell(0).textContent = formatScientific(totalStrain, 4);
                     row.insertCell(1).textContent = formatScientific(plasticStrain, 4);
                     row.insertCell(2).textContent = formatScientific(convertStressValue(stress, unit), 2);
-                }
+                });
             } catch (error) {
                 console.error('Table generation error:', error);
             }
@@ -508,8 +526,25 @@
             const strainStep = maxStrain / steps;
             const elasticLimit = sigma_y / E;
 
+            // Create array of strain values, ensuring yield point is included
+            const strainValues = [];
+            let yieldPointIncluded = false;
+            
             for (let i = 0; i <= steps; i++) {
                 const totalStrain = i * strainStep;
+                
+                // If we haven't included yield point yet and current strain > elasticLimit
+                if (!yieldPointIncluded && totalStrain > elasticLimit) {
+                    // Add yield point first
+                    strainValues.push(elasticLimit);
+                    yieldPointIncluded = true;
+                }
+                
+                strainValues.push(totalStrain);
+            }
+
+            // Generate CSV rows for all strain values
+            strainValues.forEach(totalStrain => {
                 let plasticStrain, stress;
 
                 if (totalStrain <= elasticLimit) {
@@ -517,6 +552,7 @@
                     stress = E * totalStrain;
                 } else {
                     plasticStrain = totalStrain - elasticLimit;
+                    
                     if (epsilon_0 === 0) {
                         // Traditional Swift's law: σ = K(ε_plastic)ⁿ
                         const eps_y_calc = Math.pow(E / K, 1 / (n - 1));
@@ -530,7 +566,7 @@
                 csvContent += totalStrain.toExponential(6) + "," + 
                              plasticStrain.toExponential(6) + "," + 
                              convertStressValue(stress, unit).toExponential(6) + "\n";
-            }
+            });
 
             const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement('a');
