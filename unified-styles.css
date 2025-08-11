@@ -363,6 +363,9 @@ tr:nth-child(even) {
     border: 1px solid #bdc3c7;
     border-radius: 8px;
     background: white;
+    width: 100%;
+    height: auto;
+    max-width: 900px;
 }
 
 /* Button styles */
@@ -723,6 +726,17 @@ tr:nth-child(even) {
     .container {
         padding: 15px;
         margin-bottom: 15px;
+    }
+    
+    /* Responsive chart styles */
+    .chart-container {
+        margin-top: 10px;
+        overflow-x: hidden;
+    }
+    
+    #stressStrainChart {
+        max-width: 100%;
+        height: auto;
     }
 
     th, td {

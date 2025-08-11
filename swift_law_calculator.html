@@ -94,7 +94,7 @@
         <h2 class="collapsible-header collapsed" onclick="toggleCollapse(this)">Stress-Strain Curve</h2>
         <div class="collapsible-content collapsed">
             <div class="chart-container">
-                <svg id="stressStrainChart" width="900" height="500" xmlns="http://www.w3.org/2000/svg">
+                <svg id="stressStrainChart" viewBox="0 0 900 500" xmlns="http://www.w3.org/2000/svg">
                 </svg>
             </div>
         </div>
@@ -311,16 +311,18 @@
                 const maxStress = Math.max(K * Math.pow(eps_y + A, n), sigma_y * 1.2) * 1.1; // +10% for necking area
 
                 // Set up coordinates with space for right legend
+                const svgWidth = 900; // Reference width for viewBox
+                const svgHeight = 500; // Reference height for viewBox
                 const padding = 80;
                 const rightPadding = 180; // Space for right legend
                 const bottomPadding = 100; // More space for axis labels
                 const topPadding = 40;
-                const chartWidth = 900 - padding - rightPadding;
-                const chartHeight = 500 - topPadding - bottomPadding;
+                const chartWidth = svgWidth - padding - rightPadding;
+                const chartHeight = svgHeight - topPadding - bottomPadding;
 
                 // Coordinate transformation functions
                 const xScale = (strain) => padding + (strain / maxStrain) * chartWidth;
-                const yScale = (stress) => 500 - bottomPadding - (stress / maxStress) * chartHeight;
+                const yScale = (stress) => svgHeight - bottomPadding - (stress / maxStress) * chartHeight;
 
                 // Create SVG elements
                 const createLine = (x1, y1, x2, y2, color, width = 1, dash = '') => {
@@ -371,16 +373,16 @@
                     const x = padding + (i / 10) * chartWidth;
                     const y = topPadding + (i / 10) * chartHeight;
                     
-                    svg.appendChild(createLine(x, topPadding, x, 500 - bottomPadding, '#e8e8e8', 1));
-                    svg.appendChild(createLine(padding, y, 900 - rightPadding, y, '#e8e8e8', 1));
+                    svg.appendChild(createLine(x, topPadding, x, svgHeight - bottomPadding, '#e8e8e8', 1));
+                    svg.appendChild(createLine(padding, y, svgWidth - rightPadding, y, '#e8e8e8', 1));
                 }
 
                 // Draw axes
-                svg.appendChild(createLine(padding, topPadding, padding, 500 - bottomPadding, '#2c3e50', 2));
-                svg.appendChild(createLine(padding, 500 - bottomPadding, 900 - rightPadding, 500 - bottomPadding, '#2c3e50', 2));
+                svg.appendChild(createLine(padding, topPadding, padding, svgHeight - bottomPadding, '#2c3e50', 2));
+                svg.appendChild(createLine(padding, svgHeight - bottomPadding, svgWidth - rightPadding, svgHeight - bottomPadding, '#2c3e50', 2));
 
                 // Axis labels - positioned to not overlap with value labels
-                svg.appendChild(createText(padding + chartWidth/2, 490, 'Total Strain (ε)', 14, '#2c3e50', 'middle'));
+                svg.appendChild(createText(padding + chartWidth/2, svgHeight - 10, 'Total Strain (ε)', 14, '#2c3e50', 'middle'));
                 svg.appendChild(createText(25, topPadding + chartHeight/2, 'True Stress σ', 14, '#2c3e50', 'middle', `rotate(-90, 25, ${topPadding + chartHeight/2})`));
 
                 // 1. Elasticity line - make it visible
@@ -462,7 +464,7 @@
 
                 const legendStartY = topPadding + chartHeight/2 - (legendItems.length * 25)/2;
                 let legendY = legendStartY;
-                const legendX = 900 - rightPadding + 20;
+                const legendX = svgWidth - rightPadding + 20;
 
                 legendItems.forEach((item) => {
                     svg.appendChild(createLine(legendX, legendY, legendX + 25, legendY, item.color, 3));
@@ -474,12 +476,12 @@
                 for (let i = 0; i <= 10; i++) {
                     const strainValue = (maxStrain * i / 10).toFixed(3);
                     const x = padding + (i / 10) * chartWidth;
-                    svg.appendChild(createText(x, 460, strainValue, 10, '#7f8c8d', 'middle'));
+                    svg.appendChild(createText(x, svgHeight - bottomPadding + 20, strainValue, 10, '#7f8c8d', 'middle'));
                 }
                 
                 for (let i = 0; i <= 10; i++) {
                     const stressValue = Math.round(maxStress * i / 10).toString();
-                    const y = 500 - bottomPadding - (i / 10) * chartHeight;
+                    const y = svgHeight - bottomPadding - (i / 10) * chartHeight;
                     svg.appendChild(createText(padding - 15, y + 3, stressValue, 10, '#7f8c8d', 'end'));
                 }
 
