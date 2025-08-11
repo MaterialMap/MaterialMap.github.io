@@ -10,12 +10,12 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.54.2",
-    "decap-server": "^3.0.0"
+    "decap-server": "^3.0.0",
+    "playwright": "^1.54.2"
   },
   "dependencies": {
     "js-yaml": "^4.1.0",
     "node-fetch": "^3.3.2",
-    "playwright": "^1.54.2",
     "toml": "^3.0.0"
   }
 }
