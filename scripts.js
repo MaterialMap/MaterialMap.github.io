@@ -462,8 +462,8 @@ function populateFilters(tableData) {
   const eosSet = new Set();
   
   tableData.forEach(row => {
-    const materialTypes = row[5]; // Array of material types
-    const eosName = row[6]; // Clean EOS name
+    const materialTypes = row[4]; // Array of material types (column 4)
+    const eosName = row[5]; // Clean EOS name (column 5)
     
     // Add all material types to the set
     if (Array.isArray(materialTypes)) {
@@ -509,7 +509,7 @@ function updateTableHeaderCounts(tableData) {
   console.log(`Total records in database: ${totalRecords}`);
   
   tableData.forEach((row, index) => {
-    const material = row[4]; // Material object
+    const material = row[3]; // Material object (column 3)
     
     // Count material records (each row is one material record)
     if (material && material.mat_data) {
@@ -593,8 +593,8 @@ function applyFilters(table) {
   $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
     // Get the raw data for this row
     const rowData = table.row(dataIndex).data();
-    const materialTypes = rowData[5]; // Array of material types
-    const eosName = rowData[6]; // Clean EOS name
+    const materialTypes = rowData[4]; // Array of material types (column 4)
+    const eosName = rowData[5]; // Clean EOS name (column 5)
     
     // Check material filter - if any of the material types match
     let materialMatch = selectedMaterials.length === 0;
