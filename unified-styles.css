@@ -1,5 +1,113 @@
 /* Unified CSS Styles for Material MAP */
 
+/* Navigation Menu */
+.nav-menu {
+    background-color: #2c3e50;
+    padding: 0;
+    margin: 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.nav-brand {
+    color: #ecf0f1;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 15px 0;
+}
+
+.nav-brand:hover {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 0;
+}
+
+.nav-links li {
+    margin: 0;
+}
+
+.nav-links a {
+    display: block;
+    color: #ecf0f1;
+    text-decoration: none;
+    padding: 15px 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-weight: 500;
+}
+
+.nav-links a:hover {
+    background-color: #34495e;
+    color: #3498db;
+    text-decoration: none;
+}
+
+.nav-links a.active {
+    background-color: #3498db;
+    color: white;
+}
+
+/* Mobile menu toggle */
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: #ecf0f1;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 10px;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .nav-container {
+        flex-wrap: wrap;
+        padding: 0 15px;
+    }
+    
+    .nav-toggle {
+        display: block;
+    }
+    
+    .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        background-color: #2c3e50;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .nav-links.active {
+        display: flex;
+    }
+    
+    .nav-links a {
+        padding: 15px 20px;
+        border-top: 1px solid #34495e;
+    }
+}
+
 /* Global styles */
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -25,7 +133,7 @@ a:hover {
 /* Container styles */
 .container {
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 20px auto;
     padding: 20px;
     background: white;
     border-radius: 10px;
@@ -39,7 +147,7 @@ a:hover {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    min-height: 100vh;
+    min-height: calc(100vh - 60px); /* Account for navigation height */
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
