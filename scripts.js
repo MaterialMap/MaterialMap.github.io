@@ -306,19 +306,24 @@ async function loadMaterials() {
     });
 
     // Initialize DataTable
-    const table = $("#materials-table").DataTable({
-      data: tableData,
-      columns: [
-        { title: "Material Model" },
-        { title: "EOS" },
-        { title: "Applications" },
-        { visible: false }, // Material object
-        { visible: false }, // Clean material name for search
-        { visible: false }  // Clean EOS name for search
-      ],
-      order: [[0, "asc"]], // Sort by first column (index 0) in ascending order
-      pageLength: 20
-    });
+    let table;
+    try {
+      table = $("#materials-table").DataTable({
+        data: tableData,
+        columns: [
+          { title: "Material Model" },
+          { title: "EOS" },
+          { title: "Applications" },
+          { visible: false }, // Material object
+          { visible: false }, // Clean material name for search
+          { visible: false }  // Clean EOS name for search
+        ],
+        order: [[0, "asc"]], // Sort by first column (index 0) in ascending order
+        pageLength: 20
+      });
+    } catch (tableError) {
+      throw new Error(`Failed to initialize DataTable: ${tableError.message}`);
+    }
 
     // Populate filter dropdowns
     populateFilters(tableData);
@@ -615,27 +620,58 @@ function applyFilters(table) {
   $.fn.dataTable.ext.search.pop();
 }
 
+// Wait for jQuery and DataTables to load
+async function waitForDependencies(timeout = 10000) {
+  return new Promise((resolve, reject) => {
+    const startTime = Date.now();
+    
+    const checkDependencies = () => {
+      if (typeof window.$ !== 'undefined' && typeof window.$.fn.DataTable !== 'undefined') {
+        resolve();
+        return;
+      }
+      
+      if (Date.now() - startTime > timeout) {
+        reject(new Error('jQuery and DataTables failed to load within the timeout period'));
+        return;
+      }
+      
+      setTimeout(checkDependencies, 100);
+    };
+    
+    checkDependencies();
+  });
+}
+
 // Load materials when the page opens
-window.addEventListener("load", () => {
-  // Register service worker
-  registerServiceWorker();
-  
-  // Load materials data
-  loadMaterials();
+window.addEventListener("load", async () => {
+  try {
+    // Wait for dependencies to load
+    await waitForDependencies();
+    
+    // Register service worker
+    registerServiceWorker();
+    
+    // Load materials data
+    await loadMaterials();
 
-  // Change cursor appearance when hovering over table rows
-  const tableElement = document.getElementById("materials-table");
-  if (tableElement) {
-    tableElement.addEventListener("mouseenter", (event) => {
-      if (event.target && event.target.closest("tr")) {
-        event.target.closest("tr").style.cursor = "pointer";
-      }
-    }, true);
+    // Change cursor appearance when hovering over table rows
+    const tableElement = document.getElementById("materials-table");
+    if (tableElement) {
+      tableElement.addEventListener("mouseenter", (event) => {
+        if (event.target && event.target.closest("tr")) {
+          event.target.closest("tr").style.cursor = "pointer";
+        }
+      }, true);
 
-    tableElement.addEventListener("mouseleave", (event) => {
-      if (event.target && event.target.closest("tr")) {
-        event.target.closest("tr").style.cursor = "default";
-      }
-    }, true);
+      tableElement.addEventListener("mouseleave", (event) => {
+        if (event.target && event.target.closest("tr")) {
+          event.target.closest("tr").style.cursor = "default";
+        }
+      }, true);
+    }
+  } catch (error) {
+    document.getElementById("error-message").textContent = `An error occurred while loading materials: ${error.message}`;
+    console.error("Error loading dependencies or materials:", error);
   }
 });
