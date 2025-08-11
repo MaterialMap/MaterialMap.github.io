@@ -33,7 +33,7 @@
         
         <div style="text-align: center; margin-bottom: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #3498db;">
             <h2 style="margin: 0; color: #2c3e50; font-size: 24px;">Swift's Law Formula</h2>
-            <div style="font-size: 28px; font-weight: bold; margin: 15px 0; color: #e74c3c; font-family: 'Times New Roman', serif;">
+            <div style="font-size: 28px; font-weight: bold; margin: 15px 0; color: #2c3e50; font-family: 'Times New Roman', serif;">
                 σ = K(ε₀ + ε)ⁿ
             </div>
             <div style="font-size: 14px; color: #7f8c8d; line-height: 1.5;">
@@ -41,27 +41,19 @@
             </div>
         </div>
         
-        <div class="unit-selector">
-            <label for="pressureUnit"><strong>Pressure Units:</strong></label>
-            <select id="pressureUnit" onchange="updateUnits()">
-                <option value="Pa">Pa</option>
-                <option value="kPa">kPa</option>
-                <option value="MPa" selected>MPa</option>
-                <option value="GPa">GPa</option>
-            </select>
-        </div>
+
 
         <div class="input-group">
             <div class="input-item">
-                <label for="youngModulus">Young's Modulus E, <span id="unit1">MPa</span>:</label>
+                <label for="youngModulus">Young's Modulus E:</label>
                 <input type="number" id="youngModulus" step="any" value="200000" oninput="scheduleCalculation()">
             </div>
             <div class="input-item">
-                <label for="yieldStrength">Yield Strength (σ<sub>y</sub>), <span id="unit2">MPa</span>:</label>
+                <label for="yieldStrength">Yield Strength (σ<sub>y</sub>):</label>
                 <input type="number" id="yieldStrength" step="any" value="349.1" oninput="scheduleCalculation()">
             </div>
             <div class="input-item">
-                <label for="tensileStrength">Ultimate Tensile Strength (σ<sub>u</sub>), <span id="unit3">MPa</span>:</label>
+                <label for="tensileStrength">Ultimate Tensile Strength (σ<sub>u</sub>):</label>
                 <input type="number" id="tensileStrength" step="any" value="687.4" oninput="scheduleCalculation()">
             </div>
             <div class="input-item">
@@ -121,7 +113,7 @@
                         <tr>
                             <th>Total Strain (ε<sub>total</sub>)</th>
                             <th>Plastic Strain (ε<sub>plastic</sub>)</th>
-                            <th>True Stress (σ), <span id="stressUnit">MPa</span></th>
+                            <th>True Stress (σ)</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">
@@ -148,28 +140,9 @@
         let calculatedValues = {};
         let calculationTimeout = null;
 
-        function updateUnits() {
-            const unit = document.getElementById('pressureUnit').value;
-            document.getElementById('unit1').textContent = unit;
-            document.getElementById('unit2').textContent = unit;
-            document.getElementById('unit3').textContent = unit;
-            document.getElementById('stressUnit').textContent = unit;
-            scheduleCalculation();
-        }
 
-        function getUnitMultiplier(unit) {
-            switch(unit) {
-                case 'Pa': return 1e6;      // Convert from MPa to Pa
-                case 'kPa': return 1e3;     // Convert from MPa to kPa
-                case 'MPa': return 1;       // Base unit
-                case 'GPa': return 1e-3;    // Convert from MPa to GPa
-                default: return 1;
-            }
-        }
 
-        function convertStressValue(value, unit) {
-            return value * getUnitMultiplier(unit);
-        }
+
 
         function scheduleCalculation() {
             if (calculationTimeout) {
@@ -187,13 +160,10 @@
 
         function calculate() {
             try {
-                // Get input data and convert to base units (MPa)
-                const unit = document.getElementById('pressureUnit').value;
-                const unitMultiplier = getUnitMultiplier(unit);
-                
-                const E = parseFloat(document.getElementById('youngModulus').value) / unitMultiplier;
-                const sigma_y = parseFloat(document.getElementById('yieldStrength').value) / unitMultiplier;
-                const sigma_u = parseFloat(document.getElementById('tensileStrength').value) / unitMultiplier;
+                // Get input data
+                const E = parseFloat(document.getElementById('youngModulus').value);
+                const sigma_y = parseFloat(document.getElementById('yieldStrength').value);
+                const sigma_u = parseFloat(document.getElementById('tensileStrength').value);
                 const A = parseFloat(document.getElementById('elongation').value);
                 const epsilon_0 = parseFloat(document.getElementById('epsilon0').value);
 
@@ -238,14 +208,14 @@
                 }
 
                 // Save calculated values
-                calculatedValues = { E, sigma_y, sigma_u, A, epsilon_0, sigma_u_true, n, K, eps_y, E_tan, unit };
+                calculatedValues = { E, sigma_y, sigma_u, A, epsilon_0, sigma_u_true, n, K, eps_y, E_tan };
 
-                // Display results (convert to selected units)
-                document.getElementById('trueTensileStrength').textContent = `${formatScientific(convertStressValue(sigma_u_true, unit))} ${unit}`;
+                // Display results
+                document.getElementById('trueTensileStrength').textContent = formatScientific(sigma_u_true);
                 document.getElementById('hardeningExponent').textContent = formatScientific(n);
-                document.getElementById('strengthCoefficient').textContent = `${formatScientific(convertStressValue(K, unit))} ${unit}`;
+                document.getElementById('strengthCoefficient').textContent = formatScientific(K);
                 document.getElementById('residualStrain').textContent = formatScientific(eps_y);
-                document.getElementById('tangentModulus').textContent = `${formatScientific(convertStressValue(E_tan, unit))} ${unit}`;
+                document.getElementById('tangentModulus').textContent = formatScientific(E_tan);
 
                 document.getElementById('results').style.display = 'grid';
 
@@ -272,7 +242,7 @@
 
         function generateTable() {
             try {
-                const { E, sigma_y, n, K, eps_y, A, epsilon_0, unit } = calculatedValues;
+                const { E, sigma_y, n, K, eps_y, A, epsilon_0 } = calculatedValues;
                 const tableBody = document.getElementById('tableBody');
                 tableBody.innerHTML = '';
 
@@ -321,7 +291,7 @@
                     const row = tableBody.insertRow();
                     row.insertCell(0).textContent = formatScientific(totalStrain, 4);
                     row.insertCell(1).textContent = formatScientific(plasticStrain, 4);
-                    row.insertCell(2).textContent = formatScientific(convertStressValue(stress, unit), 2);
+                    row.insertCell(2).textContent = formatScientific(stress, 2);
                 });
             } catch (error) {
                 console.error('Table generation error:', error);
@@ -331,15 +301,14 @@
         function drawChart() {
             try {
                 const svg = document.getElementById('stressStrainChart');
-                const { E, sigma_y, n, K, eps_y, A, epsilon_0, unit } = calculatedValues;
+                const { E, sigma_y, n, K, eps_y, A, epsilon_0 } = calculatedValues;
 
                 // Clear SVG
                 svg.innerHTML = '';
 
                 const maxStrain = A * 1.2; // +20% for necking area
                 const elasticLimit = sigma_y / E;
-                const maxStressBase = Math.max(K * Math.pow(eps_y + A, n), sigma_y * 1.2) * 1.1; // +10% for necking area
-                const maxStress = convertStressValue(maxStressBase, unit); // Convert to display units
+                const maxStress = Math.max(K * Math.pow(eps_y + A, n), sigma_y * 1.2) * 1.1; // +10% for necking area
 
                 // Set up coordinates with space for right legend
                 const padding = 80;
@@ -412,10 +381,10 @@
 
                 // Axis labels - positioned to not overlap with value labels
                 svg.appendChild(createText(padding + chartWidth/2, 490, 'Total Strain (ε)', 14, '#2c3e50', 'middle'));
-                svg.appendChild(createText(25, topPadding + chartHeight/2, `True Stress σ (${unit})`, 14, '#2c3e50', 'middle', `rotate(-90, 25, ${topPadding + chartHeight/2})`));
+                svg.appendChild(createText(25, topPadding + chartHeight/2, 'True Stress σ', 14, '#2c3e50', 'middle', `rotate(-90, 25, ${topPadding + chartHeight/2})`));
 
-                // 1. Red elasticity line - make it visible
-                svg.appendChild(createLine(xScale(0), yScale(0), xScale(elasticLimit), yScale(convertStressValue(sigma_y, unit)), '#e74c3c', 4));
+                // 1. Elasticity line - make it visible
+                svg.appendChild(createLine(xScale(0), yScale(0), xScale(elasticLimit), yScale(sigma_y), '#2c3e50', 4));
 
                 // 2. Blue Swift's law curve - ONLY for plastic region
                 const steps = 200;
@@ -425,7 +394,7 @@
                 let maxStressPoint = { strain: elasticLimit, stress: sigma_y };
 
                 // Start from yield point
-                pathData += `M ${xScale(elasticLimit)} ${yScale(convertStressValue(sigma_y, unit))} `;
+                pathData += `M ${xScale(elasticLimit)} ${yScale(sigma_y)} `;
 
                 for (let i = 1; i <= steps; i++) {
                     const totalStrain = elasticLimit + i * strainStep;
@@ -446,7 +415,7 @@
                     }
 
                     const x = xScale(totalStrain);
-                    const y = yScale(convertStressValue(stress, unit));
+                    const y = yScale(stress);
                     pathData += `L ${x} ${y} `;
                 }
                 svg.appendChild(createPath(pathData, '#3498db', 3));
@@ -463,17 +432,17 @@
                     // Modified Swift's law: σ = K(ε₀ + ε_plastic)ⁿ
                     endStress = K * Math.pow(epsilon_0 + (endStrain - elasticLimit), n);
                 }
-                svg.appendChild(createLine(xScale(elasticLimit), yScale(convertStressValue(sigma_y, unit)), xScale(endStrain), yScale(convertStressValue(endStress, unit)), '#27ae60', 3));
+                svg.appendChild(createLine(xScale(elasticLimit), yScale(sigma_y), xScale(endStrain), yScale(endStress), '#27ae60', 3));
 
                 // Yield point
-                svg.appendChild(createCircle(xScale(elasticLimit), yScale(convertStressValue(sigma_y, unit)), 6, '#f39c12'));
+                svg.appendChild(createCircle(xScale(elasticLimit), yScale(sigma_y), 6, '#f39c12'));
 
                 // Maximum point
-                svg.appendChild(createCircle(xScale(maxStressPoint.strain), yScale(convertStressValue(maxStressPoint.stress, unit)), 6, '#8e44ad'));
+                svg.appendChild(createCircle(xScale(maxStressPoint.strain), yScale(maxStressPoint.stress), 6, '#8e44ad'));
 
                 // Necking arrow - UNDER the curve
                 const neckingX = xScale(maxStressPoint.strain);
-                const neckingY = yScale(convertStressValue(maxStressPoint.stress, unit));
+                const neckingY = yScale(maxStressPoint.stress);
                 
                 // Arrow pointing up from below
                 svg.appendChild(createLine(neckingX, neckingY + 30, neckingX, neckingY + 10, '#2c3e50', 2));
@@ -486,7 +455,7 @@
 
                 // RIGHT LEGEND - centered vertically
                 const legendItems = [
-                    { color: '#e74c3c', text: 'Elasticity' },
+                    { color: '#2c3e50', text: 'Elasticity' },
                     { color: '#3498db', text: 'Swift Law' },
                     { color: '#27ae60', text: 'Linear Approximation' }
                 ];
@@ -525,9 +494,9 @@
                 return;
             }
 
-            const { E, sigma_y, n, K, eps_y, A, epsilon_0, unit } = calculatedValues;
+            const { E, sigma_y, n, K, eps_y, A, epsilon_0 } = calculatedValues;
             
-            let csvContent = "Total Strain (ε_total),Plastic Strain (ε_plastic),True Stress σ (" + unit + ")\n";
+            let csvContent = "Total Strain (ε_total),Plastic Strain (ε_plastic),True Stress σ\n";
             
             const maxStrain = A * 1.1;
             const steps = 50;
@@ -573,7 +542,7 @@
 
                 csvContent += totalStrain.toExponential(6) + "," + 
                              plasticStrain.toExponential(6) + "," + 
-                             convertStressValue(stress, unit).toExponential(6) + "\n";
+                             stress.toExponential(6) + "\n";
             });
 
             const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
@@ -600,14 +569,11 @@
 
         function generateDefineCurveStress() {
             try {
-                const { n, K, epsilon_0, unit } = calculatedValues;
-                
-                // Convert K to MPa for LS-DYNA (base units)
-                const K_MPa = K; // K is already in base units (MPa)
+                const { n, K, epsilon_0 } = calculatedValues;
                 
                 // Format values with proper positioning (right-aligned in their columns)
                 // K: positions 21-30, n: positions 31-40, eps_0: positions 41-50
-                const K_str = formatScientific(K_MPa, 4);
+                const K_str = formatScientific(K, 4);
                 const n_str = formatScientific(n, 4);
                 const eps0_str = formatScientific(epsilon_0, 4);
                 
@@ -618,7 +584,6 @@
                 line5 += eps0_str.padStart(10);     // eps_0 at positions 41-50
                 
                 const curveDefinition = `*DEFINE_CURVE_STRESS
-$ Pressure units: ${calculatedValues.unit}
 $ ITYPE is Type of hardening law. EQ.1: Swift power law
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#    LCID     ITYPE      P1=K      P2=n  P3=eps_0
@@ -668,7 +633,6 @@ $--------1---------2---------3---------4---------5---------6---------7---------8
 
         // Page initialization
         window.onload = function() {
-            updateUnits();
             calculate();
         };
     </script>
