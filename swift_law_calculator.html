@@ -676,6 +676,7 @@
                 line5 += eps0_str.padStart(10);     // eps_0 at positions 41-50
                 
                 const curveDefinition = `*DEFINE_CURVE_STRESS
+$ Pressure units: ${calculatedValues.unit}
 $ ITYPE is Type of hardening law. EQ.1: Swift power law
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#    LCID     ITYPE      P1=K      P2=n  P3=eps_0
