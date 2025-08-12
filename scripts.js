@@ -93,6 +93,8 @@ class MaterialDictionaries {
     this.reverseDictionary = {};
     this.eosDictionary = {};
     this.reverseEosDictionary = {};
+    this.matThermalDictionary = {};
+    this.reverseMatThermalDictionary = {};
   }
   
   async load(basePath) {
@@ -118,12 +120,25 @@ class MaterialDictionaries {
           this.reverseEosDictionary[value] = key;
         });
       }
+      
+      // Load MAT_THERMAL dictionary
+      const matThermalResponse = await fetch(`${basePath}/lib/mat_thermal.json`);
+      if (matThermalResponse.ok) {
+        this.matThermalDictionary = await matThermalResponse.json();
+        // Create reverse MAT_THERMAL dictionary: value -> key
+        this.reverseMatThermalDictionary = {};
+        Object.entries(this.matThermalDictionary).forEach(([key, value]) => {
+          this.reverseMatThermalDictionary[value] = key;
+        });
+      }
     } catch (error) {
       console.warn('Failed to load dictionaries:', error);
       this.matDictionary = {};
       this.reverseDictionary = {};
       this.eosDictionary = {};
       this.reverseEosDictionary = {};
+      this.matThermalDictionary = {};
+      this.reverseMatThermalDictionary = {};
     }
   }
   
@@ -133,6 +148,10 @@ class MaterialDictionaries {
   
   getEosId(eosName) {
     return this.reverseEosDictionary[eosName] || '-';
+  }
+  
+  getMatThermalId(matThermalName) {
+    return this.reverseMatThermalDictionary[matThermalName] || '-';
   }
 }
 
@@ -148,6 +167,8 @@ async function loadMaterialDictionary() {
   window.reverseDictionary = materialDictionaries.reverseDictionary;
   window.eosDictionary = materialDictionaries.eosDictionary;
   window.reverseEosDictionary = materialDictionaries.reverseEosDictionary;
+  window.matThermalDictionary = materialDictionaries.matThermalDictionary;
+  window.reverseMatThermalDictionary = materialDictionaries.reverseMatThermalDictionary;
 }
 
 
@@ -260,7 +281,7 @@ async function loadMaterials() {
     const tableData = allMaterials.map((material) => {
       if (!material || typeof material !== "object") {
         console.warn("Invalid material format", material);
-        return ["Invalid data", "-", "-", null];
+        return ["Invalid data", "-", null];
       }
 
       // Determine material info automatically from mat_data
@@ -270,18 +291,30 @@ async function loadMaterials() {
       const matAddInfo = determineMatAddInfo(material.mat_add_data);
       const matThermalInfo = determineMatThermalInfo(material.mat_thermal_data);
       
-      // Create markup for the first column
-      let materialModelHTML = `
-        <div><strong>ID:</strong> ${materialInfo.id}</div>
-        <div>${materialInfo.mat}</div>
-      `;
-
-      // Add MAT_ADD and MAT_THERMAL only if they exist in the data
-      if (matAddInfo) {materialModelHTML += `<div>${matAddInfo}</div>`}
-      if (matThermalInfo) {materialModelHTML += `<div>${matThermalInfo}</div>`}
-
       // Get EOS info
       const eosInfo = determineEosInfo(material.eos_data);
+      
+      // Create combined markup for Material Model & EOS column
+      let materialModelEosHTML = `
+        <div><strong>Material:</strong> ${materialInfo.id} / ${materialInfo.mat}</div>
+      `;
+
+      // Add Additional properties (MAT_ADD only) if they exist in the data
+      if (matAddInfo) {
+        materialModelEosHTML += `<div><strong>Additional properties:</strong> ${matAddInfo}</div>`;
+      }
+      
+      // Add Thermal properties (MAT_THERMAL) separately if they exist
+      if (matThermalInfo) {
+        // Get thermal ID from dictionaries
+        const thermalId = materialDictionaries.getMatThermalId(matThermalInfo);
+        materialModelEosHTML += `<div><strong>Thermal properties:</strong></div><div><pre><code>${thermalId} / ${matThermalInfo}</code></pre></div>`;
+      }
+      
+      // Add EOS info if it exists
+      if (eosInfo.eos && eosInfo.eos !== '-') {
+        materialModelEosHTML += `<div><strong>EOS:</strong> ${eosInfo.id} / ${eosInfo.eos}</div>`;
+      }
       
       // Collect all material types for search
       const allMaterialTypes = [materialInfo.mat];
@@ -292,16 +325,15 @@ async function loadMaterials() {
         allMaterialTypes.push(matThermalInfo);
       }
       
-      // Return table rows
+      // Return table rows (now with one less column)
       return [
-        materialModelHTML,
-        eosInfo.eos,
+        materialModelEosHTML,
         `<ul>${(material.app || [])
           .map((app) => `<li>${app}</li>`)
           .join("")}</ul>`,
         material,
-        allMaterialTypes, // All material types for search (column 4)
-        eosInfo.eos // Clean EOS name for search (column 5)
+        allMaterialTypes, // All material types for search (column 3)
+        eosInfo.eos // Clean EOS name for search (column 4)
       ];
     });
 
@@ -314,12 +346,7 @@ async function loadMaterials() {
           { 
             responsivePriority: 1,
             orderable: false,
-            width: "35%"
-          },
-          { 
-            responsivePriority: 3,
-            orderable: false,
-            width: "25%"
+            width: "60%"
           },
           { 
             responsivePriority: 2,
@@ -336,7 +363,7 @@ async function loadMaterials() {
         scrollX: false, // Disable horizontal scrolling
         autoWidth: false,
         columnDefs: [
-          { targets: [0, 1, 2], className: "dt-head-center dt-body-left" }
+          { targets: [0, 1], className: "dt-head-center dt-body-left" }
         ]
       });
     } catch (tableError) {
@@ -345,9 +372,6 @@ async function loadMaterials() {
 
     // Populate filter dropdowns
     populateFilters(tableData);
-
-    // Update table headers with counts
-    updateTableHeaderCounts(tableData);
 
     // Setup filter event handlers
     setupFilterHandlers(table);
@@ -367,7 +391,7 @@ async function loadMaterials() {
     {
       const tr = $(this);
       const row = table.row(tr);
-      const material = row.data()[3]; // Material object is now in column 3
+      const material = row.data()[2]; // Material object is now in column 2
 
       if (!material) 
       {
@@ -495,8 +519,8 @@ function populateFilters(tableData) {
   const eosSet = new Set();
   
   tableData.forEach(row => {
-    const materialTypes = row[4]; // Array of material types (column 4)
-    const eosName = row[5]; // Clean EOS name (column 5)
+    const materialTypes = row[3]; // Array of material types (column 3)
+    const eosName = row[4]; // Clean EOS name (column 4)
     
     // Add all material types to the set
     if (Array.isArray(materialTypes)) {
@@ -533,43 +557,6 @@ function populateFilters(tableData) {
   });
 }
 
-// Update table headers with counts
-function updateTableHeaderCounts(tableData) {
-  let materialRecords = 0;
-  let eosRecords = 0;
-  let totalRecords = tableData.length;
-  
-  console.log(`Total records in database: ${totalRecords}`);
-  
-  tableData.forEach((row, index) => {
-    const material = row[3]; // Material object (column 3)
-    
-    // Count material records (each row is one material record)
-    if (material && material.mat_data) {
-      materialRecords++;
-    }
-    
-    // Count EOS records
-    if (material && material.eos_data) {
-      eosRecords++;
-    }
-  });
-  
-  console.log(`Material records: ${materialRecords}, EOS records: ${eosRecords}`);
-  
-  // Update Material Model header - show total records
-  const materialHeader = document.querySelector('#materials-table thead th:first-child');
-  if (materialHeader) {
-    materialHeader.innerHTML = `Material Model <span class="header-count">(${totalRecords})</span>`;
-  }
-  
-  // Update EOS header
-  const eosHeader = document.querySelector('#materials-table thead th:nth-child(2)');
-  if (eosHeader) {
-    eosHeader.innerHTML = `EOS <span class="header-count">(${eosRecords})</span>`;
-  }
-}
-
 // Setup filter event handlers
 function setupFilterHandlers(table) {
   const materialFilter = document.getElementById('material-filter');
@@ -578,13 +565,11 @@ function setupFilterHandlers(table) {
   
   // Material filter change handler
   materialFilter.addEventListener('change', function() {
-    updateFilterCounts();
     applyFilters(table);
   });
   
   // EOS filter change handler
   eosFilter.addEventListener('change', function() {
-    updateFilterCounts();
     applyFilters(table);
   });
   
@@ -592,26 +577,8 @@ function setupFilterHandlers(table) {
   clearButton.addEventListener('click', function() {
     materialFilter.selectedIndex = -1;
     eosFilter.selectedIndex = -1;
-    updateFilterCounts();
     applyFilters(table);
   });
-  
-  // Initial count update
-  updateFilterCounts();
-}
-
-// Update filter counts
-function updateFilterCounts() {
-  const materialFilter = document.getElementById('material-filter');
-  const eosFilter = document.getElementById('eos-filter');
-  const materialCount = document.getElementById('material-count');
-  const eosCount = document.getElementById('eos-count');
-  
-  const selectedMaterials = materialFilter.selectedOptions.length;
-  const selectedEOS = eosFilter.selectedOptions.length;
-  
-  materialCount.textContent = selectedMaterials > 0 ? `(${selectedMaterials} selected)` : '';
-  eosCount.textContent = selectedEOS > 0 ? `(${selectedEOS} selected)` : '';
 }
 
 // Apply filters to the table
@@ -626,8 +593,8 @@ function applyFilters(table) {
   $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
     // Get the raw data for this row
     const rowData = table.row(dataIndex).data();
-    const materialTypes = rowData[4]; // Array of material types (column 4)
-    const eosName = rowData[5]; // Clean EOS name (column 5)
+    const materialTypes = rowData[3]; // Array of material types (column 3)
+    const eosName = rowData[4]; // Clean EOS name (column 4)
     
     // Check material filter - if any of the material types match
     let materialMatch = selectedMaterials.length === 0;
