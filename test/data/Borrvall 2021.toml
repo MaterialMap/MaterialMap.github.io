@@ -1,0 +1,113 @@
+[[material]]
+mat_data = """
+*MAT_HYPERELASTIC_RUBBER_TITLE
+Low-density polyethylene (LDPE) with Bergström-Boyce model
+$ Borrvall, T., Bengzon, F., Jonsson, A., & Lindvall, M. (2021). Using
+$ MAT_ADD_INELASTICITY for Modelling of Polymeric Networks. In Proceedings of
+$ the 13th European LS-DYNA Conference. DYNAmore GmbH.
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#     MID        RHO       PR
+         1      1.e-9   0.4995
+$#     C10
+      5.e6
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+mat_add_data = """
+*MAT_ADD_INELASTICITY_TITLE
+Low-density polyethylene (LDPE) with Bergström-Boyce model
+$ Borrvall, T., Bengzon, F., Jonsson, A., & Lindvall, M. (2021). Using
+$ MAT_ADD_INELASTICITY for Modelling of Polymeric Networks. In Proceedings of
+$ the 13th European LS-DYNA Conference. DYNAmore GmbH.
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#     MID  NIELINKS         G
+         1         4      1.e7
+$# NIELAWS    WEIGHT
+         1     0.333
+$#     LAW     MODEL
+         6         5
+$#       S         P          Q         E
+      12.2      1.43          0
+$# NIELAWS    WEIGHT
+         1     0.275
+$#     LAW     MODEL
+         6         5
+$#       S         P          Q         E
+      11.9      1.60          0
+$# NIELAWS    WEIGHT
+         1     0.140
+$#     LAW     MODEL
+         6         5
+$#       S         P          Q         E
+       2.2      12.0          0
+$# NIELAWS    WEIGHT
+         1     0.172
+$#     LAW     MODEL
+         6         5
+$#       S         P          Q         E
+      7.54      12.0          0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+app = [
+  "Bergström-Boyce model",
+  "Low-density polyethylene (LDPE)",
+]
+ref = "Borrvall, T., Bengzon, F., Jonsson, A., & Lindvall, M. (2021). Using MAT_ADD_INELASTICITY for Modelling of Polymeric Networks. In Proceedings of the 13th European LS-DYNA Conference. DYNAmore GmbH."
+
+url = "https://www.dynalook.com/conferences/13th-european-ls-dyna-conference-2021/elastomers-and-polymers/borrvall_dynamore_nordic.pdf/view"
+
+[[material]]
+mat_data = """
+*MAT_HYPERELASTIC_RUBBER_TITLE
+Low-density polyethylene (LDPE) with Norton-Bailey model
+$ Borrvall, T., Bengzon, F., Jonsson, A., & Lindvall, M. (2021). Using
+$ MAT_ADD_INELASTICITY for Modelling of Polymeric Networks. In Proceedings of
+$ the 13th European LS-DYNA Conference. DYNAmore GmbH.
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#     MID        RHO       PR
+         1      1.e-9   0.4995
+$#     C10
+      5.e6
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+mat_add_data = """
+*MAT_ADD_INELASTICITY_TITLE
+Low-density polyethylene (LDPE) with Norton-Bailey model
+$ Borrvall, T., Bengzon, F., Jonsson, A., & Lindvall, M. (2021). Using
+$ MAT_ADD_INELASTICITY for Modelling of Polymeric Networks. In Proceedings of
+$ the 13th European LS-DYNA Conference. DYNAmore GmbH.
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#     MID  NIELINKS         G
+         1         4      1.e7
+$# NIELAWS    WEIGHT
+         1     0.409
+$#     LAW     MODEL
+         6         4
+$#       S         P          Q         E
+      40.7       1.1          0
+$# NIELAWS    WEIGHT
+         1     0.283
+$#     LAW     MODEL
+         6         4
+$#       S         P          Q         E
+      38.5       1.1          0
+$# NIELAWS    WEIGHT
+         1     0.109
+$#     LAW     MODEL
+         6         4
+$#       S         P          Q         E
+      3.75      6.57          0
+$# NIELAWS    WEIGHT
+         1     0.131
+$#     LAW     MODEL
+         6         4
+$#       S         P          Q         E
+      6.51      12.0     -0.775
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+app = [
+  "Norton-Bailey model",
+  "Low-density polyethylene (LDPE)",
+]
+ref = "Borrvall, T., Bengzon, F., Jonsson, A., & Lindvall, M. (2021). Using MAT_ADD_INELASTICITY for Modelling of Polymeric Networks. In Proceedings of the 13th European LS-DYNA Conference. DYNAmore GmbH."
+
+url = "https://www.dynalook.com/conferences/13th-european-ls-dyna-conference-2021/elastomers-and-polymers/borrvall_dynamore_nordic.pdf/view"
