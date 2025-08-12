@@ -5,10 +5,17 @@
   "scripts": {
     "dev": "npm run serve",
     "serve": "python3 -m http.server 5500",
-    "test": "playwright test"
+    "test": "playwright test",
+    "build": "npm run generate-file-list",
+    "generate-file-list": "node scripts/generate-file-list.js",
+    "lint": "eslint src/js/**/*.js",
+    "format": "prettier --write \"src/**/*.{js,css,html}\"",
+    "validate-data": "node scripts/validate-toml.js"
   },
   "devDependencies": {
     "@playwright/test": "^1.54.2",
-    "playwright": "^1.54.2"
+    "playwright": "^1.54.2",
+    "eslint": "^8.56.0",
+    "prettier": "^3.1.0"
   }
 }
