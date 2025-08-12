@@ -132,18 +132,8 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Container styles */
-.container {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
-}
-
-/* For index.html - improved mobile-friendly container */
+/* Container styles - unified for .container and .main-container */
+.container,
 .main-container {
     max-width: 1200px;
     margin: 20px auto;
@@ -162,11 +152,6 @@ h1 {
     margin-bottom: 30px;
     text-align: center;
     font-weight: 600;
-}
-
-/* Main container headings */
-.main-container h1 {
-    text-align: center;
 }
 
 h2 {
@@ -643,7 +628,8 @@ tr:nth-child(even) {
         min-width: auto;
     }
     
-    /* Mobile-specific main container adjustments */
+    /* Mobile-specific container adjustments */
+    .container,
     .main-container {
         margin: 10px;
         padding: 15px;
@@ -722,11 +708,6 @@ tr:nth-child(even) {
         font-size: 1.5rem;
         margin-bottom: 20px;
     }
-
-    .container {
-        padding: 15px;
-        margin-bottom: 15px;
-    }
     
     /* Responsive chart styles */
     .chart-container {
@@ -759,6 +740,7 @@ tr:nth-child(even) {
     }
     
     /* Additional mobile improvements for very small screens */
+    .container,
     .main-container {
         margin: 5px;
         padding: 10px;

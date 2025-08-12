@@ -3,19 +3,12 @@
   "version": "1.0.0",
   "description": "LS-DYNA Material Models Database",
   "scripts": {
-    "dev": "npm run cms & npm run serve",
-    "cms": "npx decap-server",
+    "dev": "npm run serve",
     "serve": "python3 -m http.server 5500",
     "test": "playwright test"
   },
   "devDependencies": {
     "@playwright/test": "^1.54.2",
-    "decap-server": "^3.0.0",
     "playwright": "^1.54.2"
-  },
-  "dependencies": {
-    "js-yaml": "^4.1.0",
-    "node-fetch": "^3.3.2",
-    "toml": "^3.0.0"
   }
 }

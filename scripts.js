@@ -39,50 +39,8 @@ function getBasePath() {
   return repoName ? `/${repoName}` : "/";
 }
 const basePath = getBasePath();
-// Function to determine material ID and type from mat_data
-function determineMaterialInfo(matData) {
-  if (!matData) return { id: '-', mat: '-' };
-  
-  const lines = matData.split('\n');
-  if (lines.length === 0) return { id: '-', mat: '-' };
-  
-  let firstLine = lines[0].trim();
-  if (firstLine.endsWith('_TITLE')) {
-    firstLine = firstLine.slice(0, -6); // Remove '_TITLE'
-  }
-  
-  // Use material dictionaries class to find ID by material name
-  const id = materialDictionaries.getMaterialId(firstLine);
-  
-  return {
-    id: id,
-    mat: firstLine
-  };
-}
-
-// Function to determine EOS ID and type from eos_data
-function determineEosInfo(eosData) {
-  if (!eosData) return { id: '-', eos: '-' };
-  
-  const lines = eosData.split('\n');
-  if (lines.length === 0) return { id: '-', eos: '-' };
-  
-  let firstLine = lines[0].trim();
-  if (firstLine.endsWith('_TITLE')) {
-    firstLine = firstLine.slice(0, -6); // Remove '_TITLE'
-  }
-  
-  // Use material dictionaries class to find ID by EOS name
-  const id = materialDictionaries.getEosId(firstLine);
-  
-  return {
-    id: id,
-    eos: firstLine
-  };
-}
-
-// Generic function to determine material type from data
-function determineAdditionalInfo(data) {
+// Generic function to extract first line and remove _TITLE suffix
+function extractFirstLine(data) {
   if (!data) return null;
   
   const lines = data.split('\n');
@@ -96,15 +54,32 @@ function determineAdditionalInfo(data) {
   return firstLine;
 }
 
-// Function to determine MAT_ADD type from mat_add_data (wrapper for backward compatibility)
-function determineMatAddInfo(matAddData) {
-  return determineAdditionalInfo(matAddData);
+// Function to determine material ID and type from mat_data
+function determineMaterialInfo(matData) {
+  const material = extractFirstLine(matData);
+  if (!material) return { id: '-', mat: '-' };
+  
+  const id = materialDictionaries.getMaterialId(material);
+  return { id: id, mat: material };
 }
 
-// Function to determine MAT_THERMAL type from mat_thermal_data (wrapper for backward compatibility)
-function determineMatThermalInfo(matThermalData) {
-  return determineAdditionalInfo(matThermalData);
+// Function to determine EOS ID and type from eos_data
+function determineEosInfo(eosData) {
+  const eos = extractFirstLine(eosData);
+  if (!eos) return { id: '-', eos: '-' };
+  
+  const id = materialDictionaries.getEosId(eos);
+  return { id: id, eos: eos };
 }
+
+// Function to determine additional material info (MAT_ADD, MAT_THERMAL, etc.)
+function determineAdditionalInfo(data) {
+  return extractFirstLine(data);
+}
+
+// Backward compatibility aliases
+const determineMatAddInfo = determineAdditionalInfo;
+const determineMatThermalInfo = determineAdditionalInfo;
 
 // Utility functions
 function escapeHtml(unsafe) {
