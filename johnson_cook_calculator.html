@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Johnson-Cook Model Calculator</title>
+    <link rel="stylesheet" href="unified-styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Menu -->
+    <nav class="nav-menu">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">Material MAP</a>
+            <button class="nav-toggle" aria-label="Toggle navigation">☰</button>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="swift_law_calculator.html">Swift's Law Calculator</a></li>
+                <li><a href="mooney_rivlin_calculator.html">Mooney-Rivlin Calculator</a></li>
+                <li><a href="johnson_cook_calculator.html">Johnson-Cook Calculator</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <h1>Johnson-Cook Model Simplified Parameters Calculator</h1>
+        
+        <!-- Disclaimer -->
+        <div style="margin-bottom: 30px; padding: 20px; background: #fff3cd; border-radius: 8px; border-left: 4px solid #ffc107; border: 1px solid #ffeaa7;">
+            <h3 style="margin: 0 0 10px 0; color: #856404; font-size: 18px;">⚠️ Important Disclaimer</h3>
+            <p style="margin: 0 0 10px 0; color: #856404; line-height: 1.6; font-size: 14px;">
+                This is a simplified implementation of the Johnson-Cook model using basic stress-strain data. The Johnson-Cook model applies only to plastic deformation behavior above the yield point. For accurate material modeling in high strain rate applications, experimental characterization at various strain rates and temperatures is essential.
+            </p>
+            <p style="margin: 0 0 10px 0; color: #856404; line-height: 1.6; font-size: 14px;">
+                <strong>Methodology based on:</strong> Vasu Kumar Reddy Sirigiri, Vinith Yadav Gudiga, Uday Shankar Gattu, G. Suneesh, Krishna Mohan Buddaraju, "A review on Johnson Cook material model", Materials Today: Proceedings, Volume 62, Part 6, 2022, Pages 3450-3456, ISSN 2214-7853, <a href="https://doi.org/10.1016/j.matpr.2022.04.279" target="_blank" style="color: #856404; text-decoration: underline;">https://doi.org/10.1016/j.matpr.2022.04.279</a>
+            </p>
+            <p style="margin: 0; color: #856404; line-height: 1.6; font-size: 14px; font-weight: 600;">
+                <strong>Note:</strong> The calculated parameters provide an initial approximation and should be validated against experimental data.
+            </p>
+        </div>
+        
+        <!-- Formula Information -->
+        <div style="text-align: center; margin-bottom: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #3498db;">
+            <h2 style="margin: 0; color: #2c3e50; font-size: 24px;">Johnson-Cook Constitutive Model</h2>
+            <div style="font-size: 18px; font-weight: bold; margin: 15px 0; color: #2c3e50; font-family: 'Times New Roman', serif;">
+                σy = (A + Bεᵖⁿ)(1 + C ln ε̇*)(1 - T*ᵐ)
+            </div>
+            <div style="font-size: 14px; color: #7f8c8d; line-height: 1.5;">
+                <strong>where:</strong> A - yield strength, B - hardening modulus, n - hardening exponent, C - strain rate coefficient, ε̇* - dimensionless strain rate, T* - dimensionless temperature, m - temperature exponent, εᵖ - plastic strain
+            </div>
+        </div>
+
+        <div class="input-group">
+            <div class="input-item">
+                <label for="yieldStrength">Yield Strength, σ<sub>y</sub> [MPa]:</label>
+                <input type="number" id="yieldStrength" step="any" value="350" oninput="scheduleCalculation()">
+            </div>
+            <div class="input-item">
+                <label for="ultimateStrength">Ultimate Strength, σ<sub>u</sub> [MPa]:</label>
+                <input type="number" id="ultimateStrength" step="any" value="580" oninput="scheduleCalculation()">
+            </div>
+            <div class="input-item">
+                <label for="strainAtYield">Strain at Yield, ε<sub>y</sub> [-]:</label>
+                <input type="number" id="strainAtYield" step="any" value="0.002" oninput="scheduleCalculation()">
+            </div>
+            <div class="input-item">
+                <label for="strainAtUltimate">Strain at Ultimate, ε<sub>u</sub> [-]:</label>
+                <input type="number" id="strainAtUltimate" step="any" value="0.20" oninput="scheduleCalculation()">
+            </div>
+            <div class="input-item">
+                <label for="youngModulus">Young's Modulus, E [MPa]:</label>
+                <input type="number" id="youngModulus" step="any" value="200000" oninput="scheduleCalculation()">
+            </div>
+            <div class="input-item">
+                <label for="strainRateCoeff">Strain Rate Coefficient, C [-]:</label>
+                <input type="number" id="strainRateCoeff" step="any" value="0.014" oninput="scheduleCalculation()">
+            </div>
+            <div class="input-item">
+                <label for="referenceStrainRate">Reference Strain Rate, ε̇₀ [s⁻¹]:</label>
+                <input type="number" id="referenceStrainRate" step="any" value="1.0" oninput="scheduleCalculation()">
+            </div>
+        </div>
+
+        <div class="results" id="results" style="display: none;">
+            <div class="result-item">
+                <div class="result-name">Parameter A [MPa]</div>
+                <div class="result-value" id="parameterA">-</div>
+            </div>
+            <div class="result-item">
+                <div class="result-name">Parameter B [MPa]</div>
+                <div class="result-value" id="parameterB">-</div>
+            </div>
+            <div class="result-item">
+                <div class="result-name">Hardening Exponent, n [-]</div>
+                <div class="result-value" id="hardeningExponent">-</div>
+            </div>
+            <div class="result-item">
+                <div class="result-name">Strain Rate Coefficient, C [-]</div>
+                <div class="result-value" id="displayStrainRateCoeff">-</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="chartContainer" style="display: none;">
+        <h2 class="collapsible-header collapsed" onclick="toggleCollapse(this)">Stress-Strain Curves for Different Strain Rates</h2>
+        <div class="collapsible-content collapsed">
+            <div class="chart-container">
+                <svg id="johnsonCookChart" viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Chart will be generated here -->
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="tableContainer" style="display: none;">
+        <h2 class="collapsible-header collapsed" onclick="toggleCollapse(this)">Data Table</h2>
+        <div class="collapsible-content collapsed">
+            <div class="table-header">
+                <div></div>
+                <button class="export-btn" onclick="exportToCSV()">📊 Export CSV</button>
+            </div>
+            <div class="table-container">
+                <table id="parametersTable">
+                    <thead>
+                        <tr>
+                            <th>Plastic Strain, εᵖ [-]</th>
+                            <th>Stress, σ (ε̇ = 0.001 s⁻¹) [MPa]</th>
+                            <th>Stress, σ (ε̇ = 1.0 s⁻¹) [MPa]</th>
+                            <th>Stress, σ (ε̇ = 1000 s⁻¹) [MPa]</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="navigation.js"></script>
+    <script>
+        let calculationTimeout;
+        let currentData = {
+            A: 0,
+            B: 0,
+            n: 0,
+            C: 0
+        };
+
+        function scheduleCalculation() {
+            clearTimeout(calculationTimeout);
+            calculationTimeout = setTimeout(calculate, 100);
+        }
+
+        function formatScientific(value, decimals = 3) {
+            if (Math.abs(value) < 0.001 || Math.abs(value) >= 1000) {
+                return value.toExponential(decimals);
+            }
+            return value.toFixed(decimals);
+        }
+
+        function calculate() {
+            const sigmaY = parseFloat(document.getElementById('yieldStrength').value);
+            const sigmaU = parseFloat(document.getElementById('ultimateStrength').value);
+            const epsilonY = parseFloat(document.getElementById('strainAtYield').value);
+            const epsilonU = parseFloat(document.getElementById('strainAtUltimate').value);
+            const C = parseFloat(document.getElementById('strainRateCoeff').value);
+
+            // Validate inputs
+            if (isNaN(sigmaY) || isNaN(sigmaU) || isNaN(epsilonY) || isNaN(epsilonU) || isNaN(C)) {
+                return;
+            }
+
+            // Calculate Johnson-Cook parameters
+            const A = sigmaY; // Parameter A = yield strength
+            const n = Math.log(sigmaU / sigmaY) / Math.log(epsilonU / epsilonY); // Hardening exponent
+            const B = (sigmaU - sigmaY) / Math.pow(0.2, n); // Hardening modulus
+
+            // Store current data
+            currentData = { A, B, n, C };
+
+            // Display results
+            document.getElementById('parameterA').textContent = formatScientific(A);
+            document.getElementById('parameterB').textContent = formatScientific(B);
+            document.getElementById('hardeningExponent').textContent = formatScientific(n, 4);
+            document.getElementById('displayStrainRateCoeff').textContent = formatScientific(C, 4);
+
+            // Show results
+            document.getElementById('results').style.display = 'grid';
+            document.getElementById('chartContainer').style.display = 'block';
+            document.getElementById('tableContainer').style.display = 'block';
+
+            // Update chart and table
+            updateChart();
+            updateTable();
+        }
+
+        function johnsonCookStress(totalStrain, strainRate, referenceRate = 1.0) {
+            const { A, B, n, C } = currentData;
+            const epsilonY = parseFloat(document.getElementById('strainAtYield').value);
+            const E = parseFloat(document.getElementById('youngModulus').value);
+            
+            // If strain is less than yield strain, use elastic behavior (Hooke's law)
+            if (totalStrain <= epsilonY) {
+                return E * totalStrain;
+            }
+            
+            // Calculate plastic strain (only after yielding)
+            const plasticStrain = totalStrain - epsilonY;
+            
+            // Strain rate factor (ensure it doesn't go below reasonable minimum)
+            let strainRateFactor = 1 + C * Math.log(strainRate / referenceRate);
+            strainRateFactor = Math.max(strainRateFactor, 0.1); // Prevent negative or very low values
+            
+            // Johnson-Cook model applies only to plastic deformation
+            // Total stress = yield stress + plastic hardening
+            const plasticStressIncrement = B * Math.pow(plasticStrain, n) * strainRateFactor;
+            return A + plasticStressIncrement;
+        }
+
+        function updateChart() {
+            const svg = document.getElementById('johnsonCookChart');
+            svg.innerHTML = '';
+
+            // Chart dimensions
+            const margin = { top: 40, right: 100, bottom: 60, left: 80 };
+            const width = 900 - margin.left - margin.right;
+            const height = 600 - margin.top - margin.bottom;
+
+            // Create main group
+            const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            g.setAttribute('transform', `translate(${margin.left},${margin.top})`);
+            svg.appendChild(g);
+
+            // Add background
+            const background = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+            background.setAttribute('width', width);
+            background.setAttribute('height', height);
+            background.setAttribute('fill', '#f8f9fa');
+            background.setAttribute('stroke', '#dee2e6');
+            g.appendChild(background);
+
+            // Generate data points for different strain rates (plastic strain only)
+            const strainRates = [0.001, 1.0, 1000];
+            const colors = ['#3498db', '#e74c3c', '#27ae60'];
+            const maxPlasticStrain = 0.25; // Max plastic strain to show
+            const epsilonY = parseFloat(document.getElementById('strainAtYield').value);
+            const maxTotalStrain = epsilonY + maxPlasticStrain;
+            const maxStress = johnsonCookStress(maxTotalStrain, 1000) * 1.1;
+
+            const xScale = (plasticStrain) => (plasticStrain / maxPlasticStrain) * width;
+            const yScale = (value) => height - (value / maxStress) * height;
+
+            // Draw axes
+            drawAxes(g, width, height, maxPlasticStrain, maxStress);
+
+            // Draw curves for different strain rates (plastic strain only)
+            strainRates.forEach((rate, index) => {
+                const points = [];
+                
+                // More points for early plastic deformation (0 to 0.01) - fine resolution
+                for (let plasticStrain = 0; plasticStrain <= 0.01; plasticStrain += 0.0005) {
+                    const totalStrain = epsilonY + plasticStrain;
+                    const stress = johnsonCookStress(totalStrain, rate);
+                    points.push({ x: xScale(plasticStrain), y: yScale(stress) });
+                }
+                
+                // Regular points for higher plastic strains (0.01 to max) - normal resolution
+                for (let plasticStrain = 0.015; plasticStrain <= maxPlasticStrain; plasticStrain += 0.005) {
+                    const totalStrain = epsilonY + plasticStrain;
+                    const stress = johnsonCookStress(totalStrain, rate);
+                    points.push({ x: xScale(plasticStrain), y: yScale(stress) });
+                }
+                
+                drawCurve(g, points, colors[index], `ε̇ = ${rate} s⁻¹`);
+            });
+
+            // Add legend
+            addLegend(g, strainRates, colors, width, height);
+        }
+
+        function drawAxes(g, width, height, maxPlasticStrain, maxStress) {
+            // X axis
+            const xAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            xAxis.setAttribute('x1', 0);
+            xAxis.setAttribute('y1', height);
+            xAxis.setAttribute('x2', width);
+            xAxis.setAttribute('y2', height);
+            xAxis.setAttribute('stroke', '#333');
+            xAxis.setAttribute('stroke-width', '2');
+            g.appendChild(xAxis);
+
+            // Y axis
+            const yAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            yAxis.setAttribute('x1', 0);
+            yAxis.setAttribute('y1', 0);
+            yAxis.setAttribute('x2', 0);
+            yAxis.setAttribute('y2', height);
+            yAxis.setAttribute('stroke', '#333');
+            yAxis.setAttribute('stroke-width', '2');
+            g.appendChild(yAxis);
+
+            // X axis labels (plastic strain)
+            for (let i = 0; i <= 5; i++) {
+                const plasticStrainValue = (maxPlasticStrain * i) / 5;
+                const x = (width * i) / 5;
+                
+                // Tick mark
+                const tick = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                tick.setAttribute('x1', x);
+                tick.setAttribute('y1', height);
+                tick.setAttribute('x2', x);
+                tick.setAttribute('y2', height + 5);
+                tick.setAttribute('stroke', '#333');
+                g.appendChild(tick);
+
+                // Label
+                const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                label.setAttribute('x', x);
+                label.setAttribute('y', height + 20);
+                label.setAttribute('text-anchor', 'middle');
+                label.setAttribute('font-size', '12');
+                label.setAttribute('fill', '#333');
+                label.textContent = plasticStrainValue.toFixed(3);
+                g.appendChild(label);
+            }
+
+            // Y axis labels
+            for (let i = 0; i <= 5; i++) {
+                const stressValue = (maxStress * i) / 5;
+                const y = height - (height * i) / 5;
+                
+                // Tick mark
+                const tick = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                tick.setAttribute('x1', -5);
+                tick.setAttribute('y1', y);
+                tick.setAttribute('x2', 0);
+                tick.setAttribute('y2', y);
+                tick.setAttribute('stroke', '#333');
+                g.appendChild(tick);
+
+                // Label
+                const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                label.setAttribute('x', -10);
+                label.setAttribute('y', y + 4);
+                label.setAttribute('text-anchor', 'end');
+                label.setAttribute('font-size', '10');
+                label.setAttribute('fill', '#333');
+                label.textContent = Math.round(stressValue);
+                g.appendChild(label);
+            }
+
+            // Axis titles
+            const xTitle = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            xTitle.setAttribute('x', width / 2);
+            xTitle.setAttribute('y', height + 45);
+            xTitle.setAttribute('text-anchor', 'middle');
+            xTitle.setAttribute('font-size', '14');
+            xTitle.setAttribute('font-weight', 'bold');
+            xTitle.setAttribute('fill', '#333');
+            xTitle.textContent = 'Plastic Strain εᵖ';
+            g.appendChild(xTitle);
+
+            const yTitle = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            yTitle.setAttribute('x', -45);
+            yTitle.setAttribute('y', height / 2);
+            yTitle.setAttribute('text-anchor', 'middle');
+            yTitle.setAttribute('font-size', '14');
+            yTitle.setAttribute('font-weight', 'bold');
+            yTitle.setAttribute('fill', '#333');
+            yTitle.setAttribute('transform', `rotate(-90, -45, ${height / 2})`);
+            yTitle.textContent = 'Stress [MPa]';
+            g.appendChild(yTitle);
+        }
+
+        function drawCurve(g, points, color, label) {
+            let pathData = `M ${points[0].x} ${points[0].y}`;
+            for (let i = 1; i < points.length; i++) {
+                pathData += ` L ${points[i].x} ${points[i].y}`;
+            }
+
+            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            path.setAttribute('d', pathData);
+            path.setAttribute('stroke', color);
+            path.setAttribute('stroke-width', '2');
+            path.setAttribute('fill', 'none');
+            g.appendChild(path);
+        }
+
+        function addLegend(g, strainRates, colors, width, height) {
+            const legend = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            
+            // Position legend inside the chart area - top right corner
+            const legendWidth = 110;
+            const legendHeight = strainRates.length * 25 + 10;
+            const legendX = width - legendWidth - 20;
+            const legendY = 20;
+            legend.setAttribute('transform', `translate(${legendX}, ${legendY})`);
+            g.appendChild(legend);
+
+            // Add background for legend
+            const legendBg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+            legendBg.setAttribute('x', 0);
+            legendBg.setAttribute('y', 0);
+            legendBg.setAttribute('width', legendWidth);
+            legendBg.setAttribute('height', legendHeight);
+            legendBg.setAttribute('fill', 'rgba(255, 255, 255, 0.95)');
+            legendBg.setAttribute('stroke', '#dee2e6');
+            legendBg.setAttribute('stroke-width', '1');
+            legendBg.setAttribute('rx', '6');
+            legend.appendChild(legendBg);
+
+            strainRates.forEach((rate, index) => {
+                const y = index * 25 + 15;
+                
+                // Legend line
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', 10);
+                line.setAttribute('y1', y);
+                line.setAttribute('x2', 30);
+                line.setAttribute('y2', y);
+                line.setAttribute('stroke', colors[index]);
+                line.setAttribute('stroke-width', '3');
+                legend.appendChild(line);
+
+                // Legend text
+                const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                text.setAttribute('x', 35);
+                text.setAttribute('y', y + 5);
+                text.setAttribute('font-size', '12');
+                text.setAttribute('fill', '#333');
+                text.setAttribute('font-weight', '500');
+                text.textContent = `ε̇ = ${rate} s⁻¹`;
+                legend.appendChild(text);
+            });
+        }
+
+        function updateTable() {
+            const tableBody = document.getElementById('tableBody');
+            tableBody.innerHTML = '';
+
+            const referenceRate = parseFloat(document.getElementById('referenceStrainRate').value);
+            const strainRates = [0.001, 1.0, 1000];
+            const epsilonY = parseFloat(document.getElementById('strainAtYield').value);
+
+            // Show only plastic strain values (starting from 0)
+            for (let plasticStrain = 0; plasticStrain <= 0.25; plasticStrain += 0.02) {
+                const row = document.createElement('tr');
+                
+                // Plastic strain
+                const strainCell = document.createElement('td');
+                strainCell.textContent = plasticStrain.toFixed(3);
+                row.appendChild(strainCell);
+
+                // Stress values for different strain rates
+                const totalStrain = epsilonY + plasticStrain;
+                strainRates.forEach(rate => {
+                    const stressCell = document.createElement('td');
+                    const stress = johnsonCookStress(totalStrain, rate, referenceRate);
+                    stressCell.textContent = formatScientific(stress);
+                    row.appendChild(stressCell);
+                });
+
+                tableBody.appendChild(row);
+            }
+        }
+
+        function exportToCSV() {
+            const referenceRate = parseFloat(document.getElementById('referenceStrainRate').value);
+            const strainRates = [0.001, 1.0, 1000];
+            const epsilonY = parseFloat(document.getElementById('strainAtYield').value);
+            
+            let csv = 'Plastic Strain εᵖ [-],Stress σ (ε̇ = 0.001 s⁻¹) [MPa],Stress σ (ε̇ = 1.0 s⁻¹) [MPa],Stress σ (ε̇ = 1000 s⁻¹) [MPa]\n';
+            
+            for (let plasticStrain = 0; plasticStrain <= 0.25; plasticStrain += 0.02) {
+                let row = plasticStrain.toFixed(3);
+                const totalStrain = epsilonY + plasticStrain;
+                strainRates.forEach(rate => {
+                    const stress = johnsonCookStress(totalStrain, rate, referenceRate);
+                    row += ',' + formatScientific(stress);
+                });
+                csv += row + '\n';
+            }
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.setAttribute('hidden', '');
+            a.setAttribute('href', url);
+            a.setAttribute('download', 'johnson_cook_data.csv');
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        function toggleCollapse(header) {
+            const content = header.nextElementSibling;
+            header.classList.toggle('collapsed');
+            content.classList.toggle('collapsed');
+        }
+
+        // Initialize calculation on page load
+        window.addEventListener('load', () => {
+            calculate();
+        });
+    </script>
+</body>
+</html>

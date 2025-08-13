@@ -19,6 +19,7 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="swift_law_calculator.html">Swift's Law Calculator</a></li>
                 <li><a href="mooney_rivlin_calculator.html">Mooney-Rivlin Calculator</a></li>
+                <li><a href="johnson_cook_calculator.html">Johnson-Cook Calculator</a></li>
                 <li><a href="about.html">About</a></li>
             </ul>
         </div>
@@ -51,26 +52,26 @@
 
         <div class="input-group" style="grid-template-columns: 1fr; max-width: 400px; margin: 0 auto;">
             <div class="input-item">
-                <label for="shoreHardness">Shore Hardness [°] (35-70):</label>
+                <label for="shoreHardness">Shore Hardness, A [°] (35-70):</label>
                 <input type="number" id="shoreHardness" min="35" max="70" value="50" step="0.1" oninput="updateFromInput()">
             </div>
         </div>
 
         <div class="results" id="results" style="display: grid;">
             <div class="result-item">
-                <div class="result-name">Young's Modulus [MPa]</div>
+                <div class="result-name">Young's Modulus, E [MPa]</div>
                 <div class="result-value" id="youngModulus">-</div>
             </div>
             <div class="result-item">
-                <div class="result-name">Shear Modulus [MPa]</div>
+                <div class="result-name">Shear Modulus, G [MPa]</div>
                 <div class="result-value" id="shearModulus">-</div>
             </div>
             <div class="result-item">
-                <div class="result-name">C₁₀ [MPa]</div>
+                <div class="result-name">Mooney-Rivlin Constant, C₁₀ [MPa]</div>
                 <div class="result-value" id="c10">-</div>
             </div>
             <div class="result-item">
-                <div class="result-name">C₀₁ [MPa]</div>
+                <div class="result-name">Mooney-Rivlin Constant, C₀₁ [MPa]</div>
                 <div class="result-value" id="c01">-</div>
             </div>
         </div>
@@ -98,11 +99,11 @@
                 <table id="parametersTable">
                     <thead>
                         <tr>
-                            <th>Shore Hardness [°]</th>
-                            <th>Young's Modulus [MPa]</th>
-                            <th>Shear Modulus [MPa]</th>
-                            <th>C₁₀ [MPa]</th>
-                            <th>C₀₁ [MPa]</th>
+                            <th>Shore Hardness, A [°]</th>
+                            <th>Young's Modulus, E [MPa]</th>
+                            <th>Shear Modulus, G [MPa]</th>
+                            <th>Mooney-Rivlin Constant, C₁₀ [MPa]</th>
+                            <th>Mooney-Rivlin Constant, C₀₁ [MPa]</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">
@@ -198,10 +199,10 @@
 
             // Draw curves
             const curves = [
-                { key: 'youngModulus', color: '#e74c3c', name: "Young's Modulus" },
-                { key: 'shearModulus', color: '#3498db', name: 'Shear Modulus' },
-                { key: 'c10', color: '#27ae60', name: 'C₁₀' },
-                { key: 'c01', color: '#f39c12', name: 'C₀₁' }
+                { key: 'youngModulus', color: '#e74c3c', name: "Young's Modulus, E" },
+                { key: 'shearModulus', color: '#3498db', name: 'Shear Modulus, G' },
+                { key: 'c10', color: '#27ae60', name: 'Mooney-Rivlin Constant, C₁₀' },
+                { key: 'c01', color: '#f39c12', name: 'Mooney-Rivlin Constant, C₀₁' }
             ];
 
             curves.forEach(curve => {
@@ -298,7 +299,7 @@
             xTitle.setAttribute('font-size', '14');
             xTitle.setAttribute('font-weight', 'bold');
             xTitle.setAttribute('fill', '#333');
-            xTitle.textContent = 'Shore Hardness [°]';
+            xTitle.textContent = 'Shore Hardness, A [°]';
             g.appendChild(xTitle);
 
             const yTitle = document.createElementNS('http://www.w3.org/2000/svg', 'text');
@@ -468,7 +469,7 @@
         }
 
         function exportToCSV() {
-            let csvContent = "Shore Hardness [°],Young's Modulus [MPa],Shear Modulus [MPa],C10 [MPa],C01 [MPa]\n";
+            let csvContent = "Shore Hardness A [°],Young's Modulus E [MPa],Shear Modulus G [MPa],C10 [MPa],C01 [MPa]\n";
             
             for (let shore = 35; shore <= 70; shore++) {
                 const youngModulus = 1.5048e-1 * Math.exp(5.5579e-2 * shore);
