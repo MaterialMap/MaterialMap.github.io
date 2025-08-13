@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2-P Mooney-Rivlin vs. Shore Hardness Calculator</title>
+    <link rel="stylesheet" href="unified-styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Menu -->
+    <nav class="nav-menu">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">Material MAP</a>
+            <button class="nav-toggle" aria-label="Toggle navigation">☰</button>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="swift_law_calculator.html">Swift's Law Calculator</a></li>
+                <li><a href="mooney_rivlin_calculator.html">Mooney-Rivlin Calculator</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <h1>2-P Mooney-Rivlin vs. Shore Hardness Calculator</h1>
+        
+        <!-- Disclaimer -->
+        <div style="margin-bottom: 30px; padding: 20px; background: #fff3cd; border-radius: 8px; border-left: 4px solid #ffc107; border: 1px solid #ffeaa7;">
+            <h3 style="margin: 0 0 10px 0; color: #856404; font-size: 18px;">⚠️ Important Disclaimer</h3>
+            <p style="margin: 0 0 10px 0; color: #856404; line-height: 1.6; font-size: 14px;">
+                This is an approximate methodology published in: Altidis, P. A.; Warner, B. V., 2005, "Analyzing hyperelastic materials w/some practical considerations." Midwest ANSYS Users Group. The correlations provide rough estimates and should be validated against experimental data for critical applications.
+            </p>
+            <p style="margin: 0; color: #856404; line-height: 1.6; font-size: 14px; font-weight: 600;">
+                <strong>Valid Range:</strong> Shore Hardness from 35° to 70° only. Results outside this range are not reliable.
+            </p>
+        </div>
+        
+        <!-- Formula Information -->
+        <div style="text-align: center; margin-bottom: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #3498db;">
+            <h2 style="margin: 0; color: #2c3e50; font-size: 24px;">Mooney-Rivlin Material Model</h2>
+            <div style="font-size: 20px; font-weight: bold; margin: 15px 0; color: #2c3e50; font-family: 'Times New Roman', serif;">
+                W = C₁₀(I₁ - 3) + C₀₁(I₂ - 3)
+            </div>
+            <div style="font-size: 14px; color: #7f8c8d; line-height: 1.5;">
+                <strong>where:</strong> W - strain energy density function, C₁₀ and C₀₁ - Mooney-Rivlin constants, I₁ and I₂ - strain invariants
+            </div>
+        </div>
+
+        <div class="input-group" style="grid-template-columns: 1fr; max-width: 400px; margin: 0 auto;">
+            <div class="input-item">
+                <label for="shoreHardness">Shore Hardness [°] (35-70):</label>
+                <input type="number" id="shoreHardness" min="35" max="70" value="50" step="0.1" oninput="updateFromInput()">
+            </div>
+        </div>
+
+        <div class="results" id="results" style="display: grid;">
+            <div class="result-item">
+                <div class="result-name">Young's Modulus [MPa]</div>
+                <div class="result-value" id="youngModulus">-</div>
+            </div>
+            <div class="result-item">
+                <div class="result-name">Shear Modulus [MPa]</div>
+                <div class="result-value" id="shearModulus">-</div>
+            </div>
+            <div class="result-item">
+                <div class="result-name">C₁₀ [MPa]</div>
+                <div class="result-value" id="c10">-</div>
+            </div>
+            <div class="result-item">
+                <div class="result-name">C₀₁ [MPa]</div>
+                <div class="result-value" id="c01">-</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="chartContainer">
+        <h2 class="collapsible-header collapsed" onclick="toggleCollapse(this)">Interactive Curves</h2>
+        <div class="collapsible-content collapsed">
+            <div class="chart-container">
+                <svg id="mooneyRivlinChart" viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Chart will be generated here -->
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="tableContainer">
+        <h2 class="collapsible-header collapsed" onclick="toggleCollapse(this)">Data Table</h2>
+        <div class="collapsible-content collapsed">
+            <div class="table-header">
+                <div></div>
+                <button class="export-btn" onclick="exportToCSV()">📊 Export CSV</button>
+            </div>
+            <div class="table-container">
+                <table id="parametersTable">
+                    <thead>
+                        <tr>
+                            <th>Shore Hardness [°]</th>
+                            <th>Young's Modulus [MPa]</th>
+                            <th>Shear Modulus [MPa]</th>
+                            <th>C₁₀ [MPa]</th>
+                            <th>C₀₁ [MPa]</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="navigation.js"></script>
+    <script>
+        let currentShoreHardness = 50;
+
+        function updateFromInput() {
+            const inputValue = document.getElementById('shoreHardness').value;
+            if (inputValue >= 35 && inputValue <= 70) {
+                currentShoreHardness = parseFloat(inputValue);
+                calculate();
+            }
+        }
+
+        function formatScientific(value, decimals = 3) {
+            if (Math.abs(value) < 0.001 || Math.abs(value) >= 1000) {
+                return value.toExponential(decimals);
+            }
+            return value.toFixed(decimals);
+        }
+
+        function calculate() {
+            const x = currentShoreHardness;
+            
+            // Calculate parameters using the given formulas
+            const youngModulus = 1.5048e-1 * Math.exp(5.5579e-2 * x);
+            const shearModulus = 7.5401e-2 * Math.exp(4.5779e-2 * x);
+            const c10 = 3.0338e-2 * Math.exp(4.5684e-2 * x);
+            const c01 = 7.5554e-3 * Math.exp(4.5749e-2 * x);
+
+            // Display results
+            document.getElementById('youngModulus').textContent = formatScientific(youngModulus);
+            document.getElementById('shearModulus').textContent = formatScientific(shearModulus);
+            document.getElementById('c10').textContent = formatScientific(c10);
+            document.getElementById('c01').textContent = formatScientific(c01);
+
+            // Update chart
+            updateChart();
+        }
+
+        function drawChart() {
+            const svg = document.getElementById('mooneyRivlinChart');
+            svg.innerHTML = '';
+
+            // Chart dimensions
+            const margin = { top: 40, right: 80, bottom: 60, left: 80 };
+            const width = 900 - margin.left - margin.right;
+            const height = 600 - margin.top - margin.bottom;
+
+            // Create main group
+            const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            g.setAttribute('transform', `translate(${margin.left},${margin.top})`);
+            svg.appendChild(g);
+
+            // Add background
+            const background = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+            background.setAttribute('width', width);
+            background.setAttribute('height', height);
+            background.setAttribute('fill', '#f8f9fa');
+            background.setAttribute('stroke', '#dee2e6');
+            g.appendChild(background);
+
+            // Generate data points for curves
+            const dataPoints = [];
+            for (let shore = 35; shore <= 70; shore += 0.5) {
+                dataPoints.push({
+                    shore: shore,
+                    youngModulus: 1.5048e-1 * Math.exp(5.5579e-2 * shore),
+                    shearModulus: 7.5401e-2 * Math.exp(4.5779e-2 * shore),
+                    c10: 3.0338e-2 * Math.exp(4.5684e-2 * shore),
+                    c01: 7.5554e-3 * Math.exp(4.5749e-2 * shore)
+                });
+            }
+
+            // Find min and max values for Y axis
+            const allYValues = dataPoints.flatMap(d => [d.youngModulus, d.shearModulus, d.c10, d.c01]);
+            const yMin = Math.min(...allYValues);
+            const yMax = Math.max(...allYValues);
+
+            // Scales
+            const xScale = (value) => (value - 35) / (70 - 35) * width;
+            const yScale = (value) => height - (Math.log(value) - Math.log(yMin)) / (Math.log(yMax) - Math.log(yMin)) * height;
+
+            // Draw axes
+            drawAxes(g, width, height, xScale, yScale, yMin, yMax);
+
+            // Draw curves
+            const curves = [
+                { key: 'youngModulus', color: '#e74c3c', name: "Young's Modulus" },
+                { key: 'shearModulus', color: '#3498db', name: 'Shear Modulus' },
+                { key: 'c10', color: '#27ae60', name: 'C₁₀' },
+                { key: 'c01', color: '#f39c12', name: 'C₀₁' }
+            ];
+
+            curves.forEach(curve => {
+                drawCurve(g, dataPoints, curve.key, curve.color, xScale, yScale);
+            });
+
+            // Add legend
+            addLegend(g, curves, width);
+
+            // Add current position markers
+            addCurrentMarkers(g, xScale, yScale);
+        }
+
+        function drawAxes(g, width, height, xScale, yScale, yMin, yMax) {
+            // X axis
+            const xAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            xAxis.setAttribute('x1', 0);
+            xAxis.setAttribute('y1', height);
+            xAxis.setAttribute('x2', width);
+            xAxis.setAttribute('y2', height);
+            xAxis.setAttribute('stroke', '#333');
+            xAxis.setAttribute('stroke-width', '2');
+            g.appendChild(xAxis);
+
+            // Y axis
+            const yAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            yAxis.setAttribute('x1', 0);
+            yAxis.setAttribute('y1', 0);
+            yAxis.setAttribute('x2', 0);
+            yAxis.setAttribute('y2', height);
+            yAxis.setAttribute('stroke', '#333');
+            yAxis.setAttribute('stroke-width', '2');
+            g.appendChild(yAxis);
+
+            // X axis labels
+            for (let shore = 35; shore <= 70; shore += 5) {
+                const x = xScale(shore);
+                
+                // Tick mark
+                const tick = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                tick.setAttribute('x1', x);
+                tick.setAttribute('y1', height);
+                tick.setAttribute('x2', x);
+                tick.setAttribute('y2', height + 5);
+                tick.setAttribute('stroke', '#333');
+                g.appendChild(tick);
+
+                // Label
+                const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                label.setAttribute('x', x);
+                label.setAttribute('y', height + 20);
+                label.setAttribute('text-anchor', 'middle');
+                label.setAttribute('font-size', '12');
+                label.setAttribute('fill', '#333');
+                label.textContent = shore;
+                g.appendChild(label);
+            }
+
+            // Y axis labels (logarithmic scale)
+            const logYMin = Math.log10(yMin);
+            const logYMax = Math.log10(yMax);
+            const steps = 5;
+            
+            for (let i = 0; i <= steps; i++) {
+                const logValue = logYMin + (logYMax - logYMin) * i / steps;
+                const value = Math.pow(10, logValue);
+                const y = yScale(value);
+                
+                // Tick mark
+                const tick = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                tick.setAttribute('x1', -5);
+                tick.setAttribute('y1', y);
+                tick.setAttribute('x2', 0);
+                tick.setAttribute('y2', y);
+                tick.setAttribute('stroke', '#333');
+                g.appendChild(tick);
+
+                // Label
+                const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                label.setAttribute('x', -10);
+                label.setAttribute('y', y + 4);
+                label.setAttribute('text-anchor', 'end');
+                label.setAttribute('font-size', '10');
+                label.setAttribute('fill', '#333');
+                label.textContent = formatScientific(value, 1);
+                g.appendChild(label);
+            }
+
+            // Axis titles
+            const xTitle = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            xTitle.setAttribute('x', width / 2);
+            xTitle.setAttribute('y', height + 45);
+            xTitle.setAttribute('text-anchor', 'middle');
+            xTitle.setAttribute('font-size', '14');
+            xTitle.setAttribute('font-weight', 'bold');
+            xTitle.setAttribute('fill', '#333');
+            xTitle.textContent = 'Shore Hardness [°]';
+            g.appendChild(xTitle);
+
+            const yTitle = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            yTitle.setAttribute('x', -45);
+            yTitle.setAttribute('y', height / 2);
+            yTitle.setAttribute('text-anchor', 'middle');
+            yTitle.setAttribute('font-size', '14');
+            yTitle.setAttribute('font-weight', 'bold');
+            yTitle.setAttribute('fill', '#333');
+            yTitle.setAttribute('transform', `rotate(-90, -45, ${height / 2})`);
+            yTitle.textContent = 'Parameters [MPa]';
+            g.appendChild(yTitle);
+        }
+
+        function drawCurve(g, dataPoints, key, color, xScale, yScale) {
+            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            let pathData = '';
+
+            dataPoints.forEach((point, index) => {
+                const x = xScale(point.shore);
+                const y = yScale(point[key]);
+                
+                if (index === 0) {
+                    pathData += `M ${x} ${y}`;
+                } else {
+                    pathData += ` L ${x} ${y}`;
+                }
+            });
+
+            path.setAttribute('d', pathData);
+            path.setAttribute('stroke', color);
+            path.setAttribute('stroke-width', '3');
+            path.setAttribute('fill', 'none');
+            path.setAttribute('data-curve', key);
+            g.appendChild(path);
+        }
+
+        function addLegend(g, curves, width) {
+            const legend = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            legend.setAttribute('transform', `translate(${width - 150}, 20)`);
+            g.appendChild(legend);
+
+            curves.forEach((curve, index) => {
+                const y = index * 25;
+
+                // Legend line
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', 0);
+                line.setAttribute('y1', y);
+                line.setAttribute('x2', 20);
+                line.setAttribute('y2', y);
+                line.setAttribute('stroke', curve.color);
+                line.setAttribute('stroke-width', '3');
+                legend.appendChild(line);
+
+                // Legend text
+                const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                text.setAttribute('x', 25);
+                text.setAttribute('y', y + 4);
+                text.setAttribute('font-size', '12');
+                text.setAttribute('fill', '#333');
+                text.textContent = curve.name;
+                legend.appendChild(text);
+            });
+        }
+
+        function addCurrentMarkers(g, xScale, yScale) {
+            const markerGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            markerGroup.setAttribute('id', 'currentMarkers');
+            g.appendChild(markerGroup);
+        }
+
+        function updateChart() {
+            const svg = document.getElementById('mooneyRivlinChart');
+            const existingMarkers = document.getElementById('currentMarkers');
+            if (existingMarkers) {
+                existingMarkers.innerHTML = '';
+            } else {
+                return;
+            }
+
+            // Chart dimensions (same as in drawChart)
+            const margin = { top: 40, right: 80, bottom: 60, left: 80 };
+            const width = 900 - margin.left - margin.right;
+            const height = 600 - margin.top - margin.bottom;
+
+            // Calculate current values
+            const shore = currentShoreHardness;
+            const values = {
+                youngModulus: 1.5048e-1 * Math.exp(5.5579e-2 * shore),
+                shearModulus: 7.5401e-2 * Math.exp(4.5779e-2 * shore),
+                c10: 3.0338e-2 * Math.exp(4.5684e-2 * shore),
+                c01: 7.5554e-3 * Math.exp(4.5749e-2 * shore)
+            };
+
+            // Find min and max values for Y axis (same as in drawChart)
+            const dataPoints = [];
+            for (let s = 35; s <= 70; s += 0.5) {
+                dataPoints.push({
+                    youngModulus: 1.5048e-1 * Math.exp(5.5579e-2 * s),
+                    shearModulus: 7.5401e-2 * Math.exp(4.5779e-2 * s),
+                    c10: 3.0338e-2 * Math.exp(4.5684e-2 * s),
+                    c01: 7.5554e-3 * Math.exp(4.5749e-2 * s)
+                });
+            }
+            const allYValues = dataPoints.flatMap(d => [d.youngModulus, d.shearModulus, d.c10, d.c01]);
+            const yMin = Math.min(...allYValues);
+            const yMax = Math.max(...allYValues);
+
+            // Scales
+            const xScale = (value) => (value - 35) / (70 - 35) * width;
+            const yScale = (value) => height - (Math.log(value) - Math.log(yMin)) / (Math.log(yMax) - Math.log(yMin)) * height;
+
+            // Add markers for current values
+            const curves = [
+                { key: 'youngModulus', color: '#e74c3c' },
+                { key: 'shearModulus', color: '#3498db' },
+                { key: 'c10', color: '#27ae60' },
+                { key: 'c01', color: '#f39c12' }
+            ];
+
+            curves.forEach(curve => {
+                const x = xScale(shore);
+                const y = yScale(values[curve.key]);
+
+                const marker = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                marker.setAttribute('cx', x);
+                marker.setAttribute('cy', y);
+                marker.setAttribute('r', '6');
+                marker.setAttribute('fill', curve.color);
+                marker.setAttribute('stroke', 'white');
+                marker.setAttribute('stroke-width', '2');
+                existingMarkers.appendChild(marker);
+            });
+
+            // Add vertical line at current Shore Hardness
+            const verticalLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            verticalLine.setAttribute('x1', xScale(shore));
+            verticalLine.setAttribute('y1', 0);
+            verticalLine.setAttribute('x2', xScale(shore));
+            verticalLine.setAttribute('y2', height);
+            verticalLine.setAttribute('stroke', '#666');
+            verticalLine.setAttribute('stroke-width', '1');
+            verticalLine.setAttribute('stroke-dasharray', '5,5');
+            verticalLine.setAttribute('opacity', '0.7');
+            existingMarkers.appendChild(verticalLine);
+        }
+
+        function generateTable() {
+            const tableBody = document.getElementById('tableBody');
+            tableBody.innerHTML = '';
+
+            // Generate data for table (every 1 degree from 35 to 70)
+            for (let shore = 35; shore <= 70; shore++) {
+                const youngModulus = 1.5048e-1 * Math.exp(5.5579e-2 * shore);
+                const shearModulus = 7.5401e-2 * Math.exp(4.5779e-2 * shore);
+                const c10 = 3.0338e-2 * Math.exp(4.5684e-2 * shore);
+                const c01 = 7.5554e-3 * Math.exp(4.5749e-2 * shore);
+
+                const row = tableBody.insertRow();
+                row.insertCell(0).textContent = shore;
+                row.insertCell(1).textContent = formatScientific(youngModulus);
+                row.insertCell(2).textContent = formatScientific(shearModulus);
+                row.insertCell(3).textContent = formatScientific(c10);
+                row.insertCell(4).textContent = formatScientific(c01);
+            }
+        }
+
+        function exportToCSV() {
+            let csvContent = "Shore Hardness [°],Young's Modulus [MPa],Shear Modulus [MPa],C10 [MPa],C01 [MPa]\n";
+            
+            for (let shore = 35; shore <= 70; shore++) {
+                const youngModulus = 1.5048e-1 * Math.exp(5.5579e-2 * shore);
+                const shearModulus = 7.5401e-2 * Math.exp(4.5779e-2 * shore);
+                const c10 = 3.0338e-2 * Math.exp(4.5684e-2 * shore);
+                const c01 = 7.5554e-3 * Math.exp(4.5749e-2 * shore);
+
+                csvContent += `${shore},${youngModulus.toExponential(6)},${shearModulus.toExponential(6)},${c10.toExponential(6)},${c01.toExponential(6)}\n`;
+            }
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', 'mooney_rivlin_parameters.csv');
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function toggleCollapse(element) {
+            const content = element.nextElementSibling;
+            const isCollapsed = element.classList.contains('collapsed');
+            
+            if (isCollapsed) {
+                element.classList.remove('collapsed');
+                content.classList.remove('collapsed');
+            } else {
+                element.classList.add('collapsed');
+                content.classList.add('collapsed');
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            calculate();
+            drawChart();
+            generateTable();
+        });
+    </script>
+
+    <style>
+        /* Additional styles for the calculator */
+        .collapsible-header {
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            padding-right: 30px;
+        }
+
+        .collapsible-header:before {
+            content: '▼';
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .collapsible-header.collapsed:before {
+            transform: rotate(-90deg);
+        }
+
+        .collapsible-content {
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .collapsible-content.collapsed {
+            display: none;
+        }
+
+        /* Mobile responsive adjustments */
+        @media (max-width: 768px) {
+            .input-group {
+                grid-template-columns: 1fr;
+            }
+            
+            .results {
+                grid-template-columns: 1fr;
+            }
+            
+            .chart-container svg {
+                width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</body>
+</html>

@@ -15,6 +15,651 @@
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="swift_law_calculator.html">Swift's Law Calculator</a></li>
+                <li><a href="mooney_rivlin_calculator.html">Mooney-Rivlin Calculator</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <h1>Swift's Law Calculator for Metal Strain Hardening</h1>
+        
+        <!-- Disclaimer -->
+        <div style="margin-bottom: 30px; padding: 20px; background: #fff3cd; border-radius: 8px; border-left: 4px solid #ffc107; border: 1px solid #ffeaa7;">
+            <h3 style="margin: 0 0 10px 0; color: #856404; font-size: 18px;">⚠️ Important Disclaimer</h3>
+            <p style="margin: 0; color: #856404; line-height: 1.6; font-size: 14px;">
+                This methodology does not improve calculation accuracy as it operates on very limited input data, which is insufficient for comprehensive nonlinear analysis. The methodology is designed to make the integration process numerically more stable by providing a smooth transition from elastic to plastic behavior.
+            </p>
+        </div>
+        
+        <div style="text-align: center; margin-bottom: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #3498db;">
+            <h2 style="margin: 0; color: #2c3e50; font-size: 24px;">Swift's Law Formula</h2>
+            <div style="font-size: 28px; font-weight: bold; margin: 15px 0; color: #2c3e50; font-family: 'Times New Roman', serif;">
+                σ = K(ε₀ + ε)ⁿ
+            </div>
+            <div style="font-size: 14px; color: #7f8c8d; line-height: 1.5;">
+                <strong>where:</strong> σ - true stress, K - strength coefficient, ε₀ - initial strain, ε - plastic strain, n - hardening exponent
+            </div>
+        </div>
+        
+
+
+        <div class="input-group">
+            <div class="input-item">
+                <label for="youngModulus">Young's Modulus E:</label>
+                <input type="number" id="youngModulus" step="any" value="200000" oninput="scheduleCalculation()">
+            </div>
+            <div class="input-item">
+                <label for="yieldStrength">Yield Strength (σ<sub>y</sub>):</label>
+                <input type="number" id="yieldStrength" step="any" value="349.1" oninput="scheduleCalculation()">
+            </div>
+            <div class="input-item">
+                <label for="tensileStrength">Ultimate Tensile Strength (σ<sub>u</sub>):</label>
+                <input type="number" id="tensileStrength" step="any" value="687.4" oninput="scheduleCalculation()">
+            </div>
+            <div class="input-item">
+                <label for="elongation">Elongation at Break (A):</label>
+                <input type="number" id="elongation" step="any" value="0.08" oninput="scheduleCalculation()">
+            </div>
+            <div class="input-item">
+                <label for="epsilon0">Residual Plastic Strain (ε₀):</label>
+                <input type="number" id="epsilon0" step="any" value="0" oninput="scheduleCalculation()">
+            </div>
+        </div>
+
+        <div class="results" id="results" style="display: none;">
+            <div class="result-item">
+                <div class="result-name">Ultimate Tensile Strength (True) σ<sub>u,true</sub></div>
+                <div class="result-value" id="trueTensileStrength">-</div>
+            </div>
+            <div class="result-item">
+                <div class="result-name">Hardening Exponent (n)</div>
+                <div class="result-value" id="hardeningExponent">-</div>
+            </div>
+            <div class="result-item">
+                <div class="result-name">Strength Coefficient (K)</div>
+                <div class="result-value" id="strengthCoefficient">-</div>
+            </div>
+            <div class="result-item">
+                <div class="result-name">Residual Plastic Strain (ε<sub>0</sub>)</div>
+                <div class="result-value" id="residualStrain">-</div>
+            </div>
+            <div class="result-item">
+                <div class="result-name">Tangent Modulus (E<sub>tan</sub>)</div>
+                <div class="result-value" id="tangentModulus">-</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="chartContainer" style="display: none;">
+        <h2 class="collapsible-header collapsed" onclick="toggleCollapse(this)">Stress-Strain Curve</h2>
+        <div class="collapsible-content collapsed">
+            <div class="chart-container">
+                <svg id="stressStrainChart" viewBox="0 0 900 500" xmlns="http://www.w3.org/2000/svg">
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="tableContainer" style="display: none;">
+        <h2 class="collapsible-header collapsed" onclick="toggleCollapse(this)">Strain-Stress Data Table</h2>
+        <div class="collapsible-content collapsed">
+            <div class="table-header">
+                <div></div>
+                <button class="export-btn" onclick="exportToCSV()">📊 Export CSV</button>
+            </div>
+            <div class="table-container">
+                <table id="strainTable">
+                    <thead>
+                        <tr>
+                            <th>Total Strain (ε<sub>total</sub>)</th>
+                            <th>Plastic Strain (ε<sub>plastic</sub>)</th>
+                            <th>True Stress (σ)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="curveContainer" style="display: none;">
+        <h2 class="collapsible-header collapsed" onclick="toggleCollapse(this)">LS-DYNA *DEFINE_CURVE_STRESS</h2>
+        <div class="collapsible-content collapsed">
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="code-title">*DEFINE_CURVE_STRESS</span>
+                    <button class="copy-button" onclick="copyToClipboard()">Copy</button>
+                </div>
+                <pre id="defineCurveStress"></pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let calculatedValues = {};
+        let calculationTimeout = null;
+
+
+
+
+
+        function scheduleCalculation() {
+            if (calculationTimeout) {
+                clearTimeout(calculationTimeout);
+            }
+            calculationTimeout = setTimeout(calculate, 300);
+        }
+
+        function formatScientific(value, decimals = 2) {
+            if (Math.abs(value) < 0.001 || Math.abs(value) >= 10000) {
+                return value.toExponential(decimals);
+            }
+            return value.toFixed(decimals);
+        }
+
+        function calculate() {
+            try {
+                // Get input data
+                const E = parseFloat(document.getElementById('youngModulus').value);
+                const sigma_y = parseFloat(document.getElementById('yieldStrength').value);
+                const sigma_u = parseFloat(document.getElementById('tensileStrength').value);
+                const A = parseFloat(document.getElementById('elongation').value);
+                const epsilon_0 = parseFloat(document.getElementById('epsilon0').value);
+
+                if (isNaN(E) || isNaN(sigma_y) || isNaN(sigma_u) || isNaN(A) || isNaN(epsilon_0)) {
+                    hideResults();
+                    return;
+                }
+
+                if (E <= 0 || sigma_y <= 0 || sigma_u <= 0 || A <= 0 || sigma_u <= sigma_y) {
+                    hideResults();
+                    return;
+                }
+
+                // Calculate output parameters
+                const sigma_u_true = sigma_u * (1 + A);
+                const elasticLimit = sigma_y / E;
+                const plasticStrainAtBreak = A - elasticLimit;
+                
+                // Swift's law: σ = K(ε₀ + ε_plastic)ⁿ
+                let n, K;
+                
+                if (epsilon_0 === 0) {
+                    // Traditional Swift's law: σ = K(ε_plastic)ⁿ
+                    // Use the original calculation method when epsilon_0 = 0
+                    n = Math.log(sigma_y / sigma_u_true) / Math.log(sigma_y / (E * Math.log(1 + A)));
+                    K = Math.pow(E, n) * Math.pow(sigma_y, 1 - n);
+                } else {
+                    // Modified Swift's law with initial strain: σ = K(ε₀ + ε_plastic)ⁿ
+                    // At yield point: σ_y = K(ε₀)ⁿ  
+                    // At ultimate point: σ_u_true = K(ε₀ + ε_plastic_at_break)ⁿ
+                    n = Math.log(sigma_u_true / sigma_y) / Math.log((epsilon_0 + plasticStrainAtBreak) / epsilon_0);
+                    K = sigma_y / Math.pow(epsilon_0, n);
+                }
+                
+                const eps_y = epsilon_0; // This is the input parameter now
+                const E_tan = (sigma_u_true - sigma_y) / A;
+
+                // Check for NaN in results
+                if (isNaN(n) || isNaN(K) || isNaN(eps_y) || isNaN(E_tan)) {
+                    hideResults();
+                    return;
+                }
+
+                // Save calculated values
+                calculatedValues = { E, sigma_y, sigma_u, A, epsilon_0, sigma_u_true, n, K, eps_y, E_tan };
+
+                // Display results
+                document.getElementById('trueTensileStrength').textContent = formatScientific(sigma_u_true);
+                document.getElementById('hardeningExponent').textContent = formatScientific(n);
+                document.getElementById('strengthCoefficient').textContent = formatScientific(K);
+                document.getElementById('residualStrain').textContent = formatScientific(eps_y);
+                document.getElementById('tangentModulus').textContent = formatScientific(E_tan);
+
+                document.getElementById('results').style.display = 'grid';
+
+                // Generate table, chart and curve definition
+                generateTable();
+                drawChart();
+                generateDefineCurveStress();
+                document.getElementById('tableContainer').style.display = 'block';
+                document.getElementById('chartContainer').style.display = 'block';
+                document.getElementById('curveContainer').style.display = 'block';
+
+            } catch (error) {
+                console.error('Calculation error:', error);
+                hideResults();
+            }
+        }
+
+        function hideResults() {
+            document.getElementById('results').style.display = 'none';
+            document.getElementById('tableContainer').style.display = 'none';
+            document.getElementById('chartContainer').style.display = 'none';
+            document.getElementById('curveContainer').style.display = 'none';
+        }
+
+        function generateTable() {
+            try {
+                const { E, sigma_y, n, K, eps_y, A, epsilon_0 } = calculatedValues;
+                const tableBody = document.getElementById('tableBody');
+                tableBody.innerHTML = '';
+
+                const maxStrain = A * 1.1;
+                const steps = 50;
+                const strainStep = maxStrain / steps;
+                const elasticLimit = sigma_y / E;
+
+                // Create array of strain values, ensuring yield point is included
+                const strainValues = [];
+                let yieldPointIncluded = false;
+                
+                for (let i = 0; i <= steps; i++) {
+                    const totalStrain = i * strainStep;
+                    
+                    // If we haven't included yield point yet and current strain > elasticLimit
+                    if (!yieldPointIncluded && totalStrain > elasticLimit) {
+                        // Add yield point first
+                        strainValues.push(elasticLimit);
+                        yieldPointIncluded = true;
+                    }
+                    
+                    strainValues.push(totalStrain);
+                }
+
+                // Generate table rows for all strain values
+                strainValues.forEach(totalStrain => {
+                    let plasticStrain, stress;
+
+                    if (totalStrain <= elasticLimit) {
+                        plasticStrain = 0;
+                        stress = E * totalStrain;
+                    } else {
+                        plasticStrain = totalStrain - elasticLimit;
+                        
+                        if (epsilon_0 === 0) {
+                            // Traditional Swift's law: σ = K(ε_plastic)ⁿ
+                            const eps_y_calc = Math.pow(E / K, 1 / (n - 1));
+                            stress = K * Math.pow(eps_y_calc + plasticStrain, n);
+                        } else {
+                            // Modified Swift's law: σ = K(ε₀ + ε_plastic)ⁿ
+                            stress = K * Math.pow(epsilon_0 + plasticStrain, n);
+                        }
+                    }
+
+                    const row = tableBody.insertRow();
+                    row.insertCell(0).textContent = formatScientific(totalStrain, 4);
+                    row.insertCell(1).textContent = formatScientific(plasticStrain, 4);
+                    row.insertCell(2).textContent = formatScientific(stress, 2);
+                });
+            } catch (error) {
+                console.error('Table generation error:', error);
+            }
+        }
+
+        function drawChart() {
+            try {
+                const svg = document.getElementById('stressStrainChart');
+                const { E, sigma_y, n, K, eps_y, A, epsilon_0 } = calculatedValues;
+
+                // Clear SVG
+                svg.innerHTML = '';
+
+                const maxStrain = A * 1.2; // +20% for necking area
+                const elasticLimit = sigma_y / E;
+                const maxStress = Math.max(K * Math.pow(eps_y + A, n), sigma_y * 1.2) * 1.1; // +10% for necking area
+
+                // Set up coordinates with space for right legend
+                const svgWidth = 900; // Reference width for viewBox
+                const svgHeight = 500; // Reference height for viewBox
+                const padding = 80;
+                const rightPadding = 180; // Space for right legend
+                const bottomPadding = 100; // More space for axis labels
+                const topPadding = 40;
+                const chartWidth = svgWidth - padding - rightPadding;
+                const chartHeight = svgHeight - topPadding - bottomPadding;
+
+                // Coordinate transformation functions
+                const xScale = (strain) => padding + (strain / maxStrain) * chartWidth;
+                const yScale = (stress) => svgHeight - bottomPadding - (stress / maxStress) * chartHeight;
+
+                // Create SVG elements
+                const createLine = (x1, y1, x2, y2, color, width = 1, dash = '') => {
+                    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line.setAttribute('x1', x1);
+                    line.setAttribute('y1', y1);
+                    line.setAttribute('x2', x2);
+                    line.setAttribute('y2', y2);
+                    line.setAttribute('stroke', color);
+                    line.setAttribute('stroke-width', width);
+                    if (dash) line.setAttribute('stroke-dasharray', dash);
+                    return line;
+                };
+
+                const createPath = (d, color, width = 1, fill = 'none') => {
+                    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    path.setAttribute('d', d);
+                    path.setAttribute('stroke', color);
+                    path.setAttribute('stroke-width', width);
+                    path.setAttribute('fill', fill);
+                    return path;
+                };
+
+                const createCircle = (cx, cy, r, color) => {
+                    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                    circle.setAttribute('cx', cx);
+                    circle.setAttribute('cy', cy);
+                    circle.setAttribute('r', r);
+                    circle.setAttribute('fill', color);
+                    return circle;
+                };
+
+                const createText = (x, y, text, size = 12, color = '#2c3e50', anchor = 'start', transform = '') => {
+                    const textEl = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    textEl.setAttribute('x', x);
+                    textEl.setAttribute('y', y);
+                    textEl.setAttribute('fill', color);
+                    textEl.setAttribute('font-size', size);
+                    textEl.setAttribute('font-family', 'Arial, sans-serif');
+                    textEl.setAttribute('text-anchor', anchor);
+                    if (transform) textEl.setAttribute('transform', transform);
+                    textEl.textContent = text;
+                    return textEl;
+                };
+
+                // Draw grid
+                for (let i = 1; i <= 10; i++) {
+                    const x = padding + (i / 10) * chartWidth;
+                    const y = topPadding + (i / 10) * chartHeight;
+                    
+                    svg.appendChild(createLine(x, topPadding, x, svgHeight - bottomPadding, '#e8e8e8', 1));
+                    svg.appendChild(createLine(padding, y, svgWidth - rightPadding, y, '#e8e8e8', 1));
+                }
+
+                // Draw axes
+                svg.appendChild(createLine(padding, topPadding, padding, svgHeight - bottomPadding, '#2c3e50', 2));
+                svg.appendChild(createLine(padding, svgHeight - bottomPadding, svgWidth - rightPadding, svgHeight - bottomPadding, '#2c3e50', 2));
+
+                // Axis labels - positioned to not overlap with value labels
+                svg.appendChild(createText(padding + chartWidth/2, svgHeight - 10, 'Total Strain (ε)', 14, '#2c3e50', 'middle'));
+                svg.appendChild(createText(25, topPadding + chartHeight/2, 'True Stress σ', 14, '#2c3e50', 'middle', `rotate(-90, 25, ${topPadding + chartHeight/2})`));
+
+                // 1. Elasticity line - make it visible
+                svg.appendChild(createLine(xScale(0), yScale(0), xScale(elasticLimit), yScale(sigma_y), '#2c3e50', 4));
+
+                // 2. Blue Swift's law curve - ONLY for plastic region
+                const steps = 200;
+                const plasticStrainRange = A - elasticLimit; // Only to elongation at break
+                const strainStep = plasticStrainRange / steps;
+                let pathData = '';
+                let maxStressPoint = { strain: elasticLimit, stress: sigma_y };
+
+                // Start from yield point
+                pathData += `M ${xScale(elasticLimit)} ${yScale(sigma_y)} `;
+
+                for (let i = 1; i <= steps; i++) {
+                    const totalStrain = elasticLimit + i * strainStep;
+                    const plasticStrain = totalStrain - elasticLimit;
+                    let stress;
+                    
+                    if (epsilon_0 === 0) {
+                        // Traditional Swift's law: σ = K(ε_plastic)ⁿ
+                        const eps_y_calc = Math.pow(E / K, 1 / (n - 1));
+                        stress = K * Math.pow(eps_y_calc + plasticStrain, n);
+                    } else {
+                        // Modified Swift's law: σ = K(ε₀ + ε_plastic)ⁿ
+                        stress = K * Math.pow(epsilon_0 + plasticStrain, n);
+                    }
+                    
+                    if (stress > maxStressPoint.stress) {
+                        maxStressPoint = { strain: totalStrain, stress: stress };
+                    }
+
+                    const x = xScale(totalStrain);
+                    const y = yScale(stress);
+                    pathData += `L ${x} ${y} `;
+                }
+                svg.appendChild(createPath(pathData, '#3498db', 3));
+
+                // 3. Green linear approximation line
+                const endStrain = A;
+                let endStress;
+                
+                if (epsilon_0 === 0) {
+                    // Traditional Swift's law: σ = K(ε_plastic)ⁿ
+                    const eps_y_calc = Math.pow(E / K, 1 / (n - 1));
+                    endStress = K * Math.pow(eps_y_calc + (endStrain - elasticLimit), n);
+                } else {
+                    // Modified Swift's law: σ = K(ε₀ + ε_plastic)ⁿ
+                    endStress = K * Math.pow(epsilon_0 + (endStrain - elasticLimit), n);
+                }
+                svg.appendChild(createLine(xScale(elasticLimit), yScale(sigma_y), xScale(endStrain), yScale(endStress), '#27ae60', 3));
+
+                // Yield point
+                svg.appendChild(createCircle(xScale(elasticLimit), yScale(sigma_y), 6, '#f39c12'));
+
+                // Maximum point
+                svg.appendChild(createCircle(xScale(maxStressPoint.strain), yScale(maxStressPoint.stress), 6, '#8e44ad'));
+
+                // Necking arrow - UNDER the curve
+                const neckingX = xScale(maxStressPoint.strain);
+                const neckingY = yScale(maxStressPoint.stress);
+                
+                // Arrow pointing up from below
+                svg.appendChild(createLine(neckingX, neckingY + 30, neckingX, neckingY + 10, '#2c3e50', 2));
+                
+                // Arrow head pointing up
+                const arrowPath = `M ${neckingX - 5} ${neckingY + 15} L ${neckingX} ${neckingY + 10} L ${neckingX + 5} ${neckingY + 15}`;
+                svg.appendChild(createPath(arrowPath, '#2c3e50', 2));
+
+                svg.appendChild(createText(neckingX, neckingY + 45, 'Necking', 12, '#2c3e50', 'middle'));
+
+                // RIGHT LEGEND - centered vertically
+                const legendItems = [
+                    { color: '#2c3e50', text: 'Elasticity' },
+                    { color: '#3498db', text: 'Swift Law' },
+                    { color: '#27ae60', text: 'Linear Approximation' }
+                ];
+
+                const legendStartY = topPadding + chartHeight/2 - (legendItems.length * 25)/2;
+                let legendY = legendStartY;
+                const legendX = svgWidth - rightPadding + 20;
+
+                legendItems.forEach((item) => {
+                    svg.appendChild(createLine(legendX, legendY, legendX + 25, legendY, item.color, 3));
+                    svg.appendChild(createText(legendX + 30, legendY + 4, item.text, 12));
+                    legendY += 25;
+                });
+
+                // Axis value labels - positioned to avoid overlap
+                for (let i = 0; i <= 10; i++) {
+                    const strainValue = (maxStrain * i / 10).toFixed(3);
+                    const x = padding + (i / 10) * chartWidth;
+                    svg.appendChild(createText(x, svgHeight - bottomPadding + 20, strainValue, 10, '#7f8c8d', 'middle'));
+                }
+                
+                for (let i = 0; i <= 10; i++) {
+                    const stressValue = Math.round(maxStress * i / 10).toString();
+                    const y = svgHeight - bottomPadding - (i / 10) * chartHeight;
+                    svg.appendChild(createText(padding - 15, y + 3, stressValue, 10, '#7f8c8d', 'end'));
+                }
+
+            } catch (error) {
+                console.error('SVG chart drawing error:', error);
+            }
+        }
+
+        function exportToCSV() {
+            if (!calculatedValues || Object.keys(calculatedValues).length === 0) {
+                alert('No data available for export. Please enter valid parameters.');
+                return;
+            }
+
+            const { E, sigma_y, n, K, eps_y, A, epsilon_0 } = calculatedValues;
+            
+            let csvContent = "Total Strain (ε_total),Plastic Strain (ε_plastic),True Stress σ\n";
+            
+            const maxStrain = A * 1.1;
+            const steps = 50;
+            const strainStep = maxStrain / steps;
+            const elasticLimit = sigma_y / E;
+
+            // Create array of strain values, ensuring yield point is included
+            const strainValues = [];
+            let yieldPointIncluded = false;
+            
+            for (let i = 0; i <= steps; i++) {
+                const totalStrain = i * strainStep;
+                
+                // If we haven't included yield point yet and current strain > elasticLimit
+                if (!yieldPointIncluded && totalStrain > elasticLimit) {
+                    // Add yield point first
+                    strainValues.push(elasticLimit);
+                    yieldPointIncluded = true;
+                }
+                
+                strainValues.push(totalStrain);
+            }
+
+            // Generate CSV rows for all strain values
+            strainValues.forEach(totalStrain => {
+                let plasticStrain, stress;
+
+                if (totalStrain <= elasticLimit) {
+                    plasticStrain = 0;
+                    stress = E * totalStrain;
+                } else {
+                    plasticStrain = totalStrain - elasticLimit;
+                    
+                    if (epsilon_0 === 0) {
+                        // Traditional Swift's law: σ = K(ε_plastic)ⁿ
+                        const eps_y_calc = Math.pow(E / K, 1 / (n - 1));
+                        stress = K * Math.pow(eps_y_calc + plasticStrain, n);
+                    } else {
+                        // Modified Swift's law: σ = K(ε₀ + ε_plastic)ⁿ
+                        stress = K * Math.pow(epsilon_0 + plasticStrain, n);
+                    }
+                }
+
+                csvContent += totalStrain.toExponential(6) + "," + 
+                             plasticStrain.toExponential(6) + "," + 
+                             stress.toExponential(6) + "\n";
+            });
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            
+            if (link.download !== undefined) {
+                const url = URL.createObjectURL(blob);
+                link.setAttribute('href', url);
+                
+                const now = new Date();
+                const timestamp = now.getFullYear() + '-' + 
+                                String(now.getMonth() + 1).padStart(2, '0') + '-' + 
+                                String(now.getDate()).padStart(2, '0') + '_' + 
+                                String(now.getHours()).padStart(2, '0') + '-' + 
+                                String(now.getMinutes()).padStart(2, '0');
+                
+                link.setAttribute('download', 'swift_law_data_' + timestamp + '.csv');
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        }
+
+        function generateDefineCurveStress() {
+            try {
+                const { n, K, epsilon_0 } = calculatedValues;
+                
+                // Format values with proper positioning (right-aligned in their columns)
+                // K: positions 21-30, n: positions 31-40, eps_0: positions 41-50
+                const K_str = formatScientific(K, 4);
+                const n_str = formatScientific(n, 4);
+                const eps0_str = formatScientific(epsilon_0, 4);
+                
+                // Build the line with exact positioning
+                let line5 = '         1         1'; // LCID=1, ITYPE=1 (positions 1-20)
+                line5 += K_str.padStart(10);        // K at positions 21-30
+                line5 += n_str.padStart(10);        // n at positions 31-40
+                line5 += eps0_str.padStart(10);     // eps_0 at positions 41-50
+                
+                const curveDefinition = `*DEFINE_CURVE_STRESS
+$ ITYPE is Type of hardening law. EQ.1: Swift power law
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#    LCID     ITYPE      P1=K      P2=n  P3=eps_0
+${line5}
+$--------1---------2---------3---------4---------5---------6---------7---------8`;
+
+                document.getElementById('defineCurveStress').textContent = curveDefinition;
+            } catch (error) {
+                console.error('DEFINE_CURVE_STRESS generation error:', error);
+            }
+        }
+
+        function copyToClipboard() {
+            const text = document.getElementById('defineCurveStress').textContent;
+            navigator.clipboard.writeText(text).then(function() {
+                // Visual feedback
+                const button = event.target;
+                const originalText = button.textContent;
+                button.textContent = '✅ Copied!';
+                button.style.background = 'linear-gradient(135deg, #27ae60, #2ecc71)';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = 'linear-gradient(135deg, #27ae60, #2ecc71)';
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Could not copy text: ', err);
+                alert('Failed to copy to clipboard. Please copy manually.');
+            });
+        }
+
+        // Toggle collapsible sections
+        function toggleCollapse(header) {
+            const content = header.nextElementSibling;
+            const isCollapsed = header.classList.contains('collapsed');
+            
+            if (isCollapsed) {
+                // Expand
+                header.classList.remove('collapsed');
+                content.classList.remove('collapsed');
+            } else {
+                // Collapse
+                header.classList.add('collapsed');
+                content.classList.add('collapsed');
+            }
+        }
+
+        // Page initialization
+        window.onload = function() {
+            calculate();
+        };
+    </script>
+    
+    <!-- Navigation Script -->
+    <script src="navigation.js"></script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swift's Law Calculator</title>
+    <link rel="stylesheet" href="unified-styles.css">
+</head>
+<body>
+    <!-- Navigation Menu -->
+    <nav class="nav-menu">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">Material MAP</a>
+            <button class="nav-toggle" aria-label="Toggle navigation">☰</button>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="swift_law_calculator.html">Swift's Law Calculator</a></li>
                 <li><a href="about.html">About</a></li>
             </ul>
         </div>
