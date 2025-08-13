@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2-P Mooney-Rivlin vs. Shore Hardness Calculator</title>
     <link rel="stylesheet" href="unified-styles.css">
+    <link rel="stylesheet" href="src/css/components/units.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
@@ -50,29 +51,70 @@
             </div>
         </div>
 
+        <!-- Units Panel -->
+        <div class="units-panel">
+            <h3>
+                <span>🔧 Units Settings</span>
+                <button class="units-toggle" onclick="toggleUnitsPanel()">Show/Hide</button>
+            </h3>
+            <div id="unitsSettings" class="units-grid" style="display: none;">
+                <div class="unit-group">
+                    <label>Pressure/Modulus Units:</label>
+                    <select id="pressureUnit" onchange="updateUnits()">
+                        <option value="MPa" selected>Megapascal (MPa)</option>
+                        <option value="Pa">Pascal (Pa)</option>
+                        <option value="kPa">Kilopascal (kPa)</option>
+                        <option value="GPa">Gigapascal (GPa)</option>
+                        <option value="psi">Pounds per square inch (psi)</option>
+                    </select>
+                </div>
+                <div class="unit-group">
+                    <label>Hardness Units:</label>
+                    <select id="hardnessUnit" onchange="updateUnits()">
+                        <option value="Shore A" selected>Shore A (°)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
         <div class="input-group" style="grid-template-columns: 1fr; max-width: 400px; margin: 0 auto;">
-            <div class="input-item">
-                <label for="shoreHardness">Shore Hardness, A [°] (35-70):</label>
-                <input type="number" id="shoreHardness" min="35" max="70" value="50" step="0.1" oninput="updateFromInput()">
+            <div class="input-item with-units">
+                <label for="shoreHardness">Shore Hardness, A (35-70):</label>
+                <div class="input-with-units">
+                    <input type="number" id="shoreHardness" min="35" max="70" value="50" step="0.1" oninput="updateFromInput()">
+                    <span class="unit-display" id="shoreHardnessUnit">°</span>
+                </div>
             </div>
         </div>
 
         <div class="results" id="results" style="display: grid;">
             <div class="result-item">
-                <div class="result-name">Young's Modulus, E [MPa]</div>
-                <div class="result-value" id="youngModulus">-</div>
+                <div class="result-name">Young's Modulus, E</div>
+                <div class="result-value with-units">
+                    <span id="youngModulus">-</span>
+                    <span class="result-unit" id="youngModulusUnit">MPa</span>
+                </div>
             </div>
             <div class="result-item">
-                <div class="result-name">Shear Modulus, G [MPa]</div>
-                <div class="result-value" id="shearModulus">-</div>
+                <div class="result-name">Shear Modulus, G</div>
+                <div class="result-value with-units">
+                    <span id="shearModulus">-</span>
+                    <span class="result-unit" id="shearModulusUnit">MPa</span>
+                </div>
             </div>
             <div class="result-item">
-                <div class="result-name">Mooney-Rivlin Constant, C₁₀ [MPa]</div>
-                <div class="result-value" id="c10">-</div>
+                <div class="result-name">Mooney-Rivlin Constant, C₁₀</div>
+                <div class="result-value with-units">
+                    <span id="c10">-</span>
+                    <span class="result-unit" id="c10Unit">MPa</span>
+                </div>
             </div>
             <div class="result-item">
-                <div class="result-name">Mooney-Rivlin Constant, C₀₁ [MPa]</div>
-                <div class="result-value" id="c01">-</div>
+                <div class="result-name">Mooney-Rivlin Constant, C₀₁</div>
+                <div class="result-value with-units">
+                    <span id="c01">-</span>
+                    <span class="result-unit" id="c01Unit">MPa</span>
+                </div>
             </div>
         </div>
     </div>
@@ -114,8 +156,57 @@
     </div>
 
     <script src="navigation.js"></script>
+    <script src="src/js/utils/UnitsHandler.js"></script>
     <script>
         let currentShoreHardness = 50;
+        let unitsHandler = new UnitsHandler();
+        let currentUnits = {
+            pressure: 'MPa'
+        };
+
+        // Initialize units handler when page loads
+        window.addEventListener('load', async function() {
+            const initialized = await unitsHandler.initialize();
+            if (!initialized) {
+                console.warn('Units handler initialization failed, using fallback');
+            }
+            updateUnitDisplays();
+            calculate(); // Initial calculation
+        });
+
+        function toggleUnitsPanel() {
+            const panel = document.getElementById('unitsSettings');
+            panel.style.display = panel.style.display === 'none' ? 'grid' : 'none';
+        }
+
+        function updateUnits() {
+            currentUnits.pressure = document.getElementById('pressureUnit').value;
+            updateUnitDisplays();
+            calculate();
+        }
+
+        function updateUnitDisplays() {
+            // Update result unit displays
+            document.getElementById('youngModulusUnit').textContent = currentUnits.pressure;
+            document.getElementById('shearModulusUnit').textContent = currentUnits.pressure;
+            document.getElementById('c10Unit').textContent = currentUnits.pressure;
+            document.getElementById('c01Unit').textContent = currentUnits.pressure;
+        }
+
+        function convertToDisplayUnits(value, quantityType) {
+            if (!unitsHandler.initialized) {
+                return value; // Fallback to raw value
+            }
+
+            const baseUnit = unitsHandler.getPrimaryUnit(quantityType);
+            const displayUnit = currentUnits[quantityType];
+            
+            const quantity = unitsHandler.createQuantity(value, baseUnit);
+            if (!quantity) return value;
+
+            const converted = unitsHandler.convert(quantity, displayUnit);
+            return converted ? unitsHandler.getValue(converted) : value;
+        }
 
         function updateFromInput() {
             const inputValue = document.getElementById('shoreHardness').value;
@@ -135,11 +226,17 @@
         function calculate() {
             const x = currentShoreHardness;
             
-            // Calculate parameters using the given formulas
-            const youngModulus = 1.5048e-1 * Math.exp(5.5579e-2 * x);
-            const shearModulus = 7.5401e-2 * Math.exp(4.5779e-2 * x);
-            const c10 = 3.0338e-2 * Math.exp(4.5684e-2 * x);
-            const c01 = 7.5554e-3 * Math.exp(4.5749e-2 * x);
+            // Calculate parameters using the given formulas (results in MPa - base units)
+            const youngModulusBase = 1.5048e-1 * Math.exp(5.5579e-2 * x);
+            const shearModulusBase = 7.5401e-2 * Math.exp(4.5779e-2 * x);
+            const c10Base = 3.0338e-2 * Math.exp(4.5684e-2 * x);
+            const c01Base = 7.5554e-3 * Math.exp(4.5749e-2 * x);
+
+            // Convert to display units
+            const youngModulus = convertToDisplayUnits(youngModulusBase, 'pressure');
+            const shearModulus = convertToDisplayUnits(shearModulusBase, 'pressure');
+            const c10 = convertToDisplayUnits(c10Base, 'pressure');
+            const c01 = convertToDisplayUnits(c01Base, 'pressure');
 
             // Display results
             document.getElementById('youngModulus').textContent = formatScientific(youngModulus);
@@ -199,20 +296,28 @@
 
             // Draw curves
             const curves = [
-                { key: 'youngModulus', color: '#e74c3c', name: "Young's Modulus, E" },
-                { key: 'shearModulus', color: '#3498db', name: 'Shear Modulus, G' },
-                { key: 'c10', color: '#27ae60', name: 'Mooney-Rivlin Constant, C₁₀' },
-                { key: 'c01', color: '#f39c12', name: 'Mooney-Rivlin Constant, C₀₁' }
+                { data: 'youngModulus', color: '#2563eb', name: "Young's Modulus" },
+                { data: 'shearModulus', color: '#dc2626', name: 'Shear Modulus' },
+                { data: 'c10', color: '#16a34a', name: 'C₁₀' },
+                { data: 'c01', color: '#ca8a04', name: 'C₀₁' }
             ];
 
             curves.forEach(curve => {
-                drawCurve(g, dataPoints, curve.key, curve.color, xScale, yScale);
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                let pathData = '';
+                dataPoints.forEach((point, i) => {
+                    const x = xScale(point.shore);
+                    const y = yScale(point[curve.data]);
+                    pathData += (i === 0 ? 'M' : 'L') + x + ',' + y;
+                });
+                path.setAttribute('d', pathData);
+                path.setAttribute('stroke', curve.color);
+                path.setAttribute('stroke-width', '2');
+                path.setAttribute('fill', 'none');
+                g.appendChild(path);
             });
 
-            // Add legend
-            addLegend(g, curves, width);
-
-            // Add current position markers
+            // Add current point markers
             addCurrentMarkers(g, xScale, yScale);
         }
 
@@ -224,7 +329,7 @@
             xAxis.setAttribute('x2', width);
             xAxis.setAttribute('y2', height);
             xAxis.setAttribute('stroke', '#333');
-            xAxis.setAttribute('stroke-width', '2');
+            xAxis.setAttribute('stroke-width', '1');
             g.appendChild(xAxis);
 
             // Y axis
@@ -234,7 +339,7 @@
             yAxis.setAttribute('x2', 0);
             yAxis.setAttribute('y2', height);
             yAxis.setAttribute('stroke', '#333');
-            yAxis.setAttribute('stroke-width', '2');
+            yAxis.setAttribute('stroke-width', '1');
             g.appendChild(yAxis);
 
             // X axis labels
@@ -249,26 +354,26 @@
                 tick.setAttribute('y2', height + 5);
                 tick.setAttribute('stroke', '#333');
                 g.appendChild(tick);
-
+                
                 // Label
                 const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
                 label.setAttribute('x', x);
                 label.setAttribute('y', height + 20);
                 label.setAttribute('text-anchor', 'middle');
-                label.setAttribute('font-size', '12');
+                label.setAttribute('font-size', '10');
                 label.setAttribute('fill', '#333');
                 label.textContent = shore;
                 g.appendChild(label);
             }
 
             // Y axis labels (logarithmic scale)
-            const logYMin = Math.log10(yMin);
-            const logYMax = Math.log10(yMax);
-            const steps = 5;
+            const logYMin = Math.log(yMin);
+            const logYMax = Math.log(yMax);
+            const logRange = logYMax - logYMin;
             
-            for (let i = 0; i <= steps; i++) {
-                const logValue = logYMin + (logYMax - logYMin) * i / steps;
-                const value = Math.pow(10, logValue);
+            for (let i = 0; i <= 5; i++) {
+                const logValue = logYMin + (i / 5) * logRange;
+                const value = Math.exp(logValue);
                 const y = yScale(value);
                 
                 // Tick mark
@@ -279,11 +384,11 @@
                 tick.setAttribute('y2', y);
                 tick.setAttribute('stroke', '#333');
                 g.appendChild(tick);
-
+                
                 // Label
                 const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
                 label.setAttribute('x', -10);
-                label.setAttribute('y', y + 4);
+                label.setAttribute('y', y + 3);
                 label.setAttribute('text-anchor', 'end');
                 label.setAttribute('font-size', '10');
                 label.setAttribute('fill', '#333');
@@ -294,165 +399,57 @@
             // Axis titles
             const xTitle = document.createElementNS('http://www.w3.org/2000/svg', 'text');
             xTitle.setAttribute('x', width / 2);
-            xTitle.setAttribute('y', height + 45);
+            xTitle.setAttribute('y', height + 50);
             xTitle.setAttribute('text-anchor', 'middle');
-            xTitle.setAttribute('font-size', '14');
+            xTitle.setAttribute('font-size', '12');
             xTitle.setAttribute('font-weight', 'bold');
             xTitle.setAttribute('fill', '#333');
-            xTitle.textContent = 'Shore Hardness, A [°]';
+            xTitle.textContent = 'Shore Hardness A [°]';
             g.appendChild(xTitle);
 
             const yTitle = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-            yTitle.setAttribute('x', -45);
+            yTitle.setAttribute('x', -60);
             yTitle.setAttribute('y', height / 2);
             yTitle.setAttribute('text-anchor', 'middle');
-            yTitle.setAttribute('font-size', '14');
+            yTitle.setAttribute('font-size', '12');
             yTitle.setAttribute('font-weight', 'bold');
             yTitle.setAttribute('fill', '#333');
-            yTitle.setAttribute('transform', `rotate(-90, -45, ${height / 2})`);
+            yTitle.setAttribute('transform', `rotate(-90, -60, ${height / 2})`);
             yTitle.textContent = 'Parameters [MPa]';
             g.appendChild(yTitle);
         }
 
-        function drawCurve(g, dataPoints, key, color, xScale, yScale) {
-            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-            let pathData = '';
-
-            dataPoints.forEach((point, index) => {
-                const x = xScale(point.shore);
-                const y = yScale(point[key]);
-                
-                if (index === 0) {
-                    pathData += `M ${x} ${y}`;
-                } else {
-                    pathData += ` L ${x} ${y}`;
-                }
-            });
-
-            path.setAttribute('d', pathData);
-            path.setAttribute('stroke', color);
-            path.setAttribute('stroke-width', '3');
-            path.setAttribute('fill', 'none');
-            path.setAttribute('data-curve', key);
-            g.appendChild(path);
-        }
-
-        function addLegend(g, curves, width) {
-            const legend = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-            legend.setAttribute('transform', `translate(${width - 150}, 20)`);
-            g.appendChild(legend);
-
-            curves.forEach((curve, index) => {
-                const y = index * 25;
-
-                // Legend line
-                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                line.setAttribute('x1', 0);
-                line.setAttribute('y1', y);
-                line.setAttribute('x2', 20);
-                line.setAttribute('y2', y);
-                line.setAttribute('stroke', curve.color);
-                line.setAttribute('stroke-width', '3');
-                legend.appendChild(line);
-
-                // Legend text
-                const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                text.setAttribute('x', 25);
-                text.setAttribute('y', y + 4);
-                text.setAttribute('font-size', '12');
-                text.setAttribute('fill', '#333');
-                text.textContent = curve.name;
-                legend.appendChild(text);
-            });
-        }
-
         function addCurrentMarkers(g, xScale, yScale) {
-            const markerGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-            markerGroup.setAttribute('id', 'currentMarkers');
-            g.appendChild(markerGroup);
+            const currentValues = {
+                youngModulus: 1.5048e-1 * Math.exp(5.5579e-2 * currentShoreHardness),
+                shearModulus: 7.5401e-2 * Math.exp(4.5779e-2 * currentShoreHardness),
+                c10: 3.0338e-2 * Math.exp(4.5684e-2 * currentShoreHardness),
+                c01: 7.5554e-3 * Math.exp(4.5749e-2 * currentShoreHardness)
+            };
+
+            const colors = ['#2563eb', '#dc2626', '#16a34a', '#ca8a04'];
+            const values = [currentValues.youngModulus, currentValues.shearModulus, currentValues.c10, currentValues.c01];
+            
+            values.forEach((value, i) => {
+                const marker = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                marker.setAttribute('cx', xScale(currentShoreHardness));
+                marker.setAttribute('cy', yScale(value));
+                marker.setAttribute('r', '4');
+                marker.setAttribute('fill', colors[i]);
+                marker.setAttribute('stroke', '#fff');
+                marker.setAttribute('stroke-width', '2');
+                g.appendChild(marker);
+            });
         }
 
         function updateChart() {
-            const svg = document.getElementById('mooneyRivlinChart');
-            const existingMarkers = document.getElementById('currentMarkers');
-            if (existingMarkers) {
-                existingMarkers.innerHTML = '';
-            } else {
-                return;
-            }
-
-            // Chart dimensions (same as in drawChart)
-            const margin = { top: 40, right: 80, bottom: 60, left: 80 };
-            const width = 900 - margin.left - margin.right;
-            const height = 600 - margin.top - margin.bottom;
-
-            // Calculate current values
-            const shore = currentShoreHardness;
-            const values = {
-                youngModulus: 1.5048e-1 * Math.exp(5.5579e-2 * shore),
-                shearModulus: 7.5401e-2 * Math.exp(4.5779e-2 * shore),
-                c10: 3.0338e-2 * Math.exp(4.5684e-2 * shore),
-                c01: 7.5554e-3 * Math.exp(4.5749e-2 * shore)
-            };
-
-            // Find min and max values for Y axis (same as in drawChart)
-            const dataPoints = [];
-            for (let s = 35; s <= 70; s += 0.5) {
-                dataPoints.push({
-                    youngModulus: 1.5048e-1 * Math.exp(5.5579e-2 * s),
-                    shearModulus: 7.5401e-2 * Math.exp(4.5779e-2 * s),
-                    c10: 3.0338e-2 * Math.exp(4.5684e-2 * s),
-                    c01: 7.5554e-3 * Math.exp(4.5749e-2 * s)
-                });
-            }
-            const allYValues = dataPoints.flatMap(d => [d.youngModulus, d.shearModulus, d.c10, d.c01]);
-            const yMin = Math.min(...allYValues);
-            const yMax = Math.max(...allYValues);
-
-            // Scales
-            const xScale = (value) => (value - 35) / (70 - 35) * width;
-            const yScale = (value) => height - (Math.log(value) - Math.log(yMin)) / (Math.log(yMax) - Math.log(yMin)) * height;
-
-            // Add markers for current values
-            const curves = [
-                { key: 'youngModulus', color: '#e74c3c' },
-                { key: 'shearModulus', color: '#3498db' },
-                { key: 'c10', color: '#27ae60' },
-                { key: 'c01', color: '#f39c12' }
-            ];
-
-            curves.forEach(curve => {
-                const x = xScale(shore);
-                const y = yScale(values[curve.key]);
-
-                const marker = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                marker.setAttribute('cx', x);
-                marker.setAttribute('cy', y);
-                marker.setAttribute('r', '6');
-                marker.setAttribute('fill', curve.color);
-                marker.setAttribute('stroke', 'white');
-                marker.setAttribute('stroke-width', '2');
-                existingMarkers.appendChild(marker);
-            });
-
-            // Add vertical line at current Shore Hardness
-            const verticalLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-            verticalLine.setAttribute('x1', xScale(shore));
-            verticalLine.setAttribute('y1', 0);
-            verticalLine.setAttribute('x2', xScale(shore));
-            verticalLine.setAttribute('y2', height);
-            verticalLine.setAttribute('stroke', '#666');
-            verticalLine.setAttribute('stroke-width', '1');
-            verticalLine.setAttribute('stroke-dasharray', '5,5');
-            verticalLine.setAttribute('opacity', '0.7');
-            existingMarkers.appendChild(verticalLine);
+            drawChart();
         }
 
         function generateTable() {
             const tableBody = document.getElementById('tableBody');
             tableBody.innerHTML = '';
 
-            // Generate data for table (every 1 degree from 35 to 70)
             for (let shore = 35; shore <= 70; shore++) {
                 const youngModulus = 1.5048e-1 * Math.exp(5.5579e-2 * shore);
                 const shearModulus = 7.5401e-2 * Math.exp(4.5779e-2 * shore);
@@ -476,7 +473,7 @@
                 const shearModulus = 7.5401e-2 * Math.exp(4.5779e-2 * shore);
                 const c10 = 3.0338e-2 * Math.exp(4.5684e-2 * shore);
                 const c01 = 7.5554e-3 * Math.exp(4.5749e-2 * shore);
-
+                
                 csvContent += `${shore},${youngModulus.toExponential(6)},${shearModulus.toExponential(6)},${c10.toExponential(6)},${c01.toExponential(6)}\n`;
             }
 
@@ -484,7 +481,7 @@
             const link = document.createElement('a');
             const url = URL.createObjectURL(blob);
             link.setAttribute('href', url);
-            link.setAttribute('download', 'mooney_rivlin_parameters.csv');
+            link.setAttribute('download', 'mooney_rivlin_data.csv');
             link.style.visibility = 'hidden';
             document.body.appendChild(link);
             link.click();

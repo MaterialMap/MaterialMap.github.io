@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Johnson-Cook Model Calculator</title>
     <link rel="stylesheet" href="unified-styles.css">
+    <link rel="stylesheet" href="src/css/components/units.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
@@ -53,53 +54,120 @@
             </div>
         </div>
 
+        <!-- Units Panel -->
+        <div class="units-panel">
+            <h3>
+                <span>🔧 Units Settings</span>
+                <button class="units-toggle" onclick="toggleUnitsPanel()">Show/Hide</button>
+            </h3>
+            <div id="unitsSettings" class="units-grid" style="display: none;">
+                <div class="unit-group">
+                    <label>Pressure/Stress Units:</label>
+                    <select id="pressureUnit" onchange="updateUnits()">
+                        <option value="MPa" selected>Megapascal (MPa)</option>
+                        <option value="Pa">Pascal (Pa)</option>
+                        <option value="kPa">Kilopascal (kPa)</option>
+                        <option value="GPa">Gigapascal (GPa)</option>
+                        <option value="psi">Pounds per square inch (psi)</option>
+                    </select>
+                </div>
+                <div class="unit-group">
+                    <label>Strain Units:</label>
+                    <select id="strainUnit" onchange="updateUnits()">
+                        <option value="" selected>Dimensionless (-)</option>
+                        <option value="%">Percent (%)</option>
+                    </select>
+                </div>
+                <div class="unit-group">
+                    <label>Strain Rate Units:</label>
+                    <select id="strainRateUnit" onchange="updateUnits()">
+                        <option value="1/s" selected>Per second (s⁻¹)</option>
+                        <option value="1/min">Per minute (min⁻¹)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
         <div class="input-group">
-            <div class="input-item">
-                <label for="yieldStrength">Yield Strength, σ<sub>y</sub> [MPa]:</label>
-                <input type="number" id="yieldStrength" step="any" value="350" oninput="scheduleCalculation()">
+            <div class="input-item with-units">
+                <label for="yieldStrength">Yield Strength, σ<sub>y</sub>:</label>
+                <div class="input-with-units">
+                    <input type="number" id="yieldStrength" step="any" value="350" oninput="scheduleCalculation()">
+                    <span class="unit-display" id="yieldStrengthUnit">MPa</span>
+                </div>
             </div>
-            <div class="input-item">
-                <label for="ultimateStrength">Ultimate Strength, σ<sub>u</sub> [MPa]:</label>
-                <input type="number" id="ultimateStrength" step="any" value="580" oninput="scheduleCalculation()">
+            <div class="input-item with-units">
+                <label for="ultimateStrength">Ultimate Strength, σ<sub>u</sub>:</label>
+                <div class="input-with-units">
+                    <input type="number" id="ultimateStrength" step="any" value="580" oninput="scheduleCalculation()">
+                    <span class="unit-display" id="ultimateStrengthUnit">MPa</span>
+                </div>
             </div>
-            <div class="input-item">
-                <label for="strainAtYield">Strain at Yield, ε<sub>y</sub> [-]:</label>
-                <input type="number" id="strainAtYield" step="any" value="0.002" oninput="scheduleCalculation()">
+            <div class="input-item with-units">
+                <label for="strainAtYield">Strain at Yield, ε<sub>y</sub>:</label>
+                <div class="input-with-units">
+                    <input type="number" id="strainAtYield" step="any" value="0.002" oninput="scheduleCalculation()">
+                    <span class="unit-display" id="strainAtYieldUnit">-</span>
+                </div>
             </div>
-            <div class="input-item">
-                <label for="strainAtUltimate">Strain at Ultimate, ε<sub>u</sub> [-]:</label>
-                <input type="number" id="strainAtUltimate" step="any" value="0.20" oninput="scheduleCalculation()">
+            <div class="input-item with-units">
+                <label for="strainAtUltimate">Strain at Ultimate, ε<sub>u</sub>:</label>
+                <div class="input-with-units">
+                    <input type="number" id="strainAtUltimate" step="any" value="0.20" oninput="scheduleCalculation()">
+                    <span class="unit-display" id="strainAtUltimateUnit">-</span>
+                </div>
             </div>
-            <div class="input-item">
-                <label for="youngModulus">Young's Modulus, E [MPa]:</label>
-                <input type="number" id="youngModulus" step="any" value="200000" oninput="scheduleCalculation()">
+            <div class="input-item with-units">
+                <label for="youngModulus">Young's Modulus, E:</label>
+                <div class="input-with-units">
+                    <input type="number" id="youngModulus" step="any" value="200000" oninput="scheduleCalculation()">
+                    <span class="unit-display" id="youngModulusUnit">MPa</span>
+                </div>
             </div>
-            <div class="input-item">
-                <label for="strainRateCoeff">Strain Rate Coefficient, C [-]:</label>
-                <input type="number" id="strainRateCoeff" step="any" value="0.014" oninput="scheduleCalculation()">
+            <div class="input-item with-units">
+                <label for="strainRateCoeff">Strain Rate Coefficient, C:</label>
+                <div class="input-with-units">
+                    <input type="number" id="strainRateCoeff" step="any" value="0.014" oninput="scheduleCalculation()">
+                    <span class="unit-display" id="strainRateCoeffUnit">-</span>
+                </div>
             </div>
-            <div class="input-item">
-                <label for="referenceStrainRate">Reference Strain Rate, ε̇₀ [s⁻¹]:</label>
-                <input type="number" id="referenceStrainRate" step="any" value="1.0" oninput="scheduleCalculation()">
+            <div class="input-item with-units">
+                <label for="referenceStrainRate">Reference Strain Rate, ε̇₀:</label>
+                <div class="input-with-units">
+                    <input type="number" id="referenceStrainRate" step="any" value="1.0" oninput="scheduleCalculation()">
+                    <span class="unit-display" id="referenceStrainRateUnit">s⁻¹</span>
+                </div>
             </div>
         </div>
 
         <div class="results" id="results" style="display: none;">
             <div class="result-item">
-                <div class="result-name">Parameter A [MPa]</div>
-                <div class="result-value" id="parameterA">-</div>
+                <div class="result-name">Parameter A</div>
+                <div class="result-value with-units">
+                    <span id="parameterA">-</span>
+                    <span class="result-unit" id="parameterAUnit">MPa</span>
+                </div>
             </div>
             <div class="result-item">
-                <div class="result-name">Parameter B [MPa]</div>
-                <div class="result-value" id="parameterB">-</div>
+                <div class="result-name">Parameter B</div>
+                <div class="result-value with-units">
+                    <span id="parameterB">-</span>
+                    <span class="result-unit" id="parameterBUnit">MPa</span>
+                </div>
             </div>
             <div class="result-item">
-                <div class="result-name">Hardening Exponent, n [-]</div>
-                <div class="result-value" id="hardeningExponent">-</div>
+                <div class="result-name">Hardening Exponent, n</div>
+                <div class="result-value with-units">
+                    <span id="hardeningExponent">-</span>
+                    <span class="result-unit">-</span>
+                </div>
             </div>
             <div class="result-item">
-                <div class="result-name">Strain Rate Coefficient, C [-]</div>
-                <div class="result-value" id="displayStrainRateCoeff">-</div>
+                <div class="result-name">Strain Rate Coefficient, C</div>
+                <div class="result-value with-units">
+                    <span id="displayStrainRateCoeff">-</span>
+                    <span class="result-unit">-</span>
+                </div>
             </div>
         </div>
     </div>
@@ -140,6 +208,7 @@
     </div>
 
     <script src="navigation.js"></script>
+    <script src="src/js/utils/UnitsHandler.js"></script>
     <script>
         let calculationTimeout;
         let currentData = {
@@ -148,6 +217,21 @@
             n: 0,
             C: 0
         };
+        let unitsHandler = new UnitsHandler();
+        let currentUnits = {
+            pressure: 'MPa',
+            strain: '',
+            strainRate: '1/s'
+        };
+
+        // Initialize units handler when page loads
+        window.addEventListener('load', async function() {
+            const initialized = await unitsHandler.initialize();
+            if (!initialized) {
+                console.warn('Units handler initialization failed, using fallback');
+            }
+            updateUnitDisplays();
+        });
 
         function scheduleCalculation() {
             clearTimeout(calculationTimeout);
@@ -161,11 +245,73 @@
             return value.toFixed(decimals);
         }
 
+        function toggleUnitsPanel() {
+            const panel = document.getElementById('unitsSettings');
+            panel.style.display = panel.style.display === 'none' ? 'grid' : 'none';
+        }
+
+        function updateUnits() {
+            currentUnits.pressure = document.getElementById('pressureUnit').value;
+            currentUnits.strain = document.getElementById('strainUnit').value;
+            currentUnits.strainRate = document.getElementById('strainRateUnit').value;
+            
+            updateUnitDisplays();
+            scheduleCalculation();
+        }
+
+        function updateUnitDisplays() {
+            // Update input unit displays
+            document.getElementById('yieldStrengthUnit').textContent = currentUnits.pressure;
+            document.getElementById('ultimateStrengthUnit').textContent = currentUnits.pressure;
+            document.getElementById('youngModulusUnit').textContent = currentUnits.pressure;
+            document.getElementById('strainAtYieldUnit').textContent = currentUnits.strain || '-';
+            document.getElementById('strainAtUltimateUnit').textContent = currentUnits.strain || '-';
+            document.getElementById('strainRateCoeffUnit').textContent = '-';
+            document.getElementById('referenceStrainRateUnit').textContent = 
+                currentUnits.strainRate === '1/s' ? 's⁻¹' : 'min⁻¹';
+
+            // Update result unit displays
+            document.getElementById('parameterAUnit').textContent = currentUnits.pressure;
+            document.getElementById('parameterBUnit').textContent = currentUnits.pressure;
+        }
+
+        function getValueInBaseUnits(elementId, quantityType) {
+            const value = parseFloat(document.getElementById(elementId).value);
+            const unit = currentUnits[quantityType];
+            
+            if (!unitsHandler.initialized) {
+                return value; // Fallback to raw value
+            }
+
+            const quantity = unitsHandler.createQuantity(value, unit);
+            if (!quantity) return value;
+
+            const baseUnit = unitsHandler.getPrimaryUnit(quantityType);
+            const converted = unitsHandler.convert(quantity, baseUnit);
+            return converted ? unitsHandler.getValue(converted) : value;
+        }
+
+        function convertToDisplayUnits(value, quantityType) {
+            if (!unitsHandler.initialized) {
+                return value; // Fallback to raw value
+            }
+
+            const baseUnit = unitsHandler.getPrimaryUnit(quantityType);
+            const displayUnit = currentUnits[quantityType];
+            
+            const quantity = unitsHandler.createQuantity(value, baseUnit);
+            if (!quantity) return value;
+
+            const converted = unitsHandler.convert(quantity, displayUnit);
+            return converted ? unitsHandler.getValue(converted) : value;
+        }
+
         function calculate() {
-            const sigmaY = parseFloat(document.getElementById('yieldStrength').value);
-            const sigmaU = parseFloat(document.getElementById('ultimateStrength').value);
-            const epsilonY = parseFloat(document.getElementById('strainAtYield').value);
-            const epsilonU = parseFloat(document.getElementById('strainAtUltimate').value);
+            // Get values in base units (MPa for pressure, dimensionless for strain)
+            const sigmaY = getValueInBaseUnits('yieldStrength', 'pressure');
+            const sigmaU = getValueInBaseUnits('ultimateStrength', 'pressure');
+            const epsilonY = getValueInBaseUnits('strainAtYield', 'strain');
+            const epsilonU = getValueInBaseUnits('strainAtUltimate', 'strain');
             const C = parseFloat(document.getElementById('strainRateCoeff').value);
 
             // Validate inputs
@@ -173,17 +319,20 @@
                 return;
             }
 
-            // Calculate Johnson-Cook parameters
+            // Calculate Johnson-Cook parameters (in base units)
             const A = sigmaY; // Parameter A = yield strength
             const n = Math.log(sigmaU / sigmaY) / Math.log(epsilonU / epsilonY); // Hardening exponent
             const B = (sigmaU - sigmaY) / Math.pow(0.2, n); // Hardening modulus
 
-            // Store current data
+            // Store current data in base units
             currentData = { A, B, n, C };
 
-            // Display results
-            document.getElementById('parameterA').textContent = formatScientific(A);
-            document.getElementById('parameterB').textContent = formatScientific(B);
+            // Convert results to display units and show
+            const displayA = convertToDisplayUnits(A, 'pressure');
+            const displayB = convertToDisplayUnits(B, 'pressure');
+
+            document.getElementById('parameterA').textContent = formatScientific(displayA);
+            document.getElementById('parameterB').textContent = formatScientific(displayB);
             document.getElementById('hardeningExponent').textContent = formatScientific(n, 4);
             document.getElementById('displayStrainRateCoeff').textContent = formatScientific(C, 4);
 
@@ -199,8 +348,9 @@
 
         function johnsonCookStress(totalStrain, strainRate, referenceRate = 1.0) {
             const { A, B, n, C } = currentData;
-            const epsilonY = parseFloat(document.getElementById('strainAtYield').value);
-            const E = parseFloat(document.getElementById('youngModulus').value);
+            // Get values in base units
+            const epsilonY = getValueInBaseUnits('strainAtYield', 'strain');
+            const E = getValueInBaseUnits('youngModulus', 'pressure');
             
             // If strain is less than yield strain, use elastic behavior (Hooke's law)
             if (totalStrain <= epsilonY) {

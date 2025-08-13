@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Swift's Law Calculator</title>
     <link rel="stylesheet" href="unified-styles.css">
+    <link rel="stylesheet" href="src/css/components/units.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Navigation Menu -->
@@ -45,49 +49,106 @@
         
 
 
+        <!-- Units Panel -->
+        <div class="units-panel">
+            <h3>
+                <span>🔧 Units Settings</span>
+                <button class="units-toggle" onclick="toggleUnitsPanel()">Show/Hide</button>
+            </h3>
+            <div id="unitsSettings" class="units-grid" style="display: none;">
+                <div class="unit-group">
+                    <label>Pressure/Stress Units:</label>
+                    <select id="pressureUnit" onchange="updateUnits()">
+                        <option value="MPa" selected>Megapascal (MPa)</option>
+                        <option value="Pa">Pascal (Pa)</option>
+                        <option value="kPa">Kilopascal (kPa)</option>
+                        <option value="GPa">Gigapascal (GPa)</option>
+                        <option value="psi">Pounds per square inch (psi)</option>
+                    </select>
+                </div>
+                <div class="unit-group">
+                    <label>Strain Units:</label>
+                    <select id="strainUnit" onchange="updateUnits()">
+                        <option value="" selected>Dimensionless (-)</option>
+                        <option value="%">Percent (%)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
         <div class="input-group">
-            <div class="input-item">
-                <label for="youngModulus">Young's Modulus, E [MPa]:</label>
-                <input type="number" id="youngModulus" step="any" value="200000" oninput="scheduleCalculation()">
+            <div class="input-item with-units">
+                <label for="youngModulus">Young's Modulus, E:</label>
+                <div class="input-with-units">
+                    <input type="number" id="youngModulus" step="any" value="200000" oninput="scheduleCalculation()">
+                    <span class="unit-display" id="youngModulusUnit">MPa</span>
+                </div>
             </div>
-            <div class="input-item">
-                <label for="yieldStrength">Yield Strength, σ<sub>y</sub> [MPa]:</label>
-                <input type="number" id="yieldStrength" step="any" value="349.1" oninput="scheduleCalculation()">
+            <div class="input-item with-units">
+                <label for="yieldStrength">Yield Strength, σ<sub>y</sub>:</label>
+                <div class="input-with-units">
+                    <input type="number" id="yieldStrength" step="any" value="349.1" oninput="scheduleCalculation()">
+                    <span class="unit-display" id="yieldStrengthUnit">MPa</span>
+                </div>
             </div>
-            <div class="input-item">
-                <label for="tensileStrength">Ultimate Tensile Strength, σ<sub>u</sub> [MPa]:</label>
-                <input type="number" id="tensileStrength" step="any" value="687.4" oninput="scheduleCalculation()">
+            <div class="input-item with-units">
+                <label for="tensileStrength">Ultimate Tensile Strength, σ<sub>u</sub>:</label>
+                <div class="input-with-units">
+                    <input type="number" id="tensileStrength" step="any" value="687.4" oninput="scheduleCalculation()">
+                    <span class="unit-display" id="tensileStrengthUnit">MPa</span>
+                </div>
             </div>
-            <div class="input-item">
-                <label for="elongation">Elongation at Break, A [-]:</label>
-                <input type="number" id="elongation" step="any" value="0.08" oninput="scheduleCalculation()">
+            <div class="input-item with-units">
+                <label for="elongation">Elongation at Break, A:</label>
+                <div class="input-with-units">
+                    <input type="number" id="elongation" step="any" value="0.08" oninput="scheduleCalculation()">
+                    <span class="unit-display" id="elongationUnit">-</span>
+                </div>
             </div>
-            <div class="input-item">
-                <label for="epsilon0">Residual Plastic Strain, ε₀ [-]:</label>
-                <input type="number" id="epsilon0" step="any" value="0" oninput="scheduleCalculation()">
+            <div class="input-item with-units">
+                <label for="epsilon0">Residual Plastic Strain, ε₀:</label>
+                <div class="input-with-units">
+                    <input type="number" id="epsilon0" step="any" value="0" oninput="scheduleCalculation()">
+                    <span class="unit-display" id="epsilon0Unit">-</span>
+                </div>
             </div>
         </div>
 
         <div class="results" id="results" style="display: none;">
             <div class="result-item">
-                <div class="result-name">Ultimate Tensile Strength (True), σ<sub>u,true</sub> [MPa]</div>
-                <div class="result-value" id="trueTensileStrength">-</div>
+                <div class="result-name">Ultimate Tensile Strength (True), σ<sub>u,true</sub></div>
+                <div class="result-value with-units">
+                    <span id="trueTensileStrength">-</span>
+                    <span class="result-unit" id="trueTensileStrengthUnit">MPa</span>
+                </div>
             </div>
             <div class="result-item">
-                <div class="result-name">Hardening Exponent, n [-]</div>
-                <div class="result-value" id="hardeningExponent">-</div>
+                <div class="result-name">Hardening Exponent, n</div>
+                <div class="result-value with-units">
+                    <span id="hardeningExponent">-</span>
+                    <span class="result-unit">-</span>
+                </div>
             </div>
             <div class="result-item">
-                <div class="result-name">Strength Coefficient, K [MPa]</div>
-                <div class="result-value" id="strengthCoefficient">-</div>
+                <div class="result-name">Strength Coefficient, K</div>
+                <div class="result-value with-units">
+                    <span id="strengthCoefficient">-</span>
+                    <span class="result-unit" id="strengthCoefficientUnit">MPa</span>
+                </div>
             </div>
             <div class="result-item">
-                <div class="result-name">Residual Plastic Strain, ε<sub>0</sub> [-]</div>
-                <div class="result-value" id="residualStrain">-</div>
+                <div class="result-name">Residual Plastic Strain, ε<sub>0</sub></div>
+                <div class="result-value with-units">
+                    <span id="residualStrain">-</span>
+                    <span class="result-unit" id="residualStrainUnit">-</span>
+                </div>
             </div>
             <div class="result-item">
-                <div class="result-name">Tangent Modulus, E<sub>tan</sub> [MPa]</div>
-                <div class="result-value" id="tangentModulus">-</div>
+                <div class="result-name">Tangent Modulus, E<sub>tan</sub></div>
+                <div class="result-value with-units">
+                    <span id="tangentModulus">-</span>
+                    <span class="result-unit" id="tangentModulusUnit">MPa</span>
+                </div>
             </div>
         </div>
     </div>
