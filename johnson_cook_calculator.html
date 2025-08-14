@@ -177,9 +177,9 @@
         <h2 class="collapsible-header collapsed" onclick="toggleCollapse(this)">Stress-Strain Curves for Different Strain Rates</h2>
         <div class="collapsible-content collapsed">
             <div class="chart-container">
-                <svg id="johnsonCookChart" viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
+                <div id="johnsonCookChart" style="width: 100%; height: 600px;">
                     <!-- Chart will be generated here -->
-                </svg>
+                </div>
             </div>
         </div>
     </div>
@@ -208,8 +208,10 @@
         </div>
     </div>
 
+    <script src="https://cdn.plot.ly/plotly-2.32.0.min.js" charset="utf-8"></script>
     <script src="navigation.js"></script>
     <script src="src/js/utils/UnitsHandler.js"></script>
+    <script src="src/js/utils/PlotlyChartManager.js"></script>
     <script>
         let calculationTimeout;
         let currentData = {
@@ -219,6 +221,7 @@
             C: 0
         };
         let unitsHandler = new UnitsHandler();
+        let chartManager = new PlotlyChartManager();
         let currentUnits = {
             pressure: 'MPa',
             strain: '',
@@ -372,220 +375,26 @@
         }
 
         function updateChart() {
-            const svg = document.getElementById('johnsonCookChart');
-            svg.innerHTML = '';
+           if (!chartManager.isPlotlyLoaded()) {
+                console.warn('Plotly.js not loaded, skipping chart update');
+                return;
+            }
 
-            // Chart dimensions
-            const margin = { top: 40, right: 100, bottom: 60, left: 80 };
-            const width = 900 - margin.left - margin.right;
-            const height = 600 - margin.top - margin.bottom;
-
-            // Create main group
-            const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-            g.setAttribute('transform', `translate(${margin.left},${margin.top})`);
-            svg.appendChild(g);
-
-            // Add background
-            const background = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-            background.setAttribute('width', width);
-            background.setAttribute('height', height);
-            background.setAttribute('fill', '#f8f9fa');
-            background.setAttribute('stroke', '#dee2e6');
-            g.appendChild(background);
-
-            // Generate data points for different strain rates (plastic strain only)
             const strainRates = [0.001, 1.0, 1000];
-            const colors = ['#3498db', '#e74c3c', '#27ae60'];
-            const maxPlasticStrain = 0.25; // Max plastic strain to show
             const epsilonY = parseFloat(document.getElementById('strainAtYield').value);
-            const maxTotalStrain = epsilonY + maxPlasticStrain;
-            const maxStress = johnsonCookStress(maxTotalStrain, 1000) * 1.1;
+            const referenceStrainRate = parseFloat(document.getElementById('referenceStrainRate').value);
 
-            const xScale = (plasticStrain) => (plasticStrain / maxPlasticStrain) * width;
-            const yScale = (value) => height - (value / maxStress) * height;
+            const options = {
+                maxPlasticStrain: 0.25,
+                yieldStrain: epsilonY,
+                referenceStrainRate: referenceStrainRate,
+                stressUnit: currentUnits.pressure
+            };
 
-            // Draw axes
-            drawAxes(g, width, height, maxPlasticStrain, maxStress);
-
-            // Draw curves for different strain rates (plastic strain only)
-            strainRates.forEach((rate, index) => {
-                const points = [];
-                
-                // More points for early plastic deformation (0 to 0.01) - fine resolution
-                for (let plasticStrain = 0; plasticStrain <= 0.01; plasticStrain += 0.0005) {
-                    const totalStrain = epsilonY + plasticStrain;
-                    const stress = johnsonCookStress(totalStrain, rate);
-                    points.push({ x: xScale(plasticStrain), y: yScale(stress) });
-                }
-                
-                // Regular points for higher plastic strains (0.01 to max) - normal resolution
-                for (let plasticStrain = 0.015; plasticStrain <= maxPlasticStrain; plasticStrain += 0.005) {
-                    const totalStrain = epsilonY + plasticStrain;
-                    const stress = johnsonCookStress(totalStrain, rate);
-                    points.push({ x: xScale(plasticStrain), y: yScale(stress) });
-                }
-                
-                drawCurve(g, points, colors[index], `ε̇ = ${rate} s⁻¹`);
-            });
-
-            // Add legend
-            addLegend(g, strainRates, colors, width, height);
-        }
-
-        function drawAxes(g, width, height, maxPlasticStrain, maxStress) {
-            // X axis
-            const xAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-            xAxis.setAttribute('x1', 0);
-            xAxis.setAttribute('y1', height);
-            xAxis.setAttribute('x2', width);
-            xAxis.setAttribute('y2', height);
-            xAxis.setAttribute('stroke', '#333');
-            xAxis.setAttribute('stroke-width', '2');
-            g.appendChild(xAxis);
-
-            // Y axis
-            const yAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-            yAxis.setAttribute('x1', 0);
-            yAxis.setAttribute('y1', 0);
-            yAxis.setAttribute('x2', 0);
-            yAxis.setAttribute('y2', height);
-            yAxis.setAttribute('stroke', '#333');
-            yAxis.setAttribute('stroke-width', '2');
-            g.appendChild(yAxis);
-
-            // X axis labels (plastic strain)
-            for (let i = 0; i <= 5; i++) {
-                const plasticStrainValue = (maxPlasticStrain * i) / 5;
-                const x = (width * i) / 5;
-                
-                // Tick mark
-                const tick = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                tick.setAttribute('x1', x);
-                tick.setAttribute('y1', height);
-                tick.setAttribute('x2', x);
-                tick.setAttribute('y2', height + 5);
-                tick.setAttribute('stroke', '#333');
-                g.appendChild(tick);
-
-                // Label
-                const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                label.setAttribute('x', x);
-                label.setAttribute('y', height + 20);
-                label.setAttribute('text-anchor', 'middle');
-                label.setAttribute('font-size', '12');
-                label.setAttribute('fill', '#333');
-                label.textContent = plasticStrainValue.toFixed(3);
-                g.appendChild(label);
-            }
-
-            // Y axis labels
-            for (let i = 0; i <= 5; i++) {
-                const stressValue = (maxStress * i) / 5;
-                const y = height - (height * i) / 5;
-                
-                // Tick mark
-                const tick = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                tick.setAttribute('x1', -5);
-                tick.setAttribute('y1', y);
-                tick.setAttribute('x2', 0);
-                tick.setAttribute('y2', y);
-                tick.setAttribute('stroke', '#333');
-                g.appendChild(tick);
-
-                // Label
-                const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                label.setAttribute('x', -10);
-                label.setAttribute('y', y + 4);
-                label.setAttribute('text-anchor', 'end');
-                label.setAttribute('font-size', '10');
-                label.setAttribute('fill', '#333');
-                label.textContent = Math.round(stressValue);
-                g.appendChild(label);
-            }
-
-            // Axis titles
-            const xTitle = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-            xTitle.setAttribute('x', width / 2);
-            xTitle.setAttribute('y', height + 45);
-            xTitle.setAttribute('text-anchor', 'middle');
-            xTitle.setAttribute('font-size', '14');
-            xTitle.setAttribute('font-weight', 'bold');
-            xTitle.setAttribute('fill', '#333');
-            xTitle.textContent = 'Plastic Strain εᵖ';
-            g.appendChild(xTitle);
-
-            const yTitle = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-            yTitle.setAttribute('x', -45);
-            yTitle.setAttribute('y', height / 2);
-            yTitle.setAttribute('text-anchor', 'middle');
-            yTitle.setAttribute('font-size', '14');
-            yTitle.setAttribute('font-weight', 'bold');
-            yTitle.setAttribute('fill', '#333');
-            yTitle.setAttribute('transform', `rotate(-90, -45, ${height / 2})`);
-            yTitle.textContent = 'Stress [MPa]';
-            g.appendChild(yTitle);
-        }
-
-        function drawCurve(g, points, color, label) {
-            let pathData = `M ${points[0].x} ${points[0].y}`;
-            for (let i = 1; i < points.length; i++) {
-                pathData += ` L ${points[i].x} ${points[i].y}`;
-            }
-
-            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-            path.setAttribute('d', pathData);
-            path.setAttribute('stroke', color);
-            path.setAttribute('stroke-width', '2');
-            path.setAttribute('fill', 'none');
-            g.appendChild(path);
-        }
-
-        function addLegend(g, strainRates, colors, width, height) {
-            const legend = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-            
-            // Position legend inside the chart area - top right corner
-            const legendWidth = 110;
-            const legendHeight = strainRates.length * 25 + 10;
-            const legendX = width - legendWidth - 20;
-            const legendY = 20;
-            legend.setAttribute('transform', `translate(${legendX}, ${legendY})`);
-            g.appendChild(legend);
-
-            // Add background for legend
-            const legendBg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-            legendBg.setAttribute('x', 0);
-            legendBg.setAttribute('y', 0);
-            legendBg.setAttribute('width', legendWidth);
-            legendBg.setAttribute('height', legendHeight);
-            legendBg.setAttribute('fill', 'rgba(255, 255, 255, 0.95)');
-            legendBg.setAttribute('stroke', '#dee2e6');
-            legendBg.setAttribute('stroke-width', '1');
-            legendBg.setAttribute('rx', '6');
-            legend.appendChild(legendBg);
-
-            strainRates.forEach((rate, index) => {
-                const y = index * 25 + 15;
-                
-                // Legend line
-                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                line.setAttribute('x1', 10);
-                line.setAttribute('y1', y);
-                line.setAttribute('x2', 30);
-                line.setAttribute('y2', y);
-                line.setAttribute('stroke', colors[index]);
-                line.setAttribute('stroke-width', '3');
-                legend.appendChild(line);
-
-                // Legend text
-                const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                text.setAttribute('x', 35);
-                text.setAttribute('y', y + 5);
-                text.setAttribute('font-size', '12');
-                text.setAttribute('fill', '#333');
-                text.setAttribute('font-weight', '500');
-                text.textContent = `ε̇ = ${rate} s⁻¹`;
-                legend.appendChild(text);
-            });
+            chartManager.createJohnsonCookChart('johnsonCookChart', currentData, strainRates, options)
+                .catch(error => {
+                    console.error('Error creating Johnson-Cook chart:', error);
+                 });
         }
 
         function updateTable() {

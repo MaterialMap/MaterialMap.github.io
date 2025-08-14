@@ -158,8 +158,9 @@
         <h2 class="collapsible-header collapsed" onclick="toggleCollapse(this)">Stress-Strain Curve</h2>
         <div class="collapsible-content collapsed">
             <div class="chart-container">
-                <svg id="stressStrainChart" viewBox="0 0 900 500" xmlns="http://www.w3.org/2000/svg">
-                </svg>
+                <div id="stressStrainChart" style="width: 100%; height: 500px;">
+                    <!-- Chart will be generated here -->
+                </div>
             </div>
         </div>
     </div>
@@ -203,6 +204,7 @@
     <script>
         let calculatedValues = {};
         let calculationTimeout = null;
+        let chartManager = null;
 
 
 
@@ -363,186 +365,210 @@
         }
 
         function drawChart() {
+            if (!chartManager) {
+                console.warn('PlotlyChartManager not available, skipping chart update');
+                return;
+            }
+            if (!chartManager.isPlotlyLoaded()) {
+                console.warn('Plotly.js not loaded, skipping chart update');
+                return;
+            }
+
             try {
-                const svg = document.getElementById('stressStrainChart');
                 const { E, sigma_y, n, K, eps_y, A, epsilon_0 } = calculatedValues;
 
-                // Clear SVG
-                svg.innerHTML = '';
-
-                const maxStrain = A * 1.2; // +20% for necking area
+                const maxStrain = A * 1.2;
                 const elasticLimit = sigma_y / E;
-                const maxStress = Math.max(K * Math.pow(eps_y + A, n), sigma_y * 1.2) * 1.1; // +10% for necking area
+                const steps = 200;
 
-                // Set up coordinates with space for right legend
-                const svgWidth = 900; // Reference width for viewBox
-                const svgHeight = 500; // Reference height for viewBox
-                const padding = 80;
-                const rightPadding = 180; // Space for right legend
-                const bottomPadding = 100; // More space for axis labels
-                const topPadding = 40;
-                const chartWidth = svgWidth - padding - rightPadding;
-                const chartHeight = svgHeight - topPadding - bottomPadding;
-
-                // Coordinate transformation functions
-                const xScale = (strain) => padding + (strain / maxStrain) * chartWidth;
-                const yScale = (stress) => svgHeight - bottomPadding - (stress / maxStress) * chartHeight;
-
-                // Create SVG elements
-                const createLine = (x1, y1, x2, y2, color, width = 1, dash = '') => {
-                    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                    line.setAttribute('x1', x1);
-                    line.setAttribute('y1', y1);
-                    line.setAttribute('x2', x2);
-                    line.setAttribute('y2', y2);
-                    line.setAttribute('stroke', color);
-                    line.setAttribute('stroke-width', width);
-                    if (dash) line.setAttribute('stroke-dasharray', dash);
-                    return line;
-                };
-
-                const createPath = (d, color, width = 1, fill = 'none') => {
-                    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                    path.setAttribute('d', d);
-                    path.setAttribute('stroke', color);
-                    path.setAttribute('stroke-width', width);
-                    path.setAttribute('fill', fill);
-                    return path;
-                };
-
-                const createCircle = (cx, cy, r, color) => {
-                    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                    circle.setAttribute('cx', cx);
-                    circle.setAttribute('cy', cy);
-                    circle.setAttribute('r', r);
-                    circle.setAttribute('fill', color);
-                    return circle;
-                };
-
-                const createText = (x, y, text, size = 12, color = '#2c3e50', anchor = 'start', transform = '') => {
-                    const textEl = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                    textEl.setAttribute('x', x);
-                    textEl.setAttribute('y', y);
-                    textEl.setAttribute('fill', color);
-                    textEl.setAttribute('font-size', size);
-                    textEl.setAttribute('font-family', 'Arial, sans-serif');
-                    textEl.setAttribute('text-anchor', anchor);
-                    if (transform) textEl.setAttribute('transform', transform);
-                    textEl.textContent = text;
-                    return textEl;
-                };
-
-                // Draw grid
-                for (let i = 1; i <= 10; i++) {
-                    const x = padding + (i / 10) * chartWidth;
-                    const y = topPadding + (i / 10) * chartHeight;
-                    
-                    svg.appendChild(createLine(x, topPadding, x, svgHeight - bottomPadding, '#e8e8e8', 1));
-                    svg.appendChild(createLine(padding, y, svgWidth - rightPadding, y, '#e8e8e8', 1));
+                // Generate data for elastic region (linear part)
+                const elasticX = [];
+                const elasticY = [];
+                const elasticSteps = 20;
+                for (let i = 0; i <= elasticSteps; i++) {
+                    const totalStrain = (elasticLimit * i) / elasticSteps;
+                    const stress = E * totalStrain;
+                    elasticX.push(totalStrain);
+                    elasticY.push(stress);
                 }
 
-                // Draw axes
-                svg.appendChild(createLine(padding, topPadding, padding, svgHeight - bottomPadding, '#2c3e50', 2));
-                svg.appendChild(createLine(padding, svgHeight - bottomPadding, svgWidth - rightPadding, svgHeight - bottomPadding, '#2c3e50', 2));
-
-                // Axis labels - positioned to not overlap with value labels
-                svg.appendChild(createText(padding + chartWidth/2, svgHeight - 10, 'Total Strain (ε)', 14, '#2c3e50', 'middle'));
-                svg.appendChild(createText(25, topPadding + chartHeight/2, 'True Stress σ', 14, '#2c3e50', 'middle', `rotate(-90, 25, ${topPadding + chartHeight/2})`));
-
-                // 1. Elasticity line - make it visible
-                svg.appendChild(createLine(xScale(0), yScale(0), xScale(elasticLimit), yScale(sigma_y), '#2c3e50', 4));
-
-                // 2. Blue Swift's law curve - ONLY for plastic region
-                const steps = 200;
-                const plasticStrainRange = A - elasticLimit; // Only to elongation at break
+                // Generate data for plastic region - Swift's Law
+                const plasticX = [];
+                const plasticY = [];
+                const plasticStrainRange = A - elasticLimit;
                 const strainStep = plasticStrainRange / steps;
-                let pathData = '';
-                let maxStressPoint = { strain: elasticLimit, stress: sigma_y };
-
-                // Start from yield point
-                pathData += `M ${xScale(elasticLimit)} ${yScale(sigma_y)} `;
-
+                
+                // Start from yield point to ensure continuity
+                plasticX.push(elasticLimit);
+                plasticY.push(sigma_y);
+                
                 for (let i = 1; i <= steps; i++) {
                     const totalStrain = elasticLimit + i * strainStep;
                     const plasticStrain = totalStrain - elasticLimit;
                     let stress;
                     
                     if (epsilon_0 === 0) {
-                        // Traditional Swift's law: σ = K(ε_plastic)ⁿ
                         const eps_y_calc = Math.pow(E / K, 1 / (n - 1));
                         stress = K * Math.pow(eps_y_calc + plasticStrain, n);
                     } else {
-                        // Modified Swift's law: σ = K(ε₀ + ε_plastic)ⁿ
                         stress = K * Math.pow(epsilon_0 + plasticStrain, n);
                     }
                     
-                    if (stress > maxStressPoint.stress) {
-                        maxStressPoint = { strain: totalStrain, stress: stress };
-                    }
-
-                    const x = xScale(totalStrain);
-                    const y = yScale(stress);
-                    pathData += `L ${x} ${y} `;
+                    plasticX.push(totalStrain);
+                    plasticY.push(stress);
                 }
-                svg.appendChild(createPath(pathData, '#3498db', 3));
 
-                // 3. Green linear approximation line
-                const endStrain = A;
+                // Generate linear approximation data
+                const linearX = [elasticLimit, A];
                 let endStress;
-                
                 if (epsilon_0 === 0) {
-                    // Traditional Swift's law: σ = K(ε_plastic)ⁿ
                     const eps_y_calc = Math.pow(E / K, 1 / (n - 1));
-                    endStress = K * Math.pow(eps_y_calc + (endStrain - elasticLimit), n);
+                    endStress = K * Math.pow(eps_y_calc + (A - elasticLimit), n);
                 } else {
-                    // Modified Swift's law: σ = K(ε₀ + ε_plastic)ⁿ
-                    endStress = K * Math.pow(epsilon_0 + (endStrain - elasticLimit), n);
+                    endStress = K * Math.pow(epsilon_0 + (A - elasticLimit), n);
                 }
-                svg.appendChild(createLine(xScale(elasticLimit), yScale(sigma_y), xScale(endStrain), yScale(endStress), '#27ae60', 3));
+                const linearY = [sigma_y, endStress];
 
-                // Yield point
-                svg.appendChild(createCircle(xScale(elasticLimit), yScale(sigma_y), 6, '#f39c12'));
-
-                // Maximum point
-                svg.appendChild(createCircle(xScale(maxStressPoint.strain), yScale(maxStressPoint.stress), 6, '#8e44ad'));
-
-                // Necking arrow - UNDER the curve
-                const neckingX = xScale(maxStressPoint.strain);
-                const neckingY = yScale(maxStressPoint.stress);
-                
-                // Arrow pointing up from below
-                svg.appendChild(createLine(neckingX, neckingY + 30, neckingX, neckingY + 10, '#2c3e50', 2));
-                
-                // Arrow head pointing up
-                const arrowPath = `M ${neckingX - 5} ${neckingY + 15} L ${neckingX} ${neckingY + 10} L ${neckingX + 5} ${neckingY + 15}`;
-                svg.appendChild(createPath(arrowPath, '#2c3e50', 2));
-
-                svg.appendChild(createText(neckingX, neckingY + 45, 'Necking', 12, '#2c3e50', 'middle'));
-
-                // Add legend
-                const curves = [
-                    { color: '#2c3e50', name: 'Elasticity' },
-                    { color: '#3498db', name: 'Swift Law' },
-                    { color: '#27ae60', name: 'Linear Approximation' }
+                // Create datasets with separate elastic and plastic curves
+                const datasets = [
+                    {
+                        x: elasticX,
+                        y: elasticY,
+                        name: 'Elastic Region',
+                        type: 'elastic'
+                    },
+                    {
+                        x: plasticX,
+                        y: plasticY,
+                        name: "Swift's Law (Plastic)",
+                        type: 'plastic'
+                    },
+                    {
+                        x: linearX,
+                        y: linearY,
+                        name: 'Linear Approximation',
+                        type: 'linear'
+                    },
+                    {
+                        x: [A],
+                        y: [endStress],
+                        name: 'Necking',
+                        type: 'necking'
+                    }
                 ];
-                addLegend(svg, curves, svgWidth);
 
-                // Axis value labels - positioned to avoid overlap
-                for (let i = 0; i <= 10; i++) {
-                    const strainValue = (maxStrain * i / 10).toFixed(3);
-                    const x = padding + (i / 10) * chartWidth;
-                    svg.appendChild(createText(x, svgHeight - bottomPadding + 20, strainValue, 10, '#7f8c8d', 'middle'));
-                }
-                
-                for (let i = 0; i <= 10; i++) {
-                    const stressValue = Math.round(maxStress * i / 10).toString();
-                    const y = svgHeight - bottomPadding - (i / 10) * chartHeight;
-                    svg.appendChild(createText(padding - 15, y + 3, stressValue, 10, '#7f8c8d', 'end'));
-                }
+                const options = {
+                    title: "Swift's Law: Stress-Strain Curve",
+                    xAxisTitle: 'Total Strain [-]',
+                    yAxisTitle: 'True Stress [MPa]',
+                    stressUnit: 'MPa'
+                };
+
+                createCustomSwiftChart('stressStrainChart', datasets, options)
+                    .catch(error => {
+                        console.error('Error creating Swift Law chart:', error);
+                    });
 
             } catch (error) {
-                console.error('SVG chart drawing error:', error);
+                console.error('Chart drawing error:', error);
             }
+        }
+
+        // Custom chart creation function for Swift's Law with specific styling
+        function createCustomSwiftChart(containerId, datasets, options = {}) {
+            const traces = datasets.map((dataset, index) => {
+                const baseTrace = {
+                    x: dataset.x,
+                    y: dataset.y,
+                    name: dataset.name,
+                    hovertemplate: `<b>${dataset.name}</b><br>` +
+                                  `Strain: %{x:.4f}<br>` +
+                                  `Stress: %{y:.2f} ${options.stressUnit || 'MPa'}<br>` +
+                                  `<extra></extra>`
+                };
+
+                // Customize trace based on type
+                switch (dataset.type) {
+                    case 'elastic':
+                        return {
+                            ...baseTrace,
+                            type: 'scatter',
+                            mode: 'lines',
+                            line: {
+                                color: '#27ae60', // Green for elastic
+                                width: 3
+                            }
+                        };
+                    case 'plastic':
+                        return {
+                            ...baseTrace,
+                            type: 'scatter',
+                            mode: 'lines',
+                            line: {
+                                color: '#3498db', // Blue for plastic (Swift's Law)
+                                width: 3
+                            }
+                        };
+                    case 'linear':
+                        return {
+                            ...baseTrace,
+                            type: 'scatter',
+                            mode: 'lines',
+                            line: {
+                                color: '#e74c3c', // Red for linear approximation
+                                width: 2
+                            }
+                        };
+                    case 'necking':
+                        return {
+                            ...baseTrace,
+                            type: 'scatter',
+                            mode: 'markers',
+                            marker: {
+                                color: '#000000', // Black for necking point
+                                size: 10,
+                                symbol: 'circle'
+                            }
+                        };
+                    default:
+                        return {
+                            ...baseTrace,
+                            type: 'scatter',
+                            mode: 'lines',
+                            line: {
+                                color: chartManager.colorPalette[index % chartManager.colorPalette.length],
+                                width: 2.5
+                            }
+                        };
+                }
+            });
+
+            const layout = {
+                ...chartManager.defaultLayout,
+                title: {
+                    text: options.title || 'Stress-Strain Curves',
+                    font: {
+                        size: 16,
+                        color: '#2c3e50'
+                    }
+                },
+                xaxis: {
+                    ...chartManager.defaultLayout.xaxis,
+                    title: {
+                        text: options.xAxisTitle || 'Strain [-]',
+                        font: chartManager.defaultLayout.xaxis.titlefont
+                    }
+                },
+                yaxis: {
+                    ...chartManager.defaultLayout.yaxis,
+                    title: {
+                        text: options.yAxisTitle || `Stress [${options.stressUnit || 'MPa'}]`,
+                        font: chartManager.defaultLayout.yaxis.titlefont
+                    }
+                }
+            };
+
+            return Plotly.newPlot(containerId, traces, layout, chartManager.defaultConfig);
         }
 
         function exportToCSV() {
@@ -688,11 +714,49 @@ $--------1---------2---------3---------4---------5---------6---------7---------8
             }
         }
 
+        // Units functions
+        function toggleUnitsPanel() {
+            const panel = document.getElementById('unitsSettings');
+            panel.style.display = panel.style.display === 'none' ? 'grid' : 'none';
+        }
+
+        function updateUnits() {
+            const pressureUnit = document.getElementById('pressureUnit').value;
+            const strainUnit = document.getElementById('strainUnit').value;
+            
+            // Update unit displays
+            document.getElementById('youngModulusUnit').textContent = pressureUnit;
+            document.getElementById('yieldStrengthUnit').textContent = pressureUnit;
+            document.getElementById('tensileStrengthUnit').textContent = pressureUnit;
+            document.getElementById('trueTensileStrengthUnit').textContent = pressureUnit;
+            document.getElementById('strengthCoefficientUnit').textContent = pressureUnit;
+            document.getElementById('tangentModulusUnit').textContent = pressureUnit;
+            
+            document.getElementById('elongationUnit').textContent = strainUnit || '-';
+            document.getElementById('epsilon0Unit').textContent = strainUnit || '-';
+            document.getElementById('residualStrainUnit').textContent = strainUnit || '-';
+            
+            // Recalculate with new units
+            scheduleCalculation();
+        }
+
         // Page initialization
         window.onload = function() {
+            // Initialize chart manager after all scripts are loaded
+            if (typeof PlotlyChartManager !== 'undefined') {
+                try {
+                    chartManager = new PlotlyChartManager();
+                } catch (error) {
+                    console.error('Failed to initialize PlotlyChartManager:', error);
+                }
+            }
             calculate();
         };
     </script>
+    
+    <!-- Plotly.js and Chart Manager -->
+    <script src="https://cdn.plot.ly/plotly-2.32.0.min.js" charset="utf-8"></script>
+    <script src="src/js/utils/PlotlyChartManager.js"></script>
     
     <!-- Navigation Script -->
     <script src="navigation.js"></script>

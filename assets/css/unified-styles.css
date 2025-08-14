@@ -344,7 +344,10 @@ tr:nth-child(even) {
     text-align: center;
 }
 
-#stressStrainChart {
+#stressStrainChart,
+#johnsonCookChart,
+#mooneyRivlinChart,
+#chartSvg {
     border: 1px solid #bdc3c7;
     border-radius: 8px;
     background: white;
@@ -715,7 +718,10 @@ tr:nth-child(even) {
         overflow-x: hidden;
     }
     
-    #stressStrainChart {
+    #stressStrainChart,
+    #johnsonCookChart,
+    #mooneyRivlinChart,
+    #chartSvg {
         max-width: 100%;
         height: auto;
     }

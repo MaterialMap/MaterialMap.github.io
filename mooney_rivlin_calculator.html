@@ -124,9 +124,9 @@
         <h2 class="collapsible-header collapsed" onclick="toggleCollapse(this)">Interactive Curves</h2>
         <div class="collapsible-content collapsed">
             <div class="chart-container">
-                <svg id="mooneyRivlinChart" viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
+                <div id="mooneyRivlinChart" style="width: 100%; height: 600px;">
                     <!-- Chart will be generated here -->
-                </svg>
+                </div>
             </div>
         </div>
     </div>
@@ -156,11 +156,14 @@
         </div>
     </div>
 
+    <script src="https://cdn.plot.ly/plotly-2.32.0.min.js" charset="utf-8"></script>
     <script src="navigation.js"></script>
     <script src="src/js/utils/UnitsHandler.js"></script>
+    <script src="src/js/utils/PlotlyChartManager.js"></script>
     <script>
         let currentShoreHardness = 50;
         let unitsHandler = new UnitsHandler();
+        let chartManager = new PlotlyChartManager();
         let currentUnits = {
             pressure: 'MPa'
         };
@@ -444,7 +447,35 @@
         }
 
         function updateChart() {
-            drawChart();
+            if (!chartManager.isPlotlyLoaded()) {
+                console.warn('Plotly.js not loaded, skipping chart update');
+                return;
+            }
+
+            try {
+                // Get current Mooney-Rivlin parameters
+                const c10 = parseFloat(document.getElementById('c10').textContent);
+                const c01 = parseFloat(document.getElementById('c01').textContent);
+
+                if (isNaN(c10) || isNaN(c01)) {
+                    console.warn('Invalid Mooney-Rivlin parameters');
+                    return;
+                }
+
+                const parameters = { C10: c10, C01: c01 };
+                const options = {
+                    maxStretch: 3.0,
+                    stressUnit: currentUnits.pressure
+                };
+
+                chartManager.createMooneyRivlinChart('mooneyRivlinChart', parameters, options)
+                    .catch(error => {
+                        console.error('Error creating Mooney-Rivlin chart:', error);
+                    });
+
+            } catch (error) {
+                console.error('Chart update error:', error);
+            }
         }
 
         function generateTable() {
