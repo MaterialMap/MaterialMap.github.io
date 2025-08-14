@@ -3,105 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gibson-Ashby Calculator for Foams</title>
+    <title>Gibson-Ashby & Deshpande-Fleck Calculator for Foams</title>
     <link rel="stylesheet" href="unified-styles.css">
     <link rel="stylesheet" href="src/css/components/units.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        .chart-container {
-            position: relative;
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 30px 0;
+        .input-error {
+            border-color: #e74c3c !important;
+            box-shadow: 0 0 5px rgba(231, 76, 60, 0.3) !important;
         }
-        .chart-svg {
-            width: 100%;
-            height: 400px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            background: white;
-        }
-        .controls {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-            justify-content: center;
-            margin: 20px 0;
-            flex-wrap: wrap;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 8px;
-            border-left: 4px solid #3498db;
-        }
-        .control-group {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-        }
-        .control-group label {
-            font-weight: 600;
-            color: #2c3e50;
-            font-size: 14px;
-        }
-        .control-value {
-            font-weight: bold;
-            color: #e74c3c;
-            font-size: 16px;
-        }
-        input[type="range"] {
-            width: 150px;
-            height: 8px;
-            border-radius: 5px;
-            background: #ddd;
-            outline: none;
-            -webkit-appearance: none;
-            cursor: pointer;
-        }
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #3498db;
-            cursor: pointer;
-        }
-        input[type="range"]::-moz-range-thumb {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #3498db;
-            cursor: pointer;
-            border: none;
-        }
-        .foam-select {
-            padding: 8px 15px;
-            border: 2px solid #3498db;
-            border-radius: 8px;
-            background: white;
-            color: #2c3e50;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 14px;
-        }
-        @media (max-width: 768px) {
-            .controls {
-                flex-direction: column;
-                gap: 15px;
-            }
-            .control-group {
-                width: 100%;
-                max-width: 250px;
-            }
-            input[type="range"] {
-                width: 200px;
-            }
+        .input-warning {
+            border-color: #f39c12 !important;
+            box-shadow: 0 0 5px rgba(243, 156, 18, 0.3) !important;
         }
     </style>
+
 </head>
 <body>
     <!-- Navigation Menu -->
@@ -121,16 +39,16 @@
     </nav>
     
     <div class="container">
-        <h1>Gibson-Ashby Curve for Cellular Foams</h1>
+        <h1>Gibson-Ashby & Deshpande-Fleck Models for Cellular Foams</h1>
         
         <!-- Disclaimer -->
         <div style="margin-bottom: 30px; padding: 20px; background: #fff3cd; border-radius: 8px; border-left: 4px solid #ffc107; border: 1px solid #ffeaa7;">
             <h3 style="margin: 0 0 10px 0; color: #856404; font-size: 18px;">⚠️ Important Disclaimer</h3>
             <p style="margin: 0 0 10px 0; color: #856404; line-height: 1.6; font-size: 14px;">
-                The Gibson-Ashby model describes the three-stage compression behavior of cellular foams: elastic, plateau, and densification. Constants C₁ and C₃ are material-specific and require experimental calibration for accurate results.
+                The Gibson-Ashby model describes the three-stage compression behavior of cellular foams: elastic, plateau, and densification. The Deshpande-Fleck extension adds isotropic hardening to the plateau region, where the slope is controlled by hardening coefficient H.
             </p>
             <p style="margin: 0 0 10px 0; color: #856404; line-height: 1.6; font-size: 14px;">
-                <strong>References:</strong> Gibson, L.J., Ashby, M.F., "Cellular Solids: Structure and Properties", 2nd edition, Cambridge University Press, 1997. Albuquerque et al., "A unified approach for evaluating mechanical compression tests for polymer bead foams", Journal of Polymer Science, 2024.
+                <strong>References:</strong> Gibson, L.J., Ashby, M.F., "Cellular Solids: Structure and Properties", 2nd edition, Cambridge University Press, 1997. Deshpande, V.S., Fleck, N.A., "Isotropic constitutive models for metallic foams", Journal of the Mechanics and Physics of Solids, 2000.
             </p>
             <p style="margin: 0; color: #856404; line-height: 1.6; font-size: 14px; font-weight: 600;">
                 <strong>Note:</strong> This interactive calculator shows typical foam behavior patterns. Use experimentally determined parameters for design calculations.
@@ -139,97 +57,142 @@
 
         <!-- Formula Information -->
         <div style="text-align: center; margin-bottom: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #3498db;">
-            <h2 style="margin: 0; color: #2c3e50; font-size: 24px;">Gibson-Ashby Scaling Laws</h2>
+            <h2 style="margin: 0; color: #2c3e50; font-size: 24px;">Gibson-Ashby & Deshpande-Fleck Models</h2>
             <div style="font-size: 22px; font-weight: bold; margin: 15px 0; color: #2c3e50; font-family: 'Times New Roman', serif;">
                 E*/Es = C₁(ρ*/ρs)²
             </div>
             <div style="font-size: 22px; font-weight: bold; margin: 15px 0; color: #2c3e50; font-family: 'Times New Roman', serif;">
                 σ*/σs = C₃(ρ*/ρs)^1.5
             </div>
+            <div style="font-size: 20px; font-weight: bold; margin: 15px 0; color: #e74c3c; font-family: 'Times New Roman', serif;">
+                σ(ε) = σ<sub>pl</sub>[1 + H(ε - ε<sub>y</sub>)]
+            </div>
             <div style="font-size: 14px; color: #7f8c8d; line-height: 1.5;">
-                <strong>where:</strong> E* - foam elastic modulus, Es - solid elastic modulus, σ* - foam plateau stress, σs - solid yield strength, ρ*/ρs - relative density, C₁, C₃ - material constants
+                <strong>where:</strong> E* - foam elastic modulus, Es - solid elastic modulus, σ* - foam plateau stress, σs - solid yield strength, ρ*/ρs - relative density, C₁, C₃ - material constants<br>
+                <strong>Deshpande-Fleck:</strong> H - hardening coefficient (0 = pure plateau, >0 = hardening slope)
             </div>
         </div>
         
-        <!-- Controls -->
-        <div class="controls">
-            <div class="control-group">
-                <label for="density">Foam Density (kg/m³):</label>
-                <input type="range" id="density" min="10" max="100" value="25" step="5">
-                <span class="control-value" id="densityValue">25</span>
+        <!-- Units Panel -->
+        <div class="units-panel">
+            <h3>
+                <span>🔧 Units Settings</span>
+                <button class="units-toggle" onclick="toggleUnitsPanel()">Show/Hide</button>
+            </h3>
+            <div id="unitsSettings" class="units-grid" style="display: none;">
+                <div class="unit-group">
+                    <label>Pressure/Stress Units:</label>
+                    <select id="pressureUnit" onchange="updateUnits()">
+                        <option value="MPa" selected>Megapascal (MPa)</option>
+                        <option value="Pa">Pascal (Pa)</option>
+                        <option value="kPa">Kilopascal (kPa)</option>
+                        <option value="GPa">Gigapascal (GPa)</option>
+                        <option value="psi">Pounds per square inch (psi)</option>
+                    </select>
+                </div>
+                <div class="unit-group">
+                    <label>Density Units:</label>
+                    <select id="densityUnit" onchange="updateUnits()">
+                        <option value="kg/m³" selected>kg/m³</option>
+                        <option value="g/cm³">g/cm³</option>
+                        <option value="lb/ft³">lb/ft³</option>
+                    </select>
+                </div>
             </div>
-            <div class="control-group">
+        </div>
+
+        <!-- Input Parameters -->
+        <div class="inputs">
+            <div class="input-item with-units">
                 <label for="foamType">Foam Type:</label>
-                <select id="foamType" class="foam-select">
+                <select id="foamType" onchange="scheduleCalculation()">
                     <option value="eps">EPS (Expanded Polystyrene)</option>
                     <option value="epp">EPP (Expanded Polypropylene)</option>
                     <option value="pu">PU (Polyurethane)</option>
                 </select>
             </div>
-        </div>
-
-        <!-- Chart -->
-        <div class="chart-container">
-            <h2 style="margin-top: 0; color: #2c3e50; text-align: center;">Interactive Gibson-Ashby Compression Curve</h2>
-            <div id="chartSvg" style="width: 100%; height: 400px;">
-                <!-- Chart will be generated here -->
+            <div class="input-item with-units">
+                <label for="density">Foam Density:</label>
+                <div class="input-with-units">
+                    <input type="number" id="density" step="0.1" value="25" min="10" max="200" oninput="scheduleCalculation()" onblur="validateDensity()">
+                    <span class="unit-display" id="densityUnitDisplay">kg/m³</span>
+                </div>
+            </div>
+            <div class="input-item with-units">
+                <label for="hardeningCoeff">Hardening Coefficient, H:</label>
+                <div class="input-with-units">
+                    <input type="number" id="hardeningCoeff" step="0.01" value="0" min="0" max="10" oninput="scheduleCalculation()" onblur="validateHardeningCoeff()">
+                    <span class="unit-display">-</span>
+                </div>
             </div>
         </div>
 
-        <div class="results" id="results" style="display: block;">
+        <!-- Output Results -->
+        <div class="results" id="results" style="display: none;">
             <div class="result-item">
                 <div class="result-name">Elastic Modulus, E*</div>
                 <div class="result-value with-units">
-                    <span id="elasticModulus">8.0</span>
-                    <span class="result-unit">MPa</span>
+                    <span id="elasticModulus">-</span>
+                    <span class="result-unit" id="elasticModulusUnit">MPa</span>
                 </div>
             </div>
             <div class="result-item">
                 <div class="result-name">Plateau Stress, σ*</div>
                 <div class="result-value with-units">
-                    <span id="plateauStress">0.35</span>
-                    <span class="result-unit">MPa</span>
+                    <span id="plateauStress">-</span>
+                    <span class="result-unit" id="plateauStressUnit">MPa</span>
                 </div>
             </div>
             <div class="result-item">
                 <div class="result-name">Densification Strain, εd</div>
                 <div class="result-value with-units">
-                    <span id="densificationStrain">60</span>
+                    <span id="densificationStrain">60.0</span>
                     <span class="result-unit">%</span>
                 </div>
             </div>
             <div class="result-item">
                 <div class="result-name">Energy Absorption, W</div>
                 <div class="result-value with-units">
-                    <span id="energyAbsorption">0.21</span>
-                    <span class="result-unit">MJ/m³</span>
+                    <span id="energyAbsorption">-</span>
+                    <span class="result-unit" id="energyAbsorptionUnit">MJ/m³</span>
                 </div>
             </div>
         </div>
     </div>
 
-        <!-- Data export section -->
-        <div class="container" id="tableContainer" style="display: block;">
-            <h2 class="collapsible-header collapsed" onclick="toggleCollapse(this)">Gibson-Ashby Curve Data Points</h2>
-            <div class="collapsible-content collapsed">
-                <div class="table-header">
-                    <div></div>
-                    <button class="export-btn" onclick="exportToCSV()">📊 Export CSV</button>
+    <!-- Interactive Chart Section -->
+    <div class="container" id="chartContainer" style="display: none;">
+        <h2 class="collapsible-header collapsed" onclick="toggleCollapse(this)">Interactive Gibson-Ashby & Deshpande-Fleck Compression Curve</h2>
+        <div class="collapsible-content collapsed">
+            <div class="chart-container">
+                <div id="chartSvg" style="width: 100%; height: 600px;">
+                    <!-- Chart will be generated here -->
                 </div>
-                <div class="table-container">
-                    <table id="propertiesTable">
-                        <thead>
-                            <tr>
-                                <th>Strain, ε [%]</th>
-                                <th>Stress, σ [MPa]</th>
-                                <th>Stage</th>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tableBody">
-                        </tbody>
-                    </table>
-                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Data Table Section -->
+    <div class="container" id="tableContainer" style="display: none;">
+        <h2 class="collapsible-header collapsed" onclick="toggleCollapse(this)">Gibson-Ashby Curve Data Points</h2>
+        <div class="collapsible-content collapsed">
+            <div class="table-header">
+                <div></div>
+                <button class="export-btn" onclick="exportToCSV()">📊 Export CSV</button>
+            </div>
+            <div class="table-container">
+                <table id="propertiesTable">
+                    <thead>
+                        <tr>
+                            <th>Strain, ε [%]</th>
+                            <th>Stress, σ [MPa]</th>
+                            <th>Stage</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -239,6 +202,7 @@
     <script src="navigation.js"></script>
     <script>
         let chartManager = new PlotlyChartManager();
+        let calculationTimeout;
         
         const foamProperties = {
             eps: { 
@@ -270,63 +234,86 @@
             }
         };
 
-        function generateGibsonAshbyCurve(density, foamType) {
-            const props = foamProperties[foamType];
-            const relDensity = density / props.rhoS;
-            
-            // Gibson-Ashby model parameters
-            const E = props.C1 * props.Es * Math.pow(relDensity, 2); // in MPa (no division needed)
-            const sigmaPl = props.C3 * props.sigmaS * Math.pow(relDensity, 1.5);
-            const epsilonD = 60; // densification strain in %
-            
-            // Calculate yield strain for continuous transition: ε_y% = 100·σ_pl/E
-            const epsilonY = (100 * sigmaPl) / E;
-            
-            const points = [];
-            
-            for (let i = 0; i <= 80; i += 0.2) {
-                const epsilon = i;
-                let sigma;
-                
-                if (epsilon <= epsilonY) {
-                    // Elastic region - correct conversion: σ = E·(ε/100)
-                    sigma = E * (epsilon / 100);
-                } else if (epsilon <= epsilonD) {
-                    // Plateau region - constant stress
-                    sigma = sigmaPl;
-                } else {
-                    // Densification region - exponential rise
-                    const epsilonRel = (epsilon - epsilonD) / (100 - epsilonD);
-                    sigma = sigmaPl * (1 + 5 * Math.pow(epsilonRel, 2));
-                }
-                
-                // SVG coordinates (60-750 X, 350-20 Y)
-                const x = 60 + (epsilon / 80) * 690;
-                const y = 350 - (sigma / 1.0) * 330; // max 1.0 MPa scale
-                
-                points.push(`${x},${y}`);
+        // Unit conversion factors
+        const unitConversions = {
+            pressure: {
+                'Pa': 1e-6,
+                'kPa': 1e-3,
+                'MPa': 1,
+                'GPa': 1e3,
+                'psi': 6.89476e-3
+            },
+            density: {
+                'kg/m³': 1,
+                'g/cm³': 1000,
+                'lb/ft³': 16.0185
             }
-            
-            return { 
-                pathData: `M ${points.join(' L ')}`,
-                E: E, 
-                sigmaPl: sigmaPl, 
-                epsilonD: epsilonD,
-                epsilonY: epsilonY,
-                color: props.color
-            };
+        };
+
+        function scheduleCalculation() {
+            clearTimeout(calculationTimeout);
+            calculationTimeout = setTimeout(calculate, 100);
         }
 
-        function updateChart() {
-            if (!chartManager.isPlotlyLoaded()) {
-                console.warn('Plotly.js not loaded, skipping chart update');
-                return;
+        function validateDensity() {
+            const input = document.getElementById('density');
+            let value = parseFloat(input.value);
+            
+            // Remove any existing error classes
+            input.classList.remove('input-error', 'input-warning');
+            
+            if (isNaN(value) || value < 10) {
+                input.classList.add('input-error');
+                setTimeout(() => {
+                    input.value = 10;
+                    input.classList.remove('input-error');
+                    scheduleCalculation();
+                }, 1000);
+            } else if (value > 200) {
+                input.classList.add('input-error');
+                setTimeout(() => {
+                    input.value = 200;
+                    input.classList.remove('input-error');
+                    scheduleCalculation();
+                }, 1000);
             }
+        }
 
-            const density = parseInt(document.getElementById('density').value);
+        function validateHardeningCoeff() {
+            const input = document.getElementById('hardeningCoeff');
+            let value = parseFloat(input.value);
+            
+            // Remove any existing error classes
+            input.classList.remove('input-error', 'input-warning');
+            
+            if (isNaN(value) || value < 0) {
+                input.classList.add('input-error');
+                setTimeout(() => {
+                    input.value = 0;
+                    input.classList.remove('input-error');
+                    scheduleCalculation();
+                }, 1000);
+            } else if (value > 10) {
+                input.classList.add('input-error');
+                setTimeout(() => {
+                    input.value = 10;
+                    input.classList.remove('input-error');
+                    scheduleCalculation();
+                }, 1000);
+            }
+        }
+
+        function calculate() {
+            // Get and validate input values
+            let density = parseFloat(document.getElementById('density').value);
+            let hardeningCoeff = parseFloat(document.getElementById('hardeningCoeff').value);
             const foamType = document.getElementById('foamType').value;
             
-            document.getElementById('densityValue').textContent = density;
+            // Validate inputs (but don't modify the input fields)
+            if (isNaN(density) || density < 10) density = 10;
+            if (density > 200) density = 200;
+            if (isNaN(hardeningCoeff) || hardeningCoeff < 0) hardeningCoeff = 0;
+            if (hardeningCoeff > 10) hardeningCoeff = 10;
             
             const props = foamProperties[foamType];
             const relDensity = density / props.rhoS;
@@ -334,24 +321,48 @@
             // Gibson-Ashby model parameters
             const E_foam = props.C1 * props.Es * Math.pow(relDensity, 2); // MPa
             const sigma_pl = props.C3 * props.sigmaS * Math.pow(relDensity, 1.5); // MPa
-            const E_densification = sigma_pl * 5; // Simplified densification modulus
+            const energyAbsorption = sigma_pl * 60 / 100; // MJ/m³
             
-            // Update parameters display
+            // Update results display
             document.getElementById('elasticModulus').textContent = E_foam.toFixed(1);
-            document.getElementById('plateauStress').textContent = sigma_pl.toFixed(2);
-            document.getElementById('densificationStrain').textContent = '60.0';
-            document.getElementById('energyAbsorption').textContent = (sigma_pl * 60 / 100).toFixed(2);
+            document.getElementById('plateauStress').textContent = sigma_pl.toFixed(3);
+            document.getElementById('energyAbsorption').textContent = energyAbsorption.toFixed(3);
+            
+            // Show results
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('chartContainer').style.display = 'block';
+            document.getElementById('tableContainer').style.display = 'block';
+            
+            // Update chart
+            updateChart(density, foamType, hardeningCoeff);
+            
+            // Update data table
+            generateDataTable(density, foamType, hardeningCoeff);
+        }
 
+        function updateChart(density, foamType, hardeningCoeff) {
+            if (!chartManager.isPlotlyLoaded()) {
+                console.warn('Plotly.js not loaded, skipping chart update');
+                return;
+            }
+
+            const props = foamProperties[foamType];
+            const relDensity = density / props.rhoS;
+            
+            const E_foam = props.C1 * props.Es * Math.pow(relDensity, 2);
+            const sigma_pl = props.C3 * props.sigmaS * Math.pow(relDensity, 1.5);
+            
             const parameters = {
                 E_foam: E_foam,
                 sigma_pl: sigma_pl,
-                E_densification: E_densification
+                E_densification: sigma_pl * 5,
+                hardeningCoeff: hardeningCoeff
             };
             
             const options = {
-                maxStrain: 0.8, // 80% strain
+                maxStrain: 0.8,
                 stressUnit: 'MPa',
-                title: `${props.name} - Density: ${density} kg/m³`
+                title: `${props.name} - Density: ${density} kg/m³, H: ${hardeningCoeff}`
             };
 
             try {
@@ -362,36 +373,26 @@
             } catch (error) {
                 console.error('Chart update error:', error);
             }
-
-            // Update data table
-            generateDataTable(foamType);
         }
 
-        function generateDataTable(foamType) {
+        function generateDataTable(density, foamType, hardeningCoeff) {
             const tableBody = document.getElementById('tableBody');
             tableBody.innerHTML = '';
             
-            const density = parseInt(document.getElementById('density').value);
             const props = foamProperties[foamType];
             const relDensity = density / props.rhoS;
             
-            // Gibson-Ashby model parameters
-            const E = props.C1 * props.Es * Math.pow(relDensity, 2); // in MPa (no division needed)
+            const E = props.C1 * props.Es * Math.pow(relDensity, 2);
             const sigmaPl = props.C3 * props.sigmaS * Math.pow(relDensity, 1.5);
-            const epsilonD = 60; // densification strain in %
-            
-            // Calculate yield strain for continuous transition: ε_y% = 100·σ_pl/E
+            const epsilonD = 60;
             const epsilonY = (100 * sigmaPl) / E;
             
-            // Create array of all strain points (0-99% + transition points)
+            // Generate data points
             let strainPoints = [];
-            
-            // Add regular points (0-99% with 1% step)
             for (let i = 0; i <= 99; i++) {
                 strainPoints.push(i);
             }
             
-            // Add exact transition points if they don't coincide with integer values
             if (epsilonY % 1 !== 0 && epsilonY >= 0 && epsilonY <= 99) {
                 strainPoints.push(epsilonY);
             }
@@ -399,37 +400,31 @@
                 strainPoints.push(epsilonD);
             }
             
-            // Sort all points
             strainPoints.sort((a, b) => a - b);
             
-            // Generate table data
             strainPoints.forEach(epsilon => {
-                let sigma;
-                let stage;
-                let description;
+                let sigma, stage, description;
                 
                 if (epsilon <= epsilonY) {
-                    // Elastic region - correct conversion: σ = E·(ε/100)
                     sigma = E * (epsilon / 100);
                     stage = 'I';
                     description = 'Elastic';
                 } else if (epsilon <= epsilonD) {
-                    // Plateau region
-                    sigma = sigmaPl;
+                    const strainIncrement = (epsilon - epsilonY) / 100;
+                    sigma = sigmaPl * (1 + hardeningCoeff * strainIncrement);
                     stage = 'II';
-                    description = 'Plateau';
+                    description = hardeningCoeff > 0 ? 'Plateau (Hardening)' : 'Plateau';
                 } else {
-                    // Densification region
+                    const plateauStressAtDensification = sigmaPl * (1 + hardeningCoeff * (epsilonD - epsilonY) / 100);
                     const epsilonRel = (epsilon - epsilonD) / (100 - epsilonD);
-                    sigma = sigmaPl * (1 + 5 * Math.pow(epsilonRel, 2));
+                    sigma = plateauStressAtDensification * (1 + 5 * Math.pow(epsilonRel, 2));
                     stage = 'III';
                     description = 'Densification';
                 }
                 
                 const row = tableBody.insertRow();
-                
-                // Special formatting for transition points
                 const isTransition = (Math.abs(epsilon - epsilonY) < 0.001) || (Math.abs(epsilon - epsilonD) < 0.001);
+                
                 if (isTransition) {
                     row.style.backgroundColor = '#fff3cd';
                     row.style.fontWeight = 'bold';
@@ -440,6 +435,25 @@
                 row.insertCell(2).textContent = stage;
                 row.insertCell(3).textContent = description + (isTransition ? ' (Transition)' : '');
             });
+        }
+
+        function toggleUnitsPanel() {
+            const panel = document.getElementById('unitsSettings');
+            panel.style.display = panel.style.display === 'none' ? 'grid' : 'none';
+        }
+
+        function updateUnits() {
+            const pressureUnit = document.getElementById('pressureUnit').value;
+            const densityUnit = document.getElementById('densityUnit').value;
+            
+            // Update unit displays
+            document.getElementById('densityUnitDisplay').textContent = densityUnit;
+            document.getElementById('elasticModulusUnit').textContent = pressureUnit;
+            document.getElementById('plateauStressUnit').textContent = pressureUnit;
+            document.getElementById('energyAbsorptionUnit').textContent = pressureUnit === 'MPa' ? 'MJ/m³' : 'J/m³';
+            
+            // Recalculate with new units
+            scheduleCalculation();
         }
 
         function toggleCollapse(header) {
@@ -461,36 +475,31 @@
             const table = document.getElementById('propertiesTable');
             let csv = [];
             
-            // Get headers
             const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.textContent);
             csv.push(headers.join(','));
             
-            // Get data rows
             const rows = Array.from(table.querySelectorAll('tbody tr'));
             rows.forEach(row => {
                 const cells = Array.from(row.cells).map(cell => cell.textContent);
                 csv.push(cells.join(','));
             });
             
-            // Create and download file
             const csvContent = csv.join('\n');
             const blob = new Blob([csvContent], { type: 'text/csv' });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'gibson_ashby_curve_data.csv';
+            a.download = 'gibson_ashby_deshpande_fleck_data.csv';
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
             window.URL.revokeObjectURL(url);
         }
 
-        // Event listeners
-        document.getElementById('density').addEventListener('input', updateChart);
-        document.getElementById('foamType').addEventListener('change', updateChart);
-        
         // Initialize
-        updateChart();
+        document.addEventListener('DOMContentLoaded', function() {
+            scheduleCalculation();
+        });
     </script>
 </body>
 </html>

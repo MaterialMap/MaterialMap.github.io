@@ -294,14 +294,15 @@ class PlotlyChartManager {
     }
 
     /**
-     * Create a Gibson-Ashby foam compression chart
+     * Create a Gibson-Ashby foam compression chart with Deshpande-Fleck hardening
      * @param {string} containerId - ID of the container element
-     * @param {Object} parameters - Gibson-Ashby parameters {E_foam, sigma_pl, E_densification}
+     * @param {Object} parameters - Gibson-Ashby parameters {E_foam, sigma_pl, E_densification, hardeningCoeff}
      * @param {Object} options - Chart options
      */
     createGibsonAshbyChart(containerId, parameters, options = {}) {
         const maxStrain = options.maxStrain || 0.8; // 80% strain
         const numPoints = 200;
+        const hardeningCoeff = parameters.hardeningCoeff || 0;
         
         // Calculate yield strain for continuous transition: ε_y = σ_pl/E_foam
         const yieldStrain = parameters.sigma_pl / parameters.E_foam; // in decimal form
@@ -310,7 +311,7 @@ class PlotlyChartManager {
         const x = [];
         const y = [];
         
-        // Gibson-Ashby three-stage compression model
+        // Gibson-Ashby three-stage compression model with Deshpande-Fleck hardening
         for (let i = 0; i <= numPoints; i++) {
             const strain = (maxStrain * i) / numPoints;
             let stress;
@@ -319,22 +320,28 @@ class PlotlyChartManager {
                 // Stage I: Elastic deformation
                 stress = parameters.E_foam * strain;
             } else if (strain <= densificationStrain) {
-                // Stage II: Plateau (constant stress)
-                stress = parameters.sigma_pl;
+                // Stage II: Plateau with Deshpande-Fleck hardening: σ(ε) = σ_pl[1 + H(ε - ε_y)]
+                const strainIncrement = strain - yieldStrain;
+                stress = parameters.sigma_pl * (1 + hardeningCoeff * strainIncrement);
             } else {
-                // Stage III: Densification
+                // Stage III: Densification - exponential rise from hardened plateau stress
+                const plateauStressAtDensification = parameters.sigma_pl * (1 + hardeningCoeff * (densificationStrain - yieldStrain));
                 const epsilonRel = (strain - densificationStrain) / (maxStrain - densificationStrain);
-                stress = parameters.sigma_pl * (1 + 5 * Math.pow(epsilonRel, 2));
+                stress = plateauStressAtDensification * (1 + 5 * Math.pow(epsilonRel, 2));
             }
             
             x.push(strain * 100); // Convert to percentage
             y.push(stress);
         }
 
+        const curveName = hardeningCoeff > 0 ? 
+            `Gibson-Ashby + Deshpande-Fleck (H=${hardeningCoeff.toFixed(1)})` : 
+            'Gibson-Ashby Compression Curve';
+
         const datasets = [{
             x: x,
             y: y,
-            name: 'Gibson-Ashby Compression Curve'
+            name: curveName
         }];
 
         // Add stage annotations
@@ -432,7 +439,7 @@ class PlotlyChartManager {
                     y: 1,
                     xref: 'x',
                     yref: 'paper',
-                    text: 'II: Plateau',
+                    text: hardeningCoeff > 0 ? `II: Plateau (H=${hardeningCoeff.toFixed(1)})` : 'II: Plateau',
                     showarrow: false,
                     font: {
                         color: '#ef6c00',

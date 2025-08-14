@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deshpande-Fleck Model Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-result { margin: 10px 0; padding: 10px; border-radius: 5px; }
+        .pass { background-color: #d4edda; border: 1px solid #c3e6cb; }
+        .fail { background-color: #f8d7da; border: 1px solid #f5c6cb; }
+    </style>
+</head>
+<body>
+    <h1>Deshpande-Fleck Model Test</h1>
+    <div id="testResults"></div>
+
+    <script>
+        function testDeshpandeFleckModel() {
+            const results = [];
+            
+            // Test parameters
+            const sigma_pl = 1.0; // MPa
+            const epsilon_y = 0.05; // 5% strain
+            const H = 2.0; // hardening coefficient
+            
+            // Test case 1: At yield strain, stress should equal plateau stress
+            const strain1 = epsilon_y;
+            const expected1 = sigma_pl;
+            const actual1 = sigma_pl * (1 + H * (strain1 - epsilon_y));
+            results.push({
+                test: "At yield strain (ε = εy)",
+                expected: expected1,
+                actual: actual1,
+                pass: Math.abs(actual1 - expected1) < 1e-6
+            });
+            
+            // Test case 2: At 10% strain (5% beyond yield)
+            const strain2 = 0.10;
+            const expected2 = sigma_pl * (1 + H * (strain2 - epsilon_y));
+            const actual2 = 1.0 * (1 + 2.0 * (0.10 - 0.05));
+            results.push({
+                test: "At 10% strain (5% beyond yield)",
+                expected: expected2,
+                actual: actual2,
+                pass: Math.abs(actual2 - expected2) < 1e-6
+            });
+            
+            // Test case 3: H = 0 should give constant plateau
+            const H_zero = 0;
+            const strain3 = 0.20;
+            const expected3 = sigma_pl;
+            const actual3 = sigma_pl * (1 + H_zero * (strain3 - epsilon_y));
+            results.push({
+                test: "H = 0 should give constant plateau",
+                expected: expected3,
+                actual: actual3,
+                pass: Math.abs(actual3 - expected3) < 1e-6
+            });
+            
+            // Display results
+            const container = document.getElementById('testResults');
+            results.forEach(result => {
+                const div = document.createElement('div');
+                div.className = `test-result ${result.pass ? 'pass' : 'fail'}`;
+                div.innerHTML = `
+                    <strong>${result.test}</strong><br>
+                    Expected: ${result.expected.toFixed(6)}<br>
+                    Actual: ${result.actual.toFixed(6)}<br>
+                    Status: ${result.pass ? 'PASS' : 'FAIL'}
+                `;
+                container.appendChild(div);
+            });
+            
+            // Summary
+            const passCount = results.filter(r => r.pass).length;
+            const summary = document.createElement('div');
+            summary.className = `test-result ${passCount === results.length ? 'pass' : 'fail'}`;
+            summary.innerHTML = `<strong>Summary: ${passCount}/${results.length} tests passed</strong>`;
+            container.appendChild(summary);
+        }
+        
+        // Run tests when page loads
+        window.onload = testDeshpandeFleckModel;
+    </script>
+</body>
+</html>
