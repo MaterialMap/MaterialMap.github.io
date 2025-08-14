@@ -1,0 +1,223 @@
+/* Units Interface Styles */
+
+.input-with-units {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.input-with-units input {
+    flex: 1;
+    min-width: 0;
+}
+
+.unit-selector {
+    background: white;
+    border: 2px solid #e1e5e9;
+    border-radius: 6px;
+    padding: 12px 8px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    color: #495057;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 120px;
+    max-width: 160px;
+    flex-shrink: 0;
+}
+
+.unit-selector:hover {
+    border-color: #3498db;
+}
+
+.unit-selector:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.unit-info {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    color: #6c757d;
+    margin-top: 4px;
+}
+
+.unit-info .conversion-icon {
+    font-size: 10px;
+    opacity: 0.7;
+}
+
+.units-panel {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+.units-panel h3 {
+    margin: 0 0 12px 0;
+    font-size: 16px;
+    color: #495057;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.units-toggle {
+    background: none;
+    border: none;
+    color: #3498db;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+}
+
+.units-toggle:hover {
+    background: rgba(52, 152, 219, 0.1);
+}
+
+.units-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.unit-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.unit-group label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #6c757d;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .input-with-units {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 4px;
+    }
+    
+    .unit-selector {
+        min-width: 100%;
+        max-width: 100%;
+    }
+    
+    .units-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Unit conversion feedback */
+.conversion-feedback {
+    background: #e3f2fd;
+    border: 1px solid #2196f3;
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin-top: 8px;
+    font-size: 12px;
+    color: #1976d2;
+    display: none;
+}
+
+.conversion-feedback.show {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Enhanced input styling when units are enabled */
+.input-item.with-units {
+    position: relative;
+}
+
+.input-item.with-units .input-with-units input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: 0;
+}
+
+.input-item.with-units .unit-selector {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 0;
+}
+
+/* Results with units */
+.result-value.with-units {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.result-unit {
+    font-size: 0.9em;
+    color: #6c757d;
+    font-weight: normal;
+}
+
+/* Unit display elements */
+.unit-display {
+    background: #f8f9fa;
+    border: 2px solid #e1e5e9;
+    border-radius: 6px;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    color: #6c757d;
+    font-weight: 500;
+    min-width: 60px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.input-item.with-units .input-with-units input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: 0;
+}
+
+.input-item.with-units .unit-display {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 0;
+    margin-left: -2px;
+}
+
+/* Unit validation states */
+.unit-selector.error {
+    border-color: #dc3545;
+    background-color: #fff5f5;
+}
+
+.unit-selector.warning {
+    border-color: #ffc107;
+    background-color: #fffbf0;
+}
+
+.unit-selector.success {
+    border-color: #28a745;
+    background-color: #f0fff4;
+}

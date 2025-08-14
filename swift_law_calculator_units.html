@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swift's Law Calculator</title>
+    <link rel="stylesheet" href="unified-styles.css">
+    <link rel="stylesheet" href="src/css/components/units.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Menu -->
+    <nav class="nav-menu">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">Material MAP</a>
+            <button class="nav-toggle" aria-label="Toggle navigation">☰</button>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="swift_law_calculator.html">Swift's Law Calculator</a></li>
+                <li><a href="mooney_rivlin_calculator.html">Mooney-Rivlin Calculator</a></li>
+                <li><a href="johnson_cook_calculator.html">Johnson-Cook Calculator</a></li>
+                <li><a href="gibson_ashby_calculator.html">Gibson-Ashby Calculator</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <h1>Swift's Law Calculator for Metal Strain Hardening</h1>
+        
+        <!-- Disclaimer -->
+        <div style="margin-bottom: 30px; padding: 20px; background: #fff3cd; border-radius: 8px; border-left: 4px solid #ffc107; border: 1px solid #ffeaa7;">
+            <h3 style="margin: 0 0 10px 0; color: #856404; font-size: 18px;">⚠️ Important Disclaimer</h3>
+            <p style="margin: 0; color: #856404; line-height: 1.6; font-size: 14px;">
+                This methodology does not improve calculation accuracy as it operates on very limited input data, which is insufficient for comprehensive nonlinear analysis. The methodology is designed to make the integration process numerically more stable by providing a smooth transition from elastic to plastic behavior.
+            </p>
+        </div>
+        
+        <div style="text-align: center; margin-bottom: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #3498db;">
+            <h2 style="margin: 0; color: #2c3e50; font-size: 24px;">Swift's Law Formula</h2>
+            <div style="font-size: 28px; font-weight: bold; margin: 15px 0; color: #2c3e50; font-family: 'Times New Roman', serif;">
+                σ = K(ε₀ + ε)ⁿ
+            </div>
+            <div style="font-size: 14px; color: #7f8c8d; line-height: 1.5;">
+                <strong>where:</strong> σ - true stress, K - strength coefficient, ε₀ - initial strain, ε - plastic strain, n - hardening exponent
+            </div>
+        </div>
+        
+        <!-- Units Panel -->
+        <div class="units-panel">
+            <h3>
+                <span>🔧 Units Settings</span>
+                <button class="units-toggle" onclick="toggleUnitsPanel()">Show/Hide</button>
+            </h3>
+            <div id="unitsSettings" class="units-grid" style="display: none;">
+                <div class="unit-group">
+                    <label>Pressure/Stress Units:</label>
+                    <select id="pressureUnit" onchange="updateUnits()">
+                        <option value="MPa" selected>Megapascal (MPa)</option>
+                        <option value="Pa">Pascal (Pa)</option>
+                        <option value="kPa">Kilopascal (kPa)</option>
+                        <option value="GPa">Gigapascal (GPa)</option>
+                        <option value="psi">Pounds per square inch (psi)</option>
+                    </select>
+                </div>
+                <div class="unit-group">
+                    <label>Strain Units:</label>
+                    <select id="strainUnit" onchange="updateUnits()">
+                        <option value="" selected>Dimensionless (-)</option>
+                        <option value="%">Percent (%)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <div class="input-item with-units">
+                <label for="youngModulus">Young's Modulus, E:</label>
+                <div class="input-with-units">
+                    <input type="number" id="youngModulus" step="any" value="200000" oninput="scheduleCalculation()">
+                    <span class="unit-display" id="youngModulusUnit">MPa</span>
+                </div>
+            </div>
+            <div class="input-item with-units">
+                <label for="yieldStrength">Yield Strength, σ<sub>y</sub>:</label>
+                <div class="input-with-units">
+                    <input type="number" id="yieldStrength" step="any" value="349.1" oninput="scheduleCalculation()">
+                    <span class="unit-display" id="yieldStrengthUnit">MPa</span>
+                </div>
+            </div>
+            <div class="input-item with-units">
+                <label for="tensileStrength">Ultimate Tensile Strength, σ<sub>u</sub>:</label>
+                <div class="input-with-units">
+                    <input type="number" id="tensileStrength" step="any" value="687.4" oninput="scheduleCalculation()">
+                    <span class="unit-display" id="tensileStrengthUnit">MPa</span>
+                </div>
+            </div>
+            <div class="input-item with-units">
+                <label for="elongation">Elongation at Break, A:</label>
+                <div class="input-with-units">
+                    <input type="number" id="elongation" step="any" value="0.08" oninput="scheduleCalculation()">
+                    <span class="unit-display" id="elongationUnit">-</span>
+                </div>
+            </div>
+            <div class="input-item with-units">
+                <label for="epsilon0">Residual Plastic Strain, ε₀:</label>
+                <div class="input-with-units">
+                    <input type="number" id="epsilon0" step="any" value="0" oninput="scheduleCalculation()">
+                    <span class="unit-display" id="epsilon0Unit">-</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="results" id="results" style="display: none;">
+            <div class="result-item">
+                <div class="result-name">Ultimate Tensile Strength (True), σ<sub>u,true</sub></div>
+                <div class="result-value with-units">
+                    <span id="trueTensileStrength">-</span>
+                    <span class="result-unit" id="trueTensileStrengthUnit">MPa</span>
+                </div>
+            </div>
+            <div class="result-item">
+                <div class="result-name">Hardening Exponent, n</div>
+                <div class="result-value with-units">
+                    <span id="hardeningExponent">-</span>
+                    <span class="result-unit">-</span>
+                </div>
+            </div>
+            <div class="result-item">
+                <div class="result-name">Strength Coefficient, K</div>
+                <div class="result-value with-units">
+                    <span id="strengthCoefficient">-</span>
+                    <span class="result-unit" id="strengthCoefficientUnit">MPa</span>
+                </div>
+            </div>
+            <div class="result-item">
+                <div class="result-name">Residual Plastic Strain, ε<sub>0</sub></div>
+                <div class="result-value with-units">
+                    <span id="residualStrain">-</span>
+                    <span class="result-unit" id="residualStrainUnit">-</span>
+                </div>
+            </div>
+            <div class="result-item">
+                <div class="result-name">Tangent Modulus, E<sub>tan</sub></div>
+                <div class="result-value with-units">
+                    <span id="tangentModulus">-</span>
+                    <span class="result-unit" id="tangentModulusUnit">MPa</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="navigation.js"></script>
+    <script src="src/js/utils/UnitsHandler.js"></script>
+    <script>
+        let calculatedValues = {};
+        let calculationTimeout = null;
+        let unitsHandler = new UnitsHandler();
+        let currentUnits = {
+            pressure: 'MPa',
+            strain: ''
+        };
+
+        // Initialize units handler when page loads
+        window.addEventListener('load', async function() {
+            const initialized = await unitsHandler.initialize();
+            if (!initialized) {
+                console.warn('Units handler initialization failed, using fallback');
+            }
+            updateUnitDisplays();
+            scheduleCalculation();
+        });
+
+        function toggleUnitsPanel() {
+            const panel = document.getElementById('unitsSettings');
+            panel.style.display = panel.style.display === 'none' ? 'grid' : 'none';
+        }
+
+        function updateUnits() {
+            currentUnits.pressure = document.getElementById('pressureUnit').value;
+            currentUnits.strain = document.getElementById('strainUnit').value;
+            updateUnitDisplays();
+            scheduleCalculation();
+        }
+
+        function updateUnitDisplays() {
+            // Update input unit displays
+            document.getElementById('youngModulusUnit').textContent = currentUnits.pressure;
+            document.getElementById('yieldStrengthUnit').textContent = currentUnits.pressure;
+            document.getElementById('tensileStrengthUnit').textContent = currentUnits.pressure;
+            document.getElementById('elongationUnit').textContent = currentUnits.strain || '-';
+            document.getElementById('epsilon0Unit').textContent = currentUnits.strain || '-';
+
+            // Update result unit displays
+            document.getElementById('trueTensileStrengthUnit').textContent = currentUnits.pressure;
+            document.getElementById('strengthCoefficientUnit').textContent = currentUnits.pressure;
+            document.getElementById('residualStrainUnit').textContent = currentUnits.strain || '-';
+            document.getElementById('tangentModulusUnit').textContent = currentUnits.pressure;
+        }
+
+        function getValueInBaseUnits(elementId, quantityType) {
+            const value = parseFloat(document.getElementById(elementId).value);
+            const unit = currentUnits[quantityType];
+            
+            if (!unitsHandler.initialized) {
+                return value; // Fallback to raw value
+            }
+
+            const quantity = unitsHandler.createQuantity(value, unit);
+            if (!quantity) return value;
+
+            const baseUnit = unitsHandler.getPrimaryUnit(quantityType);
+            const converted = unitsHandler.convert(quantity, baseUnit);
+            return converted ? unitsHandler.getValue(converted) : value;
+        }
+
+        function convertToDisplayUnits(value, quantityType) {
+            if (!unitsHandler.initialized) {
+                return value; // Fallback to raw value
+            }
+
+            const baseUnit = unitsHandler.getPrimaryUnit(quantityType);
+            const displayUnit = currentUnits[quantityType];
+            
+            const quantity = unitsHandler.createQuantity(value, baseUnit);
+            if (!quantity) return value;
+
+            const converted = unitsHandler.convert(quantity, displayUnit);
+            return converted ? unitsHandler.getValue(converted) : value;
+        }
+
+        function scheduleCalculation() {
+            if (calculationTimeout) {
+                clearTimeout(calculationTimeout);
+            }
+            calculationTimeout = setTimeout(calculate, 300);
+        }
+
+        function formatScientific(value, decimals = 2) {
+            if (Math.abs(value) < 0.001 || Math.abs(value) >= 10000) {
+                return value.toExponential(decimals);
+            }
+            return value.toFixed(decimals);
+        }
+
+        function calculate() {
+            try {
+                // Get input data in base units
+                const E = getValueInBaseUnits('youngModulus', 'pressure');
+                const sigma_y = getValueInBaseUnits('yieldStrength', 'pressure');
+                const sigma_u = getValueInBaseUnits('tensileStrength', 'pressure');
+                const A = getValueInBaseUnits('elongation', 'strain');
+                const epsilon_0 = getValueInBaseUnits('epsilon0', 'strain');
+
+                if (isNaN(E) || isNaN(sigma_y) || isNaN(sigma_u) || isNaN(A) || isNaN(epsilon_0)) {
+                    hideResults();
+                    return;
+                }
+
+                if (E <= 0 || sigma_y <= 0 || sigma_u <= 0 || A <= 0 || sigma_u <= sigma_y) {
+                    hideResults();
+                    return;
+                }
+
+                // Calculate Swift's law parameters
+                const true_strain_at_ultimate = Math.log(1 + A);
+                const sigma_true_ultimate = sigma_u * (1 + A);
+                const n = Math.log(sigma_true_ultimate / sigma_y) / Math.log((true_strain_at_ultimate + epsilon_0) / (sigma_y / E + epsilon_0));
+                const K = sigma_y / Math.pow(sigma_y / E + epsilon_0, n);
+                
+                // Calculate tangent modulus at yield
+                const tangent_modulus = n * K * Math.pow(sigma_y / E + epsilon_0, n - 1);
+
+                // Store calculated values in base units
+                calculatedValues = {
+                    trueTensileStrength: sigma_true_ultimate,
+                    hardeningExponent: n,
+                    strengthCoefficient: K,
+                    residualStrain: epsilon_0,
+                    tangentModulus: tangent_modulus
+                };
+
+                // Convert to display units and show
+                const displayTrueUTS = convertToDisplayUnits(sigma_true_ultimate, 'pressure');
+                const displayK = convertToDisplayUnits(K, 'pressure');
+                const displayEpsilon0 = convertToDisplayUnits(epsilon_0, 'strain');
+                const displayTangentMod = convertToDisplayUnits(tangent_modulus, 'pressure');
+
+                // Display results
+                document.getElementById('trueTensileStrength').textContent = formatScientific(displayTrueUTS);
+                document.getElementById('hardeningExponent').textContent = formatScientific(n, 4);
+                document.getElementById('strengthCoefficient').textContent = formatScientific(displayK);
+                document.getElementById('residualStrain').textContent = formatScientific(displayEpsilon0, 6);
+                document.getElementById('tangentModulus').textContent = formatScientific(displayTangentMod);
+
+                showResults();
+            } catch (error) {
+                console.error('Calculation error:', error);
+                hideResults();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('results').style.display = 'grid';
+        }
+
+        function hideResults() {
+            document.getElementById('results').style.display = 'none';
+        }
+
+        function toggleCollapse(header) {
+            const content = header.nextElementSibling;
+            const isCollapsed = content.classList.contains('collapsed');
+            
+            if (isCollapsed) {
+                content.classList.remove('collapsed');
+                header.classList.remove('collapsed');
+            } else {
+                content.classList.add('collapsed');
+                header.classList.add('collapsed');
+            }
+        }
+    </script>
+</body>
+</html>
