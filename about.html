@@ -25,47 +25,95 @@
         
         <div class="container">
             <div class="about-section">
-                <h1>About Materials MAP</h1>
+                <h1>About Material MAP</h1>
+                
+                <h2>Project Overview</h2>
                 <p>
-                    This website and project are non-commercial and ad-free. The
-                    primary goal is to assist engineers in finding examples of
-                    material model parameter sets for LS-DYNA, sourced from
-                    articles published under Open Access. Accordingly, this site
-                    does not store any data and always provides links to
-                    original open-access sources, along with citation
-                    information for each reference.
+                    Material MAP is a non-commercial, ad-free static website project designed to assist engineers in finding examples of material model parameter sets for LS-DYNA, sourced from articles published under Open Access. The project provides a searchable library of material models with direct links to original open-access sources and citation information.
                 </p>
 
+                <h2>Key Features</h2>
+                <ul>
+                    <li><strong>Searchable Database:</strong> Browse and filter through a comprehensive collection of LS-DYNA material models with advanced search capabilities</li>
+                    <li><strong>Material Calculators:</strong> Interactive calculators for various material models including:
+                        <ul>
+                            <li>Swift's Law Calculator for metal strain hardening</li>
+                            <li>Mooney-Rivlin Calculator for hyperelastic materials</li>
+                            <li>Johnson-Cook Calculator for rate-dependent plasticity</li>
+                            <li>Gibson-Ashby Calculator for cellular materials</li>
+                        </ul>
+                    </li>
+                    <li><strong>PWA Support:</strong> Progressive Web App functionality with offline capabilities through service worker caching</li>
+                    <li><strong>Open Access Sources:</strong> All material data references point to freely accessible open-access publications</li>
+                    <li><strong>Automatic Date Tracking:</strong> File modification dates are automatically tracked using Git history</li>
+                    <li><strong>Copy-Ready Format:</strong> Material data is stored as multi-line strings that can be copied directly to LS-DYNA input files</li>
+                </ul>
+
+                <h2>Technical Implementation</h2>
                 <p>
                     The website is a static site built from the
-                    <a href="https://github.com/yurynovozhilov/MaterialMap"
-                        >MaterialMap GitHub repository</a
-                    >, and anyone is welcome to contribute by adding a new
-                    article with LS-DYNA material models to the site’s library
-                    or correcting errors through GitHub Issues or by editing the
-                    site's files. Currently, the entire site’s database is
-                    stored in multipes <code>TOML</code> files in 
-                    <a href="https://github.com/yurynovozhilov/MaterialMap/tree/main/data">data</a> repository directory.
+                    <a href="https://github.com/yurynovozhilov/MaterialMap" target="_blank" rel="noopener">MaterialMap GitHub repository</a>. 
+                    The entire database is stored in multiple <code>TOML</code> files in the 
+                    <a href="https://github.com/yurynovozhilov/MaterialMap/tree/main/data" target="_blank" rel="noopener">data directory</a>, 
+                    allowing for easy updates and community contributions.
                 </p>
 
+                <h3>Data Structure</h3>
+                <p>
+                    Each material entry includes:
+                </p>
+                <ul>
+                    <li><strong>Material Data:</strong> LS-DYNA material model definitions with proper formatting</li>
+                    <li><strong>EOS Data:</strong> Equation of state definitions when applicable</li>
+                    <li><strong>Additional Data:</strong> Thermal and supplementary material properties</li>
+                    <li><strong>Applications:</strong> List of material types and use cases</li>
+                    <li><strong>References:</strong> Full citations and links to original sources</li>
+                </ul>
+
+                <h2>Contributing</h2>
+                <p>
+                    Community contributions are welcome and encouraged! You can contribute by:
+                </p>
+                <ul>
+                    <li>Adding new material models through pull requests</li>
+                    <li>Correcting errors in existing data</li>
+                    <li>Reporting issues through GitHub Issues</li>
+                    <li>Improving documentation and functionality</li>
+                </ul>
+                
+                <p>
+                    <strong>Requirements for contributions:</strong>
+                </p>
+                <ul>
+                    <li>Source must be published under Open Access license</li>
+                    <li>LS-DYNA material parameters must be validated</li>
+                    <li>Reference URL must be accessible without paywall</li>
+                    <li>All required TOML fields must be completed</li>
+                </ul>
+
+                <h2>License & Usage</h2>
                 <p>
                     This project is licensed under the
-                    <a href="https://creativecommons.org/licenses/by-nc/4.0/"
-                        >Creative Commons Attribution-NonCommercial (CC BY-NC)
-                        License</a
-                    >, allowing non-commercial copying and modification with
-                    attribution to the original project.
+                    <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener"
+                        >Creative Commons Attribution-NonCommercial (CC BY-NC) License</a>, 
+                    allowing non-commercial copying and modification with attribution to the original project.
                 </p>
 
+                <h2>Disclaimer</h2>
                 <p>
-                    In this way, users benefit from a kind of materials library,
-                    while authors of the referenced articles gain additional
-                    opportunities for increased citations. Please note that all
-                    data provided here is to be used at the user's own risk.
+                    <strong>Important:</strong> All data provided on Material MAP is to be used at the user's own risk. 
+                    While we strive for accuracy, users should always validate material parameters for their specific applications. 
+                    The calculators are designed to provide numerically stable transitions and should not be considered as 
+                    improvements to calculation accuracy without comprehensive validation.
+                </p>
+
+                <h2>Benefits</h2>
+                <p>
+                    Material MAP creates a win-win situation: users benefit from a comprehensive materials library with 
+                    ready-to-use LS-DYNA parameters, while authors of the referenced articles gain additional opportunities 
+                    for increased citations and broader impact of their research.
                 </p>
             </div>
-
-
         </div>
         
         <!-- Scripts -->
