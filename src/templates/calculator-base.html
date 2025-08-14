@@ -1,0 +1,84 @@
+<!-- Base Calculator Template -->
+<div class="container" id="calculator-container">
+    <h1>${title}</h1>
+    
+    <!-- Disclaimer -->
+    <div style="margin-bottom: 30px; padding: 20px; background: #fff3cd; border-radius: 8px; border-left: 4px solid #ffc107; border: 1px solid #ffeaa7;">
+        <h3 style="margin: 0 0 10px 0; color: #856404; font-size: 18px;">⚠️ Important Disclaimer</h3>
+        <p style="margin: 0 0 10px 0; color: #856404; line-height: 1.6; font-size: 14px;">
+            ${disclaimerText}
+        </p>
+        <p style="margin: 0 0 10px 0; color: #856404; line-height: 1.6; font-size: 14px;">
+            <strong>${referenceTitle || "Reference"}:</strong> ${reference}
+        </p>
+        <p style="margin: 0; color: #856404; line-height: 1.6; font-size: 14px; font-weight: 600;">
+            <strong>Note:</strong> ${note}
+        </p>
+    </div>
+    
+    <!-- Formula Information -->
+    <div style="text-align: center; margin-bottom: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #3498db;">
+        <h2 style="margin: 0; color: #2c3e50; font-size: 24px;">${formulaTitle}</h2>
+        <div style="font-size: 22px; font-weight: bold; margin: 15px 0; color: #2c3e50; font-family: 'Times New Roman', serif;">
+            ${formula}
+        </div>
+        <div style="font-size: 14px; color: #7f8c8d; line-height: 1.5;">
+            ${formulaDescription}
+        </div>
+    </div>
+    
+    <!-- Units Panel -->
+    <div class="units-panel">
+        <h3>
+            <span>🔧 Units Settings</span>
+            <button class="units-toggle" onclick="calculator.toggleUnitsPanel()">Show/Hide</button>
+        </h3>
+        <div id="unitsSettings" class="units-grid" style="display: none;">
+            ${unitSelectors}
+        </div>
+    </div>
+
+    <!-- Input Parameters -->
+    <div class="inputs">
+        ${inputs}
+    </div>
+
+    <!-- Output Results -->
+    <div class="results" id="results" style="display: none;">
+        ${results}
+    </div>
+</div>
+
+<!-- Interactive Chart Section -->
+<div class="container" id="chartContainer" style="display: none;">
+    <h2 class="collapsible-header collapsed" onclick="calculator.toggleCollapse(this)">${chartTitle}</h2>
+    <div class="collapsible-content collapsed">
+        <div class="chart-container">
+            <div id="chartSvg" style="width: 100%; height: 600px;">
+                <!-- Chart will be generated here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Data Table Section -->
+<div class="container" id="tableContainer" style="display: none;">
+    <h2 class="collapsible-header collapsed" onclick="calculator.toggleCollapse(this)">${tableTitle}</h2>
+    <div class="collapsible-content collapsed">
+        <div class="table-header">
+            <div></div>
+            <button class="export-btn" onclick="calculator.exportToCSV()">📊 Export CSV</button>
+        </div>
+        <div class="table-container">
+            <table id="propertiesTable">
+                <thead>
+                    <tr>
+                        ${tableHeaders}
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
