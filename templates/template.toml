@@ -84,6 +84,11 @@ $--------1---------2---------3---------4---------5---------6---------7---------8
 # Complete bibliographic reference to the source
 ref = "Author, A., & Co-Author, B. (Year). Title of the Paper or Book. Journal Name, Volume(Issue), Page-Range. DOI: 10.xxxx/xxxxx"
 
+# Comments (OPTIONAL)
+# Additional notes, explanations, or remarks about the material model
+# Can include limitations, assumptions, validation notes, etc.
+comments = "Additional notes about this material model, such as limitations, validation data, or specific use cases."
+
 # EXAMPLE OF MULTIPLE MATERIALS IN ONE FILE
 # You can define multiple materials by repeating the [[material]] section
 
@@ -105,31 +110,40 @@ app = [
 ]
 url = "https://example.com/second-source"
 ref = "Second Author, C. (Year). Another Reference. Conference Proceedings, Location."
+comments = "This material model was validated for high strain rates. Use with caution for quasi-static applications."
 
 # NOTES FOR FILLING THE TEMPLATE:
 #
 # 1. REQUIRED FIELDS: mat_data, app, url must always be present
 #
-# 2. MATERIAL IDs: Use unique IDs for each material model within the same file
+# 2. OPTIONAL FIELDS: eos_data, mat_add_data, mat_thermal_data, ref, comments
+#
+# 3. MATERIAL IDs: Use unique IDs for each material model within the same file
 #    - mat_data: Material ID (MID)
 #    - eos_data: EOS ID (EOSID) 
 #    - mat_add_data: Additional material ID (ADDID)
 #    - mat_thermal_data: Thermal material ID (TMID)
 #
-# 3. FORMATTING: Maintain LS-DYNA card formatting with proper column alignment
+# 4. FORMATTING: Maintain LS-DYNA card formatting with proper column alignment
 #    Use the ruler: $--------1---------2---------3---------4---------5---------6---------7---------8
 #
-# 4. COMMENTS: Include source attribution in comments using $ prefix
+# 5. COMMENTS FIELD: Use the comments field for important notes about the material:
+#    - Validation information and test conditions
+#    - Limitations and assumptions
+#    - Recommended usage guidelines
+#    - Known issues or special considerations
 #
-# 5. APPLICATIONS: Be specific about material types and use cases
+# 6. LS-DYNA COMMENTS: Include source attribution in LS-DYNA cards using $ prefix
 #
-# 6. URLs: Provide direct links to accessible sources when possible
+# 7. APPLICATIONS: Be specific about material types and use cases
 #
-# 7. REFERENCES: Use standard academic citation format
+# 8. URLs: Provide direct links to accessible sources when possible
 #
-# 8. MULTI-LINE STRINGS: Use triple quotes (""") for LS-DYNA card definitions
+# 9. REFERENCES: Use standard academic citation format
 #
-# 9. VALIDATION: Ensure all LS-DYNA syntax is correct and complete
+# 10. MULTI-LINE STRINGS: Use triple quotes (""") for LS-DYNA card definitions
 #
-# 10. DATE HANDLING: The "Added" date is automatically calculated from the file's
+# 11. VALIDATION: Ensure all LS-DYNA syntax is correct and complete
+#
+# 12. DATE HANDLING: The "Added" date is automatically calculated from the file's
 #     last modification date in Git history, so no manual date field is needed
