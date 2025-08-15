@@ -12,7 +12,9 @@ Material MAP is a non-commercial, ad-free static website project aimed at assist
 - **data/**: Contains TOML files with material model data from various sources
 - **dist/**: Contains generated file list used by the application
 - **lib/**: Contains JSON configuration files for material models
-- **admin/**: Contains Netlify CMS configuration for content management
+- **src/**: Contains modular JavaScript and CSS code
+- **scripts/**: Contains utility scripts for file generation and validation
+- **test/**: Contains Playwright test files
 - **.github/workflows/**: Contains GitHub Actions workflow for file list generation
 - **Root files**: HTML, CSS, and JavaScript files for the static website
 
@@ -24,14 +26,15 @@ Material MAP is a non-commercial, ad-free static website project aimed at assist
 
 ## Dependencies
 **Main Dependencies**:
-- toml (v3.0.0) - TOML parsing library
+- smol-toml (v1.3.1) - TOML parsing library
 - jQuery (v3.7.0) - JavaScript library
 - DataTables (v1.13.7) - Table enhancement plugin
 - Google Fonts (Inter, Fira Code)
 
 **Development Dependencies**:
 - @playwright/test (v1.54.2) - Testing framework
-- decap-server (v3.0.0) - CMS server for local development
+- eslint (v8.56.0) - Code linting
+- prettier (v3.1.0) - Code formatting
 - playwright (v1.54.2) - Browser automation
 
 ## Build & Installation
@@ -39,18 +42,20 @@ Material MAP is a non-commercial, ad-free static website project aimed at assist
 # Install dependencies
 npm install
 
-# Run development server with CMS
-npm run dev
+# Run development server
+npm run serve
 
-# Generate file list manually
-mkdir -p dist
-node -e "
-const fs = require('fs');
-const path = require('path');
-const dataDir = path.join(__dirname, 'data');
-const files = fs.readdirSync(dataDir).filter(file => file.endsWith('.toml'));
-fs.writeFileSync('dist/file-list.json', JSON.stringify(files, null, 2));
-"
+# Generate file list
+npm run generate-file-list
+
+# Validate TOML data
+npm run validate-data
+
+# Format code
+npm run format
+
+# Lint code
+npm run lint
 ```
 
 ## Data Structure
