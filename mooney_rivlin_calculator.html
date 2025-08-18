@@ -184,7 +184,16 @@
         }
 
         function updateUnits() {
+            const oldPressureUnit = currentUnits.pressure;
             currentUnits.pressure = document.getElementById('pressureUnit').value;
+            
+            // Convert input values if needed
+            if (oldPressureUnit !== currentUnits.pressure) {
+                // In this calculator, we don't have direct input fields for pressure units
+                // The values are calculated from Shore hardness, which is dimensionless
+                // So we don't need to convert input values, just recalculate
+            }
+            
             updateUnitDisplays();
             calculate();
         }
@@ -199,17 +208,52 @@
 
         function convertToDisplayUnits(value, quantityType) {
             if (!unitsHandler.initialized) {
-                return value; // Fallback to raw value
+                // Fallback for pressure units
+                if (quantityType === 'pressure') {
+                    return convertPressure(value, 'MPa', currentUnits.pressure);
+                }
+                return value; // Fallback to raw value for other types
             }
 
             const baseUnit = unitsHandler.getPrimaryUnit(quantityType);
             const displayUnit = currentUnits[quantityType];
             
             const quantity = unitsHandler.createQuantity(value, baseUnit);
-            if (!quantity) return value;
+            if (!quantity) {
+                // Fallback for pressure units
+                if (quantityType === 'pressure') {
+                    return convertPressure(value, 'MPa', currentUnits.pressure);
+                }
+                return value;
+            }
 
             const converted = unitsHandler.convert(quantity, displayUnit);
             return converted ? unitsHandler.getValue(converted) : value;
+        }
+
+        // Helper function to convert pressure units
+        function convertPressure(value, fromUnit, toUnit) {
+            if (fromUnit === toUnit) return value;
+            
+            // Convert to Pa first (base unit)
+            let valueInPa = value;
+            switch(fromUnit) {
+                case 'Pa': valueInPa = value; break;
+                case 'kPa': valueInPa = value * 1000; break;
+                case 'MPa': valueInPa = value * 1000000; break;
+                case 'GPa': valueInPa = value * 1000000000; break;
+                case 'psi': valueInPa = value * 6894.76; break;
+            }
+            
+            // Convert from Pa to target unit
+            switch(toUnit) {
+                case 'Pa': return valueInPa;
+                case 'kPa': return valueInPa / 1000;
+                case 'MPa': return valueInPa / 1000000;
+                case 'GPa': return valueInPa / 1000000000;
+                case 'psi': return valueInPa / 6894.76;
+                default: return valueInPa / 1000000; // Default to MPa
+            }
         }
 
         function updateFromInput() {

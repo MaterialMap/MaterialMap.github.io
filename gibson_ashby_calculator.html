@@ -198,11 +198,23 @@
     </div>
 
     <script src="https://cdn.plot.ly/plotly-2.32.0.min.js" charset="utf-8"></script>
+    <script src="src/js/utils/UnitsHandler.js"></script>
     <script src="src/js/utils/PlotlyChartManager.js"></script>
     <script src="navigation.js"></script>
     <script>
         let chartManager = new PlotlyChartManager();
         let calculationTimeout;
+        window.unitsHandler = new UnitsHandler();
+        
+        // Initialize units handler when page loads
+        window.addEventListener('load', async function() {
+            const initialized = await unitsHandler.initialize();
+            if (!initialized) {
+                console.warn('Units handler initialization failed, using fallback');
+            } else {
+                console.log('Units handler initialized successfully');
+            }
+        });
         
         const foamProperties = {
             eps: { 
@@ -308,36 +320,92 @@
             let density = parseFloat(document.getElementById('density').value);
             let hardeningCoeff = parseFloat(document.getElementById('hardeningCoeff').value);
             const foamType = document.getElementById('foamType').value;
+            const densityUnit = document.getElementById('densityUnit').value;
+            const pressureUnit = document.getElementById('pressureUnit').value;
+            
+            // Convert density to base unit (kg/m³) for calculations
+            let densityInKgM3 = density;
+            if (densityUnit === 'g/cm³') {
+                densityInKgM3 = density * 1000;
+            } else if (densityUnit === 'lb/ft³') {
+                densityInKgM3 = density * 16.0185;
+            }
             
             // Validate inputs (but don't modify the input fields)
-            if (isNaN(density) || density < 10) density = 10;
-            if (density > 200) density = 200;
+            if (isNaN(densityInKgM3) || densityInKgM3 < 10) densityInKgM3 = 10;
+            if (densityInKgM3 > 200) densityInKgM3 = 200;
             if (isNaN(hardeningCoeff) || hardeningCoeff < 0) hardeningCoeff = 0;
             if (hardeningCoeff > 10) hardeningCoeff = 10;
             
             const props = foamProperties[foamType];
-            const relDensity = density / props.rhoS;
+            const relDensity = densityInKgM3 / props.rhoS;
             
-            // Gibson-Ashby model parameters
-            const E_foam = props.C1 * props.Es * Math.pow(relDensity, 2); // MPa
-            const sigma_pl = props.C3 * props.sigmaS * Math.pow(relDensity, 1.5); // MPa
-            const energyAbsorption = sigma_pl * 60 / 100; // MJ/m³
+            // Gibson-Ashby model parameters (calculated in MPa)
+            const E_foam_MPa = props.C1 * props.Es * Math.pow(relDensity, 2); // MPa
+            const sigma_pl_MPa = props.C3 * props.sigmaS * Math.pow(relDensity, 1.5); // MPa
+            const energyAbsorption_MJ = sigma_pl_MPa * 60 / 100; // MJ/m³
+            
+            // Convert results to display units
+            const E_foam = convertPressure(E_foam_MPa, 'MPa', pressureUnit);
+            const sigma_pl = convertPressure(sigma_pl_MPa, 'MPa', pressureUnit);
+            const energyAbsorption = convertPressure(energyAbsorption_MJ, 'MPa', pressureUnit);
             
             // Update results display
-            document.getElementById('elasticModulus').textContent = E_foam.toFixed(1);
-            document.getElementById('plateauStress').textContent = sigma_pl.toFixed(3);
-            document.getElementById('energyAbsorption').textContent = energyAbsorption.toFixed(3);
+            document.getElementById('elasticModulus').textContent = E_foam.toFixed(E_foam >= 1000 ? 0 : E_foam >= 100 ? 1 : E_foam >= 10 ? 2 : 3);
+            document.getElementById('plateauStress').textContent = sigma_pl.toFixed(sigma_pl >= 100 ? 1 : sigma_pl >= 10 ? 2 : 3);
+            document.getElementById('energyAbsorption').textContent = energyAbsorption.toFixed(energyAbsorption >= 100 ? 1 : energyAbsorption >= 10 ? 2 : 3);
             
             // Show results
             document.getElementById('results').style.display = 'block';
             document.getElementById('chartContainer').style.display = 'block';
             document.getElementById('tableContainer').style.display = 'block';
             
-            // Update chart
-            updateChart(density, foamType, hardeningCoeff);
+            // Update chart (use original density input and kg/m³ values for calculations)
+            updateChart(densityInKgM3, foamType, hardeningCoeff);
             
             // Update data table
-            generateDataTable(density, foamType, hardeningCoeff);
+            generateDataTable(densityInKgM3, foamType, hardeningCoeff);
+        }
+        
+        // Helper function to convert pressure units
+        function convertPressure(value, fromUnit, toUnit) {
+            if (fromUnit === toUnit) return value;
+            
+            // Try using UnitsHandler first if available
+            if (unitsHandler && unitsHandler.initialized) {
+                try {
+                    const quantity = unitsHandler.createQuantity(value, fromUnit);
+                    if (quantity) {
+                        const converted = unitsHandler.convert(quantity, toUnit);
+                        if (converted) {
+                            return unitsHandler.getValue(converted);
+                        }
+                    }
+                } catch (error) {
+                    console.warn('UnitsHandler conversion failed, using fallback:', error);
+                }
+            }
+            
+            // Fallback to simple conversion
+            // Convert to Pa first (base unit)
+            let valueInPa = value;
+            switch(fromUnit) {
+                case 'Pa': valueInPa = value; break;
+                case 'kPa': valueInPa = value * 1000; break;
+                case 'MPa': valueInPa = value * 1000000; break;
+                case 'GPa': valueInPa = value * 1000000000; break;
+                case 'psi': valueInPa = value * 6894.76; break;
+            }
+            
+            // Convert from Pa to target unit
+            switch(toUnit) {
+                case 'Pa': return valueInPa;
+                case 'kPa': return valueInPa / 1000;
+                case 'MPa': return valueInPa / 1000000;
+                case 'GPa': return valueInPa / 1000000000;
+                case 'psi': return valueInPa / 6894.76;
+                default: return valueInPa / 1000000; // Default to MPa
+            }
         }
 
         function updateChart(density, foamType, hardeningCoeff) {
@@ -443,8 +511,65 @@
         }
 
         function updateUnits() {
+            console.log('updateUnits called');
+            
+            // Store old units
+            const oldPressureUnit = document.getElementById('elasticModulusUnit').textContent;
+            const oldDensityUnit = document.getElementById('densityUnitDisplay').textContent;
+            
+            // Get new units
             const pressureUnit = document.getElementById('pressureUnit').value;
             const densityUnit = document.getElementById('densityUnit').value;
+            
+            console.log(`Units changing: pressure ${oldPressureUnit} -> ${pressureUnit}, density ${oldDensityUnit} -> ${densityUnit}`);
+            
+            // Convert density if units changed
+            if (oldDensityUnit !== densityUnit) {
+                const densityInput = document.getElementById('density');
+                const currentDensity = parseFloat(densityInput.value);
+                
+                if (!isNaN(currentDensity)) {
+                    let convertedDensity = currentDensity;
+                    
+                    // Try using UnitsHandler first if available
+                    if (unitsHandler && unitsHandler.initialized) {
+                        try {
+                            const quantity = unitsHandler.createQuantity(currentDensity, oldDensityUnit);
+                            if (quantity) {
+                                const converted = unitsHandler.convert(quantity, densityUnit);
+                                if (converted) {
+                                    convertedDensity = unitsHandler.getValue(converted);
+                                    console.log(`Converting density using UnitsHandler: ${currentDensity} ${oldDensityUnit} -> ${convertedDensity.toFixed(3)} ${densityUnit}`);
+                                    densityInput.value = convertedDensity.toFixed(convertedDensity < 1 ? 3 : 2);
+                                    return;
+                                }
+                            }
+                        } catch (error) {
+                            console.warn('UnitsHandler density conversion failed, using fallback:', error);
+                        }
+                    }
+                    
+                    // Fallback to simple conversion
+                    // Convert from old unit to kg/m³ (base unit)
+                    if (oldDensityUnit === 'g/cm³') {
+                        convertedDensity = currentDensity * 1000;
+                    } else if (oldDensityUnit === 'lb/ft³') {
+                        convertedDensity = currentDensity * 16.0185;
+                    }
+                    // kg/m³ is base unit, no conversion needed
+                    
+                    // Convert from kg/m³ (base unit) to new unit
+                    if (densityUnit === 'g/cm³') {
+                        convertedDensity = convertedDensity / 1000;
+                    } else if (densityUnit === 'lb/ft³') {
+                        convertedDensity = convertedDensity / 16.0185;
+                    }
+                    // kg/m³ is base unit, no conversion needed
+                    
+                    console.log(`Converting density using fallback: ${currentDensity} ${oldDensityUnit} -> ${convertedDensity.toFixed(2)} ${densityUnit}`);
+                    densityInput.value = convertedDensity.toFixed(convertedDensity < 1 ? 3 : 2);
+                }
+            }
             
             // Update unit displays
             document.getElementById('densityUnitDisplay').textContent = densityUnit;

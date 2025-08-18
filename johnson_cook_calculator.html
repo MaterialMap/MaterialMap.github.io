@@ -86,6 +86,13 @@
                         <option value="1/min">Per minute (min⁻¹)</option>
                     </select>
                 </div>
+                <div class="unit-group">
+                    <label>Debug Mode:</label>
+                    <div style="display: flex; align-items: center;">
+                        <input type="checkbox" id="debugMode" onchange="toggleDebugMode(this.checked)">
+                        <label for="debugMode" style="margin-left: 5px;">Enable Debug Logging</label>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -220,7 +227,7 @@
             n: 0,
             C: 0
         };
-        let unitsHandler = new UnitsHandler();
+        window.unitsHandler = new UnitsHandler();
         let chartManager = new PlotlyChartManager();
         let currentUnits = {
             pressure: 'MPa',
@@ -233,6 +240,10 @@
             const initialized = await unitsHandler.initialize();
             if (!initialized) {
                 console.warn('Units handler initialization failed, using fallback');
+            } else {
+                console.log('Units handler initialized successfully');
+                // Enable debug mode for troubleshooting
+                unitsHandler.setDebugMode(true);
             }
             updateUnitDisplays();
         });
@@ -253,14 +264,316 @@
             const panel = document.getElementById('unitsSettings');
             panel.style.display = panel.style.display === 'none' ? 'grid' : 'none';
         }
+        
+        function toggleDebugMode(enabled) {
+            if (unitsHandler && unitsHandler.initialized) {
+                unitsHandler.setDebugMode(enabled);
+                console.log(`Debug mode ${enabled ? 'enabled' : 'disabled'}`);
+                if (enabled) {
+                    console.log('Current units:', currentUnits);
+                }
+            }
+        }
 
         function updateUnits() {
+            console.log('updateUnits called');
+            
+            // Check if unitsHandler is available
+            if (typeof unitsHandler === 'undefined') {
+                console.error('UnitsHandler is not defined');
+                return;
+            }
+            
+            const oldUnits = { ...currentUnits };
+            
+            // Get new units
             currentUnits.pressure = document.getElementById('pressureUnit').value;
             currentUnits.strain = document.getElementById('strainUnit').value;
             currentUnits.strainRate = document.getElementById('strainRateUnit').value;
             
+            console.log('Units changed from', oldUnits, 'to', currentUnits);
+            
+            // Convert pressure units for all input fields
+            if (oldUnits.pressure !== currentUnits.pressure) {
+                console.log(`Converting pressure from ${oldUnits.pressure} to ${currentUnits.pressure}`);
+                
+                // Convert yield strength
+                const yieldStrength = parseFloat(document.getElementById('yieldStrength').value);
+                if (!isNaN(yieldStrength)) {
+                    const convertedValue = convertPressure(yieldStrength, oldUnits.pressure, currentUnits.pressure);
+                    console.log(`Converting yieldStrength: ${yieldStrength} ${oldUnits.pressure} -> ${convertedValue.toFixed(3)} ${currentUnits.pressure}`);
+                    document.getElementById('yieldStrength').value = formatValue(convertedValue);
+                }
+                
+                // Convert ultimate strength
+                const ultimateStrength = parseFloat(document.getElementById('ultimateStrength').value);
+                if (!isNaN(ultimateStrength)) {
+                    const convertedValue = convertPressure(ultimateStrength, oldUnits.pressure, currentUnits.pressure);
+                    console.log(`Converting ultimateStrength: ${ultimateStrength} ${oldUnits.pressure} -> ${convertedValue.toFixed(3)} ${currentUnits.pressure}`);
+                    document.getElementById('ultimateStrength').value = formatValue(convertedValue);
+                }
+                
+                // Convert Young's modulus
+                const youngModulus = parseFloat(document.getElementById('youngModulus').value);
+                if (!isNaN(youngModulus)) {
+                    const convertedValue = convertPressure(youngModulus, oldUnits.pressure, currentUnits.pressure);
+                    console.log(`Converting youngModulus: ${youngModulus} ${oldUnits.pressure} -> ${convertedValue.toFixed(3)} ${currentUnits.pressure}`);
+                    document.getElementById('youngModulus').value = formatValue(convertedValue);
+                }
+            }
+            
+            // Direct conversion for strain units (dimensionless to percent and vice versa)
+            if (oldUnits.strain !== currentUnits.strain) {
+                if ((oldUnits.strain === '' && currentUnits.strain === '%') || 
+                    (oldUnits.strain === '%' && currentUnits.strain === '')) {
+                    
+                    const factor = oldUnits.strain === '' ? 100 : 0.01;
+                    console.log(`Using direct strain conversion with factor ${factor}`);
+                    
+                    // Convert strain at yield
+                    const strainAtYield = parseFloat(document.getElementById('strainAtYield').value);
+                    if (!isNaN(strainAtYield)) {
+                        const convertedValue = strainAtYield * factor;
+                        console.log(`Converting strainAtYield: ${strainAtYield} ${oldUnits.strain || '-'} -> ${convertedValue} ${currentUnits.strain || '-'}`);
+                        document.getElementById('strainAtYield').value = formatValue(convertedValue);
+                    }
+                    
+                    // Convert strain at ultimate
+                    const strainAtUltimate = parseFloat(document.getElementById('strainAtUltimate').value);
+                    if (!isNaN(strainAtUltimate)) {
+                        const convertedValue = strainAtUltimate * factor;
+                        console.log(`Converting strainAtUltimate: ${strainAtUltimate} ${oldUnits.strain || '-'} -> ${convertedValue} ${currentUnits.strain || '-'}`);
+                        document.getElementById('strainAtUltimate').value = formatValue(convertedValue);
+                    }
+                } else {
+                    // For other conversions, try using the unitsHandler
+                    convertInputValues(oldUnits, currentUnits);
+                }
+            }
+            
+            // Direct conversion for strain rate units (1/s to 1/min and vice versa)
+            if (oldUnits.strainRate !== currentUnits.strainRate) {
+                if ((oldUnits.strainRate === '1/s' && currentUnits.strainRate === '1/min') || 
+                    (oldUnits.strainRate === '1/min' && currentUnits.strainRate === '1/s')) {
+                    
+                    const factor = oldUnits.strainRate === '1/s' ? 60 : 1/60;
+                    console.log(`Using direct strain rate conversion with factor ${factor}`);
+                    
+                    // Convert reference strain rate
+                    const referenceStrainRate = parseFloat(document.getElementById('referenceStrainRate').value);
+                    if (!isNaN(referenceStrainRate)) {
+                        const convertedValue = referenceStrainRate * factor;
+                        console.log(`Converting referenceStrainRate: ${referenceStrainRate} ${oldUnits.strainRate} -> ${convertedValue} ${currentUnits.strainRate}`);
+                        document.getElementById('referenceStrainRate').value = formatValue(convertedValue);
+                    }
+                } else {
+                    // For other conversions, try using the unitsHandler
+                    convertInputValues(oldUnits, currentUnits);
+                }
+            }
+            
+            // Update unit displays
             updateUnitDisplays();
+            
+            // Recalculate with new units
             scheduleCalculation();
+        }
+        
+        function formatValue(value) {
+            // Format the value appropriately
+            if (Math.abs(value) < 0.001 || Math.abs(value) >= 10000) {
+                return value.toExponential(4);
+            } else {
+                // Determine appropriate precision based on magnitude
+                const precision = Math.abs(value) < 0.1 ? 5 : 
+                                 Math.abs(value) < 1 ? 4 : 
+                                 Math.abs(value) < 10 ? 3 : 
+                                 Math.abs(value) < 100 ? 2 : 1;
+                return value.toFixed(precision);
+            }
+        }
+        
+        function convertInputValues(oldUnits, newUnits) {
+          console.log(`Converting values from ${JSON.stringify(oldUnits)} to ${JSON.stringify(newUnits)}`);
+            
+            if (!unitsHandler.initialized) {
+                console.error('UnitsHandler not initialized');
+                return;
+            }
+            
+            // Convert pressure values
+            if (oldUnits.pressure !== newUnits.pressure) {
+                console.log(`Converting pressure values from ${oldUnits.pressure} to ${newUnits.pressure}`);
+                
+                // Direct conversion for MPa to GPa and vice versa
+                if ((oldUnits.pressure === 'MPa' && newUnits.pressure === 'GPa') || 
+                    (oldUnits.pressure === 'GPa' && newUnits.pressure === 'MPa')) {
+                    
+                    const factor = oldUnits.pressure === 'MPa' ? 0.001 : 1000;
+                    
+                    // Convert yield strength
+                    const yieldStrength = parseFloat(document.getElementById('yieldStrength').value);
+                    if (!isNaN(yieldStrength)) {
+                        const convertedValue = yieldStrength * factor;
+                        console.log(`Converting yieldStrength: ${yieldStrength} ${oldUnits.pressure} -> ${convertedValue} ${newUnits.pressure}`);
+                        updateInputValue(document.getElementById('yieldStrength'), convertedValue);
+                    }
+                    
+                    // Convert ultimate strength
+                    const ultimateStrength = parseFloat(document.getElementById('ultimateStrength').value);
+                    if (!isNaN(ultimateStrength)) {
+                        const convertedValue = ultimateStrength * factor;
+                        console.log(`Converting ultimateStrength: ${ultimateStrength} ${oldUnits.pressure} -> ${convertedValue} ${newUnits.pressure}`);
+                        updateInputValue(document.getElementById('ultimateStrength'), convertedValue);
+                    }
+                    
+                    // Convert Young's modulus
+                    const youngModulus = parseFloat(document.getElementById('youngModulus').value);
+                    if (!isNaN(youngModulus)) {
+                        const convertedValue = youngModulus * factor;
+                        console.log(`Converting youngModulus: ${youngModulus} ${oldUnits.pressure} -> ${convertedValue} ${newUnits.pressure}`);
+                        updateInputValue(document.getElementById('youngModulus'), convertedValue);
+                    }
+                } else {
+                    // Use UnitsHandler for other conversions
+                      convertInputField('yieldStrength', oldUnits.pressure, newUnits.pressure);
+                    convertInputField('ultimateStrength', oldUnits.pressure, newUnits.pressure);
+                    convertInputField('youngModulus', oldUnits.pressure, newUnits.pressure);
+                }
+            }
+            
+            // Convert strain values
+            if (oldUnits.strain !== newUnits.strain) {
+                console.log(`Converting strain values from ${oldUnits.strain} to ${newUnits.strain}`);
+                
+                // Direct conversion for dimensionless to percent and vice versa
+                if ((oldUnits.strain === '' && newUnits.strain === '%') || 
+                    (oldUnits.strain === '%' && newUnits.strain === '')) {
+                    
+                    const factor = oldUnits.strain === '' ? 100 : 0.01;
+                    
+                    // Convert strain at yield
+                    const strainAtYield = parseFloat(document.getElementById('strainAtYield').value);
+                    if (!isNaN(strainAtYield)) {
+                        const convertedValue = strainAtYield * factor;
+                        console.log(`Converting strainAtYield: ${strainAtYield} ${oldUnits.strain || '-'} -> ${convertedValue} ${newUnits.strain || '-'}`);
+                        updateInputValue(document.getElementById('strainAtYield'), convertedValue);
+                    }
+                    
+                    // Convert strain at ultimate
+                    const strainAtUltimate = parseFloat(document.getElementById('strainAtUltimate').value);
+                    if (!isNaN(strainAtUltimate)) {
+                        const convertedValue = strainAtUltimate * factor;
+                        console.log(`Converting strainAtUltimate: ${strainAtUltimate} ${oldUnits.strain || '-'} -> ${convertedValue} ${newUnits.strain || '-'}`);
+                        updateInputValue(document.getElementById('strainAtUltimate'), convertedValue);
+                    }
+                } else {
+                    // Use UnitsHandler for other conversions
+                    convertInputField('strainAtYield', oldUnits.strain || '', newUnits.strain || '');
+                    convertInputField('strainAtUltimate', oldUnits.strain || '', newUnits.strain || '');
+                }
+            }
+            
+            // Convert strain rate values
+            if (oldUnits.strainRate !== newUnits.strainRate) {
+                console.log(`Converting strain rate values from ${oldUnits.strainRate} to ${newUnits.strainRate}`);
+                
+                // Direct conversion for 1/s to 1/min and vice versa
+                if ((oldUnits.strainRate === '1/s' && newUnits.strainRate === '1/min') || 
+                    (oldUnits.strainRate === '1/min' && newUnits.strainRate === '1/s')) {
+                    
+                    const factor = oldUnits.strainRate === '1/s' ? 60 : 1/60;
+                    
+                    // Convert reference strain rate
+                    const referenceStrainRate = parseFloat(document.getElementById('referenceStrainRate').value);
+                    if (!isNaN(referenceStrainRate)) {
+                        const convertedValue = referenceStrainRate * factor;
+                        console.log(`Converting referenceStrainRate: ${referenceStrainRate} ${oldUnits.strainRate} -> ${convertedValue} ${newUnits.strainRate}`);
+                        updateInputValue(document.getElementById('referenceStrainRate'), convertedValue);
+                    }
+                } else {
+                    // Use UnitsHandler for other conversions
+                    convertInputField('referenceStrainRate', oldUnits.strainRate, newUnits.strainRate);
+                }
+            }
+        }
+        
+        function updateInputValue(input, value) {
+            // Format the value appropriately
+            if (Math.abs(value) < 0.001 || Math.abs(value) >= 10000) {
+                input.value = value.toExponential(4);
+            } else {
+                // Determine appropriate precision based on magnitude
+                const precision = Math.abs(value) < 0.1 ? 5 : 
+                                 Math.abs(value) < 1 ? 4 : 
+                                 Math.abs(value) < 10 ? 3 : 
+                                 Math.abs(value) < 100 ? 2 : 1;
+                input.value = value.toFixed(precision);
+            }
+        }
+        
+        function convertInputField(elementId, fromUnit, toUnit) {
+            console.log(`Converting ${elementId} from ${fromUnit} to ${toUnit}`);
+            
+            const input = document.getElementById(elementId);
+            if (!input) {
+                console.error(`Element with ID ${elementId} not found`);
+                return;
+            }
+            
+            const value = parseFloat(input.value);
+            if (isNaN(value)) {
+                console.warn(`Value in ${elementId} is not a number: ${input.value}`);
+                return;
+            }
+            
+            // Skip conversion if units are the same
+            if (fromUnit === toUnit) {
+                console.log(`Units are the same (${fromUnit}), skipping conversion`);
+                return;
+            }
+            
+            console.log(`Converting value ${value} ${fromUnit} to ${toUnit}`);
+            
+            // Handle direct conversion for strain (dimensionless to percent and vice versa)
+            if ((fromUnit === '' && toUnit === '%') || (fromUnit === '%' && toUnit === '')) {
+                const convertedValue = fromUnit === '%' ? value / 100 : value * 100;
+                console.log(`Direct strain conversion: ${value} ${fromUnit} -> ${convertedValue} ${toUnit}`);
+                updateInputValue(input, convertedValue);
+                return;
+            }
+            
+            // Use UnitsHandler for other conversions
+            const quantity = unitsHandler.createQuantity(value, fromUnit);
+            if (!quantity) {
+                console.error(`Failed to create quantity for ${value} ${fromUnit}`);
+                return;
+            }
+            
+            const converted = unitsHandler.convert(quantity, toUnit);
+            if (!converted) {
+                console.error(`Failed to convert ${value} ${fromUnit} to ${toUnit}`);
+                return;
+            }
+            
+            const convertedValue = unitsHandler.getValue(converted);
+            console.log(`Converted value: ${value} ${fromUnit} -> ${convertedValue} ${toUnit}`);
+            
+            updateInputValue(input, convertedValue);
+        }
+        
+        function updateInputValue(input, value) {
+            // Format the value appropriately
+            if (Math.abs(value) < 0.001 || Math.abs(value) >= 10000) {
+                input.value = value.toExponential(4);
+            } else {
+                // Determine appropriate precision based on magnitude
+                const precision = Math.abs(value) < 0.1 ? 5 : 
+                                 Math.abs(value) < 1 ? 4 : 
+                                 Math.abs(value) < 10 ? 3 : 
+                                 Math.abs(value) < 100 ? 2 : 1;
+                input.value = value.toFixed(precision);
+            }
         }
 
         function updateUnitDisplays() {
@@ -277,6 +590,47 @@
             // Update result unit displays
             document.getElementById('parameterAUnit').textContent = currentUnits.pressure;
             document.getElementById('parameterBUnit').textContent = currentUnits.pressure;
+        }
+
+        // Helper function to convert pressure units
+        function convertPressure(value, fromUnit, toUnit) {
+            if (fromUnit === toUnit) return value;
+            
+            // Try using UnitsHandler first if available
+            if (unitsHandler && unitsHandler.initialized) {
+                try {
+                    const quantity = unitsHandler.createQuantity(value, fromUnit);
+                    if (quantity) {
+                        const converted = unitsHandler.convert(quantity, toUnit);
+                        if (converted) {
+                            return unitsHandler.getValue(converted);
+                        }
+                    }
+                } catch (error) {
+                    console.warn('UnitsHandler conversion failed, using fallback:', error);
+                }
+            }
+            
+            // Fallback to simple conversion
+            // Convert to Pa first (base unit)
+            let valueInPa = value;
+            switch(fromUnit) {
+                case 'Pa': valueInPa = value; break;
+                case 'kPa': valueInPa = value * 1000; break;
+                case 'MPa': valueInPa = value * 1000000; break;
+                case 'GPa': valueInPa = value * 1000000000; break;
+                case 'psi': valueInPa = value * 6894.76; break;
+            }
+            
+            // Convert from Pa to target unit
+            switch(toUnit) {
+                case 'Pa': return valueInPa;
+                case 'kPa': return valueInPa / 1000;
+                case 'MPa': return valueInPa / 1000000;
+                case 'GPa': return valueInPa / 1000000000;
+                case 'psi': return valueInPa / 6894.76;
+                default: return valueInPa / 1000000; // Default to MPa
+            }
         }
 
         function getValueInBaseUnits(elementId, quantityType) {

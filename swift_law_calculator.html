@@ -205,6 +205,12 @@
         let calculatedValues = {};
         let calculationTimeout = null;
         let chartManager = null;
+        
+        // Track current units for conversion
+        let currentUnits = {
+            pressure: 'MPa',  // Default pressure unit
+            strain: ''        // Default strain unit (dimensionless)
+        };
 
 
 
@@ -720,9 +726,112 @@ $--------1---------2---------3---------4---------5---------6---------7---------8
             panel.style.display = panel.style.display === 'none' ? 'grid' : 'none';
         }
 
+        // Helper function to convert pressure units
+        function convertPressure(value, fromUnit, toUnit) {
+            if (fromUnit === toUnit) return value;
+            
+            // Convert to Pa first (base unit)
+            let valueInPa = value;
+            switch(fromUnit) {
+                case 'Pa': valueInPa = value; break;
+                case 'kPa': valueInPa = value * 1000; break;
+                case 'MPa': valueInPa = value * 1000000; break;
+                case 'GPa': valueInPa = value * 1000000000; break;
+                case 'psi': valueInPa = value * 6894.76; break;
+            }
+            
+            // Convert from Pa to target unit
+            switch(toUnit) {
+                case 'Pa': return valueInPa;
+                case 'kPa': return valueInPa / 1000;
+                case 'MPa': return valueInPa / 1000000;
+                case 'GPa': return valueInPa / 1000000000;
+                case 'psi': return valueInPa / 6894.76;
+                default: return valueInPa / 1000000; // Default to MPa
+            }
+        }
+
         function updateUnits() {
+            console.log('updateUnits called');
+            
+            // Store old units
+            const oldUnits = { ...currentUnits };
+            
+            // Get new units
             const pressureUnit = document.getElementById('pressureUnit').value;
             const strainUnit = document.getElementById('strainUnit').value;
+            
+            // Update current units
+            currentUnits.pressure = pressureUnit;
+            currentUnits.strain = strainUnit;
+            
+            console.log(`Units changing from ${oldUnits.pressure}/${oldUnits.strain} to ${pressureUnit}/${strainUnit}`);
+            
+            // Convert pressure input values if units changed
+            if (oldUnits.pressure !== pressureUnit) {
+                console.log(`Converting pressure from ${oldUnits.pressure} to ${pressureUnit}`);
+                
+                // Convert Young's modulus
+                const youngModulusInput = document.getElementById('youngModulus');
+                if (youngModulusInput && youngModulusInput.value) {
+                    const oldValue = parseFloat(youngModulusInput.value);
+                    if (!isNaN(oldValue)) {
+                        const newValue = convertPressure(oldValue, oldUnits.pressure, pressureUnit);
+                        youngModulusInput.value = newValue.toPrecision(6);
+                        console.log(`Converted Young's Modulus: ${oldValue} ${oldUnits.pressure} → ${newValue.toPrecision(6)} ${pressureUnit}`);
+                    }
+                }
+                
+                // Convert yield strength
+                const yieldStrengthInput = document.getElementById('yieldStrength');
+                if (yieldStrengthInput && yieldStrengthInput.value) {
+                    const oldValue = parseFloat(yieldStrengthInput.value);
+                    if (!isNaN(oldValue)) {
+                        const newValue = convertPressure(oldValue, oldUnits.pressure, pressureUnit);
+                        yieldStrengthInput.value = newValue.toPrecision(6);
+                        console.log(`Converted Yield Strength: ${oldValue} ${oldUnits.pressure} → ${newValue.toPrecision(6)} ${pressureUnit}`);
+                    }
+                }
+                
+                // Convert tensile strength
+                const tensileStrengthInput = document.getElementById('tensileStrength');
+                if (tensileStrengthInput && tensileStrengthInput.value) {
+                    const oldValue = parseFloat(tensileStrengthInput.value);
+                    if (!isNaN(oldValue)) {
+                        const newValue = convertPressure(oldValue, oldUnits.pressure, pressureUnit);
+                        tensileStrengthInput.value = newValue.toPrecision(6);
+                        console.log(`Converted Tensile Strength: ${oldValue} ${oldUnits.pressure} → ${newValue.toPrecision(6)} ${pressureUnit}`);
+                    }
+                }
+            }
+            
+            // Convert strain input values if units changed
+            if (oldUnits.strain !== strainUnit) {
+                console.log(`Converting strain from "${oldUnits.strain || 'dimensionless'}" to "${strainUnit || 'dimensionless'}"`);
+                
+                const convertStrainValue = (inputId, factor) => {
+                    const input = document.getElementById(inputId);
+                    if (input && input.value) {
+                        const oldValue = parseFloat(input.value);
+                        if (!isNaN(oldValue)) {
+                            const newValue = oldValue * factor;
+                            input.value = newValue.toPrecision(6);
+                            console.log(`Converted ${inputId}: ${oldValue} → ${newValue.toPrecision(6)}`);
+                        }
+                    }
+                };
+                
+                // Convert between dimensionless and percent
+                if (oldUnits.strain === '' && strainUnit === '%') {
+                    // Dimensionless to percent (multiply by 100)
+                    convertStrainValue('elongation', 100);
+                    convertStrainValue('epsilon0', 100);
+                } else if (oldUnits.strain === '%' && strainUnit === '') {
+                    // Percent to dimensionless (divide by 100)
+                    convertStrainValue('elongation', 0.01);
+                    convertStrainValue('epsilon0', 0.01);
+                }
+            }
             
             // Update unit displays
             document.getElementById('youngModulusUnit').textContent = pressureUnit;
@@ -740,8 +849,18 @@ $--------1---------2---------3---------4---------5---------6---------7---------8
             scheduleCalculation();
         }
 
+        // Initialize current units from HTML defaults
+        function initializeUnits() {
+            currentUnits.pressure = document.getElementById('pressureUnit').value || 'MPa';
+            currentUnits.strain = document.getElementById('strainUnit').value || '';
+            console.log('Units initialized:', currentUnits);
+        }
+
         // Page initialization
         window.onload = function() {
+            // Initialize units from HTML
+            initializeUnits();
+            
             // Initialize chart manager after all scripts are loaded
             if (typeof PlotlyChartManager !== 'undefined') {
                 try {
