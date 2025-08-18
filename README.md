@@ -268,55 +268,6 @@ This project is licensed under the [Creative Commons Attribution-NonCommercial (
 ---
 
 > **Disclaimer**: All data provided on the Material MAP website is to be used at the user's own risk.
-# Material MAP
-
-This repository supports the **Material MAP** website, a non-commercial, ad-free project aimed at assisting engineers in finding examples of material model parameter sets for LS-DYNA, sourced from articles published under Open Access. 
-
-The primary goal of the website is to provide engineers with a library of material models, linking directly to original open-access sources along with citation information for each reference. The project enables users to search and explore a variety of material models conveniently.
-
-## Website Link
-
-Visit the website: [Material MAP](https://MaterialMap.github.io/)
-
-## About the Project
-
-Material MAP is a static website, built to offer a reference library for material models used in LS-DYNA simulations. All site data is stored in multiple `toml` files in the `data` directory, allowing easy updates and additions. Users are welcome to contribute by creating pull requests with new references and material models or correcting existing data.
-
-### Key Features
-
-- **Non-commercial**: The site is entirely ad-free and provides its content for informational purposes only.
-- **Open-access links**: All data references point to open-access sources, ensuring users can access original articles freely.
-- **Citation Information**: Each reference includes proper citation details to give credit to the original authors.
-- **User Contribution**: Contributions are encouraged, allowing users to add new material models or improve data accuracy.
-- **Automatic Date Tracking**: File modification dates are automatically tracked using Git history.
-
-## Contributing to MaterialMap
-
-### How to Submit New Materials
-
-#### Direct Pull Request
-1. Fork the repository
-2. Create a new TOML file in `/data/` folder
-3. Follow the existing format (see TOML Structure below)
-4. Update `/dist/file-list.json`
-5. Submit a pull request
-
-#### Requirements
-- Source must be published under Open Access license
-- LS-DYNA material parameters must be validated
-- Reference URL must be accessible without paywall
-- All required fields must be completed
-
-#### Review Process
-1. Maintainers review the pull request
-2. If approved, the material is merged into the database
-3. You'll be notified of the final decision
-
-Thank you for contributing to MaterialMap! 🎉
-
-## TOML Data Structure
-
-This section describes the structure of TOML files used in the Material MAP project. Each TOML file contains an array of material definitions with specific fields.
 
 ### File Structure
 
