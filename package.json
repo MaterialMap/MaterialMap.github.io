@@ -5,10 +5,10 @@
   "homepage": "https://MaterialMap.github.io/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/MaterialMap/MaterialMap.git"
+    "url": "https://github.com/MaterialMap/MaterialMap.github.io.git"
   },
   "bugs": {
-    "url": "https://github.com/MaterialMap/MaterialMap/issues"
+    "url": "https://github.com/MaterialMap/MaterialMap.github.io/issues"
   },
   "scripts": {
     "dev": "npm run serve",
