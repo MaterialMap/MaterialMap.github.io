@@ -98,6 +98,66 @@ class BaseCalculator {
         // To be implemented by subclasses
         throw new Error('updateUnits must be implemented by subclass');
     }
+    
+    /**
+     * Convert a value between units
+     * @param {number} value - Value to convert
+     * @param {string} fromUnit - Source unit
+     * @param {string} toUnit - Target unit
+     * @returns {number} Converted value
+     */
+    convertValue(value, fromUnit, toUnit) {
+        if (!this.unitsHandler.initialized || fromUnit === toUnit) {
+            return value;
+        }
+        
+        const quantity = this.unitsHandler.createQuantity(value, fromUnit);
+        if (!quantity) return value;
+        
+        const converted = this.unitsHandler.convert(quantity, toUnit);
+        if (!converted) return value;
+        
+        return this.unitsHandler.getValue(converted);
+    }
+    
+    /**
+     * Convert an input field value when units change
+     * @param {string} elementId - ID of the input element
+     * @param {string} fromUnit - Source unit
+     * @param {string} toUnit - Target unit
+     */
+    convertInputField(elementId, fromUnit, toUnit) {
+        if (fromUnit === toUnit) return;
+        
+        const input = document.getElementById(elementId);
+        if (!input) return;
+        
+        const value = parseFloat(input.value);
+        if (isNaN(value)) return;
+        
+        const convertedValue = this.convertValue(value, fromUnit, toUnit);
+        
+        // Format the value appropriately
+        input.value = this.formatValue(convertedValue);
+    }
+    
+    /**
+     * Format a value with appropriate precision based on its magnitude
+     * @param {number} value - The value to format
+     * @returns {string} Formatted value
+     */
+    formatValue(value) {
+        if (Math.abs(value) < 0.001 || Math.abs(value) >= 10000) {
+            return value.toExponential(4);
+        } else {
+            // Determine appropriate precision based on magnitude
+            const precision = Math.abs(value) < 0.1 ? 5 : 
+                             Math.abs(value) < 1 ? 4 : 
+                             Math.abs(value) < 10 ? 3 : 
+                             Math.abs(value) < 100 ? 2 : 1;
+            return value.toFixed(precision);
+        }
+    }
 
     /**
      * Toggle visibility of a collapsible section

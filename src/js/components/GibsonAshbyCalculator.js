@@ -248,8 +248,16 @@ class GibsonAshbyCalculator extends BaseCalculator {
      * Update displayed units
      */
     updateUnits() {
+        // Store old units
+        const oldPressureUnit = document.getElementById('elasticModulusUnit').textContent;
+        const oldDensityUnit = document.getElementById('densityUnitDisplay').textContent;
+        
+        // Get new units
         const pressureUnit = document.getElementById('pressureUnit').value;
         const densityUnit = document.getElementById('densityUnit').value;
+        
+        // Convert input values to maintain physical quantities
+        this.convertInputValues(oldPressureUnit, pressureUnit, oldDensityUnit, densityUnit);
         
         // Update unit displays
         document.getElementById('densityUnitDisplay').textContent = densityUnit;
@@ -259,6 +267,38 @@ class GibsonAshbyCalculator extends BaseCalculator {
         
         // Recalculate with new units
         this.scheduleCalculation();
+    }
+    
+    /**
+     * Convert input values when units change to maintain physical quantities
+     * @param {string} oldPressureUnit - Previous pressure unit
+     * @param {string} newPressureUnit - New pressure unit
+     * @param {string} oldDensityUnit - Previous density unit
+     * @param {string} newDensityUnit - New density unit
+     */
+    convertInputValues(oldPressureUnit, newPressureUnit, oldDensityUnit, newDensityUnit) {
+        if (!this.unitsHandler.initialized) return;
+        
+        // Convert density if units changed
+        if (oldDensityUnit !== newDensityUnit) {
+            const densityInput = document.getElementById('density');
+            const densityValue = parseFloat(densityInput.value);
+            
+            if (!isNaN(densityValue)) {
+                // Use conversion factors from unitConversions
+                const fromFactor = this.unitConversions.density[oldDensityUnit] || 1;
+                const toFactor = this.unitConversions.density[newDensityUnit] || 1;
+                
+                // Convert to base unit (kg/m³) then to target unit
+                const baseValue = densityValue * fromFactor;
+                const convertedValue = baseValue / toFactor;
+                
+                // Format and update the input value
+                densityInput.value = this.formatValue(convertedValue);
+            }
+        }
+        
+        // Hardening coefficient is dimensionless, no conversion needed
     }
 
     /**

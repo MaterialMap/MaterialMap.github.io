@@ -22,8 +22,11 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.54.2",
-    "playwright": "^1.54.2",
     "eslint": "^8.56.0",
+    "playwright": "^1.54.2",
     "prettier": "^3.1.0"
+  },
+  "dependencies": {
+    "http-server": "^14.1.1"
   }
 }
