@@ -6,7 +6,7 @@ The primary goal of the website is to provide engineers with a library of materi
 
 ## Website Link
 
-Visit the website: [Material MAP](https://yurynovozhilov.github.io/MaterialMap)
+Visit the website: [Material MAP](https://MaterialMap.github.io/)
 
 ## About the Project
 
@@ -276,7 +276,7 @@ The primary goal of the website is to provide engineers with a library of materi
 
 ## Website Link
 
-Visit the website: [Material MAP](https://yurynovozhilov.github.io/MaterialMap)
+Visit the website: [Material MAP](https://MaterialMap.github.io/)
 
 ## About the Project
 

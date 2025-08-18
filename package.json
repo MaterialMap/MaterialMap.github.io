@@ -2,6 +2,14 @@
   "name": "material-map",
   "version": "1.0.0",
   "description": "LS-DYNA Material Models Database",
+  "homepage": "https://MaterialMap.github.io/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MaterialMap/MaterialMap.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MaterialMap/MaterialMap/issues"
+  },
   "scripts": {
     "dev": "npm run serve",
     "serve": "python3 -m http.server 5500",
