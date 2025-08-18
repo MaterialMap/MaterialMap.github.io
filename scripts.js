@@ -31,14 +31,33 @@ function getBasePath() {
 
   // Check if the site is running on localhost with a non-privileged port
   if (origin.includes("localhost") || origin.includes("127.0.0.1") || (port && parseInt(port) > 1024)) {
-    return "./";
+    return ".";
   }
 
   // For GitHub Pages
-  const repoName = pathname.split("/")[1];
-  return repoName ? `/${repoName}` : "/";
+  // Check if this is an organization GitHub Pages site (*.github.io)
+  if (origin.includes(".github.io")) {
+    // For organization sites like materialmap.github.io, the base path is "/"
+    // For user/repo sites like user.github.io/repo, the base path is "/repo"
+    const hostname = new URL(origin).hostname;
+    const parts = hostname.split('.');
+    
+    // If it's an organization site (not username.github.io), use root path
+    if (parts.length === 3 && parts[1] === 'github' && parts[2] === 'io') {
+      // This is likely an organization site
+      return "";
+    }
+    
+    // For user sites, extract repo name from path
+    const repoName = pathname.split("/")[1];
+    return repoName && repoName !== "" ? `/${repoName}` : "";
+  }
+  
+  // Default fallback
+  return "";
 }
 const basePath = getBasePath();
+console.log('Base path determined:', basePath);
 // Generic function to extract first line and remove _TITLE suffix
 function extractFirstLine(data) {
   if (!data) return null;
@@ -249,7 +268,9 @@ async function loadMaterials() {
       document.getElementById("loading").classList.remove("hidden");
   
       // Load file list
-      const fileListResponse = await fetch(`${basePath}${CONFIG.PATHS.DIST}/file-list.json`);
+      const fileListUrl = `${basePath}${CONFIG.PATHS.DIST}/file-list.json`;
+      console.log('Fetching file list from:', fileListUrl);
+      const fileListResponse = await fetch(fileListUrl);
       if (!fileListResponse.ok) {
         throw new Error(`Failed to fetch file list. Status: ${fileListResponse.status} ${fileListResponse.statusText}`);
       }

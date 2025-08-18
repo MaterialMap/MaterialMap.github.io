@@ -1,5 +1,5 @@
 // Service Worker for MaterialMap
-const CACHE_NAME = 'material-map-cache-v1';
+const CACHE_NAME = 'material-map-cache-v2';
 
 // Get the base path from the service worker scope
 const getBasePath = () => {
@@ -12,10 +12,12 @@ const CORE_ASSETS = [
   '/',
   '/index.html',
   '/about.html',
-  '/styles.css',
+  '/unified-styles.css',
   '/scripts.js',
+  '/navigation.js',
   '/lib/mat.json',
   '/lib/eos.json',
+  '/lib/mat_thermal.json',
   '/dist/file-list.json'
 ];
 
