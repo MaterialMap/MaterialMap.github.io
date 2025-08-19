@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CEB-FIP Model Calculator</title>
+    <link rel="stylesheet" href="unified-styles.css">
+    <link rel="stylesheet" href="src/css/components/units.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Menu -->
+    <nav class="nav-menu">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">Material MAP</a>
+            <button class="nav-toggle" aria-label="Toggle navigation">☰</button>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="swift_law_calculator.html">Swift's Law Calculator</a></li>
+                <li><a href="mooney_rivlin_calculator.html">Mooney-Rivlin Calculator</a></li>
+                <li><a href="johnson_cook_calculator.html">Johnson-Cook Calculator</a></li>
+                <li><a href="gibson_ashby_calculator.html">Gibson-Ashby Calculator</a></li>
+                <li><a href="ceb_fip_calculator.html">CEB-FIP Calculator</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <h1>CEB-FIP Model Calculator for Concrete Properties</h1>
+        
+        <!-- Disclaimer -->
+        <div style="margin-bottom: 30px; padding: 20px; background: #fff3cd; border-radius: 8px; border-left: 4px solid #ffc107; border: 1px solid #ffeaa7;">
+            <h3 style="margin: 0 0 10px 0; color: #856404; font-size: 18px;">⚠️ Important Disclaimer</h3>
+            <p style="margin: 0 0 10px 0; color: #856404; line-height: 1.6; font-size: 14px;">
+                This calculator implements the CEB-FIP Model Code and Eurocode 2 (EC2) formulations for concrete material properties. The calculations provide estimates based on characteristic compressive strength and aggregate properties.
+            </p>
+            <p style="margin: 0 0 10px 0; color: #856404; line-height: 1.6; font-size: 14px;">
+                <strong>Based on:</strong> CEB-FIP Model Code 2010 and Eurocode 2 (EN 1992-1-1) specifications for concrete material characterization.
+            </p>
+            <p style="margin: 0; color: #856404; line-height: 1.6; font-size: 14px; font-weight: 600;">
+                <strong>Note:</strong> Results should be validated against experimental data for critical applications.
+            </p>
+        </div>
+        
+        <!-- Formula Information -->
+        <div style="text-align: center; margin-bottom: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #3498db;">
+            <h2 style="margin: 0; color: #2c3e50; font-size: 24px;">CEB-FIP Model Code Formulations (Updated)</h2>
+            <div style="font-size: 14px; color: #7f8c8d; line-height: 1.8; text-align: left; max-width: 800px; margin: 15px auto;">
+                <strong>Key formulations implemented:</strong><br>
+                • <strong>5.1.4 Compressive strength:</strong> f<sub>cm</sub> = f<sub>ck</sub> + Δf, f<sub>bc</sub> = 1.16×f<sub>ck</sub> (corrected)<br>
+                • <strong>5.1.5.1 Tensile strength:</strong> f<sub>ctm</sub> = 0.3(f<sub>ck</sub>)<sup>2/3</sup> (f<sub>ck</sub> ≤ 50 MPa)<br>
+                • <strong>5.1.5.2 Fracture energy:</strong> G<sub>f0</sub> = 0.025 + 5.31×10<sup>-4</sup>×d<sub>max</sub> (corrected)<br>
+                • <strong>5.1.7.2 Modulus of elasticity:</strong> E<sub>ci</sub> = E<sub>c0</sub>α<sub>E</sub>((f<sub>ck</sub>+Δf)/f<sub>cm0</sub>)<sup>1/3</sup><br>
+                • <strong>5.1.8 Stress-strain relations:</strong> ε<sub>c1</sub> = -0.7×f<sub>cm</sub><sup>0.31</sup>/1000 (corrected)<br>
+                • <strong>Biaxial strength envelope:</strong> Four-quadrant failure criterion with CEB-FIP equations<br>
+                • <strong>Automatic Δf calculation:</strong> Based on production control quality (good/normal/poor)
+            </div>
+        </div>
+
+        <!-- Units Panel -->
+        <div class="units-panel">
+            <h3>
+                <span>🔧 Units Settings</span>
+                <button class="units-toggle" onclick="toggleUnitsPanel()">Show/Hide</button>
+            </h3>
+            <div id="unitsSettings" class="units-grid" style="display: none;">
+                <div class="unit-group">
+                    <label>Pressure/Stress Units:</label>
+                    <select id="pressureUnit" onchange="updateUnits()">
+                        <option value="MPa" selected>Megapascal (MPa)</option>
+                        <option value="Pa">Pascal (Pa)</option>
+                        <option value="kPa">Kilopascal (kPa)</option>
+                        <option value="GPa">Gigapascal (GPa)</option>
+                        <option value="psi">Pounds per square inch (psi)</option>
+                    </select>
+                </div>
+                <div class="unit-group">
+                    <label>Length Units:</label>
+                    <select id="lengthUnit" onchange="updateUnits()">
+                        <option value="mm" selected>Millimeter (mm)</option>
+                        <option value="m">Meter (m)</option>
+                        <option value="cm">Centimeter (cm)</option>
+                        <option value="in">Inch (in)</option>
+                    </select>
+                </div>
+                <div class="unit-group">
+                    <label>Density Units:</label>
+                    <select id="densityUnit" onchange="updateUnits()">
+                        <option value="kg/m3" selected>kg/m³</option>
+                        <option value="g/cm3">g/cm³</option>
+                        <option value="lb/ft3">lb/ft³</option>
+                    </select>
+                </div>
+                <div class="unit-group">
+                    <label>Debug Mode:</label>
+                    <div style="display: flex; align-items: center;">
+                        <input type="checkbox" id="debugMode" onchange="toggleDebugMode(this.checked)">
+                        <label for="debugMode" style="margin-left: 5px;">Enable Debug Logging</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <div class="input-item with-units">
+                <label for="fck">Characteristic Compressive Strength, f<sub>ck</sub>:</label>
+                <div class="input-with-units">
+                    <input type="number" id="fck" step="any" value="40" oninput="scheduleCalculation()">
+                    <span class="unit-display" id="fckUnit">MPa</span>
+                </div>
+            </div>
+            <div class="input-item with-units">
+                <label for="rho">Density, ρ:</label>
+                <div class="input-with-units">
+                    <input type="number" id="rho" step="any" value="2400" oninput="scheduleCalculation()">
+                    <span class="unit-display" id="rhoUnit">kg/m³</span>
+                </div>
+            </div>
+            <div class="input-item">
+                <label for="productionControl">Production Control Quality:</label>
+                <select id="productionControl" onchange="scheduleCalculation()">
+                    <option value="normal" selected>Normal</option>
+                    <option value="good">Good</option>
+                    <option value="poor">Poor</option>
+                </select>
+            </div>
+            
+            <!-- Fracture Energy Input Method Selector -->
+            <div class="input-item">
+                <label for="fractureEnergyMethod">Fracture Energy Input Method:</label>
+                <select id="fractureEnergyMethod" onchange="toggleFractureEnergyInput()">
+                    <option value="calculated" selected>Calculate from Maximum Aggregate Size</option>
+                    <option value="direct">Direct Input</option>
+                </select>
+            </div>
+            
+            <!-- Maximum Aggregate Size Input (shown when calculated method is selected) -->
+            <div class="input-item with-units" id="dmaxInputGroup">
+                <label for="dmax">Maximum Aggregate Size, d<sub>max</sub>:</label>
+                <div class="input-with-units">
+                    <input type="number" id="dmax" step="any" value="16.0" oninput="scheduleCalculation()">
+                    <span class="unit-display" id="dmaxUnit">mm</span>
+                </div>
+            </div>
+            
+            <!-- Direct Fracture Energy Input (hidden by default) -->
+            <div class="input-item with-units" id="gfDirectInputGroup" style="display: none;">
+                <label for="gfDirect">Fracture Energy, G<sub>f</sub>:</label>
+                <div class="input-with-units">
+                    <input type="number" id="gfDirect" step="any" value="0.1" oninput="scheduleCalculation()">
+                    <span class="unit-display">N·mm/mm²</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="results grouped" id="results" style="display: none;">
+            <!-- Elastic Characteristics Group -->
+            <div class="result-group">
+                <h3 class="result-group-title">Elastic Characteristics</h3>
+                <div class="result-item">
+                    <div class="result-name">Shear Modulus, G</div>
+                    <div class="result-value with-units">
+                        <span id="shearModulus">-</span>
+                        <span class="result-unit" id="shearModulusUnit">MPa</span>
+                    </div>
+                </div>
+                <div class="result-item">
+                    <div class="result-name">Bulk Modulus, K</div>
+                    <div class="result-value with-units">
+                        <span id="bulkModulus">-</span>
+                        <span class="result-unit" id="bulkModulusUnit">MPa</span>
+                    </div>
+                </div>
+                <div class="result-item">
+                    <div class="result-name">Initial Elastic Modulus, E<sub>ci</sub></div>
+                    <div class="result-value with-units">
+                        <span id="eci">-</span>
+                        <span class="result-unit" id="eciUnit">MPa</span>
+                    </div>
+                </div>
+                <div class="result-item">
+                    <div class="result-name">Reduced Elastic Modulus, E<sub>c</sub></div>
+                    <div class="result-value with-units">
+                        <span id="ec">-</span>
+                        <span class="result-unit" id="ecUnit">MPa</span>
+                    </div>
+                </div>
+                <div class="result-item">
+                    <div class="result-name">Secant Modulus, E<sub>c1</sub></div>
+                    <div class="result-value with-units">
+                        <span id="ec1">-</span>
+                        <span class="result-unit" id="ec1Unit">MPa</span>
+                    </div>
+                </div>
+                <div class="result-item">
+                    <div class="result-name">Poisson's Ratio, ν</div>
+                    <div class="result-value with-units">
+                        <span id="nu">-</span>
+                        <span class="result-unit">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Strength Group -->
+            <div class="result-group">
+                <h3 class="result-group-title">Strength</h3>
+                <div class="result-item">
+                    <div class="result-name">Mean Compressive Strength, f<sub>cm</sub></div>
+                    <div class="result-value with-units">
+                        <span id="fcm">-</span>
+                        <span class="result-unit" id="fcmUnit">MPa</span>
+                    </div>
+                </div>
+                <div class="result-item">
+                    <div class="result-name">Biaxial Compression Strength, f<sub>bc</sub></div>
+                    <div class="result-value with-units">
+                        <span id="fbc">-</span>
+                        <span class="result-unit" id="fbcUnit">MPa</span>
+                    </div>
+                </div>
+                <div class="result-item">
+                    <div class="result-name">Mean Tensile Strength, f<sub>ctm</sub></div>
+                    <div class="result-value with-units">
+                        <span id="fctm">-</span>
+                        <span class="result-unit" id="fctmUnit">MPa</span>
+                    </div>
+                </div>
+                <div class="result-item">
+                    <div class="result-name">Characteristic Tensile Strength (min), f<sub>ctk,min</sub></div>
+                    <div class="result-value with-units">
+                        <span id="fctkMin">-</span>
+                        <span class="result-unit" id="fctkMinUnit">MPa</span>
+                    </div>
+                </div>
+                <div class="result-item">
+                    <div class="result-name">Characteristic Tensile Strength (max), f<sub>ctk,max</sub></div>
+                    <div class="result-value with-units">
+                        <span id="fctkMax">-</span>
+                        <span class="result-unit" id="fctkMaxUnit">MPa</span>
+                    </div>
+                </div>
+                <div class="result-item">
+                    <div class="result-name">Plasticity Number, k</div>
+                    <div class="result-value with-units">
+                        <span id="plasticityK">-</span>
+                        <span class="result-unit">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fracture Energy Group -->
+            <div class="result-group">
+                <h3 class="result-group-title">Fracture Energy</h3>
+                <div class="result-item">
+                    <div class="result-name">Fracture Energy, G<sub>f</sub></div>
+                    <div class="result-value with-units">
+                        <span id="gf">-</span>
+                        <span class="result-unit">N·mm/mm²</span>
+                    </div>
+                </div>
+                <div class="result-item">
+                    <div class="result-name">Tensile Fracture Energy, G<sub>ft</sub></div>
+                    <div class="result-value with-units">
+                        <span id="gft">-</span>
+                        <span class="result-unit">N·mm/mm²</span>
+                    </div>
+                </div>
+                <div class="result-item">
+                    <div class="result-name">Compressive Fracture Energy, G<sub>fc</sub></div>
+                    <div class="result-value with-units">
+                        <span id="gfc">-</span>
+                        <span class="result-unit">N·mm/mm²</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Crack Opening Group -->
+            <div class="result-group">
+                <h3 class="result-group-title">Crack Opening</h3>
+                <div class="result-item">
+                    <div class="result-name">Crack Opening at Peak, w<sub>1</sub></div>
+                    <div class="result-value with-units">
+                        <span id="w1">-</span>
+                        <span class="result-unit" id="w1Unit">mm</span>
+                    </div>
+                </div>
+                <div class="result-item">
+                    <div class="result-name">Complete Crack Opening, w<sub>c</sub></div>
+                    <div class="result-value with-units">
+                        <span id="wc">-</span>
+                        <span class="result-unit" id="wcUnit">mm</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hidden parameters (not displayed) -->
+            <div style="display: none;">
+                <div class="result-item">
+                    <div class="result-name">Strain at Peak Compression, ε<sub>c1</sub></div>
+                    <div class="result-value with-units">
+                        <span id="epsilonC1">-</span>
+                        <span class="result-unit">-</span>
+                    </div>
+                </div>
+                <div class="result-item">
+                    <div class="result-name">Production Control Quality</div>
+                    <div class="result-value with-units">
+                        <span id="productionControlDisplay">-</span>
+                        <span class="result-unit">-</span>
+                    </div>
+                </div>
+                <div class="result-item">
+                    <div class="result-name">Standard Deviation, σ</div>
+                    <div class="result-value with-units">
+                        <span id="sigmaDisplay">-</span>
+                        <span class="result-unit" id="sigmaUnit">MPa</span>
+                    </div>
+                </div>
+                <div class="result-item">
+                    <div class="result-name">Mean-Characteristic Difference, Δf</div>
+                    <div class="result-value with-units">
+                        <span id="deltaFDisplay">-</span>
+                        <span class="result-unit" id="deltaFUnit">MPa</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="chartContainer" style="display: none;">
+        <h2 class="collapsible-header collapsed" onclick="toggleCollapse(this)">Stress-Strain Curves</h2>
+        <div class="collapsible-content collapsed">
+            <div class="chart-container">
+                <div id="cebFipChart" style="width: 100%; height: 600px;">
+                    <!-- Chart will be generated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="difContainer" style="display: none;">
+        <h2 class="collapsible-header collapsed" onclick="toggleCollapse(this)">Dynamic Increase Factor (DIF) Curves</h2>
+        <div class="collapsible-content collapsed">
+            <div class="chart-container">
+                <div id="difChart" style="width: 100%; height: 600px;">
+                    <!-- DIF Chart will be generated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="container" id="tableContainer" style="display: none;">
+        <h2 class="collapsible-header collapsed" onclick="toggleCollapse(this)">Data Table</h2>
+        <div class="collapsible-content collapsed">
+            <div class="table-header">
+                <div></div>
+                <button class="export-btn" onclick="exportToCSV()">📊 Export CSV</button>
+            </div>
+            <div class="table-container">
+                <table id="parametersTable">
+                    <thead>
+                        <tr>
+                            <th>Property</th>
+                            <th>Value</th>
+                            <th>Unit</th>
+                            <th>Source</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.plot.ly/plotly-2.32.0.min.js" charset="utf-8"></script>
+    <script src="navigation.js"></script>
+    <script src="src/js/utils/UnitsHandler.js"></script>
+    <script src="src/js/utils/PlotlyChartManager.js"></script>
+    <script>
+        let calculationTimeout;
+        let currentData = {};
+        window.unitsHandler = new UnitsHandler();
+        let chartManager = new PlotlyChartManager();
+        let currentUnits = {
+            pressure: 'MPa',
+            length: 'mm',
+            density: 'kg/m3'
+        };
+
+        // Initialize units handler when page loads
+        window.addEventListener('load', async function() {
+            const initialized = await unitsHandler.initialize();
+            if (!initialized) {
+                console.warn('Units handler initialization failed, using fallback');
+            } else {
+                console.log('Units handler initialized successfully');
+                unitsHandler.setDebugMode(true);
+            }
+            updateUnitDisplays();
+            
+            // Initialize fracture energy input method selector
+            toggleFractureEnergyInput();
+        });
+
+        function scheduleCalculation() {
+            clearTimeout(calculationTimeout);
+            calculationTimeout = setTimeout(calculate, 100);
+        }
+
+        function formatScientific(value, decimals = 3) {
+            if (Math.abs(value) < 0.001 || Math.abs(value) >= 1000) {
+                return value.toExponential(decimals);
+            }
+            return value.toFixed(decimals);
+        }
+
+        function toggleUnitsPanel() {
+            const panel = document.getElementById('unitsSettings');
+            panel.style.display = panel.style.display === 'none' ? 'grid' : 'none';
+        }
+        
+        function toggleDebugMode(enabled) {
+            if (unitsHandler && unitsHandler.initialized) {
+                unitsHandler.setDebugMode(enabled);
+                console.log(`Debug mode ${enabled ? 'enabled' : 'disabled'}`);
+                if (enabled) {
+                    console.log('Current units:', currentUnits);
+                }
+            }
+        }
+        
+        function toggleFractureEnergyInput() {
+            const method = document.getElementById('fractureEnergyMethod').value;
+            const dmaxGroup = document.getElementById('dmaxInputGroup');
+            const gfDirectGroup = document.getElementById('gfDirectInputGroup');
+            
+            if (method === 'calculated') {
+                dmaxGroup.style.display = 'block';
+                gfDirectGroup.style.display = 'none';
+            } else {
+                dmaxGroup.style.display = 'none';
+                gfDirectGroup.style.display = 'block';
+            }
+            
+            scheduleCalculation();
+        }
+
+        // Fallback unit conversion functions
+        function convertPressureUnits(value, fromUnit, toUnit) {
+            // Convert to MPa (base unit) first
+            let valueInMPa = value;
+            switch (fromUnit) {
+                case 'Pa': valueInMPa = value * 1e-6; break;
+                case 'kPa': valueInMPa = value * 1e-3; break;
+                case 'MPa': valueInMPa = value; break;
+                case 'GPa': valueInMPa = value * 1e3; break;
+                case 'psi': valueInMPa = value * 6.89476e-3; break;
+            }
+            
+            // Convert from MPa to target unit
+            switch (toUnit) {
+                case 'Pa': return valueInMPa * 1e6;
+                case 'kPa': return valueInMPa * 1e3;
+                case 'MPa': return valueInMPa;
+                case 'GPa': return valueInMPa * 1e-3;
+                case 'psi': return valueInMPa / 6.89476e-3;
+                default: return valueInMPa;
+            }
+        }
+        
+        function convertLengthUnits(value, fromUnit, toUnit) {
+            // Convert to mm (base unit) first
+            let valueInMm = value;
+            switch (fromUnit) {
+                case 'mm': valueInMm = value; break;
+                case 'cm': valueInMm = value * 10; break;
+                case 'm': valueInMm = value * 1000; break;
+                case 'in': valueInMm = value * 25.4; break;
+            }
+            
+            // Convert from mm to target unit
+            switch (toUnit) {
+                case 'mm': return valueInMm;
+                case 'cm': return valueInMm / 10;
+                case 'm': return valueInMm / 1000;
+                case 'in': return valueInMm / 25.4;
+                default: return valueInMm;
+            }
+        }
+        
+        function convertDensityUnits(value, fromUnit, toUnit) {
+            // Convert to kg/m³ (base unit) first
+            let valueInKgM3 = value;
+            switch (fromUnit) {
+                case 'kg/m3': 
+                case 'kg/m³': valueInKgM3 = value; break;
+                case 'g/cm3':
+                case 'g/cm³': valueInKgM3 = value * 1000; break;
+                case 'lb/ft3':
+                case 'lb/ft³': valueInKgM3 = value * 16.0185; break;
+            }
+            
+            // Convert from kg/m³ to target unit
+            switch (toUnit) {
+                case 'kg/m3':
+                case 'kg/m³': return valueInKgM3;
+                case 'g/cm3':
+                case 'g/cm³': return valueInKgM3 / 1000;
+                case 'lb/ft3':
+                case 'lb/ft³': return valueInKgM3 / 16.0185;
+                default: return valueInKgM3;
+            }
+        }
+
+        function updateUnits() {
+            console.log('updateUnits called');
+            
+            // Store old units
+            const oldPressureUnit = currentUnits.pressure;
+            const oldLengthUnit = currentUnits.length;
+            const oldDensityUnit = currentUnits.density;
+            
+            // Get new units
+            const newPressureUnit = document.getElementById('pressureUnit').value;
+            const newLengthUnit = document.getElementById('lengthUnit').value;
+            const newDensityUnit = document.getElementById('densityUnit').value;
+            
+            console.log(`Units changing: pressure ${oldPressureUnit} -> ${newPressureUnit}, length ${oldLengthUnit} -> ${newLengthUnit}, density ${oldDensityUnit} -> ${newDensityUnit}`);
+            
+            // Convert pressure values if units changed
+            if (oldPressureUnit !== newPressureUnit) {
+                const pressureInputs = ['fck'];
+                pressureInputs.forEach(inputId => {
+                    const input = document.getElementById(inputId);
+                    if (input) {
+                        const currentValue = parseFloat(input.value);
+                        if (!isNaN(currentValue)) {
+                            let convertedValue = currentValue;
+                            
+                            // Try using UnitsHandler first if available
+                            if (unitsHandler && unitsHandler.initialized) {
+                                try {
+                                    const quantity = unitsHandler.createQuantity(currentValue, oldPressureUnit);
+                                    if (quantity) {
+                                        const converted = unitsHandler.convert(quantity, newPressureUnit);
+                                        if (converted) {
+                                            convertedValue = unitsHandler.getValue(converted);
+                                            console.log(`Converting ${inputId} using UnitsHandler: ${currentValue} ${oldPressureUnit} -> ${convertedValue.toFixed(3)} ${newPressureUnit}`);
+                                            input.value = convertedValue.toFixed(convertedValue < 1 ? 3 : 2);
+                                        }
+                                    }
+                                } catch (error) {
+                                    console.warn(`UnitsHandler pressure conversion failed for ${inputId}, using fallback:`, error);
+                                    // Fallback conversion for pressure units
+                                    convertedValue = convertPressureUnits(currentValue, oldPressureUnit, newPressureUnit);
+                                    console.log(`Converting ${inputId} using fallback: ${currentValue} ${oldPressureUnit} -> ${convertedValue.toFixed(3)} ${newPressureUnit}`);
+                                    input.value = convertedValue.toFixed(convertedValue < 1 ? 3 : 2);
+                                }
+                            } else {
+                                // Use fallback conversion if UnitsHandler is not available
+                                convertedValue = convertPressureUnits(currentValue, oldPressureUnit, newPressureUnit);
+                                console.log(`Converting ${inputId} using fallback (no UnitsHandler): ${currentValue} ${oldPressureUnit} -> ${convertedValue.toFixed(3)} ${newPressureUnit}`);
+                                input.value = convertedValue.toFixed(convertedValue < 1 ? 3 : 2);
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Convert length values if units changed
+            if (oldLengthUnit !== newLengthUnit) {
+                const lengthInputs = ['dmax'];
+                lengthInputs.forEach(inputId => {
+                    const input = document.getElementById(inputId);
+                    if (input) {
+                        const currentValue = parseFloat(input.value);
+                        if (!isNaN(currentValue)) {
+                            let convertedValue = currentValue;
+                            
+                            // Try using UnitsHandler first if available
+                            if (unitsHandler && unitsHandler.initialized) {
+                                try {
+                                    const quantity = unitsHandler.createQuantity(currentValue, oldLengthUnit);
+                                    if (quantity) {
+                                        const converted = unitsHandler.convert(quantity, newLengthUnit);
+                                        if (converted) {
+                                            convertedValue = unitsHandler.getValue(converted);
+                                            console.log(`Converting ${inputId} using UnitsHandler: ${currentValue} ${oldLengthUnit} -> ${convertedValue.toFixed(3)} ${newLengthUnit}`);
+                                            input.value = convertedValue.toFixed(convertedValue < 1 ? 3 : 2);
+                                        }
+                                    }
+                                } catch (error) {
+                                    console.warn(`UnitsHandler length conversion failed for ${inputId}, using fallback:`, error);
+                                    // Fallback conversion for length units
+                                    convertedValue = convertLengthUnits(currentValue, oldLengthUnit, newLengthUnit);
+                                    console.log(`Converting ${inputId} using fallback: ${currentValue} ${oldLengthUnit} -> ${convertedValue.toFixed(3)} ${newLengthUnit}`);
+                                    input.value = convertedValue.toFixed(convertedValue < 1 ? 3 : 2);
+                                }
+                            } else {
+                                // Use fallback conversion if UnitsHandler is not available
+                                convertedValue = convertLengthUnits(currentValue, oldLengthUnit, newLengthUnit);
+                                console.log(`Converting ${inputId} using fallback (no UnitsHandler): ${currentValue} ${oldLengthUnit} -> ${convertedValue.toFixed(3)} ${newLengthUnit}`);
+                                input.value = convertedValue.toFixed(convertedValue < 1 ? 3 : 2);
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Convert density values if units changed
+            if (oldDensityUnit !== newDensityUnit) {
+                const densityInputs = ['rho'];
+                densityInputs.forEach(inputId => {
+                    const input = document.getElementById(inputId);
+                    if (input) {
+                        const currentValue = parseFloat(input.value);
+                        if (!isNaN(currentValue)) {
+                            let convertedValue = currentValue;
+                            
+                            // Try using UnitsHandler first if available
+                            if (unitsHandler && unitsHandler.initialized) {
+                                try {
+                                    const quantity = unitsHandler.createQuantity(currentValue, oldDensityUnit);
+                                    if (quantity) {
+                                        const converted = unitsHandler.convert(quantity, newDensityUnit);
+                                        if (converted) {
+                                            convertedValue = unitsHandler.getValue(converted);
+                                            console.log(`Converting ${inputId} using UnitsHandler: ${currentValue} ${oldDensityUnit} -> ${convertedValue.toFixed(3)} ${newDensityUnit}`);
+                                            input.value = convertedValue.toFixed(convertedValue < 1 ? 3 : 2);
+                                        }
+                                    }
+                                } catch (error) {
+                                    console.warn(`UnitsHandler density conversion failed for ${inputId}, using fallback:`, error);
+                                    // Fallback conversion for density units
+                                    convertedValue = convertDensityUnits(currentValue, oldDensityUnit, newDensityUnit);
+                                    console.log(`Converting ${inputId} using fallback: ${currentValue} ${oldDensityUnit} -> ${convertedValue.toFixed(3)} ${newDensityUnit}`);
+                                    input.value = convertedValue.toFixed(convertedValue < 1 ? 3 : 2);
+                                }
+                            } else {
+                                // Use fallback conversion if UnitsHandler is not available
+                                convertedValue = convertDensityUnits(currentValue, oldDensityUnit, newDensityUnit);
+                                console.log(`Converting ${inputId} using fallback (no UnitsHandler): ${currentValue} ${oldDensityUnit} -> ${convertedValue.toFixed(3)} ${newDensityUnit}`);
+                                input.value = convertedValue.toFixed(convertedValue < 1 ? 3 : 2);
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Update current units
+            currentUnits.pressure = newPressureUnit;
+            currentUnits.length = newLengthUnit;
+            currentUnits.density = newDensityUnit;
+            
+            updateUnitDisplays();
+            scheduleCalculation();
+        }
+
+        function updateUnitDisplays() {
+            // Update pressure unit displays
+            const pressureElements = ['fckUnit', 'deltaFUnit', 'fcmUnit', 'fbcUnit', 'fctmUnit', 
+                                    'fctkMinUnit', 'fctkMaxUnit', 'eciUnit', 'ecUnit', 'ec1Unit', 
+                                    'shearModulusUnit', 'bulkModulusUnit'];
+            pressureElements.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) element.textContent = currentUnits.pressure;
+            });
+
+            // Update length unit displays
+            const lengthElements = ['dmaxUnit', 'w1Unit', 'wcUnit'];
+            lengthElements.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) element.textContent = currentUnits.length;
+            });
+
+            // Update density unit display
+            const densityElement = document.getElementById('rhoUnit');
+            if (densityElement) densityElement.textContent = currentUnits.density;
+        }
+
+        function linspace(start, end, num) {
+            const step = (end - start) / (num - 1);
+            return Array.from({length: num}, (_, i) => start + step * i);
+        }
+
+        function calculateDIF_c(fc) {
+            // Dynamic Increase Factor for compression
+            // Based on CEB-FIP Model Code formulations
+            const fco = 10;
+            const fcs = fc;
+            const strainRateStatic = 30.0e-6;
+            const strainRateMax = 300;
+            const strainRateCutoff = 30;
+
+            const alphaS = 1.0 / (5.0 + 9.0 * (fcs / fco));
+            const betaS = Math.pow(10, 6.0 * alphaS - 2);
+
+            const strainRateLow = linspace(strainRateStatic, strainRateCutoff, strainRateCutoff);
+            const DIFLow = strainRateLow.map(sr => Math.pow(sr / strainRateStatic, alphaS));
+
+            const strainRateHigh = linspace(strainRateCutoff, strainRateMax, strainRateMax - strainRateCutoff);
+            const DIFHigh = strainRateHigh.map(sr => betaS * Math.pow(sr / strainRateStatic, 1.0 / 3.0));
+
+            const strainRate = strainRateLow.concat(strainRateHigh);
+            const DIF = DIFLow.concat(DIFHigh);
+
+            return { strainRate, DIF };
+        }
+
+        function calculateDIF_t(fc) {
+            // Dynamic Increase Factor for tension
+            // Based on CEB-FIP Model Code formulations
+            const fco = 10;
+            const fcs = fc;
+            const strainRateStatic = 3.0e-6;
+            const strainRateMax = 300;
+            const strainRateCutoff = 30;
+
+            const deltaS = 1.0 / (10.0 + 6.0 * fcs / fco);
+            const betaS = Math.pow(10, 7.11 * deltaS - 2.33);
+
+            const strainRateLow = linspace(strainRateStatic, strainRateCutoff, strainRateCutoff);
+            const DIFLow = strainRateLow.map(sr => Math.pow(sr / strainRateStatic, 1.016 * deltaS));
+
+            const strainRateHigh = linspace(strainRateCutoff, strainRateMax, strainRateMax - strainRateCutoff);
+            const DIFHigh = strainRateHigh.map(sr => betaS * Math.pow(sr / strainRateStatic, 1.0 / 3.0));
+
+            const strainRate = strainRateLow.concat(strainRateHigh);
+            const DIF = DIFLow.concat(DIFHigh);
+
+            return { strainRate, DIF };
+        }
+
+
+
+        function calculate() {
+            try {
+                console.log('Starting CEB-FIP calculation...');
+                
+                // Get input values
+                const fc = parseFloat(document.getElementById('fck').value);
+                const rho = parseFloat(document.getElementById('rho').value);
+                const productionControl = document.getElementById('productionControl').value;
+                const fractureEnergyMethod = document.getElementById('fractureEnergyMethod').value;
+                
+                // Get fracture energy input based on selected method
+                let dmax, gfDirect;
+                if (fractureEnergyMethod === 'calculated') {
+                    dmax = parseFloat(document.getElementById('dmax').value);
+                } else {
+                    gfDirect = parseFloat(document.getElementById('gfDirect').value);
+                }
+                
+                // Automatic calculation of delta_f based on production control
+                let sigma; // Standard deviation
+                if (productionControl === "good") {
+                    if (fc <= 30) {
+                        sigma = 3.0;
+                    } else if (fc <= 50) {
+                        sigma = 4.0;
+                    } else {
+                        sigma = 5.0;
+                    }
+                } else if (productionControl === "normal") {
+                    if (fc <= 30) {
+                        sigma = 4.0;
+                    } else if (fc <= 50) {
+                        sigma = 5.0;
+                    } else {
+                        sigma = 6.0;
+                    }
+                } else if (productionControl === "poor") {
+                    if (fc <= 30) {
+                        sigma = 5.0;
+                    } else if (fc <= 50) {
+                        sigma = 6.0;
+                    } else {
+                        sigma = 7.0;
+                    }
+                } else {
+                    sigma = 5.0; // Default fallback
+                }
+                
+                // Calculate delta_f = 1.645 * sigma (for 5% quantile)
+                const deltaF = 1.645 * sigma;
+                const curveArraySize = 500; // Curve Resolution (points)
+
+                console.log('Input values:', { fc, rho, productionControl, fractureEnergyMethod, dmax, gfDirect });
+                console.log('Calculated constants:', { sigma, deltaF, curveArraySize });
+
+                // Validate input values based on selected method
+                if (isNaN(fc) || isNaN(rho)) {
+                    console.error('Invalid input values: fc or rho');
+                    return;
+                }
+                
+                if (fractureEnergyMethod === 'calculated' && isNaN(dmax)) {
+                    console.error('Invalid input values: dmax required for calculated method');
+                    return;
+                }
+                
+                if (fractureEnergyMethod === 'direct' && isNaN(gfDirect)) {
+                    console.error('Invalid input values: gfDirect required for direct method');
+                    return;
+                }
+
+                // Convert units to base units (MPa, mm, kg/m³) or use direct values
+                let fcBase, dmaxBase, rhoBase, deltaFBase, gfDirectBase;
+                
+                if (unitsHandler && unitsHandler.initialized) {
+                    fcBase = unitsHandler.convertToBase(fc, currentUnits.pressure, 'pressure');
+                    rhoBase = unitsHandler.convertToBase(rho, currentUnits.density, 'density');
+                    deltaFBase = deltaF; // Already in MPa
+                    
+                    if (fractureEnergyMethod === 'calculated') {
+                        dmaxBase = unitsHandler.convertToBase(dmax, currentUnits.length, 'length');
+                    } else {
+                        gfDirectBase = gfDirect; // Already in N·mm/mm²
+                    }
+                } else {
+                    // Fallback: assume input is already in base units (MPa, mm, kg/m³)
+                    fcBase = fc;
+                    rhoBase = rho;
+                    deltaFBase = deltaF;
+                    
+                    if (fractureEnergyMethod === 'calculated') {
+                        dmaxBase = dmax;
+                    } else {
+                        gfDirectBase = gfDirect;
+                    }
+                }
+
+                // 5.1.4 Compressive strength calculations
+                const fck = fcBase;
+                const fcm = fck + deltaFBase; // Mean compressive strength
+                const fbc = 1.16 * fck; // Biaxial compression strength (CORRECTED: 1.16 instead of 1.15)
+
+                // 5.1.5.1 Tensile strength calculations
+                let fctm;
+                if (fck <= 50) {
+                    fctm = 0.3 * Math.pow(fck, 2.0/3.0); // Mean tensile strength for fck ≤ 50 MPa
+                } else {
+                    fctm = 2.12 * Math.log(1 + 0.1 * (fck + deltaFBase)); // For fck > 50 MPa
+                }
+
+                const fctkMin = 0.7 * fctm; // Lower bound characteristic tensile strength
+                const fctkMax = 1.3 * fctm; // Upper bound characteristic tensile strength
+                const ft = fctm; // Uniaxial tensile strength
+                const fbt = ft; // Biaxial tensile strength
+                const ftt = ft; // Triaxial tensile strength
+
+                // 5.1.5.2 Fracture energy calculations
+                const fcm0 = 10.0; // Base value for mean compressive strength
+                let Gf, Gf0;
+                
+                if (fractureEnergyMethod === 'calculated') {
+                    // Calculate from Maximum Aggregate Size
+                    Gf0 = 0.025 + 5.31e-4 * dmaxBase; // Base fracture energy (CORRECTED: proper CEB-FIP MC2010 coefficients)
+                    Gf = Gf0 * Math.pow(fcm / fcm0, 0.7); // Fracture energy
+                } else {
+                    // Use direct input
+                    Gf = gfDirectBase;
+                    // Back-calculate Gf0 for reference (avoid division by zero)
+                    const fcmRatio = Math.max(fcm / fcm0, 0.1); // Minimum ratio to avoid numerical issues
+                    Gf0 = Gf / Math.pow(fcmRatio, 0.7);
+                }
+                
+                const Gft = Gf; // Tensile fracture energy
+                const Gfc = Gft * 100; // Compressive fracture energy
+                const Gfs = Gft; // Shear fracture energy
+
+                // 5.1.7.2 Modulus of elasticity calculations
+                const Ec0 = 21.5e3; // Base elastic modulus (MPa)
+                const alphaE = 1.0; // Aggregate quality factor
+                const Eci = Ec0 * alphaE * Math.pow((fck + deltaFBase) / fcm0, 1.0/3.0); // Initial elastic modulus
+
+                const alphaI = Math.min(1.0, 0.8 + 0.2 * fcm / 88); // Reduction factor
+                const Ec = alphaI * Eci; // Reduced elastic modulus
+                const E = Eci; // Working elastic modulus
+
+                // 5.1.7.3 Poisson's ratio
+                const nu = 0.2; // Poisson's ratio for concrete
+
+                // Other elastic moduli
+                const G = E / (2.0 * (1 + nu)); // Shear modulus
+                const K = E / (3.0 * (1 - 2.0 * nu)); // Bulk modulus
+
+                // 5.1.8.1 Compression stress-strain relation
+                // CORRECTED: Strain corresponding to fcm (proper CEB-FIP MC2010 formula)
+                const epsilonC1 = -0.7 * Math.pow(fcm, 0.31) / 1000.0; // Direct calculation without incorrect limitation
+
+                // Secant modulus from origin to peak compressive stress
+                const Ec1 = fcm / Math.abs(epsilonC1);
+                
+                // Plasticity number
+                const k = Eci / Ec1;
+
+                // Ascending branch before epsilon_c_lim
+                let epsilonCLim = 0.25 * Math.pow(0.5 * k + 1, 2) - 0.5;
+                epsilonCLim = Math.pow(epsilonCLim, 0.5);
+                epsilonCLim += 0.5 * (0.5 * k + 1);
+                epsilonCLim *= epsilonC1;
+
+                // Generate compression curve
+                const epsilonCAsc = linspace(epsilonCLim, 0, Math.floor(curveArraySize / 2));
+                const etaAsc = epsilonCAsc.map(ec => ec / epsilonC1);
+                const sigmaCAsc = etaAsc.map(eta => {
+                    return -(k * eta - Math.pow(eta, 2)) / (1 + (k - 2) * eta) * fcm;
+                });
+
+                // Descending branch after epsilon_c_lim
+                const epsilonCDesc = linspace(epsilonCLim * 5.0, epsilonCLim, Math.floor(curveArraySize / 2));
+                const eta1 = epsilonCDesc.map(ec => ec / epsilonC1);
+                const eta2 = epsilonCLim / epsilonC1;
+
+                const xi = (Math.pow(eta2, 2) * (k - 2) + 2 * eta2 - k) / Math.pow(eta2 * (k - 2) + 1, 2) * 4.0;
+                const a = 1.0 / eta2;
+
+                const sigmaCDesc = eta1.map(eta => {
+                    const numerator = xi / eta2 - 2.0 / Math.pow(eta2, 2);
+                    const term1 = numerator * Math.pow(eta, 2);
+                    const term2 = (4 / eta2 - xi) * eta;
+                    const denominator = term1 + term2;
+                    if (Math.abs(denominator) < 1e-10) {
+                        return 0;
+                    }
+                    return -fcm / denominator;
+                });
+
+                // Combine compression curves
+                const epsilonC = epsilonCDesc.concat(epsilonCAsc);
+                const sigmaC = sigmaCDesc.concat(sigmaCAsc);
+
+                // 5.1.8.2 Tension stress-strain relation
+                const epsilonCtMax = 0.15 / 1000; // Maximum tensile strain
+                const epsilonCt = linspace(0, epsilonCtMax, curveArraySize);
+                
+                const sigmaCt = epsilonCt.map((ect, i) => {
+                    const sigmaCtLow = Eci * ect;
+                    const border = 0.9 * fctm;
+                    
+                    if (sigmaCtLow <= border) {
+                        return sigmaCtLow;
+                    } else {
+                        // Softening branch
+                        const epsilonCtPeak = 0.9 * fctm / Eci;
+                        if (ect <= epsilonCtPeak) {
+                            return sigmaCtLow;
+                        } else {
+                            const sigmaCtHigh = fctm * (1 - 0.1 * (ect - epsilonCtPeak) / (0.00015 - epsilonCtPeak));
+                            return Math.max(0, sigmaCtHigh);
+                        }
+                    }
+                });
+
+                // Crack opening calculations
+                const w1 = Gf / fctm; // Crack opening at peak
+                const wc = 5.0 * Gf / fctm; // Complete crack opening
+
+                const wCrack1 = linspace(0, w1, Math.floor(curveArraySize / 2));
+                const sigmaCtCrack1 = wCrack1.map(w => fctm * (1.0 - 0.8 * w / w1));
+
+                const wCrack2 = linspace(w1, wc, Math.floor(curveArraySize / 2));
+                const sigmaCtCrack2 = wCrack2.map(w => fctm * (0.25 - 0.05 * w / w1));
+
+                const w = wCrack1.concat(wCrack2);
+                const sigmaCtCrack = sigmaCtCrack1.concat(sigmaCtCrack2);
+
+                // Store calculated data
+                currentData = {
+                    fcm, fbc, fctm, fctkMin, fctkMax,
+                    Gf, Gft, Gfc,
+                    Eci, Ec, Ec1, nu, G, K,
+                    epsilonC1, k, w1, wc,
+                    compressionCurve: { strain: epsilonC, stress: sigmaC },
+                    tensionCurve: { strain: epsilonCt, stress: sigmaCt },
+                    crackOpeningCurve: { opening: w, stress: sigmaCtCrack },
+                    difCompression: calculateDIF_c(fc),
+                    difTension: calculateDIF_t(fc),
+                    // Additional parameters for reference
+                    deltaF: deltaF,
+                    sigma: sigma,
+                    productionControl: productionControl
+                };
+
+                console.log('Calculated data:', currentData);
+                console.log('Compression curve points:', epsilonC.length, sigmaC.length);
+                console.log('Tension curve points:', epsilonCt.length, sigmaCt.length);
+
+                // Update results display
+                updateResults();
+                updateCharts();
+                updateTable();
+
+                // Show results
+                document.getElementById('results').style.display = 'grid';
+                document.getElementById('chartContainer').style.display = 'block';
+                document.getElementById('difContainer').style.display = 'block';
+                document.getElementById('tableContainer').style.display = 'block';
+
+            } catch (error) {
+                console.error('Calculation error:', error);
+            }
+        }
+
+        function updateResults() {
+            // Convert results to display units or use fallback
+            let fcmDisplay, fbcDisplay, fctmDisplay, fctkMinDisplay, fctkMaxDisplay;
+            let EciDisplay, EcDisplay, Ec1Display, GDisplay, KDisplay;
+            let w1Display, wcDisplay;
+            
+            if (unitsHandler && unitsHandler.initialized) {
+                fcmDisplay = unitsHandler.convertFromBase(currentData.fcm, currentUnits.pressure, 'pressure');
+                fbcDisplay = unitsHandler.convertFromBase(currentData.fbc, currentUnits.pressure, 'pressure');
+                fctmDisplay = unitsHandler.convertFromBase(currentData.fctm, currentUnits.pressure, 'pressure');
+                fctkMinDisplay = unitsHandler.convertFromBase(currentData.fctkMin, currentUnits.pressure, 'pressure');
+                fctkMaxDisplay = unitsHandler.convertFromBase(currentData.fctkMax, currentUnits.pressure, 'pressure');
+                
+                EciDisplay = unitsHandler.convertFromBase(currentData.Eci, currentUnits.pressure, 'pressure');
+                EcDisplay = unitsHandler.convertFromBase(currentData.Ec, currentUnits.pressure, 'pressure');
+                Ec1Display = unitsHandler.convertFromBase(currentData.Ec1, currentUnits.pressure, 'pressure');
+                GDisplay = unitsHandler.convertFromBase(currentData.G, currentUnits.pressure, 'pressure');
+                KDisplay = unitsHandler.convertFromBase(currentData.K, currentUnits.pressure, 'pressure');
+                
+                w1Display = unitsHandler.convertFromBase(currentData.w1, currentUnits.length, 'length');
+                wcDisplay = unitsHandler.convertFromBase(currentData.wc, currentUnits.length, 'length');
+            } else {
+                // Fallback: assume data is already in correct units
+                fcmDisplay = currentData.fcm;
+                fbcDisplay = currentData.fbc;
+                fctmDisplay = currentData.fctm;
+                fctkMinDisplay = currentData.fctkMin;
+                fctkMaxDisplay = currentData.fctkMax;
+                
+                EciDisplay = currentData.Eci;
+                EcDisplay = currentData.Ec;
+                Ec1Display = currentData.Ec1;
+                GDisplay = currentData.G;
+                KDisplay = currentData.K;
+                
+                w1Display = currentData.w1;
+                wcDisplay = currentData.wc;
+            }
+
+            // Update display
+            document.getElementById('fcm').textContent = formatScientific(fcmDisplay);
+            document.getElementById('fbc').textContent = formatScientific(fbcDisplay);
+            document.getElementById('fctm').textContent = formatScientific(fctmDisplay);
+            document.getElementById('fctkMin').textContent = formatScientific(fctkMinDisplay);
+            document.getElementById('fctkMax').textContent = formatScientific(fctkMaxDisplay);
+            
+            document.getElementById('gf').textContent = formatScientific(currentData.Gf);
+            document.getElementById('gft').textContent = formatScientific(currentData.Gft);
+            document.getElementById('gfc').textContent = formatScientific(currentData.Gfc);
+            
+            document.getElementById('eci').textContent = formatScientific(EciDisplay);
+            document.getElementById('ec').textContent = formatScientific(EcDisplay);
+            document.getElementById('ec1').textContent = formatScientific(Ec1Display);
+            document.getElementById('nu').textContent = formatScientific(currentData.nu);
+            document.getElementById('shearModulus').textContent = formatScientific(GDisplay);
+            document.getElementById('bulkModulus').textContent = formatScientific(KDisplay);
+            
+            document.getElementById('epsilonC1').textContent = formatScientific(currentData.epsilonC1);
+            document.getElementById('plasticityK').textContent = formatScientific(currentData.k);
+            document.getElementById('w1').textContent = formatScientific(w1Display);
+            document.getElementById('wc').textContent = formatScientific(wcDisplay);
+            
+            // Display calculation parameters
+            document.getElementById('productionControlDisplay').textContent = currentData.productionControl || 'normal';
+            
+            let sigmaDisplay, deltaFDisplay;
+            if (unitsHandler && unitsHandler.initialized) {
+                sigmaDisplay = unitsHandler.convertFromBase(currentData.sigma, currentUnits.pressure, 'pressure');
+                deltaFDisplay = unitsHandler.convertFromBase(currentData.deltaF, currentUnits.pressure, 'pressure');
+            } else {
+                sigmaDisplay = currentData.sigma;
+                deltaFDisplay = currentData.deltaF;
+            }
+            
+            document.getElementById('sigmaDisplay').textContent = formatScientific(sigmaDisplay);
+            document.getElementById('deltaFDisplay').textContent = formatScientific(deltaFDisplay);
+        }
+
+        function updateCharts() {
+            console.log('Updating charts with data:', currentData);
+            
+            if (typeof Plotly === 'undefined') {
+                console.error('Plotly is not loaded');
+                return;
+            }
+            
+            if (!currentData || !currentData.compressionCurve || !currentData.tensionCurve) {
+                console.error('No curve data available');
+                return;
+            }
+
+            try {
+                // Stress-strain curves - use simple conversion or fallback to raw values
+                let compressionStressY, tensionStressY;
+                
+                if (unitsHandler && unitsHandler.initialized) {
+                    compressionStressY = currentData.compressionCurve.stress.map(s => 
+                        unitsHandler.convertFromBase(s, currentUnits.pressure, 'pressure')
+                    );
+                    tensionStressY = currentData.tensionCurve.stress.map(s => 
+                        unitsHandler.convertFromBase(s, currentUnits.pressure, 'pressure')
+                    );
+                } else {
+                    // Fallback: assume data is already in MPa
+                    compressionStressY = currentData.compressionCurve.stress;
+                    tensionStressY = currentData.tensionCurve.stress;
+                }
+
+                const compressionTrace = {
+                    x: currentData.compressionCurve.strain.map(s => s * 1000), // Convert to millistrain
+                    y: compressionStressY,
+                    type: 'scatter',
+                    mode: 'lines',
+                    name: 'Compression',
+                    line: { color: '#e74c3c', width: 3 }
+                };
+
+                const tensionTrace = {
+                    x: currentData.tensionCurve.strain.map(s => s * 1000), // Convert to millistrain
+                    y: tensionStressY,
+                    type: 'scatter',
+                    mode: 'lines',
+                    name: 'Tension',
+                    line: { color: '#3498db', width: 3 }
+                };
+
+                const layout = {
+                    title: 'CEB-FIP Concrete Stress-Strain Curves',
+                    xaxis: { 
+                        title: 'Strain [‰]',
+                        gridcolor: '#e0e0e0'
+                    },
+                    yaxis: { 
+                        title: `Stress [${currentUnits.pressure}]`,
+                        gridcolor: '#e0e0e0'
+                    },
+                    plot_bgcolor: '#fafafa',
+                    paper_bgcolor: 'white',
+                    font: { family: 'Inter, sans-serif' },
+                    legend: { x: 0.7, y: 0.9 }
+                };
+
+                console.log('Creating stress-strain plot with traces:', [compressionTrace, tensionTrace]);
+                Plotly.newPlot('cebFipChart', [compressionTrace, tensionTrace], layout, {responsive: true});
+
+                // DIF curves
+                if (currentData.difCompression && currentData.difTension) {
+                    const difCompressionTrace = {
+                        x: currentData.difCompression.strainRate,
+                        y: currentData.difCompression.DIF,
+                        type: 'scatter',
+                        mode: 'lines',
+                        name: 'DIF Compression',
+                        line: { color: '#e74c3c', width: 3 }
+                    };
+
+                    const difTensionTrace = {
+                        x: currentData.difTension.strainRate,
+                        y: currentData.difTension.DIF,
+                        type: 'scatter',
+                        mode: 'lines',
+                        name: 'DIF Tension',
+                        line: { color: '#3498db', width: 3 }
+                    };
+
+                    const difLayout = {
+                        title: 'Dynamic Increase Factor (DIF) Curves',
+                        xaxis: { 
+                            title: 'Strain Rate [s⁻¹]',
+                            type: 'log',
+                            gridcolor: '#e0e0e0'
+                        },
+                        yaxis: { 
+                            title: 'Dynamic Increase Factor [-]',
+                            gridcolor: '#e0e0e0'
+                        },
+                        plot_bgcolor: '#fafafa',
+                        paper_bgcolor: 'white',
+                        font: { family: 'Inter, sans-serif' },
+                        legend: { x: 0.1, y: 0.9 }
+                    };
+
+                    console.log('Creating DIF plot with traces:', [difCompressionTrace, difTensionTrace]);
+                    Plotly.newPlot('difChart', [difCompressionTrace, difTensionTrace], difLayout, {responsive: true});
+                }
+
+            } catch (error) {
+                console.error('Error updating charts:', error);
+            }
+        }
+
+        function updateTable() {
+            const tableBody = document.getElementById('tableBody');
+            tableBody.innerHTML = '';
+
+            // Get current fracture energy method for proper source attribution
+            const fractureEnergyMethod = document.getElementById('fractureEnergyMethod').value;
+            const gfSource = fractureEnergyMethod === 'calculated' ? '5.1.5.2 CEB-FIP (calculated from dmax)' : '5.1.5.2 CEB-FIP (direct input)';
+
+            const properties = [
+                { name: 'Mean Compressive Strength, f<sub>cm</sub>', value: currentData.fcm, unit: currentUnits.pressure, source: '5.1.4 CEB-FIP' },
+                { name: 'Biaxial Compression Strength, f<sub>bc</sub>', value: currentData.fbc, unit: currentUnits.pressure, source: '5.1.4 CEB-FIP' },
+                { name: 'Mean Tensile Strength, f<sub>ctm</sub>', value: currentData.fctm, unit: currentUnits.pressure, source: '5.1.5.1 CEB-FIP' },
+                { name: 'Fracture Energy, G<sub>f</sub>', value: currentData.Gf, unit: 'N·mm/mm²', source: gfSource },
+                { name: 'Initial Elastic Modulus, E<sub>ci</sub>', value: currentData.Eci, unit: currentUnits.pressure, source: '5.1.7.2 CEB-FIP' },
+                { name: 'Reduced Elastic Modulus, E<sub>c</sub>', value: currentData.Ec, unit: currentUnits.pressure, source: '5.1.7.2 CEB-FIP' },
+                { name: 'Poisson\'s Ratio, ν', value: currentData.nu, unit: '-', source: '5.1.7.3 CEB-FIP' },
+                { name: 'Shear Modulus, G', value: currentData.G, unit: currentUnits.pressure, source: 'Calculated' },
+                { name: 'Bulk Modulus, K', value: currentData.K, unit: currentUnits.pressure, source: 'Calculated' }
+            ];
+
+            properties.forEach(prop => {
+                const row = tableBody.insertRow();
+                row.insertCell(0).innerHTML = prop.name;
+                
+                let displayValue = prop.value;
+                if (prop.unit === currentUnits.pressure && unitsHandler && unitsHandler.initialized && unitsHandler.convertFromBase) {
+                    displayValue = unitsHandler.convertFromBase(prop.value, currentUnits.pressure, 'pressure');
+                }
+                
+                row.insertCell(1).textContent = formatScientific(displayValue);
+                row.insertCell(2).textContent = prop.unit;
+                row.insertCell(3).textContent = prop.source;
+            });
+        }
+
+        function exportToCSV() {
+            if (!currentData || Object.keys(currentData).length === 0) {
+                alert('No data to export. Please perform calculations first.');
+                return;
+            }
+
+            let csv = 'Property,Value,Unit,Source\n';
+            
+            // Get current fracture energy method
+            const fractureEnergyMethod = document.getElementById('fractureEnergyMethod').value;
+            const gfSource = fractureEnergyMethod === 'calculated' ? '5.1.5.2 CEB-FIP (calculated from dmax)' : '5.1.5.2 CEB-FIP (direct input)';
+            
+            const properties = [
+                { name: 'Mean Compressive Strength fcm', value: currentData.fcm, unit: currentUnits.pressure, source: '5.1.4 CEB-FIP' },
+                { name: 'Biaxial Compression Strength fbc', value: currentData.fbc, unit: currentUnits.pressure, source: '5.1.4 CEB-FIP' },
+                { name: 'Mean Tensile Strength fctm', value: currentData.fctm, unit: currentUnits.pressure, source: '5.1.5.1 CEB-FIP' },
+                { name: 'Fracture Energy Gf', value: currentData.Gf, unit: 'N·mm/mm²', source: gfSource },
+                { name: 'Initial Elastic Modulus Eci', value: currentData.Eci, unit: currentUnits.pressure, source: '5.1.7.2 CEB-FIP' },
+                { name: 'Reduced Elastic Modulus Ec', value: currentData.Ec, unit: currentUnits.pressure, source: '5.1.7.2 CEB-FIP' },
+                { name: 'Poissons Ratio nu', value: currentData.nu, unit: '-', source: '5.1.7.3 CEB-FIP' },
+                { name: 'Shear Modulus G', value: currentData.G, unit: currentUnits.pressure, source: 'Calculated' },
+                { name: 'Bulk Modulus K', value: currentData.K, unit: currentUnits.pressure, source: 'Calculated' }
+            ];
+
+            properties.forEach(prop => {
+                let displayValue = prop.value;
+                if (prop.unit === currentUnits.pressure && unitsHandler && unitsHandler.initialized && unitsHandler.convertFromBase) {
+                    displayValue = unitsHandler.convertFromBase(prop.value, currentUnits.pressure, 'pressure');
+                }
+                csv += `"${prop.name}",${displayValue},"${prop.unit}","${prop.source}"\n`;
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'ceb_fip_concrete_properties.csv';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+
+        function toggleCollapse(header) {
+            const content = header.nextElementSibling;
+            const isCollapsed = header.classList.contains('collapsed');
+            
+            if (isCollapsed) {
+                header.classList.remove('collapsed');
+                content.classList.remove('collapsed');
+                content.style.maxHeight = content.scrollHeight + 'px';
+            } else {
+                header.classList.add('collapsed');
+                content.classList.add('collapsed');
+                content.style.maxHeight = '0';
+            }
+        }
+
+        // Initialize calculation on page load
+        window.addEventListener('load', function() {
+            console.log('Page loaded, Plotly available:', typeof Plotly !== 'undefined');
+            setTimeout(calculate, 500);
+        });
+    </script>
+</body>
+</html>
