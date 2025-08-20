@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unified Units Converter Example</title>
+    <link rel="stylesheet" href="../unified-styles.css">
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .input-group {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .input-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .input-with-units {
+            display: flex;
+            align-items: center;
+        }
+        
+        .input-with-units input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+        .unit-display {
+            margin-left: 10px;
+            min-width: 30px;
+            text-align: left;
+        }
+        
+        .units-panel {
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .units-panel h3 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0;
+        }
+        
+        .units-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .unit-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .unit-group label {
+            margin-bottom: 5px;
+        }
+        
+        .unit-group select {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+        .results {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+        
+        .result-item {
+            padding: 10px;
+            background-color: white;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .result-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .result-value {
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+        }
+        
+        .result-unit {
+            margin-left: 5px;
+            color: #666;
+        }
+        
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        .debug-panel {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+        }
+        
+        .debug-log {
+            height: 200px;
+            overflow-y: auto;
+            background-color: #333;
+            color: #f0f0f0;
+            padding: 10px;
+            font-family: monospace;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Unified Units Converter Example</h1>
+        
+        <div class="units-panel">
+            <h3>
+                <span>🔧 Units Settings</span>
+                <button class="units-toggle" onclick="toggleUnitsPanel()">Show/Hide</button>
+            </h3>
+            <div id="unitsSettings" class="units-grid" style="display: none;">
+                <div class="unit-group">
+                    <label>Pressure/Stress Units:</label>
+                    <select id="pressureUnit" onchange="updateUnits('pressure', this.value)">
+                        <option value="Pa">Pascal (Pa)</option>
+                        <option value="kPa">Kilopascal (kPa)</option>
+                        <option value="MPa" selected>Megapascal (MPa)</option>
+                        <option value="GPa">Gigapascal (GPa)</option>
+                        <option value="psi">Pounds per square inch (psi)</option>
+                    </select>
+                </div>
+                <div class="unit-group">
+                    <label>Strain Units:</label>
+                    <select id="strainUnit" onchange="updateUnits('strain', this.value)">
+                        <option value="" selected>Dimensionless (-)</option>
+                        <option value="%">Percent (%)</option>
+                    </select>
+                </div>
+                <div class="unit-group">
+                    <label>Temperature Units:</label>
+                    <select id="temperatureUnit" onchange="updateUnits('temperature', this.value)">
+                        <option value="K">Kelvin (K)</option>
+                        <option value="C" selected>Celsius (°C)</option>
+                        <option value="F">Fahrenheit (°F)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <form id="calculatorForm">
+            <div class="input-group">
+                <div class="input-item">
+                    <label for="youngModulus">Young's Modulus, E:</label>
+                    <div class="input-with-units">
+                        <input type="number" id="youngModulus" data-unit-type="pressure" step="any" value="200000" oninput="scheduleCalculation()">
+                        <span class="unit-display" data-unit-type="pressure">MPa</span>
+                    </div>
+                </div>
+                <div class="input-item">
+                    <label for="yieldStrength">Yield Strength, σ<sub>y</sub>:</label>
+                    <div class="input-with-units">
+                        <input type="number" id="yieldStrength" data-unit-type="pressure" step="any" value="350" oninput="scheduleCalculation()">
+                        <span class="unit-display" data-unit-type="pressure">MPa</span>
+                    </div>
+                </div>
+                <div class="input-item">
+                    <label for="strain">Strain, ε:</label>
+                    <div class="input-with-units">
+                        <input type="number" id="strain" data-unit-type="strain" step="any" value="0.05" oninput="scheduleCalculation()">
+                        <span class="unit-display" data-unit-type="strain">-</span>
+                    </div>
+                </div>
+                <div class="input-item">
+                    <label for="temperature">Temperature, T:</label>
+                    <div class="input-with-units">
+                        <input type="number" id="temperature" data-unit-type="temperature" step="any" value="25" oninput="scheduleCalculation()">
+                        <span class="unit-display" data-unit-type="temperature">°C</span>
+                    </div>
+                </div>
+            </div>
+            
+            <button type="button" onclick="calculate()">Calculate</button>
+        </form>
+        
+        <div id="results" class="results" style="display: none;">
+            <div class="result-item">
+                <div class="result-name">Elastic Modulus</div>
+                <div class="result-value">
+                    <span id="elasticModulus">-</span>
+                    <span class="result-unit" data-unit-type="pressure">MPa</span>
+                </div>
+            </div>
+            <div class="result-item">
+                <div class="result-name">Stress</div>
+                <div class="result-value">
+                    <span id="stress">-</span>
+                    <span class="result-unit" data-unit-type="pressure">MPa</span>
+                </div>
+            </div>
+            <div class="result-item">
+                <div class="result-name">Temperature Effect</div>
+                <div class="result-value">
+                    <span id="temperatureEffect">-</span>
+                    <span class="result-unit">-</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="debug-panel">
+            <h3>Debug Panel</h3>
+            <label>
+                <input type="checkbox" id="debugMode" onchange="toggleDebugMode(this.checked)"> Enable Debug Mode
+            </label>
+            <div id="debugLog" class="debug-log"></div>
+        </div>
+    </div>
+    
+    <script src="../src/js/utils/UnifiedUnitsConverter.js"></script>
+    <script>
+        // Initialize the converter
+        const unitsConverter = new UnifiedUnitsConverter();
+        let calculationTimeout;
+        
+        // Current units
+        let currentUnits = {
+            pressure: 'MPa',
+            strain: '',
+            temperature: 'C'
+        };
+        
+        // Initialize when page loads
+        window.addEventListener('DOMContentLoaded', async function() {
+            await unitsConverter.initialize();
+            console.log('UnifiedUnitsConverter initialized');
+            
+            // Override console.log to capture debug output
+            const originalConsoleLog = console.log;
+            console.log = function() {
+                // Call original console.log
+                originalConsoleLog.apply(console, arguments);
+                
+                // Add to debug log if it's a UnifiedUnitsConverter message
+                const message = Array.from(arguments).join(' ');
+                if (message.includes('[UnifiedUnitsConverter]')) {
+                    const debugLog = document.getElementById('debugLog');
+                    const logEntry = document.createElement('div');
+                    logEntry.textContent = message;
+                    debugLog.appendChild(logEntry);
+                    debugLog.scrollTop = debugLog.scrollHeight;
+                }
+            };
+        });
+        
+        function toggleUnitsPanel() {
+            const panel = document.getElementById('unitsSettings');
+            panel.style.display = panel.style.display === 'none' ? 'grid' : 'none';
+        }
+        
+        function toggleDebugMode(enabled) {
+            unitsConverter.setDebugMode(enabled);
+            console.log(`Debug mode ${enabled ? 'enabled' : 'disabled'}`);
+        }
+        
+        function updateUnits(unitType, newUnit) {
+            const oldUnits = { ...currentUnits };
+            currentUnits[unitType] = newUnit;
+            
+            console.log(`Changing ${unitType} units from ${oldUnits[unitType]} to ${newUnit}`);
+            
+            // Convert all inputs with the changed unit type
+            document.querySelectorAll(`input[data-unit-type="${unitType}"]`).forEach(input => {
+                const value = parseFloat(input.value);
+                if (!isNaN(value)) {
+                    const convertedValue = unitsConverter.convert(
+                        value, 
+                        oldUnits[unitType], 
+                        newUnit, 
+                        unitType
+                    );
+                    input.value = unitsConverter.formatValue(convertedValue);
+                    console.log(`Converted ${input.id}: ${value} ${oldUnits[unitType]} → ${convertedValue} ${newUnit}`);
+                }
+            });
+            
+            // Update unit displays
+            updateUnitDisplays();
+            
+            // Recalculate
+            scheduleCalculation();
+        }
+        
+        function updateUnitDisplays() {
+            // Update all elements with data-unit-type attribute
+            document.querySelectorAll('[data-unit-type]').forEach(element => {
+                const unitType = element.getAttribute('data-unit-type');
+                if (unitType && currentUnits[unitType] !== undefined) {
+                    // Special display for certain units
+                    if (unitType === 'strain' && currentUnits[unitType] === '') {
+                        element.textContent = '-';
+                    } else if (unitType === 'temperature' && currentUnits[unitType] === 'C') {
+                        element.textContent = '°C';
+                    } else if (unitType === 'temperature' && currentUnits[unitType] === 'F') {
+                        element.textContent = '°F';
+                    } else {
+                        element.textContent = currentUnits[unitType];
+                    }
+                }
+            });
+        }
+        
+        function scheduleCalculation() {
+            clearTimeout(calculationTimeout);
+            calculationTimeout = setTimeout(calculate, 300);
+        }
+        
+        function calculate() {
+            try {
+                // Get input values
+                const youngModulus = parseFloat(document.getElementById('youngModulus').value);
+                const yieldStrength = parseFloat(document.getElementById('yieldStrength').value);
+                const strain = parseFloat(document.getElementById('strain').value);
+                const temperature = parseFloat(document.getElementById('temperature').value);
+                
+                // Validate inputs
+                if (isNaN(youngModulus) || isNaN(yieldStrength) || isNaN(strain) || isNaN(temperature)) {
+                    console.warn('Invalid input values');
+                    return;
+                }
+                
+                // Convert to base units for calculation
+                const youngModulusBase = unitsConverter.convert(
+                    youngModulus, 
+                    currentUnits.pressure, 
+                    unitsConverter.getBaseUnit('pressure'), 
+                    'pressure'
+                );
+                
+                const yieldStrengthBase = unitsConverter.convert(
+                    yieldStrength, 
+                    currentUnits.pressure, 
+                    unitsConverter.getBaseUnit('pressure'), 
+                    'pressure'
+                );
+                
+                const strainBase = unitsConverter.convert(
+                    strain, 
+                    currentUnits.strain, 
+                    unitsConverter.getBaseUnit('strain'), 
+                    'strain'
+                );
+                
+                const temperatureBase = unitsConverter.convert(
+                    temperature, 
+                    currentUnits.temperature, 
+                    unitsConverter.getBaseUnit('temperature'), 
+                    'temperature'
+                );
+                
+                // Perform calculations in base units
+                // This is just a simple example calculation
+                const elasticModulusBase = youngModulusBase * (1 - 0.002 * (temperatureBase - 293));
+                const stressBase = Math.min(elasticModulusBase * strainBase, yieldStrengthBase);
+                const temperatureEffect = 1 - 0.002 * (temperatureBase - 293);
+                
+                // Convert results back to display units
+                const elasticModulus = unitsConverter.convert(
+                    elasticModulusBase, 
+                    unitsConverter.getBaseUnit('pressure'), 
+                    currentUnits.pressure, 
+                    'pressure'
+                );
+                
+                const stress = unitsConverter.convert(
+                    stressBase, 
+                    unitsConverter.getBaseUnit('pressure'), 
+                    currentUnits.pressure, 
+                    'pressure'
+                );
+                
+                // Display results
+                document.getElementById('elasticModulus').textContent = unitsConverter.formatValue(elasticModulus);
+                document.getElementById('stress').textContent = unitsConverter.formatValue(stress);
+                document.getElementById('temperatureEffect').textContent = temperatureEffect.toFixed(4);
+                
+                // Show results
+                document.getElementById('results').style.display = 'grid';
+                
+            } catch (error) {
+                console.error('Calculation error:', error);
+            }
+        }
+    </script>
+</body>
+</html>
