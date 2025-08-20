@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator Layout Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .calculator-link { 
+            display: inline-block; 
+            margin: 10px; 
+            padding: 15px 20px; 
+            background: #3498db; 
+            color: white; 
+            text-decoration: none; 
+            border-radius: 5px; 
+        }
+        .calculator-link:hover { background: #2980b9; }
+        .test-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #3498db;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calculator Layout Test</h1>
+    
+    <div class="test-info">
+        <h3>Test Results Layout Consistency</h3>
+        <p>All calculators should now display results in a consistent 3-column grid layout (on wide screens).</p>
+        <p><strong>Changes made:</strong></p>
+        <ul>
+            <li>Removed section headers (h3 tags) from CEB-FIP calculator results</li>
+            <li>Added fracture energy input method selector to CEB-FIP calculator</li>
+            <li>All result items now use the same CSS grid layout</li>
+        </ul>
+    </div>
+    
+    <h2>Open Calculators for Testing:</h2>
+    
+    <a href="swift_law_calculator.html" class="calculator-link" target="_blank">Swift's Law Calculator</a>
+    <a href="mooney_rivlin_calculator.html" class="calculator-link" target="_blank">Mooney-Rivlin Calculator</a>
+    <a href="johnson_cook_calculator.html" class="calculator-link" target="_blank">Johnson-Cook Calculator</a>
+    <a href="gibson_ashby_calculator.html" class="calculator-link" target="_blank">Gibson-Ashby Calculator</a>
+    <a href="ceb_fip_calculator.html" class="calculator-link" target="_blank">CEB-FIP Calculator</a>
+    
+    <div class="test-info">
+        <h3>CEB-FIP Calculator New Features:</h3>
+        <ul>
+            <li><strong>Fracture Energy Input Method Selector:</strong> Choose between calculating from Maximum Aggregate Size or direct input</li>
+            <li><strong>Consistent Layout:</strong> Results now display in the same 3-column grid as other calculators</li>
+            <li><strong>Dynamic Input Fields:</strong> Input fields change based on selected method</li>
+        </ul>
+    </div>
+    
+    <h2>Test Instructions:</h2>
+    <ol>
+        <li>Open each calculator and perform a calculation</li>
+        <li>Verify that results display in a consistent 3-column grid layout</li>
+        <li>For CEB-FIP calculator, test both fracture energy input methods:
+            <ul>
+                <li>Select "Calculate from Maximum Aggregate Size" and enter dmax value</li>
+                <li>Select "Direct Input" and enter Gf value directly</li>
+            </ul>
+        </li>
+        <li>Verify that calculations work correctly with both methods</li>
+    </ol>
+</body>
+</html>

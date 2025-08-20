@@ -13,7 +13,7 @@ Material MAP is a non-commercial, ad-free static website project aimed at assist
 - **dist/**: Contains generated file list used by the application
 - **lib/**: Contains JSON configuration files for material models
 - **src/**: Contains modular JavaScript and CSS code
-- **scripts/**: Contains utility scripts for file generation and validation
+- **scripts/**: Contains utility scripts for file list generation and validation
 - **test/**: Contains Playwright test files
 - **.github/workflows/**: Contains GitHub Actions workflow for file list generation
 - **Root files**: HTML, CSS, and JavaScript files for the static website
@@ -58,6 +58,18 @@ npm run format
 npm run lint
 ```
 
+## Features
+**Material Database**:
+- Searchable collection of LS-DYNA material models
+- Material parameters from open-access publications
+- Direct links to source articles
+
+**Material Calculators**:
+- Swift's Law Calculator for metal strain hardening
+- Johnson-Cook Calculator for dynamic material behavior
+- Mooney-Rivlin Calculator for hyperelastic materials
+- Gibson-Ashby Calculator for cellular materials
+
 ## Data Structure
 **TOML Format**:
 - Each TOML file in the `data/` directory contains an array of material definitions using `[[material]]` syntax
@@ -70,6 +82,8 @@ The application includes a service worker (`service-worker.js`) that enables off
 
 ## Testing
 **Framework**: Playwright
+**Test Location**: `test/` directory
+**Configuration**: `playwright.config.js`
 **Run Command**:
 ```bash
 npm test
@@ -77,8 +91,8 @@ npm test
 
 ## Deployment
 **Hosting**: GitHub Pages
-**URL**: https://yurynovozhilov.github.io/MaterialMap
-**Repository**: https://github.com/yurynovozhilov/MaterialMap
+**URL**: https://MaterialMap.github.io/
+**Repository**: https://github.com/MaterialMap/MaterialMap.github.io
 
 ## License
 Creative Commons Attribution-NonCommercial (CC BY-NC) License, allowing non-commercial copying and modification with attribution to the original project.

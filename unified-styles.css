@@ -230,6 +230,107 @@ input:focus, select:focus {
     font-family: 'Fira Code', 'Courier New', monospace;
 }
 
+/* Result groups */
+.result-group {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 25px;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.result-group-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0 0 15px 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #3498db;
+    display: flex;
+    align-items: center;
+}
+
+.result-group-title::before {
+    content: "■";
+    margin-right: 8px;
+    font-size: 18px;
+    color: #3498db;
+}
+
+/* Specific icons for each group */
+.result-group:nth-child(1) .result-group-title::before {
+    content: "E"; /* Elastic Characteristics */
+    font-weight: bold;
+    background: #3498db;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.result-group:nth-child(2) .result-group-title::before {
+    content: "S"; /* Strength */
+    font-weight: bold;
+    background: #e74c3c;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.result-group:nth-child(3) .result-group-title::before {
+    content: "G"; /* Fracture Energy */
+    font-weight: bold;
+    background: #f39c12;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.result-group:nth-child(4) .result-group-title::before {
+    content: "W"; /* Crack Opening */
+    font-weight: bold;
+    background: #9b59b6;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.result-group .result-item {
+    margin-bottom: 10px;
+    background: #ffffff;
+    border-left: 3px solid #3498db;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.result-group .result-item:last-child {
+    margin-bottom: 0;
+}
+
+/* Override grid layout for grouped results */
+.results.grouped {
+    display: block;
+}
+
 /* Table styles */
 table {
     width: 100%;

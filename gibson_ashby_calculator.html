@@ -33,6 +33,7 @@
                 <li><a href="mooney_rivlin_calculator.html">Mooney-Rivlin Calculator</a></li>
                 <li><a href="johnson_cook_calculator.html">Johnson-Cook Calculator</a></li>
                 <li><a href="gibson_ashby_calculator.html">Gibson-Ashby Calculator</a></li>
+                <li><a href="ceb_fip_calculator.html">CEB-FIP Calculator</a></li>
                 <li><a href="about.html">About</a></li>
             </ul>
         </div>
@@ -356,7 +357,7 @@
             document.getElementById('energyAbsorption').textContent = energyAbsorption.toFixed(energyAbsorption >= 100 ? 1 : energyAbsorption >= 10 ? 2 : 3);
             
             // Show results
-            document.getElementById('results').style.display = 'block';
+            document.getElementById('results').style.display = 'grid';
             document.getElementById('chartContainer').style.display = 'block';
             document.getElementById('tableContainer').style.display = 'block';
             
