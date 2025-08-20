@@ -335,7 +335,7 @@
         <h2 class="collapsible-header collapsed" onclick="toggleCollapse(this)">Stress-Strain Curves</h2>
         <div class="collapsible-content collapsed">
             <div class="chart-container">
-                <div id="cebFipChart" style="width: 100%; height: 600px;">
+                <div id="cebFipChart" style="width: 100%; height: 500px;">
                     <!-- Chart will be generated here -->
                 </div>
             </div>
@@ -346,7 +346,7 @@
         <h2 class="collapsible-header collapsed" onclick="toggleCollapse(this)">Dynamic Increase Factor (DIF) Curves</h2>
         <div class="collapsible-content collapsed">
             <div class="chart-container">
-                <div id="difChart" style="width: 100%; height: 600px;">
+                <div id="difChart" style="width: 100%; height: 500px;">
                     <!-- DIF Chart will be generated here -->
                 </div>
             </div>
@@ -1091,8 +1091,8 @@
         function updateCharts() {
             console.log('Updating charts with data:', currentData);
             
-            if (typeof Plotly === 'undefined') {
-                console.error('Plotly is not loaded');
+            if (!chartManager || !chartManager.isPlotlyLoaded()) {
+                console.error('PlotlyChartManager or Plotly is not loaded');
                 return;
             }
             
@@ -1136,24 +1136,37 @@
                     line: { color: '#3498db', width: 3 }
                 };
 
-                const layout = {
-                    title: 'CEB-FIP Concrete Stress-Strain Curves',
+                const stressStrainLayout = {
+                    title: {
+                        text: 'CEB-FIP Concrete Stress-Strain Curves',
+                        font: {
+                            size: 16,
+                            color: '#2c3e50'
+                        }
+                    },
                     xaxis: { 
-                        title: 'Strain [‰]',
-                        gridcolor: '#e0e0e0'
+                        title: {
+                            text: 'Strain [‰]',
+                            font: chartManager.defaultLayout.xaxis.titlefont
+                        }
                     },
                     yaxis: { 
-                        title: `Stress [${currentUnits.pressure}]`,
-                        gridcolor: '#e0e0e0'
+                        title: {
+                            text: `Stress [${currentUnits.pressure}]`,
+                            font: chartManager.defaultLayout.yaxis.titlefont
+                        }
                     },
-                    plot_bgcolor: '#fafafa',
-                    paper_bgcolor: 'white',
-                    font: { family: 'Inter, sans-serif' },
                     legend: { x: 0.7, y: 0.9 }
                 };
 
                 console.log('Creating stress-strain plot with traces:', [compressionTrace, tensionTrace]);
-                Plotly.newPlot('cebFipChart', [compressionTrace, tensionTrace], layout, {responsive: true});
+                
+                // Use the generic plot method from PlotlyChartManager
+                chartManager.createGenericPlot(
+                    'cebFipChart', 
+                    [compressionTrace, tensionTrace], 
+                    stressStrainLayout
+                );
 
                 // DIF curves
                 if (currentData.difCompression && currentData.difTension) {
@@ -1176,24 +1189,37 @@
                     };
 
                     const difLayout = {
-                        title: 'Dynamic Increase Factor (DIF) Curves',
+                        title: {
+                            text: 'Dynamic Increase Factor (DIF) Curves',
+                            font: {
+                                size: 16,
+                                color: '#2c3e50'
+                            }
+                        },
                         xaxis: { 
-                            title: 'Strain Rate [s⁻¹]',
-                            type: 'log',
-                            gridcolor: '#e0e0e0'
+                            title: {
+                                text: 'Strain Rate [s⁻¹]',
+                                font: chartManager.defaultLayout.xaxis.titlefont
+                            },
+                            type: 'log'
                         },
                         yaxis: { 
-                            title: 'Dynamic Increase Factor [-]',
-                            gridcolor: '#e0e0e0'
+                            title: {
+                                text: 'Dynamic Increase Factor [-]',
+                                font: chartManager.defaultLayout.yaxis.titlefont
+                            }
                         },
-                        plot_bgcolor: '#fafafa',
-                        paper_bgcolor: 'white',
-                        font: { family: 'Inter, sans-serif' },
                         legend: { x: 0.1, y: 0.9 }
                     };
 
                     console.log('Creating DIF plot with traces:', [difCompressionTrace, difTensionTrace]);
-                    Plotly.newPlot('difChart', [difCompressionTrace, difTensionTrace], difLayout, {responsive: true});
+                    
+                    // Use the generic plot method from PlotlyChartManager
+                    chartManager.createGenericPlot(
+                        'difChart', 
+                        [difCompressionTrace, difTensionTrace], 
+                        difLayout
+                    );
                 }
 
             } catch (error) {

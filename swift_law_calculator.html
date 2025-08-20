@@ -22,6 +22,7 @@
                 <li><a href="mooney_rivlin_calculator.html">Mooney-Rivlin Calculator</a></li>
                 <li><a href="johnson_cook_calculator.html">Johnson-Cook Calculator</a></li>
                 <li><a href="gibson_ashby_calculator.html">Gibson-Ashby Calculator</a></li>
+                <li><a href="ceb_fip_calculator.html">CEB-FIP Calculator</a></li>
                 <li><a href="about.html">About</a></li>
             </ul>
         </div>
@@ -100,7 +101,7 @@
                 </div>
             </div>
             <div class="input-item with-units">
-                <label for="elongation">Elongation at Break, A:</label>
+                <label for="elongation">Uniform Elongation (at Ultimate Tensile Strength), A:</label>
                 <div class="input-with-units">
                     <input type="number" id="elongation" step="any" value="0.08" oninput="scheduleCalculation()">
                     <span class="unit-display" id="elongationUnit">-</span>
@@ -482,6 +483,7 @@
 
         // Custom chart creation function for Swift's Law with specific styling
         function createCustomSwiftChart(containerId, datasets, options = {}) {
+            // Prepare traces with appropriate styling
             const traces = datasets.map((dataset, index) => {
                 const baseTrace = {
                     x: dataset.x,
@@ -549,8 +551,8 @@
                 }
             });
 
-            const layout = {
-                ...chartManager.defaultLayout,
+            // Prepare layout options
+            const layoutOptions = {
                 title: {
                     text: options.title || 'Stress-Strain Curves',
                     font: {
@@ -559,14 +561,12 @@
                     }
                 },
                 xaxis: {
-                    ...chartManager.defaultLayout.xaxis,
                     title: {
                         text: options.xAxisTitle || 'Strain [-]',
                         font: chartManager.defaultLayout.xaxis.titlefont
                     }
                 },
                 yaxis: {
-                    ...chartManager.defaultLayout.yaxis,
                     title: {
                         text: options.yAxisTitle || `Stress [${options.stressUnit || 'MPa'}]`,
                         font: chartManager.defaultLayout.yaxis.titlefont
@@ -574,7 +574,8 @@
                 }
             };
 
-            return Plotly.newPlot(containerId, traces, layout, chartManager.defaultConfig);
+            // Use the generic plot method from PlotlyChartManager
+            return chartManager.createGenericPlot(containerId, traces, layoutOptions);
         }
 
         function exportToCSV() {

@@ -19,6 +19,12 @@ Material MAP is a static website, built to offer a reference library for materia
 - **Citation Information**: Each reference includes proper citation details to give credit to the original authors.
 - **User Contribution**: Contributions are encouraged, allowing users to add new material models or improve data accuracy.
 - **Automatic Date Tracking**: File modification dates are automatically tracked using Git history.
+- **Material Calculators**: Interactive calculators for various material models:
+  - Swift's Law Calculator for metal strain hardening
+  - Johnson-Cook Calculator for dynamic material behavior
+  - Mooney-Rivlin Calculator for hyperelastic materials
+  - Gibson-Ashby Calculator for cellular materials
+  - CEB-FIP Calculator for concrete properties
 
 ## Contributing to MaterialMap
 
@@ -205,6 +211,7 @@ The project uses automatic date calculation for all materials. The `add` field h
     - **src/js/components/**: UI components
     - **src/js/modules/**: Core functionality modules
     - **src/js/utils/**: Utility functions and helpers
+      - **PlotlyChartManager.js**: Unified chart management for all calculators
   - **src/css/**: CSS styles
     - **src/css/base/**: Base styles
     - **src/css/components/**: Component-specific styles
@@ -229,12 +236,44 @@ The project uses automatic date calculation for all materials. The `add` field h
   - jQuery (v3.7.0) - JavaScript library
   - DataTables (v1.13.7) - Table enhancement plugin
   - smol-toml (v1.3.1) - TOML parsing library
+  - Plotly.js (v2.32.0) - Interactive charting library
   - Google Fonts (Inter, Fira Code)
 
 - **Development Dependencies**:
   - Playwright (v1.54.2) - Testing framework
   - ESLint (v8.56.0) - Code linting
   - Prettier (v3.1.0) - Code formatting
+
+### Unified Plotting System
+
+The project implements a unified plotting system through the `PlotlyChartManager` class to ensure consistent chart styling and behavior across all calculators.
+
+#### Key Features
+
+- **Consistent Styling**: All charts share the same visual style and interactive features
+- **Simplified API**: Common chart creation methods for different material models
+- **Responsive Design**: Charts automatically resize based on screen dimensions
+- **Export Functionality**: Built-in support for exporting charts as images
+
+#### Usage
+
+The `PlotlyChartManager` provides both specialized methods for specific chart types and a generic method for custom charts:
+
+```javascript
+// Initialize chart manager
+const chartManager = new PlotlyChartManager();
+
+// Create a generic plot
+chartManager.createGenericPlot('chartContainerId', traces, layoutOptions);
+
+// Create specialized material model charts
+chartManager.createSwiftLawChart('containerId', parameters, options);
+chartManager.createJohnsonCookChart('containerId', parameters, strainRates, options);
+chartManager.createMooneyRivlinChart('containerId', parameters, options);
+chartManager.createGibsonAshbyChart('containerId', parameters, options);
+```
+
+For detailed documentation, see `/src/js/utils/README-PlotlyChartManager.md`.
 
 ### Build & Installation
 

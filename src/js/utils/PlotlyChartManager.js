@@ -530,6 +530,118 @@ class PlotlyChartManager {
     }
 
     /**
+     * Create a generic plot with consistent styling
+     * @param {string} containerId - ID of the container element
+     * @param {Array} traces - Array of Plotly trace objects
+     * @param {Object} layoutOptions - Custom layout options to merge with defaults
+     * @param {Object} configOptions - Custom config options to merge with defaults
+     * @returns {Promise} Promise that resolves when the plot is created
+     */
+    createGenericPlot(containerId, traces, layoutOptions = {}, configOptions = {}) {
+        if (!this.isPlotlyLoaded()) {
+            console.error('Plotly.js is not loaded. Cannot create plot.');
+            return Promise.reject(new Error('Plotly.js not loaded'));
+        }
+
+        // Check if container exists
+        const container = document.getElementById(containerId);
+        if (!container) {
+            console.error(`Container element with ID '${containerId}' not found`);
+            return Promise.reject(new Error(`Container not found: ${containerId}`));
+        }
+
+        // Apply consistent styling to all traces
+        const styledTraces = traces.map((trace, index) => {
+            // Create a new object to avoid modifying the original
+            const styledTrace = {...trace};
+            
+            // Default line styling if not specified
+            if (styledTrace.type === 'scatter' && styledTrace.mode === 'lines' && !styledTrace.line) {
+                styledTrace.line = {
+                    color: this.colorPalette[index % this.colorPalette.length],
+                    width: 2.5
+                };
+            }
+            return styledTrace;
+        });
+
+        // Deep merge for title to ensure consistent font styling
+        let titleConfig = this.defaultLayout.title || { font: { size: 16, color: '#2c3e50' } };
+        if (layoutOptions.title) {
+            if (typeof layoutOptions.title === 'string') {
+                // Convert string title to object format
+                titleConfig = {
+                    text: layoutOptions.title,
+                    font: titleConfig.font
+                };
+            } else {
+                // Merge with existing title object
+                titleConfig = {
+                    ...titleConfig,
+                    ...layoutOptions.title,
+                    font: {
+                        ...(titleConfig.font || {}),
+                        ...(layoutOptions.title.font || {})
+                    }
+                };
+            }
+        }
+
+        // Merge custom layout with default layout
+        const layout = {
+            ...this.defaultLayout,
+            ...layoutOptions,
+            // Set explicit title with consistent styling
+            title: titleConfig,
+            // Ensure nested properties are properly merged
+            xaxis: {
+                ...this.defaultLayout.xaxis,
+                ...(layoutOptions.xaxis || {}),
+                // Ensure title font is consistent
+                title: {
+                    ...(this.defaultLayout.xaxis.title || {}),
+                    ...((layoutOptions.xaxis && layoutOptions.xaxis.title) || {}),
+                    font: {
+                        ...(this.defaultLayout.xaxis.titlefont || {}),
+                        ...((layoutOptions.xaxis && layoutOptions.xaxis.title && layoutOptions.xaxis.title.font) || {})
+                    }
+                }
+            },
+            yaxis: {
+                ...this.defaultLayout.yaxis,
+                ...(layoutOptions.yaxis || {}),
+                // Ensure title font is consistent
+                title: {
+                    ...(this.defaultLayout.yaxis.title || {}),
+                    ...((layoutOptions.yaxis && layoutOptions.yaxis.title) || {}),
+                    font: {
+                        ...(this.defaultLayout.yaxis.titlefont || {}),
+                        ...((layoutOptions.yaxis && layoutOptions.yaxis.title && layoutOptions.yaxis.title.font) || {})
+                    }
+                }
+            },
+            // Ensure consistent margins
+            margin: {
+                ...this.defaultLayout.margin,
+                ...(layoutOptions.margin || {})
+            }
+        };
+
+        // Merge custom config with default config
+        const config = {
+            ...this.defaultConfig,
+            ...configOptions
+        };
+
+        try {
+            return Plotly.newPlot(containerId, styledTraces, layout, config);
+        } catch (error) {
+            console.error(`Failed to create plot in ${containerId}:`, error);
+            return Promise.reject(error);
+        }
+    }
+
+    /**
      * Check if Plotly.js is loaded
      * @returns {boolean} True if Plotly is available
      */
