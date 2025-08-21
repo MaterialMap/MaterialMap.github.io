@@ -7,6 +7,7 @@ import { processMaterialData } from '../modules/MaterialParser.js';
 
 export class MaterialTable {
   constructor(tableSelector, materialDictionaries) {
+    console.log('MaterialTable constructor called - with metadata comments functionality!');
     this.tableSelector = tableSelector;
     this.materialDictionaries = materialDictionaries;
     this.table = null;
@@ -132,24 +133,34 @@ export class MaterialTable {
       : `<div class="reference-block"><strong>Reference: </strong><a href="${material.url}" target="_blank">${material.url}</a></div>`;
     contentElements.push(referenceHtml);
     
+    // Add units information if it exists
+    if (material.units) {
+      contentElements.push(`<div class="units-block"><strong>Units: </strong><span class="units-info">${escapeHtml(material.units)}</span></div>`);
+    }
+    
+    // Add comments if they exist
+    if (material.comments) {
+      contentElements.push(`<div class="comments-block"><strong>Comments: </strong><span class="comments-info">${escapeHtml(material.comments)}</span></div>`);
+    }
+    
     // Add material data if it exists
     if (material.mat_data) {
-      contentElements.push(this.createCodeBlock("*MAT", material.mat_data));
+      contentElements.push(this.createCodeBlock("*MAT", material.mat_data, material));
     }
     
     // Add EOS data if it exists
     if (material.eos_data) {
-      contentElements.push(this.createCodeBlock("*EOS", material.eos_data));
+      contentElements.push(this.createCodeBlock("*EOS", material.eos_data, material));
     }
     
     // Add MAT_ADD data if it exists
     if (material.mat_add_data) {
-      contentElements.push(this.createCodeBlock("*MAT_ADD", material.mat_add_data));
+      contentElements.push(this.createCodeBlock("*MAT_ADD", material.mat_add_data, material));
     }
     
     // Add MAT_THERMAL data if it exists
     if (material.mat_thermal_data) {
-      contentElements.push(this.createCodeBlock("*MAT_THERMAL", material.mat_thermal_data));
+      contentElements.push(this.createCodeBlock("*MAT_THERMAL", material.mat_thermal_data, material));
     }
     
     return contentElements;
@@ -158,8 +169,12 @@ export class MaterialTable {
   /**
    * Create a code block with header and copy button
    */
-  createCodeBlock(title, content) {
-    const escapedContent = escapeHtml(content);
+  createCodeBlock(title, content, material = null) {
+    // Add additional fields as comments after the second line
+    console.log('createCodeBlock called with:', { title, content, material });
+    const modifiedContent = this.addMetadataComments(content, material);
+    console.log('Modified content:', modifiedContent);
+    const escapedContent = escapeHtml(modifiedContent);
     const id = generateId('code-block');
     
     return `
@@ -170,6 +185,148 @@ export class MaterialTable {
         </div>
         <pre id="${id}"><code>${escapedContent}</code></pre>
       </div>`;
+  }
+
+  /**
+   * Split long text into multiple lines with specified prefix
+   */
+  splitLongLine(prefix, text, maxLength = 78) {
+    const fullLine = `${prefix} ${text}`;
+    
+    // If the line is not too long, return as is
+    if (fullLine.length <= maxLength) {
+      return [fullLine];
+    }
+    
+    const lines = [];
+    let remainingText = text;
+    let isFirstLine = true;
+    
+    while (remainingText.length > 0) {
+      const currentPrefix = isFirstLine ? prefix : '$';
+      const availableSpace = maxLength - currentPrefix.length - 1; // -1 for space after prefix
+      
+      if (remainingText.length <= availableSpace) {
+        // Remaining text fits in one line
+        lines.push(`${currentPrefix} ${remainingText}`);
+        break;
+      }
+      
+      // Find the best split point
+      let splitIndex = availableSpace;
+      
+      // Try to split by space first
+      let lastSpaceIndex = remainingText.lastIndexOf(' ', splitIndex);
+      if (lastSpaceIndex > 0) {
+        splitIndex = lastSpaceIndex;
+      } else {
+        // Try to split by "/" if no space found
+        let lastSlashIndex = remainingText.lastIndexOf('/', splitIndex);
+        if (lastSlashIndex > 0) {
+          splitIndex = lastSlashIndex + 1; // Include "/" in current line
+        }
+        // If no good split point found, force split at maxLength
+      }
+      
+      const currentLine = remainingText.substring(0, splitIndex).trim();
+      lines.push(`${currentPrefix} ${currentLine}`);
+      
+      remainingText = remainingText.substring(splitIndex).trim();
+      isFirstLine = false;
+    }
+    
+    return lines;
+  }
+
+  /**
+   * Add metadata comments to LS-DYNA card content
+   */
+  addMetadataComments(content, material) {
+    if (!material || !content) return content;
+    
+    console.log('Adding metadata comments for material:', material);
+    
+    const lines = content.split('\n');
+    if (lines.length < 2) return content;
+    
+    // Check if content already contains metadata comments
+    const contentStr = content.toLowerCase();
+    const hasUnits = material.units && (
+      contentStr.includes('$ units:') || 
+      contentStr.includes('$units:') ||
+      contentStr.includes('units:') ||
+      contentStr.includes(material.units.toLowerCase().substring(0, Math.min(15, material.units.length)))
+    );
+    const hasReference = material.ref && (
+      contentStr.includes('$ reference:') || 
+      contentStr.includes('$reference:') || 
+      contentStr.includes('reference:') ||
+      contentStr.includes(material.ref.toLowerCase().substring(0, Math.min(30, material.ref.length)))
+    );
+    const hasUrl = material.url && (
+      contentStr.includes('$ url:') || 
+      contentStr.includes('$url:') || 
+      contentStr.includes('url:') ||
+      contentStr.includes(material.url.toLowerCase().substring(0, Math.min(25, material.url.length)))
+    );
+    const hasComments = material.comments && (
+      contentStr.includes('$ comments:') || 
+      contentStr.includes('$comments:') ||
+      contentStr.includes('comments:')
+    );
+    
+    // Log what metadata was found
+    console.log('Metadata detection:', { hasUnits, hasReference, hasUrl, hasComments });
+    
+    // Find the position to insert comments (after the second non-empty line)
+    let insertPosition = 1;
+    let nonEmptyCount = 0;
+    
+    for (let i = 0; i < lines.length; i++) {
+      if (lines[i].trim() !== '') {
+        nonEmptyCount++;
+        if (nonEmptyCount === 2) {
+          insertPosition = i + 1;
+          break;
+        }
+      }
+    }
+    
+    // Prepare metadata comments (only for missing metadata)
+    const metadataComments = [];
+    
+    if (material.units && !hasUnits) {
+      const unitsLines = this.splitLongLine('$ Units:', material.units);
+      metadataComments.push(...unitsLines);
+    }
+    
+    if (material.ref && !hasReference) {
+      const refLines = this.splitLongLine('$ Reference:', material.ref);
+      metadataComments.push(...refLines);
+    }
+    
+    if (material.url && !hasUrl) {
+      const urlLines = this.splitLongLine('$ URL:', material.url);
+      metadataComments.push(...urlLines);
+    }
+    
+    if (material.comments && !hasComments) {
+      const commentLines = this.splitLongLine('$ Comments:', material.comments);
+      metadataComments.push(...commentLines);
+    }
+    
+    // Insert metadata comments
+    if (metadataComments.length > 0) {
+      const beforeInsert = lines.slice(0, insertPosition);
+      const afterInsert = lines.slice(insertPosition);
+      
+      const result = [...beforeInsert, ...metadataComments, ...afterInsert].join('\n');
+      console.log('Final result with metadata comments:', result);
+      return result;
+    }
+    
+    console.log('No metadata comments to add');
+    return content;
   }
 
   /**

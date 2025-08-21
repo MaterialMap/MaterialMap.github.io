@@ -1,10 +1,9 @@
 [[material]]
+units = "psi inch sec "
+
 mat_data = """
 *MAT_PSEUDO_TENSOR_TITLE
 Concrete model input sample: Mode II Concrete Model Option with automatic EOS
-$ ftp.lstc.com concrete model FAQ
-$ https://ftp.lstc.com/anonymous/outgoing/support/FAQ/concrete_models_faq
-$ Psi, inch, sec, lbf-s2/inch4, lbf
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     mid        ro         g        pr
         16 2.2000E-4     0.000  0.200000
@@ -30,12 +29,11 @@ ref = "ftp.lstc.com concrete model FAQ"
 url = "https://ftp.lstc.com/anonymous/outgoing/support/FAQ/concrete_models_faq"
 
 [[material]]
+units = "psi inch sec "
+
 mat_data = """
 *MAT_SOIL_AND_FOAM_TITLE
 Concrete model input sample
-$ ftp.lstc.com concrete model FAQ
-$ https://ftp.lstc.com/anonymous/outgoing/support/FAQ/concrete_models_faq
-$ Psi, inch, sec, lbf-s2/inch4, lbf
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     mid        ro         g      bulk        a0        a1        a2        pc
          5 2.2000E-4 7.8800E+5 6.0000E+6 2.4390E+6 6025.0000 -0.051900-300.00000

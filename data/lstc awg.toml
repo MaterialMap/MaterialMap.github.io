@@ -2,8 +2,6 @@
 mat_data = """
 *MAT_NULL_TITLE
 Water
-$ The LS-DYNA Aerospace Working Group (AWG):
-$ Modeling Guidelines Document (MGD)
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID        RO        PC        MU     TEROD     CEROD        YM        PR
          9     1.e‐9     ‐1E-4    1.0e‐3         0         0         0         0
@@ -12,8 +10,6 @@ $--------1---------2---------3---------4---------5---------6---------7---------8
 eos_data = """
 *EOS_GRUNEISEN_TITLE
 Water
-$ The LS-DYNA Aerospace Working Group (AWG):
-$ Modeling Guidelines Document (MGD)
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#   EOSID         C        S1        S2        S3    GAMMAO         A        E0
          9    1500e3      1.75         0         0      0.28         0         0
@@ -32,8 +28,6 @@ url = "https://awg.ansys.com/AWG+LS-DYNA+%2AMAT_213+Resources"
 mat_data = """
 *MAT_NULL_TITLE
 Air, initial pressure of 1 bar
-$ The LS-DYNA Aerospace Working Group (AWG):
-$ Modeling Guidelines Document (MGD)
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID        RO        PC        MU     TEROD     CEROD        YM        PR
          9   1.0e‐12         0         0         0         0         0         0
@@ -42,8 +36,6 @@ $--------1---------2---------3---------4---------5---------6---------7---------8
 eos_data = """
 *EOS_IDEAL_GAS_TITLE
 Air, initial pressure of 1 bar
-$ The LS-DYNA Aerospace Working Group (AWG):
-$ Modeling Guidelines Document (MGD)
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#   EOSID        Cv        Cp        C1        C2        T0        V0
          9     719.0    1006.0       0.0       0.0    298.15       0.0
@@ -60,8 +52,6 @@ url = "https://awg.ansys.com/AWG+LS-DYNA+%2AMAT_213+Resources"
 mat_data = """
 *MAT_NULL_TITLE
 Air, initial pressure of 1 bar
-$ The LS-DYNA Aerospace Working Group (AWG):
-$ Modeling Guidelines Document (MGD)
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID        RO        PC        MU     TEROD     CEROD        YM        PR
          9   1.0e‐12         0         0         0         0         0         0
@@ -70,8 +60,6 @@ $--------1---------2---------3---------4---------5---------6---------7---------8
 eos_data = """
 *EOS_LINEAR_POLYNOMIAL_TITLE
 Air, initial pressure of 1 bar
-$ The LS-DYNA Aerospace Working Group (AWG):
-$ Modeling Guidelines Document (MGD)
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#   EOSID        C0        C1        C2        C3        C4        C5        C6
          9         0         0         0         0       0.4       0.4         0
@@ -90,7 +78,6 @@ url = "https://awg.ansys.com/AWG+LS-DYNA+%2AMAT_213+Resources"
 mat_data = """
 *MAT_COMPOSITE_TABULATED_PLASTICITY_DAMAGE_TITLE
 T800-F3900 UD
-$ The material card is published on the website and is regularly updated and refined.
 """
 app = [
   "T800-F3900 UD",
@@ -102,13 +89,10 @@ url = "https://awg.ansys.com/AWG+LS-DYNA+%2AMAT_213+Resources"
 
 
 [[material]]
+ubits = "in sec psi"
 mat_data = """
 *MAT_DRY_FABRIC_TITLE
 Kevlar
-$ "The LS-DYNA Aerospace Working Group (AWG)"
-$ "https://awg.ansys.com/Material+Parameter+Sets"
-$    Units:  in (length), s (time), lbf (force), 
-$            lbf-s^2/in (mass), psi (stress), lbf-in (energy)
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     mid        ro        EA        EB      GAB1      GAB2      GAB3      
          4   7.48E-5    4.68E6    4.68E6     6.0E2     6.0E3     5.0E4
@@ -136,20 +120,11 @@ url = "https://awg.ansys.com/Material+Parameter+Sets"
 
 
 [[material]]
+units = "in sec psi"
+
 mat_data = """
 *MAT_PLASTICITY_COMPRESSION_TENSION_EOS_TITLE
 Ice
-$ https://awg.ansys.com/Material+Parameter+Sets
-$ Reference:      Carney K., Benson D., DuBois P., Lee R., &quot;A Phenomenological
-$                 High Strain Rate Model with Failure for Ice&quot;, International
-$                 Journal of Structures and Solids 43 (2006) 7820-7839.
-$
-$                 Carney K., Benson D., DuBois P., Lee R., &quot;A Phenomenological
-$                 High Strain Rate Model with Failure for Ice&quot;, 9th International
-$                 Users Conference 2006.
-$ 
-$ Units:          in (length), s (time), lbf-s2/in (mass), psi (stress),
-$                 lbf-in (energy)  
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     mid        ro         e        pr         c         p      fail      tdel
       11008.40000E-5   1350000      0.33       0.0       0.01.00000E20       0.0
@@ -225,17 +200,6 @@ $--------1---------2---------3---------4---------5---------6---------7---------8
 eos_data = """
 *EOS_TABULATED_COMPACTION_TITLE
 Ice
-$ https://awg.ansys.com/Material+Parameter+Sets
-$ Reference:      Carney K., Benson D., DuBois P., Lee R., &quot;A Phenomenological
-$                 High Strain Rate Model with Failure for Ice&quot;, International
-$                 Journal of Structures and Solids 43 (2006) 7820-7839.
-$
-$                 Carney K., Benson D., DuBois P., Lee R., &quot;A Phenomenological
-$                 High Strain Rate Model with Failure for Ice&quot;, 9th International
-$                 Users Conference 2006.
-$ 
-$ Units:          in (length), s (time), lbf-s2/in (mass), psi (stress),
-$                 lbf-in (energy)  
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#   eosid      gama        e0        vo  
      70055       0.0       0.0       0.0
@@ -269,7 +233,6 @@ url = "https://awg.ansys.com/Material+Parameter+Sets"
 mat_data = """
 *MAT_TABULATED_JOHNSON_COOK_TITLE
 Ti-6Al-4V P3
-$ The material card is published on the website and is regularly updated and refined.
 """
 app = [
   "Ti-6Al-4V P3",
@@ -283,13 +246,12 @@ url = "https://awg.ansys.com/Material+Parameter+Sets"
 mat_data = """
 *MAT_TABULATED_JOHNSON_COOK_TITLE
 Ti-6Al-4V P4
-$ The material card is published on the website and is regularly updated and refined.
 """
 app = [
   "Ti-6Al-4V P4",
   "Titanium",
 ]
-ref = "ti"
+ref = "The LS-DYNA Aerospace Working Group (AWG)"
 
 url = "https://awg.ansys.com/Material+Parameter+Sets"
 
@@ -297,7 +259,6 @@ url = "https://awg.ansys.com/Material+Parameter+Sets"
 mat_data = """
 *MAT_TABULATED_JOHNSON_COOK_TITLE
 Aluminum 2024
-$ The material card is published on the website and is regularly updated and refined.
 """
 app = [
   "Aluminum 2024",
@@ -310,7 +271,6 @@ url = "https://awg.ansys.com/Material+Parameter+Sets"
 mat_data = """
 *MAT_TABULATED_JOHNSON_COOK_TITLE
 Inconel 718
-$ The material card is published on the website and is regularly updated and refined.
 """
 app = [
   "Inconel 718",

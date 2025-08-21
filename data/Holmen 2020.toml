@@ -2,10 +2,6 @@
 mat_data = """
 *MAT_NON_QUADRATIC_FAILURE_TITLE
 Aluminium
-$ Holmen, J. K., Johnsen, J., Morin, D., Børvik, T., & Langseth, M. (2020).
-$ Application of *MAT_258 for Bending and Crushing of Extruded Aluminum Profiles
-$ Using Shell Elements. 16th International LS-DYNA® Users Conference -
-$ Constitutive Modeling, June 10-11, 2020, 1–13.
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     mid        ro         e        pr    sigma0         a      rksi      rmap
        258    2700.0   70000.0       0.3     317.0
@@ -28,10 +24,6 @@ url = "https://www.dynalook.com/conferences/16th-international-ls-dyna-conferenc
 mat_data = """
 *MAT_NON_QUADRATIC_FAILURE_TITLE
 Aluminium
-$ Holmen, J. K., Johnsen, J., Morin, D., Børvik, T., & Langseth, M. (2020).
-$ Application of *MAT_258 for Bending and Crushing of Extruded Aluminum Profiles
-$ Using Shell Elements. 16th International LS-DYNA® Users Conference -
-$ Constitutive Modeling, June 10-11, 2020, 1–13.
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     mid        ro         e        pr    sigma0         a      rksi      rmap
        258    2700.0   70000.0       0.3     255.0

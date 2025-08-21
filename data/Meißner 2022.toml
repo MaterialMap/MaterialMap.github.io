@@ -2,9 +2,6 @@
 mat_data = """
 *MAT_SAMP-1_TITLE
 ABS (one of the dataset)
-$ Meißner P, Winter J, Vietor T. Methodology for Neural Network-Based Material
-$ Card Calibration Using LS-DYNA MAT_187_SAMP-1 Considering Failure with GISSMO.
-$ Materials. 2022; 15(2):643. https://doi.org/10.3390/ma15020643
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     mid        ro      bulk      gmod      emod       nue    rbcfac    numint
        187 1.0400E-9    2250.0    2127.3    2127.3      0.35       0.0         0
@@ -988,9 +985,6 @@ $--------1---------2---------3---------4---------5---------6---------7---------8
 mat_add_data = """
 *MAT_ADD_DAMAGE_GISSMO
 ABS (one of the dataset)
-$ Meißner P, Winter J, Vietor T. Methodology for Neural Network-Based Material
-$ Card Calibration Using LS-DYNA MAT_187_SAMP-1 Considering Failure with GISSMO.
-$ Materials. 2022; 15(2):643. https://doi.org/10.3390/ma15020643
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID                DTYP     REFSZ    NUMFIP   VOLFRAC
        187                 1.6       0.0       1.0

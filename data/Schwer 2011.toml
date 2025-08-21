@@ -2,7 +2,6 @@
 mat_data = """
 *MAT_SOIL_AND_FOAM_TITLE
 Gravel as Norway Sandy Soil
-$ https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID       RHO         G      Bulk        a0        a1        a2        PC
        505  1.53E-03      76.9   157.9e3      0.00      0.00      0.65   -6.9e-3
@@ -30,7 +29,6 @@ url = "https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz"
 mat_data = """
 *MAT_SOIL_AND_FOAM_TITLE
 Clay as Norway Sandy Soil
-$ https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID       RHO         G      Bulk        a0        a1        a2        PC
        405  2.07E-03      76.9   157.9e3      0.00      0.00      0.65   -6.9e-3
@@ -58,7 +56,6 @@ url = "https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz"
 mat_data = """
 *MAT_SOIL_AND_FOAM_TITLE
 Norway Sandy Soil
-$ https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID       RHO         G      Bulk        a0        a1        a2        PC
        115  1.63E-03      76.9   157.9e3      0.00      0.00      0.65   -6.9e-3
@@ -82,11 +79,11 @@ app = [
 url = "https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz"
 
 [[material]]
+units = "mm ms MPa"
+
 mat_data = """
 *MAT_PSEUDO_TENSOR_TITLE
 Concrete with unconfined compression strength 5 ksi = 34.5 MPa
-$ units: Newtons-millimeter-millisecond-MPa)
-$ https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID        RO         G        PR 
         16   2.17E-3    4.60e3       0.1                             
@@ -111,11 +108,10 @@ app = [
 url = "https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz"
 
 [[material]]
+units = "mm ms MPa"
 mat_data = """
 *MAT_CONCRETE_DAMAGE_REL3_TITLE
 Concrete with unconfined compression strength 5 ksi = 34.5 MPa
-$ units: Newtons-millimeter-millisecond-MPa)
-$ https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#   MATID        RO        PR
        723   2.17E-3  0.00E+00 
@@ -141,12 +137,11 @@ url = "https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz"
 
 
 [[material]]
+units = "mm ms grams"
+
 mat_data = """
 *MAT_HIGH_EXPLOSIVE_BURN_TITLE
 ANFO - Weidlinger
-$ units: simulation units: grams - millimeters - milliseconds
-$ https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz
-$ Dr. Binky Lee of Weidlinger Associates as used in the Weidlinger FLEX code
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID        RO         D       PCJ      BETA
        110   8.20E-4    4.55E3    5.50E3       0.0
@@ -155,9 +150,6 @@ $--------1---------2---------3---------4---------5---------6---------7---------8
 eos_data = """
 *EOS_JWL_TITLE
 ANFO - Weidlinger
-$ units: simulation units: grams - millimeters - milliseconds
-$ https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz
-$ Dr. Binky Lee of Weidlinger Associates as used in the Weidlinger FLEX code
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#   EOSID         A         B        R1        R2      OMEG        E0        V0
        110    4.20E4      44.0      3.55      0.16      0.41    3.15E3       1.0
@@ -171,13 +163,10 @@ url = "https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz"
 ref = "Weidlinger FLEX code"
 
 [[material]]
+units = "mm ms grams"
 mat_data = """
 *MAT_HIGH_EXPLOSIVE_BURN_TITLE
 DETASHEET EL-506C LLNL
-$ units: simulation units: grams - millimeters - milliseconds
-$ https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz
-$ LLNL Explosives Handbook Properties of Chemical Explosives and Explosive 
-$ Simulants UCRL-52997
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID        RO         D       PCJ      BETA
         10   1.48E-3     7.0E3    1.95E4       0.0
@@ -204,12 +193,10 @@ ref = "LLNL Explosives Handbook Properties of Chemical Explosives and Explosive 
 
 
 [[material]]
+units = "mm ms grams"
 mat_data = """
 *MAT_HIGH_EXPLOSIVE_BURN_TITLE
 DETASHEET C-88 - SRI International
-$ units: simulation units: grams - millimeters - milliseconds
-$ https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz
-$ Dr. James Gran of SRI International
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID        RO         D       PCJ      BETA
        111   1.48E-3    6.26E3    1.16E4       0.0
@@ -218,9 +205,6 @@ $--------1---------2---------3---------4---------5---------6---------7---------8
 eos_data = """
 *EOS_JWL_TITLE
 DETASHEET C-88 - SRI International
-$ units: simulation units: grams - millimeters - milliseconds
-$ https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz
-$ Dr. James Gran of SRI International
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#   EOSID         A         B        R1        R2      OMEG        E0        V0
        111    2.99E6    2.12E4     7.728      1.90     0.158    5.94E3       1.0
@@ -234,11 +218,10 @@ url = "https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz"
 ref = "Dr. James Gran of SRI International"
 
 [[material]]
+units = "mm ms grams"
 mat_data = """
 *MAT_NULL_TITLE
 Water
-$ units: simulation units: grams - millimeters - milliseconds
-$ https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID       RHO        PC        MU     TEROD     CEROD        YM        PR 
          9 1.000E-03       0.0 
@@ -247,8 +230,6 @@ $--------1---------2---------3---------4---------5---------6---------7---------8
 eos_data = """
 *EOS_GRUNEISEN_TITLE
 Water
-$ units: simulation units: grams - millimeters - milliseconds
-$ https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#   EOSID         C        S1        S2        S3     GAMMA         A        E0 
          9 -1.484E+3     1.979                         0.110               0.909
@@ -262,26 +243,12 @@ app = [
 url = "https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz"
 
 [[material]]
+
+units = "mm ms gram"
+
 mat_data = """
 *MAT_NULL_TITLE
 Failed C26000 Cartridge Brass 
-$ https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz
-$ "Johnson, GR, and TJ Holmquist,Test Data and Computational Strength and 
-$ Fracture Model Constants for 23 materials Subjected to Large Strains, High 
-$ Strain Rates, and High Temperatures, Los Alamos Technical Report LA-11463-MS, 
-$ Los Alamos National$ Laboratory, Los Alamos, NM, 1989. Cartridge Brass 
-$ Rockwell F-67"
-$ Parameters provided: A=16.2 ksi=111.7 MPa, B=73.2 ksi=504.8 MPa, 
-$                      N=0.42, M=1.68(=p)
-$                      EPS0=1.0/s(=1E-3/ms)  C=0.009
-$                      RO=7.97E-4 lbf-sec^/in^4=8.5279E-3 g/mm^3
-$                      Cp=332E3 in^2/(F-sec^2)
-$                        =385.4 J/Kg-K[=486 mm^2/(ms^2-K)]
-$                      TM=1680F = 1188.7K
-$   Damage paramters: D1=-0.00, D2=2.65, D3=-0.62, D4=0.028, D5=0.0
-$  Elastic from www.matweb.com
-$                     G=40 GPa   E=110 GPa  Poission's Ratio=0.375
-$                     K=E/[3(1-2Pr)]=146.6 GPa
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID       RHO        PC        MU     TEROD     CEROD        YM        PR 
         99   8.53E-3       0.0 
@@ -290,24 +257,6 @@ $--------1---------2---------3---------4---------5---------6---------7---------8
 eos_data = """
 *EOS_TABULATED_COMPACTION_TITLE
 Failed C26000 Cartridge Brass
-$ units: simulation units: grams - millimeters - milliseconds
-$ https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz
-$ "Johnson, GR, and TJ Holmquist,Test Data and Computational Strength and 
-$ Fracture Model Constants for 23 materials Subjected to Large Strains, High 
-$ Strain Rates, and High Temperatures, Los Alamos Technical Report LA-11463-MS, 
-$ Los Alamos National$ Laboratory, Los Alamos, NM, 1989. Cartridge Brass 
-$ Rockwell F-67"
-$ Parameters provided: A=16.2 ksi=111.7 MPa, B=73.2 ksi=504.8 MPa, 
-$                      N=0.42, M=1.68(=p)
-$                      EPS0=1.0/s(=1E-3/ms)  C=0.009
-$                      RO=7.97E-4 lbf-sec^/in^4=8.5279E-3 g/mm^3
-$                      Cp=332E3 in^2/(F-sec^2)
-$                        =385.4 J/Kg-K[=486 mm^2/(ms^2-K)]
-$                      TM=1680F = 1188.7K
-$   Damage paramters: D1=-0.00, D2=2.65, D3=-0.62, D4=0.028, D5=0.0
-$  Elastic from www.matweb.com
-$                     G=40 GPa   E=110 GPa  Poission's Ratio=0.375
-$                     K=E/[3(1-2Pr)]=146.6 GPa
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#   EOSID     GAMMA        E0        V0
         99
@@ -337,26 +286,10 @@ url = "https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz"
 ref = "Johnson, GR, and TJ Holmquist,Test Data and Computational Strength and Fracture Model Constants for 23 materials Subjected to Large Strains, High Strain Rates, and High Temperatures, Los Alamos Technical Report LA-11463-MS, Los Alamos National$ Laboratory, Los Alamos, NM, 1989. Cartridge Brass Rockwell F-67"
 
 [[material]]
+units = "mm ms gram"
 mat_data = """
 *MAT_JOHNSON_COOK_TITLE
 C26000 Cartridge Brass 
-$ https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz
-$ "Johnson, GR, and TJ Holmquist,Test Data and Computational Strength and 
-$ Fracture Model Constants for 23 materials Subjected to Large Strains, High 
-$ Strain Rates, and High Temperatures, Los Alamos Technical Report LA-11463-MS, 
-$ Los Alamos National$ Laboratory, Los Alamos, NM, 1989. Cartridge Brass 
-$ Rockwell F-67"
-$ Parameters provided: A=16.2 ksi=111.7 MPa, B=73.2 ksi=504.8 MPa, 
-$                      N=0.42, M=1.68(=p)
-$                      EPS0=1.0/s(=1E-3/ms)  C=0.009
-$                      RO=7.97E-4 lbf-sec^/in^4=8.5279E-3 g/mm^3
-$                      Cp=332E3 in^2/(F-sec^2)
-$                        =385.4 J/Kg-K[=486 mm^2/(ms^2-K)]
-$                      TM=1680F = 1188.7K
-$   Damage paramters: D1=-0.00, D2=2.65, D3=-0.62, D4=0.028, D5=0.0
-$  Elastic from www.matweb.com
-$                     G=40 GPa   E=110 GPa  Poission's Ratio=0.375
-$                     K=E/[3(1-2Pr)]=146.6 GPa
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID        RO         G         E       PR*      DTF*        VP     
         40   8.53E-3    40.0e3       0.0       0.0       0.0     
@@ -372,24 +305,6 @@ $(* shells only)
 eos_data = """
 *EOS_LINEAR_POLYNOMIAL_TITLE
 C26000 Cartridge Brass 
-$ units: simulation units: grams - millimeters - milliseconds
-$ https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz
-$ "Johnson, GR, and TJ Holmquist,Test Data and Computational Strength and 
-$ Fracture Model Constants for 23 materials Subjected to Large Strains, High 
-$ Strain Rates, and High Temperatures, Los Alamos Technical Report LA-11463-MS, 
-$ Los Alamos National$ Laboratory, Los Alamos, NM, 1989. Cartridge Brass 
-$ Rockwell F-67"
-$ Parameters provided: A=16.2 ksi=111.7 MPa, B=73.2 ksi=504.8 MPa, 
-$                      N=0.42, M=1.68(=p)
-$                      EPS0=1.0/s(=1E-3/ms)  C=0.009
-$                      RO=7.97E-4 lbf-sec^/in^4=8.5279E-3 g/mm^3
-$                      Cp=332E3 in^2/(F-sec^2)
-$                        =385.4 J/Kg-K[=486 mm^2/(ms^2-K)]
-$                      TM=1680F = 1188.7K
-$   Damage paramters: D1=-0.00, D2=2.65, D3=-0.62, D4=0.028, D5=0.0
-$  Elastic from www.matweb.com
-$                     G=40 GPa   E=110 GPa  Poission's Ratio=0.375
-$                     K=E/[3(1-2Pr)]=146.6 GPa
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#   EOSID        C0        C1        C2        C3        C4        C5        C6
         40       0.0   146.6e3       0.0       0.0       0.0       0.0       0.0     
@@ -404,29 +319,10 @@ url = "https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz"
 ref = "Johnson, GR, and TJ Holmquist,Test Data and Computational Strength and Fracture Model Constants for 23 materials Subjected to Large Strains, High Strain Rates, and High Temperatures, Los Alamos Technical Report LA-11463-MS, Los Alamos National$ Laboratory, Los Alamos, NM, 1989. Cartridge Brass Rockwell F-67"
 
 [[material]]
+units = "mm ms gram"
 mat_data = """
 *MAT_JOHNSON_COOK_TITLE
 Aluminum 7039
-$ https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz
-$ Johnson, GR, and TJ Holmquist, 
-$  �Test Data and Computational Strength and Fracture Model Constants for 
-$   23 materials Subjected to Large Strains, High Strain Rates, and High 
-$   Temperatures,� 
-$ Los Alamos Technical Report LA-11463-MS, Los Alamos National 
-$ Laboratory, Los Alamos, NM, 1989.
-$ Parameters provided: A=48.8 ksi = 336.46 MPa, 
-$                      B=49.7 ksi = 342.67 MPa, 
-$                      N=0.41,  M=1.00
-$                      EPS0=1.0/s(=1E-3/ms)  C=0.010
-$                      RO=2.59E-4 lbf-sec^/in^4 = 2.74E-3 g/mm^3
-$                      Cp=754E3 in^2/(F-sec^2)
-$                        =880 J/Kg-K[=880 mm^2/(ms^2-K)] (www.matweb.com)
-$                      TM=1120F = 877.59K
-$   Damage paramters: D1=0.14, D2=0.14, D3=-1.50, D4=0.018, D5=0.0
-$  Elastic from www.matweb.com
-$                     G=26 GPa   E=69.6 GPa  Poission's Ratio=0.33
-$                     K=E/[3(1-2Pr)]= 68.24 GPa
-$                     G=E/[2(1+Pr)] = 26.17 GPa
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID        RO         G         E       PR*      DTF*        VP     
       7039   2.74E-3   26.17e3       0.0       0.0       0.0     
@@ -442,27 +338,6 @@ $(* shells only)
 eos_data = """
 *EOS_LINEAR_POLYNOMIAL_TITLE
 Aluminum 7039
-$ units: simulation units: grams - millimeters - milliseconds
-$ https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz
-$ Johnson, GR, and TJ Holmquist, 
-$  �Test Data and Computational Strength and Fracture Model Constants for 
-$   23 materials Subjected to Large Strains, High Strain Rates, and High 
-$   Temperatures,� 
-$ Los Alamos Technical Report LA-11463-MS, Los Alamos National 
-$ Laboratory, Los Alamos, NM, 1989.
-$ Parameters provided: A=48.8 ksi = 336.46 MPa, 
-$                      B=49.7 ksi = 342.67 MPa, 
-$                      N=0.41,  M=1.00
-$                      EPS0=1.0/s(=1E-3/ms)  C=0.010
-$                      RO=2.59E-4 lbf-sec^/in^4 = 2.74E-3 g/mm^3
-$                      Cp=754E3 in^2/(F-sec^2)
-$                        =880 J/Kg-K[=880 mm^2/(ms^2-K)] (www.matweb.com)
-$                      TM=1120F = 877.59K
-$   Damage paramters: D1=0.14, D2=0.14, D3=-1.50, D4=0.018, D5=0.0
-$  Elastic from www.matweb.com
-$                     G=26 GPa   E=69.6 GPa  Poission's Ratio=0.33
-$                     K=E/[3(1-2Pr)]= 68.24 GPa
-$                     G=E/[2(1+Pr)] = 26.17 GPa
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#   EOSID        C0        C1        C2        C3        C4        C5        C6
       7039       0.0   68.24e3       0.0       0.0       0.0       0.0       0.0
@@ -478,29 +353,10 @@ ref = "Johnson, GR, and TJ Holmquist,Test Data and Computational Strength and Fr
 
 
 [[material]]
+units = "mm ms gram"
 mat_data = """
 *MAT_NULL_TITLE
 Failed Aluminum 7039
-$ https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz
-$ Johnson, GR, and TJ Holmquist, 
-$  �Test Data and Computational Strength and Fracture Model Constants for 
-$   23 materials Subjected to Large Strains, High Strain Rates, and High 
-$   Temperatures,� 
-$ Los Alamos Technical Report LA-11463-MS, Los Alamos National 
-$ Laboratory, Los Alamos, NM, 1989.
-$ Parameters provided: A=48.8 ksi = 336.46 MPa, 
-$                      B=49.7 ksi = 342.67 MPa, 
-$                      N=0.41,  M=1.00
-$                      EPS0=1.0/s(=1E-3/ms)  C=0.010
-$                      RO=2.59E-4 lbf-sec^/in^4 = 2.74E-3 g/mm^3
-$                      Cp=754E3 in^2/(F-sec^2)
-$                        =880 J/Kg-K[=880 mm^2/(ms^2-K)] (www.matweb.com)
-$                      TM=1120F = 877.59K
-$   Damage paramters: D1=0.14, D2=0.14, D3=-1.50, D4=0.018, D5=0.0
-$  Elastic from www.matweb.com
-$                     G=26 GPa   E=69.6 GPa  Poission's Ratio=0.33
-$                     K=E/[3(1-2Pr)]= 68.24 GPa
-$                     G=E/[2(1+Pr)] = 26.17 GPa
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID       RHO        PC        MU     TEROD     CEROD        YM        PR 
      17039   2.74E-3       0.0 
@@ -509,27 +365,6 @@ $--------1---------2---------3---------4---------5---------6---------7---------8
 eos_data = """
 *EOS_TABULATED_COMPACTION_TITLE
 Failed Aluminum 7039
-$ units: simulation units: grams - millimeters - milliseconds
-$ https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz
-$ Johnson, GR, and TJ Holmquist, 
-$  �Test Data and Computational Strength and Fracture Model Constants for 
-$   23 materials Subjected to Large Strains, High Strain Rates, and High 
-$   Temperatures,� 
-$ Los Alamos Technical Report LA-11463-MS, Los Alamos National 
-$ Laboratory, Los Alamos, NM, 1989.
-$ Parameters provided: A=48.8 ksi = 336.46 MPa, 
-$                      B=49.7 ksi = 342.67 MPa, 
-$                      N=0.41,  M=1.00
-$                      EPS0=1.0/s(=1E-3/ms)  C=0.010
-$                      RO=2.59E-4 lbf-sec^/in^4 = 2.74E-3 g/mm^3
-$                      Cp=754E3 in^2/(F-sec^2)
-$                        =880 J/Kg-K[=880 mm^2/(ms^2-K)] (www.matweb.com)
-$                      TM=1120F = 877.59K
-$   Damage paramters: D1=0.14, D2=0.14, D3=-1.50, D4=0.018, D5=0.0
-$  Elastic from www.matweb.com
-$                     G=26 GPa   E=69.6 GPa  Poission's Ratio=0.33
-$                     K=E/[3(1-2Pr)]= 68.24 GPa
-$                     G=E/[2(1+Pr)] = 26.17 GPa
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#   EOSID     GAMMA        E0        V0
      17039
@@ -558,29 +393,10 @@ url = "https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz"
 ref = "Johnson, GR, and TJ Holmquist,Test Data and Computational Strength and Fracture Model Constants for 23 materials Subjected to Large Strains, High Strain Rates, and High Temperatures, Los Alamos Technical Report LA-11463-MS, Los Alamos National$ Laboratory, Los Alamos, NM, 1989. Cartridge Brass Rockwell F-67"
 
 [[material]]
+units = "mm ms gram"
 mat_data = """
 *MAT_JOHNSON_COOK_TITLE
 Steel 1006
-$ https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz
-$ Johnson, GR, and TJ Holmquist, 
-$  �Test Data and Computational Strength and Fracture Model Constants for 
-$   23 materials Subjected to Large Strains, High Strain Rates, and High 
-$   Temperatures,� 
-$ Los Alamos Technical Report LA-11463-MS, Los Alamos National 
-$ Laboratory, Los Alamos, NM, 1989.
-$ Parameters provided: A=50.9 ksi = 350.25 MPa, 
-$                      B=39.9 ksi = 275.10 MPa, 
-$                      N=0.36,  M=1.00
-$                      EPS0=1.0/s(=1E-3/ms)  C=0.022
-$                      RO=7.38E-4 lbf-sec^2/in^4 = 7.88E-3 g/mm^3
-$                      Cp=389E3 in^2/(F-sec^2)
-$                        =481 J/Kg-K[=481 mm^2/(ms^2-K)] (www.matweb.com)
-$                      TM=2800F = 1810.9K
-$   Damage paramters: D1=0.0, D2=2.07, D3=-1.22, D4=0.016, D5=0.63
-$  Elastic from www.matweb.com
-$                     K=140 GPa   E=200 GPa  Poission's Ratio=0.29
-$                     K=E/[3(1-2Pr)]= 158.7 GPa
-$                     G=E/[2(1+Pr)] = 77.52 GPa
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID        RO         G         E       PR*      DTF*        VP     
       1006   7.88E-3   77.52e3       0.0       0.0       0.0
@@ -596,27 +412,6 @@ $(* shells only)
 eos_data = """
 *EOS_LINEAR_POLYNOMIAL_TITLE
 Steel 1006
-$ units: simulation units: grams - millimeters - milliseconds
-$ https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz
-$ Johnson, GR, and TJ Holmquist, 
-$  �Test Data and Computational Strength and Fracture Model Constants for 
-$   23 materials Subjected to Large Strains, High Strain Rates, and High 
-$   Temperatures,� 
-$ Los Alamos Technical Report LA-11463-MS, Los Alamos National 
-$ Laboratory, Los Alamos, NM, 1989.
-$ Parameters provided: A=50.9 ksi = 350.25 MPa, 
-$                      B=39.9 ksi = 275.10 MPa, 
-$                      N=0.36,  M=1.00
-$                      EPS0=1.0/s(=1E-3/ms)  C=0.022
-$                      RO=7.38E-4 lbf-sec^2/in^4 = 7.88E-3 g/mm^3
-$                      Cp=389E3 in^2/(F-sec^2)
-$                        =481 J/Kg-K[=481 mm^2/(ms^2-K)] (www.matweb.com)
-$                      TM=2800F = 1810.9K
-$   Damage paramters: D1=0.0, D2=2.07, D3=-1.22, D4=0.016, D5=0.63
-$  Elastic from www.matweb.com
-$                     K=140 GPa   E=200 GPa  Poission's Ratio=0.29
-$                     K=E/[3(1-2Pr)]= 158.7 GPa
-$                     G=E/[2(1+Pr)] = 77.52 GPa
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#   EOSID        C0        C1        C2        C3        C4        C5        C6
       1006       0.0   140.0e3       0.0       0.0       0.0       0.0       0.0
@@ -632,29 +427,11 @@ ref = "Johnson, GR, and TJ Holmquist,Test Data and Computational Strength and Fr
 
 
 [[material]]
+units = "mm ms gram"
+
 mat_data = """
 *MAT_NULL_TITLE
 Failed Steel
-$ https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz
-$ Johnson, GR, and TJ Holmquist, 
-$  �Test Data and Computational Strength and Fracture Model Constants for 
-$   23 materials Subjected to Large Strains, High Strain Rates, and High 
-$   Temperatures,� 
-$ Los Alamos Technical Report LA-11463-MS, Los Alamos National 
-$ Laboratory, Los Alamos, NM, 1989.
-$ Parameters provided: A=50.9 ksi = 350.25 MPa, 
-$                      B=39.9 ksi = 275.10 MPa, 
-$                      N=0.36,  M=1.00
-$                      EPS0=1.0/s(=1E-3/ms)  C=0.022
-$                      RO=7.38E-4 lbf-sec^2/in^4 = 7.88E-3 g/mm^3
-$                      Cp=389E3 in^2/(F-sec^2)
-$                        =481 J/Kg-K[=481 mm^2/(ms^2-K)] (www.matweb.com)
-$                      TM=2800F = 1810.9K
-$   Damage paramters: D1=0.0, D2=2.07, D3=-1.22, D4=0.016, D5=0.63
-$  Elastic from www.matweb.com
-$                     K=140 GPa   E=200 GPa  Poission's Ratio=0.29
-$                     K=E/[3(1-2Pr)]= 158.7 GPa
-$                     G=E/[2(1+Pr)] = 77.52 GPa
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID       RHO        PC        MU     TEROD     CEROD        YM        PR 
      11006   7.88E-3       0.0 
@@ -663,27 +440,6 @@ $--------1---------2---------3---------4---------5---------6---------7---------8
 eos_data = """
 *EOS_TABULATED_COMPACTION_TITLE
 Failed Steel
-$ units: simulation units: grams - millimeters - milliseconds
-$ https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz
-$ Johnson, GR, and TJ Holmquist, 
-$  �Test Data and Computational Strength and Fracture Model Constants for 
-$   23 materials Subjected to Large Strains, High Strain Rates, and High 
-$   Temperatures,� 
-$ Los Alamos Technical Report LA-11463-MS, Los Alamos National 
-$ Laboratory, Los Alamos, NM, 1989.
-$ Parameters provided: A=50.9 ksi = 350.25 MPa, 
-$                      B=39.9 ksi = 275.10 MPa, 
-$                      N=0.36,  M=1.00
-$                      EPS0=1.0/s(=1E-3/ms)  C=0.022
-$                      RO=7.38E-4 lbf-sec^2/in^4 = 7.88E-3 g/mm^3
-$                      Cp=389E3 in^2/(F-sec^2)
-$                        =481 J/Kg-K[=481 mm^2/(ms^2-K)] (www.matweb.com)
-$                      TM=2800F = 1810.9K
-$   Damage paramters: D1=0.0, D2=2.07, D3=-1.22, D4=0.016, D5=0.63
-$  Elastic from www.matweb.com
-$                     K=140 GPa   E=200 GPa  Poission's Ratio=0.29
-$                     K=E/[3(1-2Pr)]= 158.7 GPa
-$                     G=E/[2(1+Pr)] = 77.52 GPa
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#   EOSID     GAMMA        E0        V0
      11006
@@ -716,9 +472,6 @@ ref = "Johnson, GR, and TJ Holmquist,Test Data and Computational Strength and Fr
 mat_data = """
 *MAT_NULL_TITLE
 Steel
-$ https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz
-$ Urtiew et al. UCRL-CONF-222137
-$ C = 4.57 mm/us = 4.57E3 mm/ms
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID       RHO        PC        MU     TEROD     CEROD        YM        PR 
        240   7.90e-3       0.0       0.0       0.0       0.0       0.0       0.0
@@ -727,9 +480,6 @@ $--------1---------2---------3---------4---------5---------6---------7---------8
 eos_data = """
 *EOS_GRUNEISEN_TITLE
 Steel 
-$ https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz
-$ Urtiew et al. UCRL-CONF-222137
-$ C = 4.57 mm/us = 4.57E3 mm/ms
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#   EOSID         C        S1        S2        S3     GAMMA         A        E0 
        240    4.57E3      1.49       0.0       0.0      1.93       0.5       0.0
@@ -747,9 +497,6 @@ ref = " Urtiew et al. UCRL-CONF-222137"
 mat_data = """
 *MAT_NULL_TITLE
 Aluminum  6061 
-$ https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz
-$ Urtiew et al. UCRL-CONF-222137
-$ C = 5.24 mm/us = 5.24E3 mm/ms
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID       RHO        PC        MU     TEROD     CEROD        YM        PR 
      26061  2.703e-3       0.0       0.0       0.0       0.0
@@ -758,9 +505,6 @@ $--------1---------2---------3---------4---------5---------6---------7---------8
 eos_data = """
 *EOS_GRUNEISEN_TITLE
 Aluminum  6061 
-$ https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz
-$ Urtiew et al. UCRL-CONF-222137
-$ C = 5.24 mm/us = 5.24E3 mm/ms
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#   EOSID         C        S1        S2        S3     GAMMA         A        E0 
      26061    5.24E3       1.4       0.0       0.0      1.97      0.48      0.0

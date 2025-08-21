@@ -16,5 +16,8 @@
   "ftp.lstc.com concrete faq.toml",
   "ftp.lstc.com soil faq.toml",
   "lstc awg.toml",
-  "minesoil_by_paul.toml"
+  "minesoil_by_paul.toml",
+  "simple_test.toml",
+  "test_clean_material.toml",
+  "test_new_material.toml"
 ]

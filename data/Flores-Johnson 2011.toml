@@ -2,9 +2,6 @@
 mat_data = """
 *MAT_MODIFIED_JOHNSON_COOK_TITLE
 Brass jacket
-$ Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance
-$ of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile.
-$ *International Journal of Impact Engineering*, 38(12), 1022-1032.
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID        RO         E        PR      BETA       XS1        CP     ALPHA
        107      8520       115      0.31                 0.9       385    1.9E-5
@@ -28,9 +25,6 @@ url = "https://www.researchgate.net/publication/241096550"
 mat_data = """
 *MAT_MODIFIED_JOHNSON_COOK_TITLE
 Steel core
-$ Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance
-$ of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile.
-$ *International Journal of Impact Engineering*, 38(12), 1022-1032.
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID        RO         E        PR      BETA       XS1        CP     ALPHA
        107      7850       210      0.33                 0.9       442    1.2E-5
@@ -54,9 +48,6 @@ url = "https://www.researchgate.net/publication/241096550"
 mat_data = """
 *MAT_MODIFIED_JOHNSON_COOK_TITLE
 Al 7075-T651
-$ Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance
-$ of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile.
-$ *International Journal of Impact Engineering*, 38(12), 1022-1032.
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID        RO         E        PR      BETA       XS1        CP     ALPHA
        107      2700        70       0.3                 0.9       910    2.3E-5
@@ -80,9 +71,6 @@ url = "https://www.researchgate.net/publication/241096550"
 mat_data = """
 *MAT_MODIFIED_JOHNSON_COOK_TITLE
 Weldox 700E
-$ Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance
-$ of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile.
-$ *International Journal of Impact Engineering*, 38(12), 1022-1032.
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID        RO         E        PR      BETA       XS1        CP     ALPHA
        107      7850       210      0.33                 0.9       452    1.2E-5
@@ -106,9 +94,6 @@ url = "https://www.researchgate.net/publication/241096550"
 mat_data = """
 *MAT_MODIFIED_JOHNSON_COOK_TITLE
 Lead cap
-$ Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance
-$ of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile.
-$ *International Journal of Impact Engineering*, 38(12), 1022-1032.
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID        RO         E        PR      BETA       XS1        CP     ALPHA
        107     10660         1      0.42                 0.9       124    1.9E-5
