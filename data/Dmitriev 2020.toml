@@ -23,7 +23,7 @@ app = [
   "Concrete C50",
 ]
 ref = "Dmitriev, A.; Lalin, V.; Novozhilov, Y.; Mikhalyuk, D. Simulation of Concrete Plate Perforation by Coupled Finite Element and Smooth Particle Hydrodynamics Methods. Constr. Unique Build. Struct. 2020, 92"
-
+units = "mm–s–tonne–N–MPa"
 url = "https://www.researchgate.net/publication/354765494_Simulation_of_Concrete_Plate_Perforation_by_Coupled_Finite_Element_and_Smooth_Particle_Hydrodynamics_Methods"
 
 [[material]]
@@ -51,7 +51,7 @@ app = [
   "Concrete C40",
 ]
 ref = "Dmitriev, A.; Lalin, V.; Novozhilov, Y.; Mikhalyuk, D. Simulation of Concrete Plate Perforation by Coupled Finite Element and Smooth Particle Hydrodynamics Methods. Constr. Unique Build. Struct. 2020, 92, doi:10.18720/CUBS.92.7."
-
+units = "mm–s–tonne–N–MPa"
 url = "https://www.researchgate.net/publication/354765494_Simulation_of_Concrete_Plate_Perforation_by_Coupled_Finite_Element_and_Smooth_Particle_Hydrodynamics_Methods"
 
 [[material]]
@@ -107,5 +107,5 @@ app = [
   "Concrete C20",
 ]
 ref = "Dmitriev, A.; Lalin, V.; Novozhilov, Y.; Mikhalyuk, D. Simulation of Concrete Plate Perforation by Coupled Finite Element and Smooth Particle Hydrodynamics Methods. Constr. Unique Build. Struct. 2020, 92, doi:10.18720/CUBS.92.7."
-
+units = "mm–s–tonne–N–MPa"
 url = "https://www.researchgate.net/publication/354765494_Simulation_of_Concrete_Plate_Perforation_by_Coupled_Finite_Element_and_Smooth_Particle_Hydrodynamics_Methods"

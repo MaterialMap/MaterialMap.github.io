@@ -1,5 +1,5 @@
 [[material]]
-units = "psi inch sec "
+units = "inch–sec–lbm–lbf–psi"
 
 mat_data = """
 *MAT_PSEUDO_TENSOR_TITLE
@@ -29,7 +29,7 @@ ref = "ftp.lstc.com concrete model FAQ"
 url = "https://ftp.lstc.com/anonymous/outgoing/support/FAQ/concrete_models_faq"
 
 [[material]]
-units = "psi inch sec "
+units = "inch–sec–lbm–lbf–psi"
 
 mat_data = """
 *MAT_SOIL_AND_FOAM_TITLE

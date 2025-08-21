@@ -472,14 +472,8 @@ async function loadMaterials() {
         
         
         // Add reference information
-        const referenceHtml = material.ref
-          ? `<div class="reference-block"><strong>Reference: </strong><a href="${material.url}" target="_blank">${material.ref}</a></div>`
-          : `<div class="reference-block"><strong>Reference: </strong><a href="${material.url}" target="_blank">${material.url}</a></div>`;
-        contentElements.push(referenceHtml);
-        
-        // Add units information if it exists
-        if (material.units) {
-          contentElements.push(`<div class="units-block"><strong>Units: </strong><span class="units-info">${escapeHtml(material.units)}</span></div>`);
+        if (material.ref) {
+          contentElements.push(`<div class="reference-block"><strong>Reference: </strong><a href="${material.url}" target="_blank">${material.ref}</a></div>`);
         }
         
         // Add comments if they exist

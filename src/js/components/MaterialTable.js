@@ -128,10 +128,14 @@ export class MaterialTable {
     const contentElements = [];
     
     // Add reference information
-    const referenceHtml = material.ref
-      ? `<div class="reference-block"><strong>Reference: </strong><a href="${material.url}" target="_blank">${material.ref}</a></div>`
-      : `<div class="reference-block"><strong>Reference: </strong><a href="${material.url}" target="_blank">${material.url}</a></div>`;
-    contentElements.push(referenceHtml);
+    if (material.ref) {
+      contentElements.push(`<div class="reference-block"><strong>Reference: </strong><a href="${material.url}" target="_blank">${material.ref}</a></div>`);
+    }
+    
+    // Add URL information if it exists
+    if (material.url) {
+      contentElements.push(`<div class="url-block"><strong>URL: </strong><a href="${material.url}" target="_blank">${material.url}</a></div>`);
+    }
     
     // Add units information if it exists
     if (material.units) {

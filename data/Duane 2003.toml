@@ -17,7 +17,7 @@ app = [
   "High speed impact",
 ]
 ref = "Duane S. Cronin, Khahn Bui, Christian Kaufmann* Grant McIntosh, Todd Berstad (2003). Implementation and Validation of the Johnson-Holmquist Ceramic Material Model in LS-Dyna. 4th European LS-DYNA Users Conference, Ulm, Germany"
-
+units = "mm–s–tonne–N–GPa"
 url = "https://www.dynalook.com/conferences/european-conf-2003/implementation-and-validation-of-the-johnson.pdf/view"
 
 [[material]]
@@ -39,7 +39,7 @@ app = [
   "High speed impact",
 ]
 ref = "Duane S. Cronin, Khahn Bui, Christian Kaufmann* Grant McIntosh, Todd Berstad (2003). Implementation and Validation of the Johnson-Holmquist Ceramic Material Model in LS-Dyna. 4th European LS-DYNA Users Conference, Ulm, Germany"
-
+units = "mm–s–tonne–N–GPa"
 url = "https://www.dynalook.com/conferences/european-conf-2003/implementation-and-validation-of-the-johnson.pdf/view"
 
 [[material]]
@@ -61,7 +61,7 @@ app = [
   "High speed impact",
 ]
 ref = "Duane S. Cronin, Khahn Bui, Christian Kaufmann* Grant McIntosh, Todd Berstad (2003). Implementation and Validation of the Johnson-Holmquist Ceramic Material Model in LS-Dyna. 4th European LS-DYNA Users Conference, Ulm, Germany"
-
+units = "mm–s–tonne–N–GPa"
 url = "https://www.dynalook.com/conferences/european-conf-2003/implementation-and-validation-of-the-johnson.pdf/view"
 
 [[material]]
@@ -83,7 +83,7 @@ app = [
   "High speed impact",
 ]
 ref = "Duane S. Cronin, Khahn Bui, Christian Kaufmann* Grant McIntosh, Todd Berstad (2003). Implementation and Validation of the Johnson-Holmquist Ceramic Material Model in LS-Dyna. 4th European LS-DYNA Users Conference, Ulm, Germany"
-
+units = "mm–s–tonne–N–GPa"
 url = "https://www.dynalook.com/conferences/european-conf-2003/implementation-and-validation-of-the-johnson.pdf/view"
 
 [[material]]
@@ -105,5 +105,5 @@ app = [
   "High speed impact",
 ]
 ref = "Duane S. Cronin, Khahn Bui, Christian Kaufmann* Grant McIntosh, Todd Berstad (2003). Implementation and Validation of the Johnson-Holmquist Ceramic Material Model in LS-Dyna. 4th European LS-DYNA Users Conference, Ulm, Germany"
-
+units = "mm–s–tonne–N–GPa"
 url = "https://www.dynalook.com/conferences/european-conf-2003/implementation-and-validation-of-the-johnson.pdf/view"

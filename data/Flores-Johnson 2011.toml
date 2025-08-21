@@ -4,13 +4,13 @@ mat_data = """
 Brass jacket
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID        RO         E        PR      BETA       XS1        CP     ALPHA
-       107      8520       115      0.31                 0.9       385    1.9E-5
+       107  8520E-12     115E3      0.31                 0.9     385E8    1.9E-5
 $#   E0DOT        TR        TM        T0     FLAG1     FLAG2
       5E-4       293      1189                   0         1
 $#       A         B         N         C         M
-       206       505      0.42      0.01      1.68
+     206E3     505E3      0.42      0.01      1.68
 $#      DC        WC       PHI     GAMMA
-                 914
+                 914E3
 $--------1---------2---------3---------4---------5---------6---------7---------8
 """
 app = [
@@ -18,7 +18,7 @@ app = [
   "Balistic perfomance",
 ]
 ref = "Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile. *International Journal of Impact Engineering*, 38(12), 1022-1032."
-
+units = "mm–s–tonne–N–MPa"
 url = "https://www.researchgate.net/publication/241096550"
 
 [[material]]
@@ -27,11 +27,11 @@ mat_data = """
 Steel core
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID        RO         E        PR      BETA       XS1        CP     ALPHA
-       107      7850       210      0.33                 0.9       442    1.2E-5
+       107  7850E-12     210E3      0.33                 0.9     442E8    1.2E-5
 $#   E0DOT        TR        TM        T0     FLAG1     FLAG2
       5E-4       293      1800                   0         1
 $#       A         B         N         C         M
-      1200     50000         1         0         1
+    1200E3   50000E3         1         0         1
 $#      DC        WC       PHI     GAMMA
 
 $--------1---------2---------3---------4---------5---------6---------7---------8
@@ -41,7 +41,7 @@ app = [
   "Balistic perfomance",
 ]
 ref = "Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile. *International Journal of Impact Engineering*, 38(12), 1022-1032."
-
+units = "mm–s–tonne–N–MPa"
 url = "https://www.researchgate.net/publication/241096550"
 
 [[material]]
@@ -50,13 +50,13 @@ mat_data = """
 Al 7075-T651
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID        RO         E        PR      BETA       XS1        CP     ALPHA
-       107      2700        70       0.3                 0.9       910    2.3E-5
+       107  2700E-12      70E3       0.3                 0.9     910E8    2.3E-5
 $#   E0DOT        TR        TM        T0     FLAG1     FLAG2
       5E-4       293       893                   0         1
 $#       A         B         N         C         M
-       520       477      0.52     0.001         1
+     520E3     477E3      0.52     0.001         1
 $#      DC        WC       PHI     GAMMA
-                 106
+               106E3
 $--------1---------2---------3---------4---------5---------6---------7---------8
 """
 app = [
@@ -73,13 +73,13 @@ mat_data = """
 Weldox 700E
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID        RO         E        PR      BETA       XS1        CP     ALPHA
-       107      7850       210      0.33                 0.9       452    1.2E-5
+       107  7850E-12     210E3      0.33                 0.9     452E8    1.2E-5
 $#   E0DOT        TR        TM        T0     FLAG1     FLAG2
       5E-4       293      1800                   0         1
 $#       A         B         N         C         M
-       819       308      0.64    0.0098         1
+     819E3     308E3      0.64    0.0098         1
 $#      DC        WC       PHI     GAMMA
-                1486
+              1486E3
 $--------1---------2---------3---------4---------5---------6---------7---------8
 """
 app = [
@@ -87,7 +87,7 @@ app = [
   "Balistic perfomance",
 ]
 ref = "Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile. *International Journal of Impact Engineering*, 38(12), 1022-1032."
-
+units = "mm–s–tonne–N–MPa"
 url = "https://www.researchgate.net/publication/241096550"
 
 [[material]]
@@ -96,13 +96,13 @@ mat_data = """
 Lead cap
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID        RO         E        PR      BETA       XS1        CP     ALPHA
-       107     10660         1      0.42                 0.9       124    1.9E-5
+       107 10660E-12       1E3      0.42                 0.9     124E8    1.9E-5
 $#   E0DOT        TR        TM        T0     FLAG1     FLAG2
     5.0E-4       293       760                   0         1
 $#       A         B         N         C         M
-        24       300         1       0.1         1
+      24E3     300E3         1       0.1         1
 $#      DC        WC       PHI     GAMMA
-                 175
+               175E3
 $--------1---------2---------3---------4---------5---------6---------7---------8
 """
 app = [
@@ -110,5 +110,5 @@ app = [
   "7.62-mm APM2 projectile",
 ]
 ref = "Flores-Johnson, E. A., Saleh, M., & Edwards, L. (2011). Ballistic performance of multi-layered metallic plates impacted by a 7.62-mm APM2 projectile. *International Journal of Impact Engineering*, 38(12), 1022-1032."
-
+units = "mm–s–tonne–N–MPa"
 url = "https://www.researchgate.net/publication/241096550"

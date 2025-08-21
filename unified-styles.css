@@ -657,8 +657,8 @@ tr:nth-child(even) {
     overflow: hidden;
 }
 
-/* Units and comments block styles */
-.units-block, .comments-block {
+/* URL, Units and comments block styles */
+.url-block, .units-block, .comments-block {
     word-wrap: break-word;
     overflow-wrap: break-word;
     text-overflow: ellipsis;
