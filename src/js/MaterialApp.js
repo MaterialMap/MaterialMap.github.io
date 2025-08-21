@@ -7,6 +7,7 @@ import { MaterialDictionaries } from './modules/MaterialDictionaries.js';
 import { MaterialLoader } from './modules/MaterialLoader.js';
 import { MaterialTable } from './components/MaterialTable.js';
 import { MaterialFilters } from './components/MaterialFilters.js';
+import { Navigation } from './components/Navigation.js';
 import { ServiceWorkerManager } from './modules/ServiceWorkerManager.js';
 
 export class MaterialApp {
@@ -15,6 +16,7 @@ export class MaterialApp {
     this.materialLoader = new MaterialLoader();
     this.materialTable = null;
     this.materialFilters = null;
+    this.navigation = new Navigation();
     this.serviceWorkerManager = new ServiceWorkerManager();
     
     this.loadingElement = document.getElementById("loading");
@@ -68,6 +70,9 @@ export class MaterialApp {
 
       // Wait for dependencies to load
       await this.waitForDependencies();
+      
+      // Initialize navigation
+      this.navigation.initialize();
       
       // Register service worker
       await this.serviceWorkerManager.register();

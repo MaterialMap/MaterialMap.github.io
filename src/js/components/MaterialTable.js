@@ -7,7 +7,6 @@ import { processMaterialData } from '../modules/MaterialParser.js';
 
 export class MaterialTable {
   constructor(tableSelector, materialDictionaries) {
-    console.log('MaterialTable constructor called - with metadata comments functionality!');
     this.tableSelector = tableSelector;
     this.materialDictionaries = materialDictionaries;
     this.table = null;
@@ -132,16 +131,6 @@ export class MaterialTable {
       contentElements.push(`<div class="reference-block"><strong>Reference: </strong><a href="${material.url}" target="_blank">${material.ref}</a></div>`);
     }
     
-    // Add URL information if it exists
-    if (material.url) {
-      contentElements.push(`<div class="url-block"><strong>URL: </strong><a href="${material.url}" target="_blank">${material.url}</a></div>`);
-    }
-    
-    // Add units information if it exists
-    if (material.units) {
-      contentElements.push(`<div class="units-block"><strong>Units: </strong><span class="units-info">${escapeHtml(material.units)}</span></div>`);
-    }
-    
     // Add comments if they exist
     if (material.comments) {
       contentElements.push(`<div class="comments-block"><strong>Comments: </strong><span class="comments-info">${escapeHtml(material.comments)}</span></div>`);
@@ -175,9 +164,7 @@ export class MaterialTable {
    */
   createCodeBlock(title, content, material = null) {
     // Add additional fields as comments after the second line
-    console.log('createCodeBlock called with:', { title, content, material });
     const modifiedContent = this.addMetadataComments(content, material);
-    console.log('Modified content:', modifiedContent);
     const escapedContent = escapeHtml(modifiedContent);
     const id = generateId('code-block');
     
@@ -248,8 +235,6 @@ export class MaterialTable {
   addMetadataComments(content, material) {
     if (!material || !content) return content;
     
-    console.log('Adding metadata comments for material:', material);
-    
     const lines = content.split('\n');
     if (lines.length < 2) return content;
     
@@ -278,9 +263,6 @@ export class MaterialTable {
       contentStr.includes('$comments:') ||
       contentStr.includes('comments:')
     );
-    
-    // Log what metadata was found
-    console.log('Metadata detection:', { hasUnits, hasReference, hasUrl, hasComments });
     
     // Find the position to insert comments (after the second non-empty line)
     let insertPosition = 1;
@@ -325,11 +307,9 @@ export class MaterialTable {
       const afterInsert = lines.slice(insertPosition);
       
       const result = [...beforeInsert, ...metadataComments, ...afterInsert].join('\n');
-      console.log('Final result with metadata comments:', result);
       return result;
     }
     
-    console.log('No metadata comments to add');
     return content;
   }
 
