@@ -74,8 +74,10 @@ npm run lint
 **TOML Format**:
 - Each TOML file in the `data/` directory contains an array of material definitions using `[[material]]` syntax
 - Required fields: `mat_data` (material model definition), `app` (applications), `url` (source link)
-- Optional fields: `eos_data`, `mat_add_data`, `mat_thermal_data`, `ref` (citation)
+- Optional fields: `eos_data`, `mat_add_data`, `mat_thermal_data`, `ref` (citation), `units` (unit system), `comments` (additional notes)
 - Material data is stored as multi-line strings that can be copied directly to LS-DYNA
+- Units field specifies the unit system used (e.g., "mm ms MPa", "in sec psi")
+- Comments field provides additional information about limitations, validation data, or usage notes
 
 ## PWA Support
 The application includes a service worker (`service-worker.js`) that enables offline functionality by caching core assets and implementing different caching strategies for HTML pages and other resources.

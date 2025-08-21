@@ -1,13 +1,9 @@
 [[material]]
-ref = "ftp.lstc.com soil model FAQ, courtesy of Ala Tabiei"
+ubits = "mm ton sec"
+
 mat_data = """
 *MAT_SOIL_AND_FOAM_TITLE
 Antelope Lake Soil
-$ Courtesy of Ala Tabiei
-$ Antelope Lake Soil, Nevada,     mm,ton,sec,N,N/mm^2
-$ very stiff silty clay over dense sand with occasinally gravel sand
-$ ftp.lstc.com soil model FAQ
-$ https://ftp.lstc.com/anonymous/outgoing/support/FAQ/soil_public
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     mid        ro         g      bulk        a0        a1        a2        pc
          5 1.8740E-9 358.54999 1523.8199  0.158000  0.124000  0.024000 -0.150000
@@ -31,13 +27,10 @@ app = [
 url = "https://ftp.lstc.com/anonymous/outgoing/support/FAQ/soil_public"
 
 [[material]]
-ref = "ftp.lstc.com soil model FAQ"
+units = "in psi sec"
 mat_data = """
 *MAT_SOIL_AND_FOAM_TITLE
 Soil model input sample
-$ ftp.lstc.com soil model FAQ
-$ https://ftp.lstc.com/anonymous/outgoing/support/FAQ/soil_public
-$ English units: in, s, snails, psi
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     mid        ro         g      bulk        a0        a1        a2        pc
          5 1.589E-04 6.170E+05 1.110E+06 0.000E+00 0.000E+00 8.500E-02      -1.0

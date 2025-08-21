@@ -2,8 +2,6 @@
 mat_data = """
 *MAT_ELASTIC_PLASTIC_HYDRO_TITLE
 COMPB-JJ3
-$ Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact
-$ Simulation. 12th European LS-DYNA Conference, Koblenz, Germany
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID        RO         G      SIG0        EH        PC        FS     CHARL
         10     1.717     0.035     0.002         0         0         0         0
@@ -20,8 +18,6 @@ $--------1---------2---------3---------4---------5---------6---------7---------8
 eos_data = """
 *EOS_IGNITION_AND_GROWTH_OF_REACTION_IN_HE_TITLE
 COMPB-JJ3
-$ Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact
-$ Simulation. 12th European LS-DYNA Conference, Koblenz, Germany
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#   EOSID         A         B       XP1       XP2      FRER         G        R1
         10     5.242   0.07678       4.2       1.1     0.667    3.4E-6       780
@@ -45,8 +41,6 @@ url = "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-201
 mat_data = """
 *MAT_JOHNSON_COOK_TITLE
 Steel SEA 1006
-$ Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact
-$ Simulation. 12th European LS-DYNA Conference, Koblenz, Germany
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID        RO         G         E        PR       DTF        VP    RATEOP
         15     7.896     0.818         0       0.3         0         0         0
@@ -61,8 +55,6 @@ $--------1---------2---------3---------4---------5---------6---------7---------8
 eos_data = """
 *EOS_GRUNEISEN_TITLE
 Steel SEA 1006
-$ Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact
-$ Simulation. 12th European LS-DYNA Conference, Koblenz, Germany
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#   EOSID         C        S1        S2        S3    GAMMAO         A        E0
         15    0.4568      1.49         0         0      2.17
@@ -82,8 +74,6 @@ url = "https://www.dynalook.com/conferences/12th-european-ls-dyna-conference-201
 mat_data = """
 *MAT_ELASTIC_PLASTIC_HYDRO_TITLE
 Projectile casings
-$ Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact
-$ Simulation. 12th European LS-DYNA Conference, Koblenz, Germany
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID        RO         G      SIG0        EH        PC        FS     CHARL
         10     11.34    0.1113    0.0003         0         0         0         0
@@ -100,8 +90,6 @@ $--------1---------2---------3---------4---------5---------6---------7---------8
 eos_data = """
 *EOS_GRUNEISEN_TITLE
 Projectile casings
-$ Büyük, M., Balaban, H., & Penekli, U. (2019). Blast Detonated by Impact
-$ Simulation. 12th European LS-DYNA Conference, Koblenz, Germany
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#   EOSID         C        S1        S2        S3    GAMMAO         A        E0
         10    0.2092     1.452         0         0         2

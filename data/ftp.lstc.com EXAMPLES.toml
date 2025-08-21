@@ -1,10 +1,6 @@
 [[material]]
 mat_data = """
 *MAT_UNIFIED_CREEP
-$ https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat115_brick.k
-$ Robert G. Whirley, Gregory A. Henshall
-$ Creep Deformation Structural Analysis Using an Efficient Numerical Algorithm
-$ International Journal of Numerical Methods in Engineering 35:1427-1442 (1992)
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID        RO         E        PR         A         N         M
         11  7.89E-09   2.0E+05       0.3   2.5E-13       5.0       0.3 
@@ -20,10 +16,10 @@ url = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat115_brick.k"
 
 
 [[material]]
+units = "mm ton sec "
+
 mat_data = """
 *MAT_4A_MICROMEC
-$ UNITS : MM, TON, SEC
-$ https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/TESTING_MAT215.zip
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $01    mid     mmopt      bupd        --        --     failm     failf    NUMINT
    1000000       1.0      0.01                            0.        0.      -65.
@@ -549,7 +545,6 @@ url = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/TESTING_MAT215.z
 mat_data = """
 *MAT_OGDEN_RUBBER_TITLE
 OGDEN for DYNA  bi
-$ "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat77_tbhys.tar"
 $--------1---------2---------3---------4---------5---------6---------7---------8
        300    1.0E-9   -0.4999         0         4       0.0       0.0       0.0
          2
@@ -568,11 +563,6 @@ url = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat77_tbhys.tar"
 mat_data = """
 *MAT_COMPRF_TITLE 
 CFRP woven composite preforming process
-$ https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat293.tar.gz
-$ Weizhao Zhang, Huaqing Ren, Biao Liang, Danielle Zeng, Xuming Su, Jeffrey 
-$ Dahl, Mansour Mirdamadi, Qiangsheng Zhao, Jian Cao, A non-orthogonal material 
-$ model of woven composites in the preforming process,
-$ https://doi.org/10.1016/j.cirp.2017.04.112. 
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID        RO      BULK       PCF        EF      TREF         A         B
          1    1.0E-9      367.
@@ -597,7 +587,6 @@ url = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat293.tar.gz"
 mat_data = """
 *MAT_PAPER_TITLE
 Lower 00
-$ "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat274_twoexamples.tar.gz"
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     mid        ro        E1        E2        E3      pr21      pr32      pr31
          1 1.0000E-9 7122.3200 2948.3900 14.000000      0.46        0.        0.
@@ -653,7 +642,6 @@ url = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat274_twoexampl
 mat_data = """
 *MAT_PAPER_TITLE
 Mid 00
-$ "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat274_twoexamples.tar.gz"
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     mid        ro        E1        E2        E3      pr21      pr32      pr31
          2 1.0000E-9 4029.2000 1823.5500 13.000000      0.44        0.        0.
@@ -709,7 +697,6 @@ url = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat274_twoexampl
 mat_data = """
 *MAT_PAPER_TITLE
 Upper 00
-$ "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat274_twoexamples.tar.gz"
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     mid        ro        E1        E2        E3      pr21      pr32      pr31
          3 1.0000E-9 7361.5298 2788.4900 20.000000      0.48        0.        0.
@@ -765,7 +752,6 @@ url = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat274_twoexampl
 mat_data = """
 *MAT_COHESIVE_GENERAL_TITLE
 Interlayer paper cochesive
-$ "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat274_twoexamples.tar.gz"
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     mid        ro     roflg   intfall       tes      tslc       gic      giic
          5 1.0000E-9         1  1.000000     2.000         2  0.083800  0.174700
@@ -773,7 +759,7 @@ $#     xmu         t         s     stfsf
   1.000000  0.240000  1.125000   2.00000
 $--------1---------2---------3---------4---------5---------6---------7---------8
 *DEFINE_CURVE_TITLE
- TSLC
+TSLC
 $#    lcid      sidr       sfa       sfo      offa      offo    dattyp
          2         0  1.000000  1.000000     0.000     0.000         0
 $#                a1                  o1
@@ -796,7 +782,6 @@ url = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat274_twoexampl
 mat_data = """
 *MAT_NON_QUADRATIC_FAILURE_TITLE
 Aluminum 6005-T6
-$ https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/MAT_258_demo_material_20191029.zip
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     mid        ro         e        pr    sigma0         a      rksi      rmap
          1  2.71e-096.4882e+04      0.332.7568e+02       8.0       0.0       0.0
@@ -820,7 +805,6 @@ url = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/MAT_258_demo_mat
 mat_data = """
 *MAT_GLASS_TITLE
 Yaris Windshield PSE.k
-$ https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/yaris_windshield_mat_280_pse.tgz
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     mid        ro         e        pr
          1 2.4000E-6      70.0      0.23
@@ -847,7 +831,6 @@ url = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/yaris_windshield
 mat_data = """
 *MAT_ADHESIVE_CURING_VISCOELASTIC_TITLE
 Adhesive curing viscoelastic
-$ https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat277_rev1.tar.gz
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     mid        ro        k1        k2        c1        c2         m         n
          1  1.175E-1   1.03E+6   1.07E+7  1.153E+5  7.504E+4     0.603     1.624
@@ -855,7 +838,7 @@ $#  chexp1    chexp2    chexp3    LCCHEX  LCTHEXP0         R      LCTG
  -2.497E-3 -4.290E-3  6.593E-5         0         7    8.3145          
 $#    TREF         A         B       LCG    LCBULK
         0.       0.0       0.0         5         6  
-$     373.0    59.906    223.06         5         6 
+$    373.0    59.906    223.06         5         6 
 $$ HM Number Viscoelastic Constants =         16
    1.36          0.0   4.08          0.0
   0.376   1.0000E-05  1.128   1.0000E-05
@@ -968,10 +951,6 @@ url = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat277_rev1.tar.
 mat_data = """
 *MAT_POWDER_TITLE
 CEMENTED CARBIDE POWDER
-$ Andersson, Daniel C., Lindskog, Per, and Larsson, Per-Lennart, “Inverse Modeling Applied for Material
-$ Characterization of Powder Materials,” Journal of Testing and Evaluation, Vol. 43, No. 5, 2015, pp. 1005–
-$ 1019, doi:10.1520/JTE20130266. ISSN 0090-3973
-$ "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat271.papers_and_example.tar.gz"
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     mid        ro       p11       p22       p33       p12       p23       p13
          1 5.0000E-9      0.63      0.63      0.63       0.0                 0.0
@@ -1630,10 +1609,6 @@ url = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat271.papers_an
 mat_data = """
 *MAT_POWDER_TITLE
 CEMENTED CARBIDE POWDER
-$ Andersson, Daniel C., Lindskog, Per, and Larsson, Per-Lennart, “Inverse Modeling Applied for Material
-$ Characterization of Powder Materials,” Journal of Testing and Evaluation, Vol. 43, No. 5, 2015, pp. 1005–
-$ 1019, doi:10.1520/JTE20130266. ISSN 0090-3973
-$ "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat271.papers_and_example.tar.gz"
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     mid        ro       p11       p22       p33       p12       p23       p13
          1 5.0000E-9      0.63      0.63      0.63       0.0                 0.0
@@ -2359,8 +2334,6 @@ url = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/mat271.papers_an
 mat_data = """
 *MAT_GENERAL_VISCOELASTIC_TITLE
 Maxwell viscoelastic model
-$ https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/
-$ shear_mat76.k
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID        RO      BULK       PCF        EF      TREF         A         B
          1    1.0E-9      367.
@@ -2588,7 +2561,6 @@ url = "https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/shear_mat76.k"
 mat_data = """
 *MAT_LAMINATED_GLASS_TITLE
 laminated glass
-$ https://ftp.lstc.com/anonymous/outgoing/support/EXAMPLES/alternate_glass_and_polymer_m32.k
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     mid        ro        eg       prg       syg       etg       efg        ep
          1 2.5000E-6 70.000000  0.230000 0.0050000 0.1000000      0.01  7.500000

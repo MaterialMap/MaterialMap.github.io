@@ -1,9 +1,9 @@
 [[material]]
+units = "mm ms MPa"
+
 mat_data = """
 *MAT_ELASTIC_PLASTIC_HYDRO_SPALL_TITLE
 Norway Sand
-$ ftp.lstc.com/anonymous/outgoing/hao/sale/models/minesoil_by_paul/materials.key
-$ Units: millimeters-milliseconds-grams-Newtons-MPa
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID        RO         G      SIG0        EH        PC        FS     CHARL
      30011  1.37E-03   37347.0       0.0       0.0   -6.9e-3       0.0       0.0
@@ -29,11 +29,11 @@ url = "https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/minesoil_by_paul/
 
 
 [[material]]
+units = "mm ms MPa"
+
 mat_data = """
 *MAT_SOIL_CONCRETE_TITLE
 Norway Sand
-$ ftp.lstc.com/anonymous/outgoing/hao/sale/models/minesoil_by_paul/materials.key
-$ Units: millimeters-milliseconds-grams-Newtons-MPa
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID       RHO         G         K      LCPV      LCYP
      30010  1.37E-03   37347.0    56.7e3       781       782
@@ -62,8 +62,6 @@ $--------1---------2---------3---------4---------5---------6---------7---------8
 eos_data = """
 *EOS_TABULATED_COMPACTION_TITLE
 Norway Sand
-$ ftp.lstc.com/anonymous/outgoing/hao/sale/models/minesoil_by_paul/materials.key
-$ Units: millimeters-milliseconds-grams-Newtons-MPa
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#   EOSID      GAMA        E0        V0       LCC       LCT
      30010       0.0       0.0       1.0

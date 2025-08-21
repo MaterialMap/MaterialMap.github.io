@@ -22,7 +22,8 @@ try {
 const CONFIG = {
   DATA_DIR: path.join(__dirname, '..', 'data'),
   FILE_EXTENSION: '.toml',
-  REQUIRED_FIELDS: ['mat_data', 'app', 'url']
+  REQUIRED_FIELDS: ['mat_data', 'app', 'url'],
+  OPTIONAL_FIELDS: ['eos_data', 'mat_add_data', 'mat_thermal_data', 'ref', 'units', 'comments']
 };
 
 // Get all TOML files from the data directory

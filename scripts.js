@@ -470,30 +470,41 @@ async function loadMaterials() {
         // Create HTML elements for each data type if it exists
         const contentElements = [];
         
+        
         // Add reference information
         const referenceHtml = material.ref
           ? `<div class="reference-block"><strong>Reference: </strong><a href="${material.url}" target="_blank">${material.ref}</a></div>`
           : `<div class="reference-block"><strong>Reference: </strong><a href="${material.url}" target="_blank">${material.url}</a></div>`;
         contentElements.push(referenceHtml);
         
+        // Add units information if it exists
+        if (material.units) {
+          contentElements.push(`<div class="units-block"><strong>Units: </strong><span class="units-info">${escapeHtml(material.units)}</span></div>`);
+        }
+        
+        // Add comments if they exist
+        if (material.comments) {
+          contentElements.push(`<div class="comments-block"><strong>Comments: </strong><span class="comments-info">${escapeHtml(material.comments)}</span></div>`);
+        }
+        
         // Add material data if it exists
         if (material.mat_data) {
-          contentElements.push(createCodeBlock("*MAT", material.mat_data));
+          contentElements.push(createCodeBlock("*MAT", material.mat_data, material));
         }
         
         // Add EOS data if it exists
         if (material.eos_data) {
-          contentElements.push(createCodeBlock("*EOS", material.eos_data));
+          contentElements.push(createCodeBlock("*EOS", material.eos_data, material));
         }
         
         // Add MAT_ADD data if it exists
         if (material.mat_add_data) {
-          contentElements.push(createCodeBlock("*MAT_ADD", material.mat_add_data));
+          contentElements.push(createCodeBlock("*MAT_ADD", material.mat_add_data, material));
         }
         
         // Add MAT_THERMAL data if it exists
         if (material.mat_thermal_data) {
-          contentElements.push(createCodeBlock("*MAT_THERMAL", material.mat_thermal_data));
+          contentElements.push(createCodeBlock("*MAT_THERMAL", material.mat_thermal_data, material));
         }
         
         // Join all elements and show
@@ -516,8 +527,10 @@ async function loadMaterials() {
 }
 
 // Create a code block with header and copy button
-function createCodeBlock(title, content) {
-  const escapedContent = escapeHtml(content); // Escape HTML for safe display
+function createCodeBlock(title, content, material = null) {
+  // Add additional fields as comments after the second line
+  const modifiedContent = addMetadataComments(content, material);
+  const escapedContent = escapeHtml(modifiedContent); // Escape HTML for safe display
   const id = generateId();
   
   return `
@@ -528,6 +541,103 @@ function createCodeBlock(title, content) {
       </div>
       <pre id="${id}"><code>${escapedContent}</code></pre>
     </div>`;
+}
+
+// Split long text into multiple lines with specified prefix
+function splitLongLine(prefix, text, maxLength = 78) {
+  const fullLine = `${prefix} ${text}`;
+  
+  // If the line is not too long, return as is
+  if (fullLine.length <= maxLength) {
+    return [fullLine];
+  }
+  
+  const lines = [];
+  let remainingText = text;
+  let isFirstLine = true;
+  
+  while (remainingText.length > 0) {
+    const currentPrefix = isFirstLine ? prefix : '$';
+    const availableLength = maxLength - currentPrefix.length - 1; // -1 for space
+    
+    if (remainingText.length <= availableLength) {
+      lines.push(`${currentPrefix} ${remainingText}`);
+      break;
+    }
+    
+    // Try to find a good breaking point (space)
+    let breakPoint = availableLength;
+    let spaceIndex = remainingText.lastIndexOf(' ', availableLength);
+    
+    if (spaceIndex > 0 && spaceIndex < availableLength) {
+      breakPoint = spaceIndex;
+    } else {
+      // If no space found, try breaking at "/"
+      let slashIndex = remainingText.lastIndexOf('/', availableLength);
+      if (slashIndex > 0 && slashIndex < availableLength) {
+        breakPoint = slashIndex + 1; // Include the slash in current line
+      }
+    }
+    
+    const currentPart = remainingText.substring(0, breakPoint);
+    lines.push(`${currentPrefix} ${currentPart}`);
+    
+    remainingText = remainingText.substring(breakPoint).trim();
+    isFirstLine = false;
+  }
+  
+  return lines;
+}
+
+// Add metadata comments to LS-DYNA card content
+function addMetadataComments(content, material) {
+  if (!material || !content) return content;
+  
+  const lines = content.split('\n');
+  if (lines.length < 2) return content;
+  
+  // Find the position to insert comments (after the second non-empty line)
+  let insertPosition = 1;
+  let nonEmptyCount = 0;
+  
+  for (let i = 0; i < lines.length; i++) {
+    if (lines[i].trim() !== '') {
+      nonEmptyCount++;
+      if (nonEmptyCount === 2) {
+        insertPosition = i + 1;
+        break;
+      }
+    }
+  }
+  
+  // Prepare metadata comments
+  const metadataComments = [];
+  
+  if (material.units) {
+    metadataComments.push(...splitLongLine('$ Units:', material.units));
+  }
+  
+  if (material.ref) {
+    metadataComments.push(...splitLongLine('$ Reference:', material.ref));
+  }
+  
+  if (material.url) {
+    metadataComments.push(...splitLongLine('$ URL:', material.url));
+  }
+  
+  if (material.comments) {
+    metadataComments.push(...splitLongLine('$ Comments:', material.comments));
+  }
+  
+  // Insert metadata comments
+  if (metadataComments.length > 0) {
+    const beforeInsert = lines.slice(0, insertPosition);
+    const afterInsert = lines.slice(insertPosition);
+    
+    return [...beforeInsert, ...metadataComments, ...afterInsert].join('\n');
+  }
+  
+  return content;
 }
 
 // Copy text to clipboard with modern API

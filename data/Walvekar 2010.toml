@@ -1,10 +1,15 @@
 [[material]]
+mat_data = """
+*MAT_NULL_TITLE
+Ballistic gelatin for bird model
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#     mid        ro        pc        mu     terod     cerod        ym        pr
+         1   1.06e-3       0.0       0.0       0.0       0.0       0.0       0.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
 eos_data = """
 *EOS_TABULATED_TITLE
 Ballistic gelatin for bird model
-$ Walvekar, V. (2010). Birdstrike Analysis on Leading Edge of an Aircraft Wing
-$ Using a Smooth Particle Hydrodynamics Bird Model (Master’s thesis, Wichita
-$ State University). Available from Wichita State University repository.
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#   eosid      gama        e0        v0       lcc       lct
          1       1.0       0.0       1.0      1001
@@ -35,15 +40,20 @@ ref = "Walvekar, V. (2010). Birdstrike Analysis on Leading Edge of an Aircraft W
 url = "https://www.researchgate.net/publication/267592627_Birdstrike_Analysis_on_Leading_Edge_of_an_Aircraft_Wing_Using_a_Smooth_Particle_Hydrodynamics_Bird_Model"
 
 [[material]]
+mat_data = """
+*MAT_NULL_TITLE
+Ballistic gelatin for bird model
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#     mid        ro        pc        mu     terod     cerod        ym        pr
+         2   1.06e-3       0.0       0.0       0.0       0.0       0.0       0.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
 eos_data = """
 *EOS_TABULATED_TITLE
 Ballistic gelatin for bird model
-$ Walvekar, V. (2010). Birdstrike Analysis on Leading Edge of an Aircraft Wing
-$ Using a Smooth Particle Hydrodynamics Bird Model (Master’s thesis, Wichita
-$ State University). Available from Wichita State University repository.
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#   eosid      gama        e0        v0       lcc       lct
-         1       1.0       0.0       1.0         0         0
+         2       1.0       0.0       1.0         0         0
 $#     ev1       ev2       ev3       ev4       ev5
        1.0       0.0   -0.0953   -0.1044   -0.1124
 $#     ev6       ev7       ev8       ev9      ev10

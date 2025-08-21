@@ -657,6 +657,32 @@ tr:nth-child(even) {
     overflow: hidden;
 }
 
+/* Units and comments block styles */
+.units-block, .comments-block {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    text-overflow: ellipsis;
+    max-width: 1200px;
+    text-align: left;
+    overflow: hidden;
+    margin: 0.5em 0;
+    padding: 0.5em;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    border-left: 4px solid #007bff;
+}
+
+.units-info {
+    font-family: 'Fira Code', monospace;
+    color: #0056b3;
+    font-weight: 600;
+}
+
+.comments-info {
+    color: #6c757d;
+    font-style: italic;
+}
+
 /* About page styles */
 .about-section {
     margin: 0 auto;
