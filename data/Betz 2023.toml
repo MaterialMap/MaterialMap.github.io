@@ -2,10 +2,6 @@
 mat_data = """
 *MAT_COHESIVE_MIXED_MODE_ELASTOPLASTIC_RATE_TITLE
 BETAFORCE 2850L
-$ Betz, N., Holzapfel, M., Behling, T., Vinot, M., & Toso, N. (2023).
-$ Characterization of a cohesive zone model for adhesives with *MAT_240 and
-$ curve mapping method in LS-OPT. 14th European LS-DYNA Conference 2023,
-$ Baden-Baden, Germany
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID        RO     ROFLG   INTFAIL      EMOD      GMOD     THICK    OUTPUT
        240 1.200E-09         0         4      0.07     0.007         0     0.002
@@ -20,5 +16,5 @@ app = [
   "Adhesive for automotive structures",
 ]
 ref = "Betz, N., Holzapfel, M., Behling, T., Vinot, M., & Toso, N. (2023). Characterization of a cohesive zone model for adhesives with *MAT_240 and curve mapping method in LS-OPT. 14th European LS-DYNA Conference 2023, Baden-Baden, Germany"
-
+units = "mm–s–tonne–N–MPa"
 url = "https://www.dynalook.com/conferences/14th-european-ls-dyna-conference-2023/adhesives/betz_dlr.pdf/view"
