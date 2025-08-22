@@ -1,7 +1,7 @@
 /**
  * Material dictionaries management
  */
-import { BASE_PATH, CONFIG } from '../utils/config.js';
+import { BASE_PATH, CONFIG, joinPath } from '../utils/config.js';
 
 export class MaterialDictionaries {
   constructor() {
@@ -19,9 +19,9 @@ export class MaterialDictionaries {
     
     try {
       const [matResponse, eosResponse, matThermalResponse] = await Promise.all([
-        fetch(`${BASE_PATH}${CONFIG.PATHS.LIB}/mat.json`),
-        fetch(`${BASE_PATH}${CONFIG.PATHS.LIB}/eos.json`),
-        fetch(`${BASE_PATH}${CONFIG.PATHS.LIB}/mat_thermal.json`)
+        fetch(joinPath(BASE_PATH, `${CONFIG.PATHS.LIB}/mat.json`)),
+        fetch(joinPath(BASE_PATH, `${CONFIG.PATHS.LIB}/eos.json`)),
+        fetch(joinPath(BASE_PATH, `${CONFIG.PATHS.LIB}/mat_thermal.json`))
       ]);
 
       // Load material dictionary

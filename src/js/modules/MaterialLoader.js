@@ -1,7 +1,7 @@
 /**
  * Material data loading and management
  */
-import { BASE_PATH, CONFIG } from '../utils/config.js';
+import { BASE_PATH, CONFIG, joinPath } from '../utils/config.js';
 import { waitForCondition } from '../utils/helpers.js';
 
 export class MaterialLoader {
@@ -25,7 +25,7 @@ export class MaterialLoader {
    * Load file list from server
    */
   async loadFileList() {
-    const response = await fetch(`${BASE_PATH}${CONFIG.PATHS.DIST}/file-list.json`);
+    const response = await fetch(joinPath(BASE_PATH, `${CONFIG.PATHS.DIST}/file-list.json`));
     if (!response.ok) {
       throw new Error(`Failed to fetch file list. Status: ${response.status} ${response.statusText}`);
     }
@@ -55,7 +55,7 @@ export class MaterialLoader {
    */
   async loadSingleFile(fileName) {
     try {
-      const response = await fetch(`${BASE_PATH}${CONFIG.PATHS.DATA}/${fileName}`);
+      const response = await fetch(joinPath(BASE_PATH, `${CONFIG.PATHS.DATA}/${fileName}`));
       if (!response.ok) {
         console.warn(`Failed to fetch file ${fileName}. Status: ${response.status}`);
         return [];

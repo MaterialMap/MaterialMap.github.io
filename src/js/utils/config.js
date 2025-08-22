@@ -44,3 +44,19 @@ export function getBasePath() {
 }
 
 export const BASE_PATH = getBasePath();
+
+/**
+ * Properly join base path with a path, avoiding double slashes
+ */
+export function joinPath(basePath, path) {
+  // Remove trailing slash from basePath and leading slash from path
+  const cleanBasePath = basePath.endsWith('/') ? basePath.slice(0, -1) : basePath;
+  const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+  
+  // Handle special case where basePath is just '/'
+  if (basePath === '/') {
+    return path.startsWith('/') ? path : `/${path}`;
+  }
+  
+  return `${cleanBasePath}/${cleanPath}`;
+}

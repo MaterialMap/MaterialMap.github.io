@@ -1,7 +1,7 @@
 /**
  * Service Worker management
  */
-import { BASE_PATH } from '../utils/config.js';
+import { BASE_PATH, joinPath } from '../utils/config.js';
 
 export class ServiceWorkerManager {
   constructor() {
@@ -18,7 +18,8 @@ export class ServiceWorkerManager {
     }
 
     try {
-      this.registration = await navigator.serviceWorker.register(`${BASE_PATH}/service-worker.js`);
+      const serviceWorkerPath = joinPath(BASE_PATH, 'service-worker.js');
+      this.registration = await navigator.serviceWorker.register(serviceWorkerPath);
       console.log('Service Worker registered with scope:', this.registration.scope);
       
       // Listen for updates
