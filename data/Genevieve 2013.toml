@@ -1,0 +1,40 @@
+[[material]]
+mat_data = """
+*MAT_LOW_DENSITY_FOAM_TITLE
+PVC Foam H80 - Divinycell H80
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#     mid        ro         e      lcid        tc        hu      beta      damp
+        57  8.00E-11      90.0    100000       0.2      0.01       0.0      0.05
+$#   shape      fail    bvflag        ed     beta1      kcon       ref
+       0.8       0.0       1.0       0.0       0.0     100.0       0.0
+*DEFINE_CURVE_TITLE
+PVC Foam H80 - Divinycell H80
+$#    lcid      sidr       sfa       sfo      offa      offo    dattyp     lcint
+    100000         0       1.0       1.0       0.0       0.0         0         0
+$#                a1                  o1
+               0.000                0.00
+               0.010                0.80
+               0.050                1.20
+               0.100                1.40
+               0.200                1.65
+               0.300                1.85
+               0.400                2.10
+               0.500                2.50
+               0.600                3.50
+               0.650                5.00
+               0.700                7.00
+               0.750               10.00
+               0.800               14.00
+               0.850               20.00
+               0.900               30.00
+               0.950               45.00
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+app = [
+  "PVC Foam H80",
+  "Divinycell H80",
+  "Hyperelastic foam",
+]
+ref = "G.S. Langdon, D. Karagiozova, C.J. von Klemperer, G.N. Nurick, A. Ozinsky, E.G. Pickering, The air-blast response of sandwich panels with composite face sheets and polymer foam cores: Experiments and predictions, International Journal of Impact Engineering, Volume 54, 2013, Pages 64-82, ISSN 0734-743X"
+units = "mm–s–tonne–N–MPa"
+url = "https://www.researchgate.net/publication/256443997_The_air-blast_response_of_sandwich_panels_with_composite_face_sheets_and_polymer_foam_cores_Experiments_and_predictions"
