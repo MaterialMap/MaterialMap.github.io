@@ -3,7 +3,7 @@
  */
 import { CONFIG } from './utils/config.js';
 import { waitForCondition } from './utils/helpers.js';
-import { MaterialDictionaries } from './modules/MaterialDictionaries.js';
+import { MaterialDictionaries } from './modules/materialDictionaries.js';
 import { MaterialLoader } from './modules/MaterialLoader.js';
 import { MaterialTable } from './components/MaterialTable.js';
 import { MaterialFilters } from './components/MaterialFilters.js';

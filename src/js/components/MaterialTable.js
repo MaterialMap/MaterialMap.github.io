@@ -3,7 +3,7 @@
  */
 import { CONFIG } from '../utils/config.js';
 import { escapeHtml, generateId, copyToClipboard } from '../utils/helpers.js';
-import { processMaterialData } from '../modules/MaterialParser.js';
+import { processMaterialData } from '../modules/materialParser.js';
 
 export class MaterialTable {
   constructor(tableSelector, materialDictionaries) {
