@@ -18,7 +18,10 @@
     "generate-file-list": "node scripts/generate-file-list.js",
     "lint": "eslint src/js/**/*.js",
     "format": "prettier --write \"src/**/*.{js,css,html}\"",
-    "validate-data": "node scripts/validate-toml.js"
+    "validate-data": "node scripts/validate-toml.js",
+    "import-to-supabase": "node scripts/import-to-supabase.js",
+    "import-to-supabase:dry-run": "node scripts/import-to-supabase.js --dry-run",
+    "supabase:stats": "node -e \"import('./src/js/config/supabase.js').then(m => m.materialsAPI.getStats().then(console.log))\""
   },
   "devDependencies": {
     "@playwright/test": "^1.54.2",

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Material MAP - Supabase Demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .material-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            padding: 15px;
+            transition: box-shadow 0.3s;
+        }
+        .material-card:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .lsdyna-code {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            white-space: pre-wrap;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+        }
+        .error {
+            color: #dc3545;
+            padding: 10px;
+            background-color: #f8d7da;
+            border-radius: 4px;
+        }
+        .stats-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center mb-4">🧪 Material MAP - Supabase Demo</h1>
+                <p class="text-center text-muted">Демонстрация интеграции с базой данных Supabase</p>
+            </div>
+        </div>
+
+        <!-- Конфигурация -->
+        <div class="row mb-4">
+            <div class="col-md-8 mx-auto">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>🔧 Настройки подключения</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="supabaseUrl" class="form-label">Supabase URL</label>
+                            <input type="url" class="form-control" id="supabaseUrl" 
+                                   placeholder="https://your-project-ref.supabase.co">
+                        </div>
+                        <div class="mb-3">
+                            <label for="supabaseKey" class="form-label">Anon Key</label>
+                            <input type="password" class="form-control" id="supabaseKey" 
+                                   placeholder="Вставьте anon key из Supabase Dashboard">
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="connectToSupabase()">
+                            Подключиться
+                        </button>
+                        <button type="button" class="btn btn-secondary ms-2" onclick="loadDemo()">
+                            Демо данные
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Статистика -->
+        <div class="row" id="statsSection" style="display: none;">
+            <div class="col-md-4">
+                <div class="stats-card">
+                    <h3 id="materialsCount">-</h3>
+                    <p>Материалов</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stats-card">
+                    <h3 id="referencesCount">-</h3>
+                    <p>Источников</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stats-card">
+                    <h3 id="applicationsCount">-</h3>
+                    <p>Применений</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Поиск -->
+        <div class="row" id="searchSection" style="display: none;">
+            <div class="col-12 mb-4">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="searchInput" 
+                           placeholder="Поиск материалов (например: aluminum, steel, MAT_ELASTIC)">
+                    <button class="btn btn-primary" onclick="searchMaterials()">🔍 Поиск</button>
+                    <button class="btn btn-outline-secondary" onclick="loadAllMaterials()">Показать все</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Результаты -->
+        <div class="row">
+            <div class="col-12">
+                <div id="results">
+                    <div class="loading" id="loadingIndicator" style="display: none;">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Загрузка...</span>
+                        </div>
+                        <p>Загрузка данных...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal для просмотра материала -->
+    <div class="modal fade" id="materialModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="materialModalTitle">Материал</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="materialModalBody">
+                    <!-- Содержимое загружается динамически -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-primary" id="copyMaterialBtn">📋 Копировать LS-DYNA</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module">
+        import { createClient } from 'https://cdn.skypack.dev/@supabase/supabase-js@2';
+
+        let supabase = null;
+        let currentMaterial = null;
+
+        window.connectToSupabase = async function() {
+            const url = document.getElementById('supabaseUrl').value;
+            const key = document.getElementById('supabaseKey').value;
+
+            if (!url || !key) {
+                alert('Пожалуйста, заполните URL и ключ');
+                return;
+            }
+
+            try {
+                supabase = createClient(url, key);
+                
+                // Проверяем подключение
+                const { data, error } = await supabase
+                    .from('materials')
+                    .select('count', { count: 'exact', head: true });
+
+                if (error) throw error;
+
+                document.getElementById('statsSection').style.display = 'flex';
+                document.getElementById('searchSection').style.display = 'block';
+                
+                await loadStats();
+                await loadAllMaterials();
+                
+                alert('✅ Подключение успешно!');
+            } catch (error) {
+                console.error('Ошибка подключения:', error);
+                alert('❌ Ошибка подключения: ' + error.message);
+            }
+        };
+
+        window.loadDemo = function() {
+            // Автозаполнение для демонстрации
+            document.getElementById('supabaseUrl').value = 'https://rjacdeibxldgustnaaqm.supabase.co';
+            document.getElementById('supabaseKey').value = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJqYWNkZWlieGxkZ3VzdG5hYXFtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU5NDA2NTUsImV4cCI6MjA3MTUxNjY1NX0.emCdShgCsY9UdTepEPu7d9tj0ZkkIJ6FX4lxebDJIVE';
+            alert('✅ Демо данные загружены! Нажмите "Подключиться"');
+        };
+
+        window.loadStats = async function() {
+            if (!supabase) return;
+
+            try {
+                // Получаем статистику
+                const [materials, references, applications] = await Promise.all([
+                    supabase.from('materials').select('count', { count: 'exact', head: true }),
+                    supabase.from('references').select('count', { count: 'exact', head: true }),
+                    supabase.from('applications').select('count', { count: 'exact', head: true })
+                ]);
+
+                document.getElementById('materialsCount').textContent = materials.count || 0;
+                document.getElementById('referencesCount').textContent = references.count || 0;
+                document.getElementById('applicationsCount').textContent = applications.count || 0;
+            } catch (error) {
+                console.error('Ошибка загрузки статистики:', error);
+            }
+        };
+
+        window.loadAllMaterials = async function() {
+            if (!supabase) return;
+
+            showLoading(true);
+            try {
+                const { data: materials, error } = await supabase
+                    .from('materials_full')
+                    .select('*')
+                    .order('name')
+                    .limit(20);
+
+                if (error) throw error;
+
+                displayMaterials(materials || []);
+            } catch (error) {
+                displayError('Ошибка загрузки материалов: ' + error.message);
+            } finally {
+                showLoading(false);
+            }
+        };
+
+        window.searchMaterials = async function() {
+            if (!supabase) return;
+
+            const query = document.getElementById('searchInput').value.trim();
+            if (!query) {
+                loadAllMaterials();
+                return;
+            }
+
+            showLoading(true);
+            try {
+                const { data: materials, error } = await supabase
+                    .from('materials_full')
+                    .select('*')
+                    .or(`name.ilike.%${query}%,description.ilike.%${query}%,material_type_code.ilike.%${query}%`)
+                    .order('name')
+                    .limit(20);
+
+                if (error) throw error;
+
+                displayMaterials(materials || []);
+                
+                if (materials.length === 0) {
+                    displayError('Материалы не найдены. Попробуйте другой запрос.');
+                }
+            } catch (error) {
+                displayError('Ошибка поиска: ' + error.message);
+            } finally {
+                showLoading(false);
+            }
+        };
+
+        function displayMaterials(materials) {
+            const resultsDiv = document.getElementById('results');
+            
+            if (materials.length === 0) {
+                resultsDiv.innerHTML = '<p class="text-muted text-center">Материалы не найдены</p>';
+                return;
+            }
+
+            const materialsHtml = materials.map(material => `
+                <div class="material-card">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h5>${material.name}</h5>
+                            <p class="text-muted">${material.description || 'Описание отсутствует'}</p>
+                            <div class="mb-2">
+                                <span class="badge bg-primary">${material.material_type_code || 'N/A'}</span>
+                                <span class="badge bg-secondary">ρ=${material.density || 'N/A'}</span>
+                                <span class="badge bg-secondary">E=${material.youngs_modulus || 'N/A'}</span>
+                                <span class="badge bg-info">${material.units}</span>
+                            </div>
+                            <div class="mb-2">
+                                <strong>Применения:</strong> 
+                                ${material.applications?.join(', ') || 'Не указано'}
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <button class="btn btn-sm btn-outline-primary" 
+                                    onclick="viewMaterial('${material.id}')">
+                                👁️ Просмотр
+                            </button>
+                            <button class="btn btn-sm btn-outline-success" 
+                                    onclick="copyMaterial('${material.id}')">
+                                📋 Копировать
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            resultsDiv.innerHTML = materialsHtml;
+        }
+
+        window.viewMaterial = async function(materialId) {
+            if (!supabase) return;
+
+            try {
+                const { data: material, error } = await supabase
+                    .from('materials_full')
+                    .select('*')
+                    .eq('id', materialId)
+                    .single();
+
+                if (error) throw error;
+
+                currentMaterial = material;
+                
+                // Заполняем модальное окно
+                document.getElementById('materialModalTitle').textContent = material.name;
+                document.getElementById('materialModalBody').innerHTML = `
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Основные параметры</h6>
+                            <table class="table table-sm">
+                                <tr><td>Тип:</td><td>${material.material_type_code || 'N/A'}</td></tr>
+                                <tr><td>Плотность:</td><td>${material.density || 'N/A'}</td></tr>
+                                <tr><td>Модуль Юнга:</td><td>${material.youngs_modulus || 'N/A'}</td></tr>
+                                <tr><td>Коэфф. Пуассона:</td><td>${material.poisson_ratio || 'N/A'}</td></tr>
+                                <tr><td>Предел текучести:</td><td>${material.yield_strength || 'N/A'}</td></tr>
+                                <tr><td>Единицы:</td><td>${material.units}</td></tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Применения</h6>
+                            <ul>
+                                ${material.applications?.map(app => `<li>${app}</li>`).join('') || '<li>Не указано</li>'}
+                            </ul>
+                            <h6>Источники</h6>
+                            <ul>
+                                ${material.reference_urls?.map(url => `<li><a href="${url}" target="_blank">${url}</a></li>`).join('') || '<li>Не указано</li>'}
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    ${material.description ? `<div class="mt-3"><h6>Описание</h6><p>${material.description}</p></div>` : ''}
+                    ${material.comments ? `<div class="mt-3"><h6>Комментарии</h6><p>${material.comments}</p></div>` : ''}
+                    
+                    <div class="mt-3">
+                        <h6>LS-DYNA данные</h6>
+                        <div class="lsdyna-code">${material.mat_data_raw}</div>
+                        ${material.eos_data_raw ? `<h6 class="mt-3">EOS данные</h6><div class="lsdyna-code">${material.eos_data_raw}</div>` : ''}
+                    </div>
+                `;
+
+                // Показываем модальное окно
+                const modal = new bootstrap.Modal(document.getElementById('materialModal'));
+                modal.show();
+
+            } catch (error) {
+                alert('Ошибка загрузки материала: ' + error.message);
+            }
+        };
+
+        window.copyMaterial = async function(materialId) {
+            if (!supabase) return;
+
+            try {
+                const { data: material, error } = await supabase
+                    .from('materials_full')
+                    .select('mat_data_raw, eos_data_raw')
+                    .eq('id', materialId)
+                    .single();
+
+                if (error) throw error;
+
+                let textToCopy = material.mat_data_raw || '';
+                if (material.eos_data_raw) {
+                    textToCopy += '\n\n' + material.eos_data_raw;
+                }
+
+                await navigator.clipboard.writeText(textToCopy);
+                alert('✅ LS-DYNA данные скопированы в буфер обмена!');
+
+            } catch (error) {
+                alert('❌ Ошибка копирования: ' + error.message);
+            }
+        };
+
+        // Копирование из модального окна
+        document.getElementById('copyMaterialBtn').addEventListener('click', function() {
+            if (currentMaterial) {
+                let textToCopy = currentMaterial.mat_data_raw || '';
+                if (currentMaterial.eos_data_raw) {
+                    textToCopy += '\n\n' + currentMaterial.eos_data_raw;
+                }
+
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    alert('✅ LS-DYNA данные скопированы в буфер обмена!');
+                }).catch(err => {
+                    alert('❌ Ошибка копирования: ' + err.message);
+                });
+            }
+        });
+
+        function showLoading(show) {
+            document.getElementById('loadingIndicator').style.display = show ? 'block' : 'none';
+        }
+
+        function displayError(message) {
+            document.getElementById('results').innerHTML = `<div class="error">${message}</div>`;
+        }
+
+        // Поиск по Enter
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchMaterials();
+            }
+        });
+    </script>
+</body>
+</html>
