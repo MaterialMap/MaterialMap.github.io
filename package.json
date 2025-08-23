@@ -13,7 +13,13 @@
   "scripts": {
     "dev": "npm run serve",
     "serve": "python3 -m http.server 5500",
+    "serve:github-pages": "node scripts/serve-github-pages.js",
+    "serve:subdirectory": "node scripts/serve-subdirectory.js",
     "test": "playwright test",
+    "test:all-envs": "npm run test:local && npm run test:github-pages && npm run test:subdirectory",
+    "test:local": "playwright test --config=playwright.config.js",
+    "test:github-pages": "playwright test --config=playwright.github-pages.config.js",
+    "test:subdirectory": "playwright test --config=playwright.subdirectory.config.js",
     "build": "npm run generate-file-list",
     "generate-file-list": "node scripts/generate-file-list.js",
     "lint": "eslint src/js/**/*.js",
@@ -23,6 +29,7 @@
   "devDependencies": {
     "@playwright/test": "^1.54.2",
     "eslint": "^8.56.0",
+    "express": "^4.18.2",
     "playwright": "^1.54.2",
     "prettier": "^3.1.0",
     "toml": "^3.0.0"

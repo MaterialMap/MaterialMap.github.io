@@ -35,6 +35,16 @@ export function getBasePath() {
 
   // Check if the site is running on localhost with a non-privileged port
   if (origin.includes("localhost") || origin.includes("127.0.0.1") || (port && parseInt(port) > 1024)) {
+    // For GitHub Pages simulation (port 3001), use root path
+    if (port === "3001") {
+      return "/";
+    }
+    // For subdirectory simulation (port 3002), extract repo name from path
+    if (port === "3002") {
+      const repoName = pathname.split("/")[1];
+      return repoName ? `/${repoName}` : "/";
+    }
+    // For local development (port 5500 or others), use relative path
     return "./";
   }
 
