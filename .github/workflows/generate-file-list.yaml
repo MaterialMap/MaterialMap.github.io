@@ -8,6 +8,11 @@ on:
       - 'data/*.toml'  # Запускается только при изменении TOML файлов
   workflow_dispatch: # Возможность ручного запуска
 
+# Allow only one concurrent file list generation, cancel in-progress runs
+concurrency:
+  group: "file-list-generation"
+  cancel-in-progress: true
+
 jobs:
   generate-file-list:
     runs-on: ubuntu-latest
