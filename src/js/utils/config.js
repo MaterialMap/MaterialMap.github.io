@@ -48,9 +48,20 @@ export function getBasePath() {
     return "./";
   }
 
-  // For GitHub Pages
-  const repoName = pathname.split("/")[1];
-  return repoName ? `/${repoName}` : "/";
+  // For GitHub Pages - handle both root domain and subdirectory cases
+  if (origin.includes('materialmap.github.io')) {
+    // For root domain like materialmap.github.io, always use "/"
+    return "/";
+  }
+  
+  // For other GitHub Pages sites in subdirectories
+  const pathSegments = pathname.split("/").filter(segment => segment);
+  if (pathSegments.length > 0 && !pathSegments[0].includes('.')) {
+    // First segment is likely repo name, not a file
+    return `/${pathSegments[0]}`;
+  }
+  
+  return "/";
 }
 
 export const BASE_PATH = getBasePath();
