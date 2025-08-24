@@ -22,8 +22,10 @@ try {
 const CONFIG = {
   DATA_DIR: path.join(__dirname, '..', 'data'),
   FILE_EXTENSION: '.toml',
-  REQUIRED_FIELDS: ['mat_data', 'app', 'url'],
-  OPTIONAL_FIELDS: ['eos_data', 'mat_add_data', 'mat_thermal_data', 'ref', 'units', 'comments']
+  REQUIRED_FIELDS: ['app'], // Always required
+  REFERENCE_FIELDS: ['ref', 'url'], // At least one must be present
+  MATERIAL_DATA_FIELDS: ['mat_data', 'eos_data'], // At least one must be present
+  OPTIONAL_FIELDS: ['mat_add_data', 'mat_thermal_data', 'units', 'comments']
 };
 
 // Get all TOML files from the data directory
@@ -57,11 +59,24 @@ function validateTomlFile(filePath) {
     
     // Validate each material entry
     data.material.forEach((material, index) => {
+      // Check required fields
       CONFIG.REQUIRED_FIELDS.forEach(field => {
         if (!material[field]) {
           errors.push(`Material #${index + 1}: Missing required field '${field}'`);
         }
       });
+      
+      // Check if at least one reference field is present
+      const hasReference = CONFIG.REFERENCE_FIELDS.some(field => material[field]);
+      if (!hasReference) {
+        errors.push(`Material #${index + 1}: Missing reference - at least one of [${CONFIG.REFERENCE_FIELDS.join(', ')}] is required`);
+      }
+      
+      // Check if at least one material data field is present
+      const hasMaterialData = CONFIG.MATERIAL_DATA_FIELDS.some(field => material[field]);
+      if (!hasMaterialData) {
+        errors.push(`Material #${index + 1}: Missing material data - at least one of [${CONFIG.MATERIAL_DATA_FIELDS.join(', ')}] is required`);
+      }
       
       // Check if app is an array
       if (material.app && !Array.isArray(material.app)) {

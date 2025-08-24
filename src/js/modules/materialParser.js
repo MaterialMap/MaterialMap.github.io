@@ -81,20 +81,23 @@ export function processMaterialData(material, materialDictionaries) {
   eosInfo.id = materialDictionaries.getEosId(eosInfo.eos);
   
   // Create combined markup for Material Model & EOS column
-  let materialModelEosHTML = `
-    <div><strong>Material:</strong> ${materialInfo.id} / ${materialInfo.mat}</div>
-  `;
+  let materialModelEosHTML = '';
 
-  // Add Additional properties (MAT_ADD only) if they exist in the data
-  if (matAddInfo) {
-    materialModelEosHTML += `<div><strong>Additional properties:</strong> ${matAddInfo}</div>`;
-  }
-  
-  // Add Thermal properties (MAT_THERMAL) separately if they exist
-  if (matThermalInfo) {
-    // Get thermal ID from dictionaries
-    const thermalId = materialDictionaries.getMatThermalId(matThermalInfo);
-    materialModelEosHTML += `<div><strong>Thermal properties:</strong></div><div><pre><code>${thermalId} / ${matThermalInfo}</code></pre></div>`;
+  // Add Material info only if mat_data exists
+  if (material.mat_data && materialInfo.mat !== '-') {
+    materialModelEosHTML += `<div><strong>Material:</strong> ${materialInfo.id} / ${materialInfo.mat}</div>`;
+    
+    // Add Additional properties (MAT_ADD only) if they exist in the data
+    if (matAddInfo) {
+      materialModelEosHTML += `<div><strong>Additional properties:</strong> ${matAddInfo}</div>`;
+    }
+    
+    // Add Thermal properties (MAT_THERMAL) separately if they exist
+    if (matThermalInfo) {
+      // Get thermal ID from dictionaries
+      const thermalId = materialDictionaries.getMatThermalId(matThermalInfo);
+      materialModelEosHTML += `<div><strong>Thermal properties:</strong></div><div><pre><code>${thermalId} / ${matThermalInfo}</code></pre></div>`;
+    }
   }
   
   // Add EOS info if it exists
@@ -103,7 +106,18 @@ export function processMaterialData(material, materialDictionaries) {
   }
   
   // Collect all material types for search
-  const allMaterialTypes = [materialInfo.mat];
+  const allMaterialTypes = [];
+  
+  // Add material type if it exists
+  if (materialInfo.mat && materialInfo.mat !== '-') {
+    allMaterialTypes.push(materialInfo.mat);
+  }
+  
+  // Add EOS type if it exists (for EOS-only materials)
+  if (eosInfo.eos && eosInfo.eos !== '-') {
+    allMaterialTypes.push(eosInfo.eos);
+  }
+  
   if (matAddInfo) {
     allMaterialTypes.push(matAddInfo);
   }
