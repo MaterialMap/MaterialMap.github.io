@@ -1,0 +1,1049 @@
+Database List for Power Law Plasticity
+MAT_018.BAS English Units 5/20/2010
+http://www.VarmintAl.com/aengr.htm
+English Units (lbf-s2/in, in, s, lbf, psi, lbf-in)
+
+    1  ALUMINUM PURE 99.996 ANNEALED                                 SY=  1800 SU=  7000
+    2  ALUMINUM PURE 99.45-O CONDITION                               SY=  4000 SU= 12000
+    3  ALUMINUM PURE-H12 SHEET                                       SY= 12000 SU= 14000
+    4  ALUMINUM PURE-H16 SHEET                                       SY= 16000 SU= 18000
+    5  ALUMINUM 1060-O SHEET                                         SY=  4000 SU= 10000
+    6  ALUMINUM 1060-H12 SHEET                                       SY= 11000 SU= 12000
+    7  ALUMINUM 1060-H18 SHEET                                       SY= 18000 SU= 19000
+    8  ALUMINUM 1100-O SHEET                                         SY=  5000 SU= 14000
+    9  ALUMINUM 1100-H14 SHEET                                       SY= 17000 SU= 18000
+   10  ALUMINUM 1100-H18 SHEET                                       SY= 26000 SU= 28000
+   11  ALUMINUM 2011-T3 BAR                                          SY= 43000 SU= 55000
+   12  ALUMINUM 2011-T8 BAR                                          SY= 45000 SU= 59000
+   13  ALUMINUM 2014-O BAR                                           SY= 14000 SU= 27000
+   14  ALUMINUM 2014-T6 SHEET                                        SY= 68000 SU= 74000
+   15  ALUMINUM 2014-T651                                            SY= 63500 SU= 69000
+   16  ALUMINUM 2017-O BAR                                           SY= 10000 SU= 26000
+   17  ALUMINUM 2017-T4 BAR                                          SY= 40000 SU= 62000
+   18  ALUMINUM 2021-O SHEET                                         SY= 10000 SU= 24000
+   19  ALUMINUM 2021-T31 SHEET                                       SY= 40000 SU= 60000
+   20  ALUMINUM 2021-T81 PLATE                                       SY= 63000 SU= 73000
+   21  ALUMINUM 2021-T8151                                           SY= 66600 SU= 74400
+   22  ALUMINUM 2024-O SHEET                                         SY= 11000 SU= 27000
+   23  ALUMINUM 2024-T3 SHEET                                        SY= 51000 SU= 68000
+   24  ALUMINUM 2024-T4 SHEET                                        SY= 47000 SU= 68000
+   25  ALUMINUM 2024-T851 PLATE                                      SY= 68000 SU= 72000
+   26  ALUMINUM 2025-T6 PLATE                                        SY= 37000 SU= 58000
+   27  ALUMINUM 2219-O SHEET                                         SY= 11000 SU= 25000
+   28  ALUMINUM 2219-T31 SHEET                                       SY= 45000 SU= 56000
+   29  ALUMINUM 2219-T62 SHEET                                       SY= 39000 SU= 59000
+   30  ALUMINUM 2219-T851 SHEET                                      SY= 51000 SU= 66000
+   31  ALUMINUM 2219-T851                                            SY= 53800 SU= 67600
+   32  ALUMINUM 2618-T6 SHEET                                        SY= 56000 SU= 61000
+   33  ALUMINUM 3003-O SHEET                                         SY=  6000 SU= 16000
+   34  ALUMINUM 3003-H12 SHEET                                       SY= 18000 SU= 19000
+   35  ALUMINUM 3003-H14                                             SY= 21100 SU= 22900
+   36  ALUMINUM 3003-H18 SHEET                                       SY= 27000 SU= 29000
+   37  ALUMINUM 3004-O SHEET                                         SY= 10000 SU= 26000
+   38  ALUMINUM 3004-H32 SHEET                                       SY= 25000 SU= 31000
+   39  ALUMINUM 3004-H34 SHEET                                       SY= 29000 SU= 35000
+   40  ALUMINUM 3004-H38 SHEET                                       SY= 36000 SU= 41000
+   41  ALUMINUM 4032-T6                                              SY= 46000 SU= 55000
+   42  ALUMINUM 5050-O SHEET                                         SY=  8000 SU= 21000
+   43  ALUMINUM 5050-H32 SHEET                                       SY= 21000 SU= 25000
+   44  ALUMINUM 5050-H34 SHEET                                       SY= 24000 SU= 28000
+   45  ALUMINUM 5050-H38 SHEET                                       SY= 29000 SU= 32000
+   46  ALUMINUM 5052-O SHEET                                         SY= 13000 SU= 28000
+   47  ALUMINUM 5052-O                                               SY= 12000 SU= 28000
+   48  ALUMINUM 5052-H34 SHEET                                       SY= 31000 SU= 38000
+   49  ALUMINUM 5052-H38 SHEET                                       SY= 38000 SU= 44000
+   50  ALUMINUM 5083-O SHEET                                         SY= 22000 SU= 44000
+   51  ALUMINUM 5083-O                                               SY= 20400 SU= 46800
+   52  ALUMINUM 5083-H12 SHEET                                       SY= 44000 SU= 52000
+   53  ALUMINUM 5083-H32 SHEET                                       SY= 38000 SU= 51000
+   54  ALUMINUM 5083-H34 SHEET                                       SY= 45000 SU= 54000
+   55  ALUMINUM 5083-H321                                            SY= 34100 SU= 48600
+   56  ALUMINUM 5086-O SHEET                                         SY= 19000 SU= 41000
+   57  ALUMINUM 5086-O                                               SY= 17000 SU= 38000
+   58  ALUMINUM 5086-H32 PLATE                                       SY= 30000 SU= 45000
+   59  ALUMINUM 5086-H34 SHEET                                       SY= 38000 SU= 50000
+   60  ALUMINUM 5086-H34 PLATE                                       SY= 38000 SU= 51000
+   61  ALUMINUM 5154-O SHEET                                         SY= 16000 SU= 35000
+   62  ALUMINUM 5154-H32 SHEET                                       SY= 31000 SU= 41000
+   63  ALUMINUM 5154-H34 SHEET                                       SY= 38000 SU= 46000
+   64  ALUMINUM 5154-H38 SHEET                                       SY= 43000 SU= 49000
+   65  ALUMINUM 5454-O SHEET                                         SY= 16000 SU= 38000
+   66  ALUMINUM 5454-O                                               SY= 16700 SU= 35800
+   67  ALUMINUM 5454-H32 SHEET                                       SY= 32000 SU= 40000
+   68  ALUMINUM 5454-H32                                             SY= 28900 SU= 40900
+   69  ALUMINUM 5454-H34 SHEET                                       SY= 40000 SU= 46000
+   70  ALUMINUM 5454-H32 PLATE                                       SY= 38000 SU= 40000
+   71  ALUMINUM 5456-O SHEET                                         SY= 25000 SU= 49000
+   72  ALUMINUM 5456-O                                               SY= 23200 SU= 49000
+   73  ALUMINUM 5456-H24 SHEET                                       SY= 41000 SU= 54000
+   74  ALUMINUM 5456-H321 SHEET                                      SY= 37000 SU= 51000
+   75  ALUMINUM 5456-H321 PLATE                                      SY= 34000 SU= 56000
+   76  ALUMINUM 6061-O SHEET                                         SY=  8000 SU= 18000
+   77  ALUMINUM 6061-T6 SHEET THICK                                  SY= 41000 SU= 45000
+   78  ALUMINUM 6061-T6 SHEET THIN                                   SY= 43000 SU= 47000
+   79  ALUMINUM 6061-T6                                              SY= 42200 SU= 44900
+   80  ALUMINUM 6061-T651 PLATE                                      SY= 39000 SU= 42000
+   81  ALUMINUM 6063-O SHEET                                         SY=  7000 SU= 13000
+   82  ALUMINUM 6063-T4 SHEET                                        SY= 13000 SU= 25000
+   83  ALUMINUM 6063-T6 SHEET                                        SY= 31000 SU= 35000
+   84  ALUMINUM 6063-T6                                              SY= 31000 SU= 35000
+   85  ALUMINUM 6063-T832 SHEET                                      SY= 39000 SU= 42000
+   86  ALUMINUM 6066-O SHEET                                         SY= 12000 SU= 22000
+   87  ALUMINUM 6066-T4 SHEET                                        SY= 30000 SU= 52000
+   88  ALUMINUM 6066-T6 SHEET                                        SY= 51000 SU= 59000
+   89  ALUMINUM X7005-O SHEET                                        SY= 12000 SU= 28000
+   90  ALUMINUM X7005-T6 SHEET                                       SY= 46000 SU= 52000
+   91  ALUMINUM 7005-T5351                                           SY= 55000 SU= 62000
+   92  ALUMINUM 7039-O SHEET                                         SY= 15000 SU= 33000
+   93  ALUMINUM 7039-T6 SHEET                                        SY= 55000 SU= 63000
+   94  ALUMINUM 7039-T61 PLATE                                       SY= 48000 SU= 58000
+   95  ALUMINUM 7049-T73 DIE FORGINGS                                SY= 61000 SU= 71000
+   96  ALUMINUM 7049-T73511 EXTRUSIONS                               SY= 62000 SU= 72000
+   97  ALUMINUM 7049-T75511 EXTRUSIONS                               SY= 69000 SU= 77000
+   98  ALUMINUM 7050-T73652 HAND FORGING                             SY= 60000 SU= 70000
+   99  ALUMINUM 7050-T736 DIE FORGINGS                               SY= 60000 SU= 70000
+  100  ALUMINUM 7075-O SHEET                                         SY= 15000 SU= 33000
+  101  ALUMINUM 7075-T6 SHEET                                        SY= 76000 SU= 83000
+  102  ALUMINUM 7075-T651 PLATE                                      SY= 76000 SU= 85000
+  103  ALUMINUM 7075-T73 SHEET                                       SY= 63000 SU= 72000
+  104  ALUMINUM 7076-T61                                             SY= 60000 SU= 70000
+  105  ALUMINUM 7079-O SHEET                                         SY= 15000 SU= 33000
+  106  ALUMINUM 7079-T6 SHEET                                        SY= 70000 SU= 77000
+  107  ALUMINUM 7079-T651 PLATE                                      SY= 77000 SU= 84000
+  108  ALUMINUM 7178-O SHEET                                         SY= 15000 SU= 33000
+  109  ALUMINUM 7178-T6 SHEET                                        SY= 75000 SU= 84000
+  110  ALUMINUM 7178-T76 PLATE                                       SY= 72000 SU= 81000
+  111  ALUMINUM 7178-T651 PLATE                                      SY= 84000 SU= 94000
+  112  ALUMINUM WROUGHT 1060 O                                       SY=  4000 SU= 10000
+  113  ALUMINUM WROUGHT 1060 H14                                     SY= 13000 SU= 14000
+  114  ALUMINUM WROUGHT 1060 H18                                     SY= 18000 SU= 19000
+  115  ALUMINUM WROUGHT 1100 O                                       SY=  5000 SU= 13000
+  116  ALUMINUM WROUGHT 1100 H14                                     SY= 17000 SU= 18000
+  117  ALUMINUM WROUGHT 1100 H18                                     SY= 22000 SU= 24000
+  118  ALUMINUM WROUGHT 1350 O                                       SY=  4000 SU= 12000
+  119  ALUMINUM WROUGHT 1350 H19                                     SY= 24000 SU= 27000
+  120  ALUMINUM WROUGHT 2011 T3                                      SY= 43000 SU= 55000
+  121  ALUMINUM WROUGHT 2011 T8                                      SY= 45000 SU= 59000
+  122  ALUMINUM WROUGHT 2014 O                                       SY= 14000 SU= 24000
+  123  ALUMINUM WROUGHT 2014 T6                                      SY= 68000 SU= 74000
+  124  ALUMINUM WROUGHT 2017 O                                       SY= 10000 SU= 26000
+  125  ALUMINUM WROUGHT 2017 T4                                      SY= 40000 SU= 62000
+  126  ALUMINUM WROUGHT 2024 O                                       SY= 11000 SU= 27000
+  127  ALUMINUM WROUGHT 2024 T3                                      SY= 50000 SU= 70000
+  128  ALUMINUM WROUGHT 2024 T4 OR T351                              SY= 47000 SU= 65000
+  129  ALUMINUM WROUGHT 2024 T361                                    SY= 57000 SU= 72000
+  130  ALUMINUM WROUGHT 2036 T4                                      SY= 28000 SU= 49000
+  131  ALUMINUM WROUGHT 2219 O                                       SY= 11000 SU= 25000
+  132  ALUMINUM WROUGHT 2219 T31 OR T351                             SY= 36000 SU= 52000
+  133  ALUMINUM WROUGHT 2219 T81 OR T851                             SY= 51000 SU= 66000
+  134  ALUMINUM WROUGHT 3003 O                                       SY=  6000 SU= 16000
+  135  ALUMINUM WROUGHT 3003 H12                                     SY= 18000 SU= 19000
+  136  ALUMINUM WROUGHT 3003 H14                                     SY= 21000 SU= 22000
+  137  ALUMINUM WROUGHT 3003 H18                                     SY= 27000 SU= 29000
+  138  ALUMINUM WROUGHT 3004 O                                       SY= 10000 SU= 26000
+  139  ALUMINUM WROUGHT 3004 H32                                     SY= 25000 SU= 31000
+  140  ALUMINUM WROUGHT 3004 H34                                     SY= 29000 SU= 35000
+  141  ALUMINUM WROUGHT 3004 H38                                     SY= 36000 SU= 41000
+  142  ALUMINUM WROUGHT 3105 O                                       SY=  8000 SU= 17000
+  143  ALUMINUM WROUGHT 3105 H14                                     SY= 22000 SU= 25000
+  144  ALUMINUM WROUGHT 3105 H18                                     SY= 28000 SU= 31000
+  145  ALUMINUM WROUGHT 3105 H25                                     SY= 23000 SU= 26000
+  146  ALUMINUM WROUGHT 4032 T6                                      SY= 46000 SU= 55000
+  147  ALUMINUM WROUGHT 5005 O                                       SY=  6000 SU= 18000
+  148  ALUMINUM WROUGHT 5005 H14                                     SY= 22000 SU= 23000
+  149  ALUMINUM WROUGHT 5005 H18                                     SY= 28000 SU= 29000
+  150  ALUMINUM WROUGHT 5005 H38                                     SY= 27000 SU= 29000
+  151  ALUMINUM WROUGHT 5050 O                                       SY=  8000 SU= 21000
+  152  ALUMINUM WROUGHT 5050 H34                                     SY= 24000 SU= 28000
+  153  ALUMINUM WROUGHT 5050 H38                                     SY= 29000 SU= 32000
+  154  ALUMINUM WROUGHT 5052 O                                       SY= 13000 SU= 28000
+  155  ALUMINUM WROUGHT 5052 H34                                     SY= 31000 SU= 38000
+  156  ALUMINUM WROUGHT 5052 H38                                     SY= 37000 SU= 42000
+  157  ALUMINUM WROUGHT 5083 O                                       SY= 21000 SU= 42000
+  158  ALUMINUM WROUGHT 5083 H321 OR H116                            SY= 33000 SU= 46000
+  159  ALUMINUM WROUGHT 5086 0                                       SY= 17000 SU= 38000
+  160  ALUMINUM WROUGHT 5086 H32 OR H116                             SY= 30000 SU= 42000
+  161  ALUMINUM WROUGHT 5154 O                                       SY= 17000 SU= 35000
+  162  ALUMINUM WROUGHT 5154 H34                                     SY= 33000 SU= 42000
+  163  ALUMINUM WROUGHT 5154 H38                                     SY= 39000 SU= 48000
+  164  ALUMINUM WROUGHT 5252 H25                                     SY= 25000 SU= 34000
+  165  ALUMINUM WROUGHT 5454 O                                       SY= 17000 SU= 36000
+  166  ALUMINUM WROUGHT 5454 H32                                     SY= 30000 SU= 40000
+  167  ALUMINUM WROUGHT 5454 H34                                     SY= 35000 SU= 44000
+  168  ALUMINUM WROUGHT 5456 O                                       SY= 23000 SU= 45000
+  169  ALUMINUM WROUGHT 5456 H24                                     SY= 41000 SU= 54000
+  170  ALUMINUM WROUGHT 5456 H34                                     SY= 37000 SU= 51000
+  171  ALUMINUM WROUGHT 5657 H25                                     SY= 20000 SU= 23000
+  172  ALUMINUM WROUGHT 5657 H38 OR H28                              SY= 24000 SU= 28000
+  173  ALUMINUM WROUGHT 6061 O                                       SY=  8000 SU= 18000
+  174  ALUMINUM WROUGHT 6061 T451                                    SY= 21000 SU= 35000
+  175  ALUMINUM WROUGHT 6061 T651                                    SY= 40000 SU= 45000
+  176  ALUMINUM WROUGHT 6063 O                                       SY=  7000 SU= 13000
+  177  ALUMINUM WROUGHT 6063 T4                                      SY= 13000 SU= 25000
+  178  ALUMINUM WROUGHT 6063 T6                                      SY= 31000 SU= 35000
+  179  ALUMINUM WROUGHT 6066 O                                       SY= 12000 SU= 22000
+  180  ALUMINUM WROUGHT 6066 T4                                      SY= 30000 SU= 52000
+  181  ALUMINUM WROUGHT 6066 T6                                      SY= 52000 SU= 57000
+  182  ALUMINUM WROUGHT 6101 T6                                      SY= 28000 SU= 32000
+  183  ALUMINUM WROUGHT 7001 O                                       SY= 22000 SU= 37000
+  184  ALUMINUM WROUGHT 7001 T6                                      SY= 91000 SU= 98000
+  185  ALUMINUM WROUGHT 7075 O                                       SY= 15000 SU= 33000
+  186  ALUMINUM WROUGHT 7075 T6 OR T651                              SY= 73000 SU= 83000
+  187  ALUMINUM WROUGHT 7075 T73                                     SY= 63000 SU= 72000
+  188  ALUMINUM WROUGHT 7178 O                                       SY= 15000 SU= 33000
+  189  ALUMINUM WROUGHT 7178 T6 OR T651                              SY= 78000 SU= 88000
+  190  ALUMINUM WROUGHT 7178 T76 OR T7651                            SY= 73000 SU= 83000
+  191  ACRYLIC LUCITE                                                SY=  6000 SU= 10500
+  192  BERYLLIUM S-65                                                SY= 30000 SU= 42000
+  193  BERYLLIUM S-200F                                              SY= 35000 SU= 47000
+  194  BERYLLIUM 1319                                                SY= 35000 SU= 50000
+  195  BERYLLIUM 1162                                                SY= 25000 SU= 38000
+  196  BERYLLIUM QMV                                                 SY= 30000 SU= 50000
+  197  BERYLLIUM-COPPER 10 DEAD SOFT                                 SY= 20000 SU= 35000
+  198  BERYLLIUM-COPPER 10 PLANISHED                                 SY= 25000 SU= 35000
+  199  BERYLLIUM-COPPER 10 H TEMPER                                  SY= 55000 SU= 70000
+  200  BERYLLIUM-COPPER 10 AT TEMPER                                 SY= 80000 SU=100000
+  201  BERYLLIUM-COPPER 10 HT TEMPER                                 SY=100000 SU=110000
+  202  BERYLLIUM-COPPER 10 HTR TEMPER                                SY=110000 SU=120000
+  203  BERYLLIUM-COPPER 10 HTC TEMPER                                SY= 50000 SU= 75000
+  204  BERYLLIUM-COPPER 25 DEAD SOFT                                 SY= 28000 SU= 60000
+  205  BERYLLIUM-COPPER 25 PLANISHED                                 SY= 30000 SU= 60000
+  206  BERYLLIUM-COPPER 25 1/4 H TEMPER                              SY= 60000 SU= 75000
+  207  BERYLLIUM-COPPER 25 1/2 H TEMPER                              SY= 75000 SU= 85000
+  208  BERYLLIUM-COPPER 25 H TEMPER                                  SY= 90000 SU=100000
+  209  BERYLLIUM-COPPER 25 AT TEMPER                                 SY=140000 SU=165000
+  210  BERYLLIUM-COPPER 25 1/4 HT TEMPER                             SY=150000 SU=175000
+  211  BERYLLIUM-COPPER 25 1/2 HT TEMPER                             SY=160000 SU=185000
+  212  BERYLLIUM-COPPER 25 HT TEMPER                                 SY=165000 SU=190000
+  213  BRASS CARTRIDGE CU.7 ZN.3 1/2 HARD                            SY= 52000 SU= 62000
+  214  BRASS CARTRIDGE CU.7 ZN.3 1/4 HARD                            SY= 40000 SU= 54000
+  215  BRASS CARTRIDGE CU.7 ZN.3 ANNEALED                            SY= 19000 SU= 51000
+  216  BRONZE COMMERCIAL CU.9 ZN.1 1/2 HARD                          SY= 45000 SU= 52000
+  217  BRONZE COMMERCIAL CU.9 ZN.1 ANNEALED                          SY= 12000 SU= 38000
+  218  COPPER COLD ROLLED                                            SY= 45000 SU= 50000
+  219  COPPER HOT ROLLED                                             SY= 10000 SU= 34000
+  220  COPPER OXYGEN FREE (99.92) ANNEALED                           SY= 10000 SU= 32000
+  221  GOLD PURE (99.9) ANNEALED                                     SY=  1000 SU= 17000
+  222  GOLD PURE (99.9) COLD ROLLED                                  SY= 30000 SU= 32000
+  223  INCONEL X ANNEALED                                            SY= 50000 SU=115000
+  224  INCONEL X HOT ROLLED                                          SY=120000 SU=180000
+  225  IRON GRAY CAST                                                SY= 32000 SU= 32100
+  226  IRON INGOT (99.9+) ANNEALED                                   SY= 19000 SU= 38000
+  227  IRON INGOT (99.9+) HOT ROLLED                                 SY= 19000 SU= 38000
+  228  IRON WROUGHT HAT ROLLED                                       SY= 30000 SU= 48000
+  229  LEAD PURE                                                     SY=  1900 SU=  2500
+  230  MAGNESIUM AZ31B-H24                                           SY= 22000 SU= 37000
+  231  MAGNESIUM HK31B-H24                                           SY= 29000 SU= 37000
+  232  MAGNESIUM WROUGHT AZ31B 3-AL 1-ZN H24 SHEET 0.016/0.249       SY= 32000 SU= 42000
+  233  MAGNESIUM WROUGHT AZ31B 3-AL 1-ZN H24 SHEET 0.250/0.374       SY= 29000 SU= 40000
+  234  MAGNESIUM WROUGHT AZ31B 3-AL 1-ZN H24 SHEET 0.375/0.500       SY= 27000 SU= 39000
+  235  MAGNESIUM WROUGHT AZ31B 3-AL 1-ZN H24 SHEET 0.501/1.000       SY= 24000 SU= 38000
+  236  MAGNESIUM WROUGHT AZ31B 3-AL 1-ZN H24 SHEET 1.001/2.000       SY= 23000 SU= 37000
+  237  MAGNESIUM WROUGHT AZ31B 3-AL 1-ZN H24 SHEET 2.001/3.000       SY= 21000 SU= 37000
+  238  MAGNESIUM WROUGHT AZ31B 3-AL 1-ZN H26 SHEET 0.250/0.374       SY= 30000 SU= 40000
+  239  MAGNESIUM WROUGHT AZ31B 3-AL 1-ZN H26 SHEET 0.375/0.438       SY= 28000 SU= 40000
+  240  MAGNESIUM WROUGHT AZ31B 3-AL 1-ZN H26 SHEET 0.439/0.500       SY= 28000 SU= 40000
+  241  MAGNESIUM WROUGHT AZ31B 3-AL 1-ZN H26 SHEET 0.501/0.750       SY= 28000 SU= 40000
+  242  MAGNESIUM WROUGHT AZ31B 3-AL 1-ZN H26 SHEET 0.751/1.000       SY= 26000 SU= 39000
+  243  MAGNESIUM WROUGHT AZ31B 3-AL 1-ZN H26 SHEET 1.001/1.500       SY= 25000 SU= 38000
+  244  MAGNESIUM WROUGHT AZ31B 3-AL 1-ZN H26 SHEET 1.501/2.000       SY= 24000 SU= 38000
+  245  MAGNESIUM WROUGHT AZ31B 3-AL 1-ZN O   SHEET 0.016/0.060       SY= 22000 SU= 37000
+  246  MAGNESIUM WROUGHT AZ31B 3-AL 1-ZN O   SHEET 0.061/0.249       SY= 23000 SU= 37000
+  247  MAGNESIUM WROUGHT AZ31B 3-AL 1-ZN O   SHEET 0.250/0.500       SY= 22000 SU= 36000
+  248  MAGNESIUM WROUGHT AZ31B 3-AL 1-ZN O   SHEET 0.501/2.000       SY= 22000 SU= 36000
+  249  MAGNESIUM WROUGHT AZ31B 3-AL 1-ZN O   SHEET 2.001/3.000       SY= 21000 SU= 36000
+  250  MAGNESIUM WROUGHT HK31A 3.2-TH 0.7-ZR H24 SHEET 0.016/0.125   SY= 30000 SU= 38000
+  251  MAGNESIUM WROUGHT HK31A 3.2-TH 0.7-ZR H24 SHEET 0.126/0.250   SY= 30000 SU= 37000
+  252  MAGNESIUM WROUGHT HK31A 3.2-TH 0.7-ZR H24 SHEET 0.251/1.000   SY= 31000 SU= 39000
+  253  MAGNESIUM WROUGHT HK31A 3.2-TH 0.7-ZR H24 SHEET 1.001/3.000   SY= 29000 SU= 37000
+  254  MAGNESIUM WROUGHT HK31A 3.2-TH 0.7-ZR O   SHEET 0.016/0.250   SY= 20000 SU= 33000
+  255  MAGNESIUM WROUGHT HK31A 3.2-TH 0.7-ZR O   SHEET 0.251/0.500   SY= 19000 SU= 33000
+  256  MAGNESIUM WROUGHT HK31A 3.2-TH 0.7-ZR O   SHEET 0.501/1.000   SY= 18000 SU= 33000
+  257  MAGNESIUM WROUGHT HK31A 3.2-TH 0.7-ZR O   SHEET 1.001/3.000   SY= 17000 SU= 32000
+  258  MAGNESIUM WROUGHT HM21A 2.0-TH 0.8-MN T8  SHEET 0.016/0.250   SY= 28000 SU= 36000
+  259  MAGNESIUM WROUGHT HM21A 2.0-TH 0.8-MN T8  SHEET 0.251/0.500   SY= 30000 SU= 37000
+  260  MAGNESIUM WROUGHT HM21A 2.0-TH 0.8-MN T8  SHEET 0.501/1.000   SY= 28000 SU= 35000
+  261  MAGNESIUM WROUGHT HM21A 2.0-TH 0.8-MN T8  SHEET 1.001/2.000   SY= 25000 SU= 34000
+  262  MAGNESIUM WROUGHT HM21A 2.0-TH 0.8-MN T8  SHEET 2.001/3.000   SY= 26000 SU= 34000
+  263  MAGNESIUM WROUGHT HM21A 2.0-TH 0.8-MN T81 SHEET 0.125/0.312   SY= 30000 SU= 37000
+  264  MAGNESIUM WROUGHT AZ31B 3.0-AL 1.0-ZN TEMPER-F  EXTRUSION     SY= 28000 SU= 38000
+  265  MAGNESIUM WROUGHT AZ61A 6.5-AL 1.0-ZN TEMPER-F  EXTRUSION     SY= 33000 SU= 45000
+  266  MAGNESIUM WROUGHT AZ80A 8.5-AL 0.5-ZN TEMPER-F  EXTRUSION     SY= 36000 SU= 49000
+  267  MAGNESIUM WROUGHT AZ80A 8.5-AL 0.5-ZN TEMPER-T5 EXTRUSION     SY= 40000 SU= 55000
+  268  MAGNESIUM WROUGHT HM31A 3.25-TH 1.2-MN TEMPER-T5 EXTRUSION    SY= 39000 SU= 44000
+  269  MAGNESIUM WROUGHT ZK60A 5.5ZNH 0.45-ZR TEMPER-F  EXTRUSION    SY= 40000 SU= 49000
+  270  MAGNESIUM WROUGHT ZK60A 5.5ZNH 0.45-ZR TEMPER-T5 EXTRUSION    SY= 44000 SU= 53000
+  271  MAGNESIUM WROUGHT AZ31B 3.0-AL 1.0-ZN TEMPER-F  TUBING        SY= 24000 SU= 36000
+  272  MAGNESIUM WROUGHT AZ61A 6.5-AL 1.0-ZN TEMPER-F  TUBING        SY= 24000 SU= 41000
+  273  MAGNESIUM WROUGHT ZK60A 5.5ZNH 0.45-ZR TEMPER-F  TUBING       SY= 34000 SU= 46000
+  274  MAGNESIUM WROUGHT ZK60A 5.5ZNH 0.45-ZR TEMPER-T5 TUBING       SY= 40000 SU= 50000
+  275  MAGNESIUM WROUGHT AZ31B 3.0-AL 1.0-ZN TEMPER-F  FORGING       SY= 28000 SU= 38000
+  276  MAGNESIUM WROUGHT AZ61A 6.5-AL 1.0-ZN TEMPER-F  FORGING       SY= 26000 SU= 43000
+  277  MAGNESIUM WROUGHT AZ80A 8.5-AL 0.5-ZN TEMPER-F  FORGING       SY= 31000 SU= 46000
+  278  MAGNESIUM WROUGHT AZ80A 8.5-AL 0.5-ZN TEMPER-T5 FORGING       SY= 34000 SU= 50000
+  279  MAGNESIUM WROUGHT AZ80A 8.5-AL 0.5-ZN TEMPER-T6 FORGING       SY= 36000 SU= 50000
+  280  MAGNESIUM WROUGHT HM21A 2.0-TH 0.8-MN TEMPER-T5 FORGING       SY= 22000 SU= 34000
+  281  MAGNESIUM WROUGHT ZK60A 5.5ZNH 0.45-ZR TEMPER-T5 FORGING      SY= 30000 SU= 44000
+  282  MAGNESIUM WROUGHT ZK60A 5.5ZNH 0.45-ZR TEMPER-T6 FORGING      SY= 39000 SU= 47000
+  283  MAGNESIUM CAST AM100A 10.0-AL 0.3-ZN TEMPER-F                 SY= 12000 SU= 22000
+  284  MAGNESIUM CAST AM100A 10.0-AL 0.3-ZN TEMPER-T4                SY= 13000 SU= 40000
+  285  MAGNESIUM CAST AM100A 10.0-AL 0.3-ZN TEMPER-T6                SY= 16000 SU= 40000
+  286  MAGNESIUM CAST AM100A 10.0-AL 0.3-ZN TEMPER-T61               SY= 22000 SU= 40000
+  287  MAGNESIUM CAST AZ63A  60.0-AL 3.0-ZN TEMPER-F                 SY= 14000 SU= 29000
+  288  MAGNESIUM CAST AZ63A  60.0-AL 3.0-ZN TEMPER-T4                SY= 14000 SU= 40000
+  289  MAGNESIUM CAST AZ63A  60.0-AL 3.0-ZN TEMPER-T5                SY= 15000 SU= 29000
+  290  MAGNESIUM CAST AZ63A  60.0-AL 3.0-ZN TEMPER-T6                SY= 19000 SU= 40000
+  291  MAGNESIUM CAST AZ81A   7.5-AL 0.7-ZN TEMPER-T4                SY= 12000 SU= 40000
+  292  MAGNESIUM CAST AZ91A   8.7-AL 0.7-ZN TEMPER-F                 SY= 14000 SU= 24000
+  293  MAGNESIUM CAST AZ91A   8.7-AL 0.7-ZN TEMPER-T4                SY= 13000 SU= 40000
+  294  MAGNESIUM CAST AZ91A   8.7-AL 0.7-ZN TEMPER-T6                SY= 19000 SU= 40000
+  295  MAGNESIUM CAST AZ92A   9.0-AL 2.0-ZN TEMPER-F                 SY= 14000 SU= 24000
+  296  MAGNESIUM CAST AZ92A   9.0-AL 2.0-ZN TEMPER-T4                SY= 14000 SU= 40000
+  297  MAGNESIUM CAST AZ92A   9.0-AL 2.0-ZN TEMPER-T5                SY= 17000 SU= 26000
+  298  MAGNESIUM CAST AZ92A   9.0-AL 2.0-ZN TEMPER-T6                SY= 22000 SU= 40000
+  299  MAGNESIUM CAST EZ33A   2.5-RE 3.2-ZN TEMPER-T5                SY= 16000 SU= 23000
+  300  MAGNESIUM CAST HK31A   3.2-TH 0.3-ZN TEMPER-T6                SY= 15000 SU= 32000
+  301  MAGNESIUM CAST HZ32A   3.2-TH 2.1-ZN TEMPER-T5                SY= 15000 SU= 29000
+  302  MAGNESIUM CAST K1A     0.7-ZR        TEMPER-F                 SY=  8000 SU= 26000
+  303  MAGNESIUM CAST QE22A 2.5-AG 2.2-RE 0.7-ZR TEMPER-T6           SY= 28000 SU= 38000
+  304  MAGNESIUM CAST QH21A 2.5-AG 1-RE 1.1-TH 0.7-ZR TEMPER-T6      SY= 30000 SU= 40000
+  305  MAGNESIUM CAST ZE41A 4.2-ZN 1.25-RE 0.7-ZR     TEMPER-T5      SY= 20000 SU= 30000
+  306  MAGNESIUM CAST ZE63A 5.75-ZN 2.6-RE 0.7-ZR     TEMPER-T6      SY= 28000 SU= 44000
+  307  MAGNESIUM CAST ZE62A 5.7-ZN 1.8-TH 0.75-ZR     TEMPER-T5      SY= 25000 SU= 40000
+  308  MAGNESIUM CAST ZK51A 4.6-ZN 0.75-ZR  TEMPER-T5                SY= 24000 SU= 40000
+  309  MAGNESIUM CAST ZK61A 60.0-ZN 0.8-ZR  TEMPER-T6                SY= 28000 SU= 45000
+  310  MOLYBDENIUM DRAWN 14 MIN.                                     SY= 60000 SU=215000
+  311  MONEL SAND CAST NI.63 CU.32 SI.012                            SY= 35000 SU= 80000
+  312  MONEL WROUGHT NI.67 CU.30 ANNEALED                            SY= 35000 SU= 75000
+  313  MONEL WROUGHT NI.67 CU.30 COLD DRAWN                          SY= 80000 SU=100000
+  314  MONEL WROUGHT NI.67 CU.30 COLD ROLLED HARD                    SY=100000 SU=110000
+  315  MONEL WROUGHT NI.67 CU.30 HOT ROLLED                          SY= 50000 SU= 90000
+  316  MULBERRY                                                      SY= 60000 SU=130000
+  317  NICKEL SILVER CU.65 ZN.2 NI.15 1/2 HARD                       SY= 62000 SU= 74000
+  318  NICKEL SILVER CU.65 ZN.2 NI.15 ANNEALED                       SY= 19000 SU= 55000
+  319  NICKEL SILVER CU.65 ZN.2 NI.15 FULL HARD                      SY= 75000 SU= 85000
+  320  NICKEL WROUGHT (99.0) ANNEALED                                SY= 20000 SU= 70000
+  321  NICKEL WROUGHT (99.0) COLD DRAWN                              SY= 70000 SU= 95000
+  322  NICKEL WROUGHT (99.0) COLD ROLLED HARD                        SY= 95000 SU=105000
+  323  NICKEL WROUGHT (99.0) HOT ROLLED                              SY= 25000 SU= 75000
+  324  PALLADIUM COMMERCIAL (99.5) ANNEALED                          SY=  5000 SU= 30000
+  325  PALLADIUM COMMERCIAL (99.5) COLD ROLLED                       SY= 32000 SU= 45000
+  326  PLATINUM PURE (99.99) ANNEALED                                SY= 10000 SU= 24000
+  327  PLATINUM PURE (99.99) COLD ROLLED                             SY= 27000 SU= 36000
+  328  PLUTONIUM ALPHA                                               SY= 40000 SU= 60000
+  329  PLUTONIUM DELTA                                               SY= 16000 SU= 24000
+  330  PLUTONIUM TAILWIND                                            SY=  8000 SU= 14200
+  331  PLUTONIUM TAILWIND FAST STRAIN RATE 5 IN/IN-MIN               SY=  9200 SU= 15800
+  332  POLYCARBONATE                                                 SY=  8000 SU= 10000
+  333  POLYETHYLENE TYPE III                                         SY=  1800 SU=  4000
+  334  SILVER PURE (99.9) ANNEALED                                   SY= 12000 SU= 23000
+  335  SILVER PURE (99.9) COLD ROLLED                                SY= 38000 SU= 43000
+  336  STEEL WROUGHT STAINLESS 201 SHEET ANNEALED                    SY= 55000 SU=110000
+  337  STEEL WROUGHT STAINLESS 201 SHEET 10% CR                      SY= 90000 SU=130000
+  338  STEEL WROUGHT STAINLESS 201 SHEET 40% CR                      SY=165000 SU=190000
+  339  STEEL WROUGHT STAINLESS 202 SHEET ANNEALED                    SY= 50000 SU=105000
+  340  STEEL WROUGHT STAINLESS 202 SHEET 10% CR                      SY= 98000 SU=128000
+  341  STEEL WROUGHT STAINLESS 202 SHEET 40% CR                      SY=155000 SU=184000
+  342  STEEL WROUGHT STAINLESS 203 EZ 1 IN. BAR ANNEALED             SY= 45000 SU= 87000
+  343  STEEL WROUGHT STAINLESS 203 EZ 1 IN. BAR CD                   SY= 80000 SU=115000
+  344  STEEL WROUGHT STAINLESS 203 EZ 1 IN. BAR FULL HARD            SY=140000 SU=170000
+  345  STEEL WROUGHT STAINLESS 301 SHEET ANNEALED                    SY= 40000 SU=120000
+  346  STEEL WROUGHT STAINLESS 301 SHEET 10% CR                      SY= 88000 SU=150000
+  347  STEEL WROUGHT STAINLESS 301 SHEET 40% CR                      SY=170000 SU=195000
+  348  STEEL WROUGHT STAINLESS 301 SHEET 60% CR                      SY=230000 SU=235000
+  349  STEEL WROUGHT STAINLESS 302 SHEET ANNEALED                    SY= 40000 SU= 93000
+  350  STEEL WROUGHT STAINLESS 302 SHEET 10% CR                      SY= 92000 SU=108000
+  351  STEEL WROUGHT STAINLESS 302 SHEET 40% CR                      SY=132000 SU=151000
+  352  STEEL WROUGHT STAINLESS 302B PLATE ANEALED                    SY= 40000 SU= 90000
+  353  STEEL WROUGHT STAINLESS 303 1 IN. BAR ANNEALED                SY= 37000 SU= 90000
+  354  STEEL WROUGHT STAINLESS 303 1 IN. BAR 10% CR                  SY= 45000 SU=105000
+  355  STEEL WROUGHT STAINLESS 303 1 IN. BAR 40% CR                  SY= 80000 SU=173000
+  356  STEEL WROUGHT STAINLESS 303 SE 1 IN. BAR ANNEALED             SY= 35000 SU= 90000
+  357  STEEL WROUGHT STAINLESS 303 SE 1 IN. BAR HALF HARD            SY=105000 SU=137000
+  358  STEEL WROUGHT STAINLESS 303 SE 1 IN. BAR FULL HARD            SY=137000 SU=175000
+  359  STEEL WROUGHT STAINLESS 304 BAR ANNEALED                      SY= 34000 SU= 87000
+  360  STEEL WROUGHT STAINLESS 304 BAR 10% CR                        SY= 70000 SU= 98000
+  361  STEEL WROUGHT STAINLESS 304 BAR 40% CR                        SY=135000 SU=146000
+  362  STEEL WROUGHT STAINLESS 304L BAR ANNEALED                     SY= 32000 SU= 85000
+  363  STEEL WROUGHT STAINLESS 304L BAR 10% CR                       SY= 73000 SU=106000
+  364  STEEL WROUGHT STAINLESS 304L BAR 40% CR                       SY=137000 SU=154000
+  365  STEEL WROUGHT STAINLESS 305 SHEET ANNEALED                    SY= 33000 SU= 86000
+  366  STEEL WROUGHT STAINLESS 305 SHEET 10% CR                      SY= 70000 SU= 94000
+  367  STEEL WROUGHT STAINLESS 305 SHEET 40% CR                      SY=130000 SU=145000
+  368  STEEL WROUGHT STAINLESS 308 SHEET ANNEALED                    SY= 33000 SU= 80000
+  369  STEEL WROUGHT STAINLESS 308 SHEET 10% CR                      SY= 64000 SU= 93000
+  370  STEEL WROUGHT STAINLESS 308 SHEET 40% CR                      SY=128000 SU=153000
+  371  STEEL WROUGHT STAINLESS 309 SHEET ANNEALED                    SY= 37000 SU= 80000
+  372  STEEL WROUGHT STAINLESS 309 SHEET 10% CR                      SY= 57000 SU= 87000
+  373  STEEL WROUGHT STAINLESS 309 SHEET 40% CR                      SY=124000 SU=135000
+  374  STEEL WROUGHT STAINLESS 310 SHEET ANNEALED                    SY= 45000 SU= 85000
+  375  STEEL WROUGHT STAINLESS 310 SHEET 10% CR                      SY= 67000 SU=108000
+  376  STEEL WROUGHT STAINLESS 310 SHEET 40% CR                      SY=138000 SU=155000
+  377  STEEL WROUGHT STAINLESS 314 SHEET ANNEALED                    SY= 50000 SU=100000
+  378  STEEL WROUGHT STAINLESS 316 SHEET ANNEALED                    SY= 38000 SU= 85000
+  379  STEEL WROUGHT STAINLESS 316 SHEET 10% CR                      SY= 70000 SU= 95000
+  380  STEEL WROUGHT STAINLESS 316 SHEET 40% CR                      SY=128000 SU=143000
+  381  STEEL WROUGHT STAINLESS 316L SHEET ANNEALED                   SY= 37000 SU= 77000
+  382  STEEL WROUGHT STAINLESS 316L SHEET HALF HARD                  SY= 90000 SU=125000
+  383  STEEL WROUGHT STAINLESS 316L SHEET FULL HARD                  SY=127000 SU=165000
+  384  STEEL WROUGHT STAINLESS 317 1 IN. BAR ANNEALED                SY= 38000 SU= 87000
+  385  STEEL WROUGHT STAINLESS 317 1 IN. BAR 10% CR                  SY= 57000 SU=104000
+  386  STEEL WROUGHT STAINLESS 317 1 IN. BAR 40% CR                  SY=134000 SU=148000
+  387  STEEL WROUGHT STAINLESS 321 SHEET ANNEALED                    SY= 32000 SU= 90000
+  388  STEEL WROUGHT STAINLESS 321 SHEET 10% CR                      SY= 70000 SU=100000
+  389  STEEL WROUGHT STAINLESS 321 SHEET 40% CR                      SY=133000 SU=150000
+  390  STEEL WROUGHT STAINLESS 347 SHEET ANNEALED                    SY= 40000 SU= 95000
+  391  STEEL WROUGHT STAINLESS 347 SHEET 10% CR                      SY= 77000 SU=105000
+  392  STEEL WROUGHT STAINLESS 347 SHEET 40% CR                      SY=138000 SU=158000
+  393  STEEL WROUGHT STAINLESS 348 BAR                               SY= 37000 SU= 90000
+  394  STEEL WROUGHT STAINLESS 19-9DL SHEET ANNEALED                 SY= 67000 SU=113000
+  395  STEEL WROUGHT STAINLESS 19-9DL SHEET HR+SR AT 1200F           SY=103000 SU=127000
+  396  STEEL WROUGHT STAINLESS 21-6-9 SHEET ANNEALED                 SY= 68000 SU=112000
+  397  STEEL WROUGHT STAINLESS 21-6-9 SHEET CR                       SY=130000 SU=145000
+  398  STEEL WROUGHT STAINLESS 21-6-9 SHEET 60 %CR                   SY=182000 SU=202000
+  399  STEEL WROUGHT STAINLESS 22-13-5 SHEET ANNEALED                SY= 86000 SU=128000
+  400  STEEL WROUGHT STAINLESS 22-13-5 SHEET 60% CR                  SY=199000 SU=212000
+  401  STEEL WROUGHT STAINLESS 18-2MN 0.25 IN BAR ANNEALED           SY= 65000 SU=120000
+  402  STEEL WROUGHT STAINLESS 18-2MN 0.25 IN BAR 20% CR             SY=135000 SU=172000
+  403  STEEL WROUGHT STAINLESS 18-2MN 0.25 IN BAR 60% CR             SY=224000 SU=265000
+  404  STEEL WROUGHT STAINLESS 400 SHEET ANEALED                     SY= 32000 SU= 62000
+  405  STEEL WROUGHT STAINLESS 405 SHEET ANNEALED                    SY= 47000 SU= 67000
+  406  STEEL WROUGHT STAINLESS 405 SHEET ??% CR                      SY= 65000 SU= 90000
+  407  STEEL WROUGHT STAINLESS 405 SHEET ??% CR                      SY=125000 SU=130000
+  408  STEEL WROUGHT STAINLESS 430 SHEET ANNEALED                    SY= 52000 SU= 75000
+  409  STEEL WROUGHT STAINLESS 430 SHEET ??% CR                      SY= 65000 SU= 90000
+  410  STEEL WROUGHT STAINLESS 430 SHEET ??% CR                      SY=125000 SU=130000
+  411  STEEL WROUGHT STAINLESS 442 SHEET ANNEALED                    SY= 52000 SU= 80000
+  412  STEEL WROUGHT STAINLESS 442 SHEET ??% CR                      SY= 70000 SU= 90000
+  413  STEEL WROUGHT STAINLESS 442 SHEET ??% CR                      SY=100000 SU=110000
+  414  STEEL WROUGHT STAINLESS 446 SHEET ANNEALED                    SY= 52000 SU= 80000
+  415  STEEL WROUGHT STAINLESS 446 SHEET ??% CR                      SY= 70000 SU= 90000
+  416  STEEL WROUGHT STAINLESS 446 SHEET ??% CR                      SY=109500 SU=110500
+  417  STEEL WROUGHT STAINLESS 18 SR SHEET ANNEALED                  SY= 65000 SU= 85000
+  418  STEEL WROUGHT STAINLESS 261 E-BRITE STRIP ANNEALED            SY= 46000 SU= 65000
+  419  STEEL WROUGHT STAINLESS 261 E-BRITE STRIP 20% CR              SY= 88000 SU= 96000
+  420  STEEL WROUGHT STAINLESS 261 E-BRITE STRIP 60% CR              SY=116000 SU=124000
+  421  STEEL WROUGHT STAINLESS 403 BAR ANNEALED                      SY= 45000 SU= 75000
+  422  STEEL WROUGHT STAINLESS 403 BAR TEMPER 1200F                  SY= 85000 SU=110000
+  423  STEEL WROUGHT STAINLESS 403 BAR TEMPER  600F                  SY=140000 SU=180000
+  424  STEEL WROUGHT STAINLESS 410 1 IN. BAR ANNEALED                SY= 35000 SU= 65000
+  425  STEEL WROUGHT STAINLESS 410 1 IN. BAR TEMPER 1000F            SY=104000 SU=118000
+  426  STEEL WROUGHT STAINLESS 410 1 IN. BAR TEMPER  600F            SY=143000 SU=181000
+  427  STEEL WROUGHT STAINLESS 410 1 IN. BAR TEMPER  300F            SY=148000 SU=188000
+  428  STEEL WROUGHT STAINLESS 414 BAR ANEALED                       SY= 90000 SU=115000
+  429  STEEL WROUGHT STAINLESS 414 BAR TEMPER 1200F                  SY=105000 SU=120000
+  430  STEEL WROUGHT STAINLESS 414 BAR TEMPER  800F                  SY=150000 SU=200000
+  431  STEEL WROUGHT STAINLESS 416 BAR ANEALED                       SY= 35000 SU= 65000
+  432  STEEL WROUGHT STAINLESS 416 BAR TEMPER 1200F                  SY= 90000 SU=110000
+  433  STEEL WROUGHT STAINLESS 416 BAR TEMPER  600F                  SY=140000 SU=180000
+  434  STEEL WROUGHT STAINLESS 420 1 IN. BAR ANEALED                 SY= 50000 SU= 95000
+  435  STEEL WROUGHT STAINLESS 420 1 IN. BAR TEMPER 1400F            SY= 70000 SU=110000
+  436  STEEL WROUGHT STAINLESS 420 1 IN. BAR TEMPER  400F            SY=215000 SU=250000
+  437  STEEL WROUGHT STAINLESS 422 BAR ANEALED                       SY= 74000 SU= 97000
+  438  STEEL WROUGHT STAINLESS 422 BAR TEMPER 1400F                  SY= 90000 SU=121000
+  439  STEEL WROUGHT STAINLESS 422 BAR TEMPER 1200F                  SY=125000 SU=149000
+  440  STEEL WROUGHT STAINLESS 422 BAR TEMPER  800F                  SY=168000 SU=237000
+  441  STEEL WROUGHT STAINLESS 431 1 IN. BAR ANEALED                 SY= 95000 SU=120000
+  442  STEEL WROUGHT STAINLESS 431 1 IN. BAR TEMPER 1100F            SY=115000 SU=140000
+  443  STEEL WROUGHT STAINLESS 431 1 IN. BAR TEMPER  500F            SY=149000 SU=198000
+  444  STEEL WROUGHT STAINLESS 440A BAR ANEALED                      SY= 60000 SU=105000
+  445  STEEL WROUGHT STAINLESS 440A BAR TEMPER 600F                  SY=240000 SU=260000
+  446  STEEL WROUGHT STAINLESS 440B BAR ANEALED                      SY= 62000 SU=107000
+  447  STEEL WROUGHT STAINLESS 440B BAR TEMPER 600F                  SY=270000 SU=280000
+  448  STEEL WROUGHT STAINLESS 440C BAR ANEALED                      SY= 65000 SU=110000
+  449  STEEL WROUGHT STAINLESS 440C BAR TEMPER 600F                  SY=275000 SU=285000
+  450  STEEL WROUGHT STAINLESS 440F BAR TEMPER 600F                  SY=275000 SU=285000
+  451  STEEL WROUGHT STAINLESS 12 MOV SHEET ANNEALED                 SY= 65000 SU=100000
+  452  STEEL WROUGHT STAINLESS 12 MOV TEMPER 900F                    SY=195000 SU=247000
+  453  STEEL WROUGHT STAINLESS 12 MOV TEMPER 700F                    SY=188000 SU=236000
+  454  STEEL WROUGHT STAINLESS GREEK ASCOLONY BAR TMPR 1000F         SY=137000 SU=165000
+  455  STEEL WROUGHT STAINLESS GREEK ASCOLONY BAR TMPR  500F         SY=175000 SU=209000
+  456  STEEL WROUGHT STAINLESS 17-14 CU-MO BAR 1350F WQ              SY= 41000 SU= 89000
+  457  STEEL WROUGHT STAINLESS HMN BAR ANNEALED                      SY= 56000 SU=116000
+  458  STEEL WROUGHT STAINLESS HMN BAR AGE 1400F                     SY=110000 SU=170000
+  459  STEEL WROUGHT STAINLESS HMN BAR AGE 1300F                     SY=135000 SU=180000
+  460  STEEL WROUGHT STAINLESS 17-7PH SHEET ANNEALED                 SY= 40000 SU=130000
+  461  STEEL WROUGHT STAINLESS 17-7PH SHEET TH 1050                  SY=185000 SU=200000
+  462  STEEL WROUGHT STAINLESS 17-7PH SHEET RH  950                  SY=220000 SU=235000
+  463  STEEL WROUGHT STAINLESS 17-7PH SHEET CH  900                  SY=260000 SU=265000
+  464  STEEL WROUGHT STAINLESS PH 15-7 MO SHEET ANNEALED             SY= 55000 SU=130000
+  465  STEEL WROUGHT STAINLESS PH 15-7 MO SHEET TH 1050              SY=200000 SU=210000
+  466  STEEL WROUGHT STAINLESS PH 15-7 MO SHEET RH  950              SY=225000 SU=240000
+  467  STEEL WROUGHT STAINLESS PH 15-7 MO SHEET CH  900              SY=260000 SU=265000
+  468  STEEL WROUGHT STAINLESS PH 14-8 MO SHEET ANNEALED             SY= 55000 SU=125000
+  469  STEEL WROUGHT STAINLESS PH 14-8 MO SHEET SRH 1050             SY=205000 SU=215000
+  470  STEEL WROUGHT STAINLESS PH 14-8 MO SHEET SRH  950             SY=220000 SU=235000
+  471  STEEL WROUGHT STAINLESS PH 14-8 MO SHEET CH 950               SY=289000 SU=298000
+  472  STEEL WROUGHT STAINLESS AM 350 SHEET ANNEALED                 SY= 61000 SU=161000
+  473  STEEL WROUGHT STAINLESS AM 350 SHEET DA  850F                 SY=154000 SU=179000
+  474  STEEL WROUGHT STAINLESS AM 350 SHEET SCT 850F                 SY=175000 SU=206000
+  475  STEEL WROUGHT STAINLESS AM 350 SHEET CRT                      SY=175000 SU=205000
+  476  STEEL WROUGHT STAINLESS AM 355 SHEET ANNEALED                 SY= 57000 SU=160000
+  477  STEEL WROUGHT STAINLESS AM 355 SHEET DA  850F                 SY=160000 SU=190000
+  478  STEEL WROUGHT STAINLESS AM 355 SHEET SCT 850F                 SY=182000 SU=216000
+  479  STEEL WROUGHT STAINLESS AM 355 SHEET CRT 25%                  SY=210000 SU=230000
+  480  STEEL WROUGHT STAINLESS 17-4PH BAR ANNEALED                   SY=110000 SU=150000
+  481  STEEL WROUGHT STAINLESS 17-4PH BAR H 1150                     SY=125000 SU=145000
+  482  STEEL WROUGHT STAINLESS 17-4PH BAR H 1075                     SY=150000 SU=165000
+  483  STEEL WROUGHT STAINLESS 17-4PH BAR H 1025                     SY=165000 SU=170000
+  484  STEEL WROUGHT STAINLESS 17-4PH BAR H  900                     SY=185000 SU=200000
+  485  STEEL WROUGHT STAINLESS 15-5PH BAR H 1150                     SY=125000 SU=145000
+  486  STEEL WROUGHT STAINLESS 15-5PH BAR H 1075                     SY=150000 SU=165000
+  487  STEEL WROUGHT STAINLESS 15-5PH BAR H 1025                     SY=165000 SU=170000
+  488  STEEL WROUGHT STAINLESS 15-5PH BAR H  900                     SY=185000 SU=200000
+  489  STEEL WROUGHT STAINLESS PH 13-8 MO BAR H 1100                 SY=150000 SU=170000
+  490  STEEL WROUGHT STAINLESS PH 13-8 MO BAR H 1050                 SY=180000 SU=190000
+  491  STEEL WROUGHT STAINLESS PH 13-8 MO BAR H 1000                 SY=205000 SU=215000
+  492  STEEL WROUGHT STAINLESS PH 13-8 MO BAR H  950                 SY=205000 SU=225000
+  493  STEEL WROUGHT STAINLESS W SHEET ANEALED                       SY= 95000 SU=135000
+  494  STEEL WROUGHT STAINLESS W SHEET AGE 1050F                     SY=170000 SU=190000
+  495  STEEL WROUGHT STAINLESS W SHEET AGE  950F                     SY=195000 SU=210000
+  496  STEEL WROUGHT STAINLESS AM 363 STRIP ANNEALED                 SY=107000 SU=123000
+  497  STEEL WROUGHT STAINLESS CUSTOM 450 1 IN BAR ANNEALED          SY=118000 SU=141000
+  498  STEEL WROUGHT STAINLESS CUSTOM 450 1 IN BAR AGE 1150F         SY= 90000 SU=141000
+  499  STEEL WROUGHT STAINLESS CUSTOM 450 1 IN BAR AGE 1000F         SY=169000 SU=172000
+  500  STEEL WROUGHT STAINLESS CUSTOM 450 1 IN BAR AGE  900F         SY=187000 SU=196000
+  501  STEEL WROUGHT STAINLESS CUSTOM 455 1 IN BAR ANNEALED          SY=115000 SU=145000
+  502  STEEL WROUGHT STAINLESS CUSTOM 455 1 IN BAR AGE 1000F         SY=195000 SU=205000
+  503  STEEL WROUGHT STAINLESS CUSTOM 455 1 IN BAR AGE  950F         SY=220000 SU=230000
+  504  STEEL WROUGHT STAINLESS CUSTOM 455 1 IN BAR AGE  900F         SY=235000 SU=245000
+  505  STEEL WROUGHT STAINLESS 501 BAR ANNEALED                      SY= 30000 SU= 75000
+  506  STEEL WROUGHT STAINLESS 501 BAR TEMPER 1200F                  SY= 98000 SU=113000
+  507  STEEL WROUGHT STAINLESS 501 BAR TEMPER  500F                  SY=173000 SU=198000
+  508  STEEL WROUGHT STAINLESS 502 BAR ANNEALED                      SY= 25000 SU= 65000
+  509  STEEL ALLENOY ALLEN SOCKET HEAD CAP SCREWS 0-0.5 IN.          SY=162000 SU=180000
+  510  STEEL ALLENOY ALLEN SOCKET HEAD CAP SCREWS 0.625-1.25 IN.     SY=153000 SU=170000
+  511  STEEL ALLENOY ALLEN SOCKET HEAD CAP SCREWS 1.375 IN & LARGER  SY=153000 SU=170000
+  512  STEEL CARBON AISI 1006 PLATE BAR SHEET STRIP TO 16 IN.        SY= 24000 SU= 43000
+  513  STEEL CARBON AISI 1008 PLATE BAR SHEET STRIP TO 18 IN.        SY= 24500 SU= 44000
+  514  STEEL CARBON AISI 1010 PLATE BAR SHEET STRIP TO 18 IN.        SY= 26000 SU= 47000
+  515  STEEL CARBON AISI 1012 PLATE BAR SHEET STRIP TO 18 IN.        SY= 26500 SU= 48000
+  516  STEEL CARBON AISI 1015 PLATE BAR SHEET STRIP TO 18 IN.        SY= 27500 SU= 50000
+  517  STEEL CARBON AISI 1017 PLATE BAR SHEET STRIP TO 18 IN.        SY= 29000 SU= 53000
+  518  STEEL CARBON AISI 1020 PLATE BAR SHEET STRIP TO 18 IN.        SY= 30000 SU= 55000
+  519  STEEL CARBON AISI 1020 ANNEALED                               SY= 40000 SU= 60000
+  520  STEEL CARBON AISI 1020 HARDENED                               SY= 80000 SU=104000
+  521  STEEL CARBON AISI 1020 HOT ROLLED                             SY= 45000 SU= 69000
+  522  STEEL CARBON A36  ANNEALED TEMP=80F                           SY= 36000 SU= 64000
+  523  STEEL CARBON A36  ANNEALED TEMP=300F                          SY= 30000 SU= 64000
+  524  STEEL CARBON A36  ANNEALED TEMP=500F                          SY= 28000 SU= 64000
+  525  STEEL CARBON A36  ANNEALED TEMP=700F                          SY= 25000 SU= 57000
+  526  STEEL CARBON A36  ANNEALED TEMP=900F                          SY= 22000 SU= 44000
+  527  STEEL CARBON A36  ANNEALED TEMP=1100F                         SY= 16000 SU= 25000
+  528  STEEL CARBON A36  ANNEALED TEMP=1300F                         SY=  8000 SU=  9000
+  529  STEEL CARBON A36  NORM.@1650 TEMP=80F                         SY= 42000 SU= 72000
+  530  STEEL CARBON A36  NORM.@1650 TEMP=300F                        SY= 38000 SU= 80000
+  531  STEEL CARBON A36  NORM.@1650 TEMP=500F                        SY= 34000 SU= 80000
+  532  STEEL CARBON A36  NORM.@1650 TEMP=700F                        SY= 30000 SU= 70000
+  533  STEEL CARBON A36  NORM.@1650 TEMP=900F                        SY= 25000 SU= 54000
+  534  STEEL CARBON A36  PLATE                                       SY= 36000 SU= 69000
+  535  STEEL CARBON A242       ? ?      TEMP=R.T.                    SY= 65000 SU= 84000
+  536  STEEL CARBON A242       ? ?      TEMP=200F                    SY= 62000 SU= 79000
+  537  STEEL CARBON A242       ? ?      TEMP=400F                    SY= 55000 SU= 77000
+  538  STEEL CARBON A242       ? ?      TEMP=600F                    SY= 55000 SU= 77000
+  539  STEEL CARBON A242       ? ?      TEMP=800F                    SY= 48000 SU= 64000
+  540  STEEL CARBON A242       ? ?      TEMP=1000F                   SY= 35000 SU= 43000
+  541  STEEL CARBON A242       ? ?      TEMP=1200F                   SY= 21000 SU= 23000
+  542  STEEL CARBON A242-1 WEATHERING STEEL PLATE BAR TO .75 IN.     SY= 50000 SU= 70000
+  543  STEEL CARBON A242-1 WEATHERING STEEL PLATE BAR .75-1.5 IN.    SY= 46000 SU= 67000
+  544  STEEL CARBON A242-1 WEATHERING STEEL PLATE BAR 1.5-4 IN.      SY= 42000 SU= 63000
+  545  STEEL CARBON A242-1 BETHLEHEM MAYARI R PLATE BAR TO .75 IN.   SY= 50000 SU= 70000
+  546  STEEL CARBON A242-1 BETHLEHEM MAYARI R PLATE BAR .75-1.5 IN.  SY= 46000 SU= 67000
+  547  STEEL CARBON A242-1 BETHLEHEM MAYARI R PLATE BAR 1.5-4 IN.    SY= 42000 SU= 63000
+  548  STEEL CARBON A242-1 INLAND COR-TEN A PLATE BAR .5 IN. MAX     SY= 50000 SU= 70000
+  549  STEEL CARBON A242-1 INLAND COR-TEN HIGH TEMP PLATE BAR .5 IN  SY= 50000 SU= 70000
+  550  STEEL CARBON A242-1 INTERLAKE COR-TEN A PLATE BAR .5 IN. MAX  SY= 50000 SU= 70000
+  551  STEEL CARBON A242-1 OREGON PLATE TO .75 IN.                   SY= 50000 SU= 70000
+  552  STEEL CARBON A242-1 OREGON PLATE .75-1.5 IN.                  SY= 46000 SU= 67000
+  553  STEEL CARBON A242-1 OREGON PLATE 1.5-3 IN. MAX                SY= 42000 SU= 63000
+  554  STEEL CARBON A242-1 SHARON COR-TEN A PLATE .5 IN. MAX         SY= 50000 SU= 70000
+  555  STEEL CARBON A242-1 USS COR-TEN A PLATE BAR .5 IN. MAX        SY= 50000 SU= 70000
+  556  STEEL CARBON A242-1 USS COR-TEN HIGH TEMP PLATE BAR .5IN MAX  SY= 50000 SU= 70000
+  557  STEEL CARBON A242-1 W-P PITT-TEN #1 SHEET PLATE .245 IN. MAX  SY= 50000 SU= 70000
+  558  STEEL CARBON A242-2 WEATHERING STEEL PLATE BAR TO .75 IN.     SY= 50000 SU= 70000
+  559  STEEL CARBON A242-2 WEATHERING STEEL PLATE BAR .75-1.5 IN.    SY= 46000 SU= 67000
+  560  STEEL CARBON A242-2 WEATHERING STEEL PLATE BAR 1.5-4 IN.      SY= 42000 SU= 63000
+  561  STEEL CARBON A242-2 ARMCO HIGH STRENGTH PLATE BAR TO .75 IN.  SY= 50000 SU= 70000
+  562  STEEL CARBON A242-2 ARMCO HIGH STRENGTH PLATE BAR .75-1.5 IN  SY= 46000 SU= 67000
+  563  STEEL CARBON A242-2 ARMCO HIGH STRENGTH PLATE BAR 1.5-4 IN.   SY= 42000 SU= 63000
+  564  STEEL CARBON A242-2 INLAND COR-TEN B PLATE BAR .5-4 IN.       SY= 50000 SU= 70000
+  565  STEEL CARBON A242-2 INTERLAKE COR-TEN B PLATE BAR .5 IN. MAX  SY= 50000 SU= 70000
+  566  STEEL CARBON A242-2 NATIONAL COR-TEN B PLATE                  SY= 50000 SU= 70000
+  567  STEEL CARBON A242-2 NATIONAL NAX-W50 PLATE                    SY= 50000 SU= 70000
+  568  STEEL CARBON A242-2 OREGON PLATE TO .75 IN.                   SY= 50000 SU= 70000
+  569  STEEL CARBON A242-2 OREGON PLATE .75-1.5 IN.                  SY= 46000 SU= 67000
+  570  STEEL CARBON A242-2 OREGON PLATE 1.5-3 IN. MAX                SY= 42000 SU= 63000
+  571  STEEL CARBON A242-2 PHOENIX PLATE TO .75 IN.                  SY= 50000 SU= 70000
+  572  STEEL CARBON A242-2 PHOENIX PLATE .75-1.5 IN.                 SY= 46000 SU= 67000
+  573  STEEL CARBON A242-2 PHOENIX PLATE 1.5-4 IN.                   SY= 42000 SU= 63000
+  574  STEEL CARBON A242-2 REPUBLIC DURA-PLATE 50 PLATE 4 IN. MAX    SY= 50000 SU= 70000
+  575  STEEL CARBON A242-2 REPUBLIC DURA-PLATE 50 ST PLATE TO 2 IN.  SY= 50000 SU= 70000
+  576  STEEL CARBON A242-2 SHARON N-A-X PLATE .5 IN. MAX             SY= 50000 SU= 70000
+  577  STEEL CARBON A242-2 SHARON N-A-X FINE GRAIN PLATE .5 IN. MAX  SY= 50000 SU= 70000
+  578  STEEL CARBON A242-2 SHARON COR-TEN B PLATE .5 IN. MAX         SY= 50000 SU= 70000
+  579  STEEL CARBON A242-2 USS COR-TEN B PLATE BAR 4 IN. MAX         SY= 50000 SU= 70000
+  580  STEEL CARBON A242-2 USS COR-TEN C PLATE BAR 1 IN. MAX         SY= 60000 SU= 80000
+  581  STEEL CARBON A283 GRADE A PLATE                               SY= 24000 SU= 50000
+  582  STEEL CARBON A283 GRADE B PLATE BAR                           SY= 27000 SU= 55000
+  583  STEEL CARBON A283 GRADE C PLATE BAR                           SY= 30000 SU= 60000
+  584  STEEL CARBON A283 GRADE D PLATE                               SY= 33000 SU= 66000
+  585  STEEL CARBON A284 GRADE C PLATE 12 IN. MAX                    SY= 30000 SU= 60000
+  586  STEEL CARBON A284 GRADE D PLATE 8 IN. MAX                     SY= 33000 SU= 60000
+  587  STEEL CARBON A284 STEEL SHEEL PILING                          SY= 39000 SU= 70000
+  588  STEEL CARBON A441 HSLA STRUCTURAL MN-V PLATE BAR TO .75 IN.   SY= 50000 SU= 70000
+  589  STEEL CARBON A441 HSLA STRUCTURAL MN-V PLATE BAR .75-1.5 IN.  SY= 46000 SU= 67000
+  590  STEEL CARBON A441 HSLA STRUCTURAL MN-V PLATE BAR 1.5-4 IN     SY= 42000 SU= 63000
+  591  STEEL CARBON A441 HSLA STRUCTURAL MN-V PLATE BAR 4-8 IN       SY= 40000 SU= 60000
+  592  STEEL CARBON A441 ARMCO HIGH STRENGTH B PLATE BAR TO .75 IN.  SY= 50000 SU= 70000
+  593  STEEL CARBON A441 ARMCO HIGH STRENGTH B PLATE BAR .75-1.5 IN  SY= 46000 SU= 67000
+  594  STEEL CARBON A441 ARMCO HIGH STRENGTH B PLATE BAR 1.5-4 IN.   SY= 42000 SU= 63000
+  595  STEEL CARBON A441 ARMCO HIGH STRENGTH B PLATE BAR 4-8 IN.     SY= 40000 SU= 60000
+  596  STEEL CARBON A441 INTERLAKE I50Z0 PLATE BAR .5 IN. MAX        SY= 50000 SU= 70000
+  597  STEEL CARBON A441 J&L JALTEN #1 PLATE .5 IN. MAX              SY= 50000 SU= 70000
+  598  STEEL CARBON A441 OREGON PLATE TO .75 IN.                     SY= 50000 SU= 70000
+  599  STEEL CARBON A441 OREGON PLATE .75-1.5 IN.                    SY= 46000 SU= 67000
+  600  STEEL CARBON A441 OREGON PLATE 1.5-3 IN.                      SY= 42000 SU= 63000
+  601  STEEL CARBON A441 REPUBLIC PLATE BAR                          SY= 50000 SU= 70000
+  602  STEEL CARBON A514 WQ&T  1/4 IN. PLATE                         SY=114000 SU=120000
+  603  STEEL CARBON A514 WQ&T  1/2 IN. PLATE                         SY=113000 SU=121000
+  604  STEEL CARBON A514 WQ&T   1      IN. PLATE                     SY=113000 SU=122000
+  605  STEEL CARBON A529 PLATE BAR 1/2 IN. MAX                       SY= 42000 SU= 72500
+  606  STEEL CARBON A537 WQ&T 3/4 IN. TEMP=R.T.                      SY= 60000 SU= 90000
+  607  STEEL CARBON A537 WQ&T 3/4 IN. TEMP=200F                      SY= 58000 SU= 85000
+  608  STEEL CARBON A537 WQ&T 3/4 IN. TEMP=400F                      SY= 53000 SU= 85000
+  609  STEEL CARBON A537 WQ&T 3/4 IN. TEMP=600F                      SY= 47000 SU= 90000
+  610  STEEL CARBON A537 WQ&T 3/4 IN. TEMP=800F                      SY= 43000 SU= 77000
+  611  STEEL CARBON A537 WQ&T 3/4 IN. TEMP=1000F                     SY= 36000 SU= 54000
+  612  STEEL CARBON A537 WQ&T 3/4 IN. TEMP=1200F                     SY= 24000 SU= 36000
+  613  STEEL CARBON A570 MCLOUTH M35SO PLATE .475 IN. MAX            SY= 35000 SU= 53000
+  614  STEEL CARBON A570 MCLOUTH M35SK PLATE .475 IN. MAX            SY= 35000 SU= 52000
+  615  STEEL CARBON A570 MCLOUTH M40SO PLATE .475 IN. MAX            SY= 40000 SU= 55000
+  616  STEEL CARBON A570 MCLOUTH M40SK PLATE .475 IN. MAX            SY= 40000 SU= 55000
+  617  STEEL CARBON A570 MCLOUTH M45SO PLATE .475 IN. MAX            SY= 45000 SU= 60000
+  618  STEEL CARBON A570 MCLOUTH M45SK PLATE .475 IN. MAX            SY= 45000 SU= 60000
+  619  STEEL CARBON A570 NATIONAL NSQ GRADE 35 PLATE                 SY= 35000 SU= 50000
+  620  STEEL CARBON A570 NATIONAL NSQ GRADE 40 PLATE                 SY= 40000 SU= 55000
+  621  STEEL CARBON A570 NATIONAL NSQ GRADE 45 PLATE                 SY= 45000 SU= 60000
+  622  STEEL CARBON A570 NATIONAL NSQ GRADE 50 PLATE                 SY= 50000 SU= 65000
+  623  STEEL CARBON A570 NATIONAL NSQ GRADE 55 PLATE                 SY= 55000 SU= 70000
+  624  STEEL CARBON A570 REPUBLIC P45 PLATE                          SY= 45000 SU= 60000
+  625  STEEL CARBON A570 REPUBLIC P50 PLATE                          SY= 50000 SU= 65000
+  626  STEEL CARBON A570 W-P 035SK PLATE                             SY= 35000 SU= 53000
+  627  STEEL CARBON A570 W-P 035SO PLATE                             SY= 35000 SU= 53000
+  628  STEEL CARBON A570 W-P 040SK PLATE                             SY= 40000 SU= 55000
+  629  STEEL CARBON A570 W-P 040SO PLATE                             SY= 40000 SU= 55000
+  630  STEEL CARBON A570 W-P 045SK PLATE                             SY= 45000 SU= 60000
+  631  STEEL CARBON A570 W-P 045SO PLATE                             SY= 45000 SU= 60000
+  632  STEEL CARBON A570 W-P 050SK PLATE                             SY= 50000 SU= 65000
+  633  STEEL CARBON A570 W-P 050SO PLATE                             SY= 50000 SU= 65000
+  634  STEEL CARBON A572 GR. 42 TYPE 1-CB PLATE BAR SHEET PILING     SY= 42000 SU= 60000
+  635  STEEL CARBON A572 GR. 50 TYPE 2-V PLATE BAR SHEET PILING      SY= 50000 SU= 65000
+  636  STEEL CARBON A572 GR. 60 TYPE 3-CB+V PLATE BAR SHEET PILING   SY= 60000 SU= 75000
+  637  STEEL CARBON A572 GR. 65 TYPE 4-V+N PLATE BAR SHEET PILING    SY= 65000 SU= 80000
+  638  STEEL CARBON A573 GRADE 58 PLATE 1.5 IN. MAX                  SY= 32000 SU= 64500
+  639  STEEL CARBON A573 GRADE 65 PLATE 1.5 IN. MAX                  SY= 35000 SU= 71000
+  640  STEEL CARBON A573 GRADE 70 PLATE 1.5 IN. MAX                  SY= 42000 SU= 80000
+  641  STEEL CARBON A588 HSLA STRUCTURAL STEEL PLATE BAR TO 4 IN.    SY= 50000 SU= 70000
+  642  STEEL CARBON A588 HSLA STRUCTURAL STEEL PLATE BAR 4-5 IN.     SY= 46000 SU= 67000
+  643  STEEL CARBON A588 HSLA STRUCTURAL STEEL PLATE BAR 5-8 IN.     SY= 42000 SU= 63000
+  644  STEEL CARBON A588 INLAND COR-TEN B PLATE BAR 4 IN. MAX        SY= 50000 SU= 70000
+  645  STEEL CARBON A588 INTERLAKE COR-TEN B PLATE BAR .5 IN. MAX    SY= 50000 SU= 70000
+  646  STEEL CARBON A588 J&L NICUTI PLATE .5 IN. MAX                 SY= 50000 SU= 70000
+  647  STEEL CARBON A588 LUKENS PLATE BAR 8 IN. MAX                  SY= 50000 SU= 70000
+  648  STEEL CARBON A588 NATIONAL NAX-W50 PLATE                      SY= 50000 SU= 70000
+  649  STEEL CARBON A588 NATIONAL COR-TEN B PLATE                    SY= 50000 SU= 70000
+  650  STEEL CARBON A588 OREGON PLATE 3 IN. MAX                      SY= 50000 SU= 70000
+  651  STEEL CARBON A588 PHOENIX PLATE 3 IN. MAX                     SY= 50000 SU= 70000
+  652  STEEL CARBON A588 REPUBLIC DURA-PLATE 50 4 IN. MAX            SY= 50000 SU= 70000
+  653  STEEL CARBON A588 REPUBLIC DURA-PLATE 60 .5 IN. MAX           SY= 60000 SU= 75000
+  654  STEEL CARBON A588 REPUBLIC DURA-PLATE 65 .5 IN. MAX           SY= 65000 SU= 80000
+  655  STEEL CARBON A588 REPUBLIC DURA-PLATE 70 .375 IN. MAX         SY= 70000 SU= 85000
+  656  STEEL CARBON A588 SHARON COR-TEN B PLATE                      SY= 50000 SU= 70000
+  657  STEEL CARBON A588 USS COR-TEN B PLATE BAR 8 IN. MAX           SY= 50000 SU= 70000
+  658  STEEL CARBON A633 GR. A PLATE BAR 4 IN. MAX                   SY= 42000 SU= 73000
+  659  STEEL CARBON A633 GR. C PLATE BAR TO 2.5 IN.                  SY= 50000 SU= 80000
+  660  STEEL CARBON A633 GR. C PLATE BAR 2.5 TO 4 IN.                SY= 46000 SU= 75000
+  661  STEEL CARBON A633 GR. D PLATE BAR TO 1.5 IN.                  SY= 50000 SU= 80000
+  662  STEEL CARBON A633 GR. D PLATE BAR 1.5 TO 2.5 IN.              SY= 50000 SU= 80000
+  663  STEEL CARBON A633 GR. D PLATE BAR 2.5 TO 4 IN.                SY= 46000 SU= 75000
+  664  STEEL CARBON A633 GR. E PLATE BAR TO 4 IN.                    SY= 60000 SU= 90000
+  665  STEEL CARBON A633 GR. E PLATE BAR 4 TO 8 IN.                  SY= 55000 SU= 85000
+  666  STEEL CARBON A633 ARMCO LTM-N PLATE 2 IN. MAX                 SY= 42000 SU= 73000
+  667  STEEL CARBON A633 ARMCO CT-50N PLATE TO 2.5 IN.               SY= 50000 SU= 80000
+  668  STEEL CARBON A633 ARMCO CT-50N PLATE 2.5-4 IN.                SY= 50000 SU= 80000
+  669  STEEL CARBON A633 ARMCO CT-46N PLATE 4-6 IN.                  SY= 46000 SU= 75000
+  670  STEEL CARBON A633 ARMCO LO-TEMP PLATE TO 2.5 IN.              SY= 50000 SU= 80000
+  671  STEEL CARBON A633 ARMCO LO-TEMP PLATE 2.5-4 IN.               SY= 46000 SU= 75000
+  672  STEEL CARBON A633 ARMCO VNT-N PLATE TO 4 IN.                  SY= 60000 SU= 90000
+  673  STEEL CARBON A633 ARMCO VNT-N PLATE 4-6 IN.                   SY= 55000 SU= 85000
+  674  STEEL CARBON A633 BETHLEHEM RQC-60 PLATE TO 2.5 IN.           SY= 50000 SU= 80000
+  675  STEEL CARBON A633 BETHLEHEM RQC-60 PLATE 2.5-4 IN.            SY= 45000 SU= 75000
+  676  STEEL CARBON A633 LUKENS GR. A PLATE 4 IN. MAX                SY= 42000 SU= 73000
+  677  STEEL CARBON A633 LUKENS GR. C PLATE TO 2.5 IN.               SY= 50000 SU= 80000
+  678  STEEL CARBON A633 LUKENS GR. C PLATE 2.5-4 IN.                SY= 46000 SU= 75000
+  679  STEEL CARBON A633 LUKENS GR. D PLATE TO 2.5 IN.               SY= 50000 SU= 80000
+  680  STEEL CARBON A633 LUKENS GR. D PLATE 2.5-4 IN.                SY= 46000 SU= 75000
+  681  STEEL CARBON A633 LUKENS GR. E PLATE TO 4 IN.                 SY= 60000 SU= 90000
+  682  STEEL CARBON A633 LUKENS GR. E PLATE 4-6 IN.                  SY= 55000 SU= 85000
+  683  STEEL CARBON A633 OREGON GR. A PLATE 3 IN. MAX                SY= 42000 SU= 73000
+  684  STEEL CARBON A633 OREGON GR. C PLATE 2.5 IN. MAX              SY= 50000 SU= 80000
+  685  STEEL CARBON A633 OREGON GR. D PLATE 2.5 IN. MAX              SY= 50000 SU= 80000
+  686  STEEL CARBON A633 OREGON GR. E PLATE 3 IN. MAX                SY= 60000 SU= 90000
+  687  STEEL CARBON A633 PHOENIX GR. A PLATE 4 IN. MAX               SY= 42000 SU= 73000
+  688  STEEL CARBON A633 PHOENIX GR. C PLATE TO 2.5 IN.              SY= 50000 SU= 80000
+  689  STEEL CARBON A633 PHOENIX GR. C PLATE 2.5-4 IN.               SY= 46000 SU= 75000
+  690  STEEL CARBON A633 PHOENIX GR. D PLATE TO 2.5 IN.              SY= 50000 SU= 80000
+  691  STEEL CARBON A633 PHOENIX GR. D PLATE 2.5-4 IN.               SY= 46000 SU= 75000
+  692  STEEL CARBON A633 PHOENIX GR. E PLATE TO 4 IN.                SY= 60000 SU= 90000
+  693  STEEL CARBON A633 PHOENIX GR. E PLATE 4-6 IN.                 SY= 55000 SU= 85000
+  694  STEEL CARBON A633 USS GR. A PLATE BAR TO 4 IN.                SY= 42000 SU= 73000
+  695  STEEL CARBON A633 USS GR. A PLATE BAR 4-8 IN.                 SY= 38000 SU= 70000
+  696  STEEL CARBON A633 USS GR. C PLATE BAR TO 2.5 IN.              SY= 50000 SU= 80000
+  697  STEEL CARBON A633 USS GR. C PLATE BAR 2.5-4 IN.               SY= 46000 SU= 75000
+  698  STEEL CARBON A633 USS GR. C PLATE BAR 4-8 IN.                 SY= 42000 SU= 73000
+  699  STEEL CARBON A633 USS GR. E PLATE BAR 3 IN. MAX               SY= 60000 SU= 90000
+  700  STEEL CARBON A656 GR. 50 HSLA PLATE .625 IN. MAX              SY= 50000 SU= 60000
+  701  STEEL CARBON A656 GR. 60 HSLA PLATE .625 IN. MAX              SY= 60000 SU= 70000
+  702  STEEL CARBON A656 GR. 70 HSLA PLATE .625 IN. MAX              SY= 70000 SU= 80000
+  703  STEEL CARBON A656 GR. 80 HSLA PLATE .625 IN. MAX              SY= 80000 SU= 90000
+  704  STEEL CARBON A656 ARMCO FORMABLE 50V SHEET STRIP .08-.2 IN.   SY= 50000 SU= 66000
+  705  STEEL CARBON A656 ARMCO FORMABLE 50F SHEET STRIP .08-.2 IN.   SY= 50000 SU= 66000
+  706  STEEL CARBON A656 ARMCO FORMABLE 70V SHEET STRIP .08-.2 IN.   SY= 70000 SU= 86000
+  707  STEEL CARBON A656 ARMCO FORMABLE 70F SHEET STRIP .08-.2 IN.   SY= 50000 SU= 66000
+  708  STEEL CARBON A656 BETHLEHEM GR. 50 PLATE .625 IN. MAX         SY= 50000 SU= 60000
+  709  STEEL CARBON A656 BETHLEHEM GR. 60 PLATE .625 IN. MAX         SY= 60000 SU= 70000
+  710  STEEL CARBON A656 BETHLEHEM GR. 70 PLATE .625 IN. MAX         SY= 70000 SU= 80000
+  711  STEEL CARBON A656 BETHLEHEM GR. 80 PLATE .75 IN. MAX          SY= 80000 SU= 90000
+  712  STEEL CARBON A656 INLAND HI-FORM 50 PLATE .625 IN. MAX        SY= 50000 SU= 60000
+  713  STEEL CARBON A656 INLAND HI-FORM 60 PLATE .625 IN. MAX        SY= 60000 SU= 70000
+  714  STEEL CARBON A656 INLAND HI-FORM 70 PLATE .375 IN. MAX        SY= 70000 SU= 80000
+  715  STEEL CARBON A656 INLAND HI-FORM 80 PLATE .625 IN. MAX        SY= 80000 SU= 90000
+  716  STEEL CARBON A656 INTERLAKE I50XF PLATE BAR .5 IN. MAX        SY= 50000 SU= 60000
+  717  STEEL CARBON A656 INTERLAKE I60XF PLATE BAR .375 IN. MAX      SY= 60000 SU= 70000
+  718  STEEL CARBON A656 INTERLAKE I70XF PLATE BAR .5 IN. MAX        SY= 70000 SU= 80000
+  719  STEEL CARBON A656 INTERLAKE I80XF PLATE BAR .5 IN. MAX        SY= 80000 SU= 90000
+  720  STEEL CARBON A656 J&L VAN GR. 50 PLATE .5 IN. MAX             SY= 50000 SU= 60000
+  721  STEEL CARBON A656 J&L VAN GR. 60 PLATE .5 IN. MAX             SY= 60000 SU= 70000
+  722  STEEL CARBON A656 J&L VAN GR. 70 PLATE .5 IN. MAX             SY= 70000 SU= 80000
+  723  STEEL CARBON A656 J&L VAN GR. 80 PLATE .5 IN. MAX             SY= 80000 SU= 90000
+  724  STEEL CARBON A656 MCLOUTH M35XF SHEET PLATE .4 IN. MAX        SY= 35000 SU= 45000
+  725  STEEL CARBON A656 MCLOUTH M40XF SHEET PLATE .4 IN. MAX        SY= 40000 SU= 50000
+  726  STEEL CARBON A656 MCLOUTH M45XF SHEET PLATE .4 IN. MAX        SY= 45000 SU= 55000
+  727  STEEL CARBON A656 MCLOUTH M50XF SHEET PLATE .4 IN. MAX        SY= 50000 SU= 60000
+  728  STEEL CARBON A656 MCLOUTH M55XF SHEET PLATE .4 IN. MAX        SY= 55000 SU= 70000
+  729  STEEL CARBON A656 MCLOUTH M60XF SHEET PLATE .4 IN. MAX        SY= 60000 SU= 70000
+  730  STEEL CARBON A656 MCLOUTH M70XF SHEET PLATE .25 IN. MAX       SY= 70000 SU= 80000
+  731  STEEL CARBON A656 MCLOUTH M80XF SHEET PLATE .25 IN. MAX       SY= 35000 SU= 45000
+  732  STEEL CARBON A656 NATIONAL NAPAC-F35 PLATE                    SY= 35000 SU= 45000
+  733  STEEL CARBON A656 NATIONAL NAPAC-F40 PLATE                    SY= 40000 SU= 50000
+  734  STEEL CARBON A656 NATIONAL NAPAC-F45 PLATE                    SY= 45000 SU= 55000
+  735  STEEL CARBON A656 NATIONAL NAPAC-F50 PLATE                    SY= 50000 SU= 60000
+  736  STEEL CARBON A656 NATIONAL NAPAC-F55 PLATE                    SY= 55000 SU= 65000
+  737  STEEL CARBON A656 NATIONAL NAPAC-F60 PLATE .5 IN. MAX         SY= 60000 SU= 70000
+  738  STEEL CARBON A656 NATIONAL NAPAC-F65 PLATE .5 IN. MAX         SY= 65000 SU= 80000
+  739  STEEL CARBON A656 NATIONAL NAPAC-F70 PLATE .438 IN. MAX       SY= 70000 SU= 80000
+  740  STEEL CARBON A656 NATIONAL NAPAC-F80 PLATE .313 IN. MAX       SY= 80000 SU= 90000
+  741  STEEL CARBON A656 OREGON ORELLOY 70FG PLATE .5 IN. MAX        SY= 70000 SU= 80000
+  742  STEEL CARBON A656 OREGON ORELLOY 80FG PLATE .5 IN. MAX        SY= 80000 SU= 90000
+  743  STEEL CARBON A656 REPUBLIC MAXI-FORM 50 PLATE .375 IN. MAX    SY= 50000 SU= 60000
+  744  STEEL CARBON A656 REPUBLIC MAXI-FORM 60 PLATE .375 IN. MAX    SY= 60000 SU= 70000
+  745  STEEL CARBON A656 REPUBLIC MAXI-FORM 70 PLATE .312 IN. MAX    SY= 70000 SU= 80000
+  746  STEEL CARBON A656 REPUBLIC MAXI-FORM 80 PLATE .312 IN. MAX    SY= 80000 SU= 90000
+  747  STEEL CARBON A656 REPUBLIC X-80 LOW S PLATE .75 IN. MAX       SY= 80000 SU= 95000
+  748  STEEL CARBON A656 SHARON SHAROFORM 50 SHEET PLATE .5 IN. MAX  SY= 50000 SU= 65000
+  749  STEEL CARBON A656 SHARON SHAROFORM 60 SHEET PLATE .5 IN. MAX  SY= 60000 SU= 75000
+  750  STEEL CARBON A656 USS GR. 50 PLATE                            SY= 50000 SU= 60000
+  751  STEEL CARBON A656 USS GR. 60 PLATE                            SY= 60000 SU= 70000
+  752  STEEL CARBON A656 USS GR. 70 PLATE                            SY= 70000 SU= 80000
+  753  STEEL CARBON A656 USS GR. 80 PLATE                            SY= 80000 SU= 90000
+  754  STEEL CARBON A656 USS MN-MO-CB GR. 80 PLATE .787 IN. MAX      SY= 80000 SU= 90000
+  755  STEEL CARBON A656 W-P PITT-TEN X-50F SHEET PLATE              SY= 50000 SU= 60000
+  756  STEEL CARBON A656 W-P PITT-TEN X-60F SHEET PLATE              SY= 60000 SU= 70000
+  757  STEEL CARBON A656 W-P PITT-TEN X-70F SHEET PLATE              SY= 70000 SU= 80000
+  758  STEEL CARBON A656 W-P PITT-TEN X-80F SHEET PLATE              SY= 80000 SU= 90000
+  759  STEEL CARBON A678 GR. A PLATE 1.5 IN. MAX                     SY= 50000 SU= 80000
+  760  STEEL CARBON A678 GR. B PLATE 2.5 IN. MAX                     SY= 60000 SU= 90000
+  761  STEEL CARBON A678 GR. C PLATE TO .75 IN.                      SY= 75000 SU=105000
+  762  STEEL CARBON A678 GR. C PLATE .75-1.5 IN.                     SY= 70000 SU=100000
+  763  STEEL CARBON A678 GR. C PLATE 1.5-2 IN.                       SY= 65000 SU= 95000
+  764  STEEL CARBON A678 ARMCO GR. A PLATE 2 IN. MAX                 SY= 50000 SU= 80000
+  765  STEEL CARBON A678 ARMCO GR. B PLATE TO 2.5 IN.                SY= 60000 SU= 90000
+  766  STEEL CARBON A678 ARMCO GR. B PLATE 2.5-4 IN.                 SY= 55000 SU= 85000
+  767  STEEL CARBON A678 ARMCO GR. B PLATE 4-6 IN.                   SY= 46000 SU= 80000
+  768  STEEL CARBON A678 ARMCO GR. C PLATE TO .75 IN.                SY= 75000 SU=105000
+  769  STEEL CARBON A678 ARMCO GR. C PLATE .75-2 IN.                 SY= 70000 SU=100000
+  770  STEEL CARBON A678 ARMCO GR. C PLATE 2-3 IN.                   SY= 65000 SU= 95000
+  771  STEEL CARBON A678 ARMCO GR. C PLATE 3-6 IN.                   SY= 60000 SU= 90000
+  772  STEEL CARBON A678 ARMCO CT-65 QT PLATE 2.5 IN. MAX            SY= 65000 SU= 95000
+  773  STEEL CARBON A678 ARMCO CT-60 QT PLATE 2.5-4 IN.              SY= 60000 SU= 90000
+  774  STEEL CARBON A678 ARMCO CT-56 QT PLATE 4-6 IN.                SY= 56000 SU= 85000
+  775  STEEL CARBON A678 BETHLEHEM GR. B PLATE TO 2.5 IN.            SY= 60000 SU= 90000
+  776  STEEL CARBON A678 BETHLEHEM GR. B PLATE 2.5-4 IN.             SY= 55000 SU= 85000
+  777  STEEL CARBON A678 LUKENS GR. A PLATE 1.5 IN. MAX              SY= 50000 SU= 80000
+  778  STEEL CARBON A678 LUKENS GR. B PLATE 2 IN. MAX                SY= 60000 SU= 90000
+  779  STEEL CARBON A678 LUKENS GR. C PLATE TO .75 IN.               SY= 75000 SU=105000
+  780  STEEL CARBON A678 LUKENS GR. C PLATE .75-1.5 IN.              SY= 70000 SU=100000
+  781  STEEL CARBON A678 LUKENS GR. C PLATE 1.5-2 IN.                SY= 65000 SU= 95000
+  782  STEEL CARBON A678 OREGON GR. A PLATE 1.5 IN. MAX              SY= 50000 SU= 80000
+  783  STEEL CARBON A678 OREGON GR. B PLATE 2.5 IN. MAX              SY= 60000 SU= 90000
+  784  STEEL CARBON A678 OREGON GR. C PLATE TO .75 IN.               SY= 75000 SU=105000
+  785  STEEL CARBON A678 OREGON GR. C PLATE .75-1.5 IN.              SY= 70000 SU=100000
+  786  STEEL CARBON A678 OREGON GR. C PLATE 1.5-2 IN.                SY= 65000 SU= 95000
+  787  STEEL CARBON A678 PHOENIX GR. A PLATE 1.5 IN. MAX             SY= 50000 SU= 80000
+  788  STEEL CARBON A678 PHOENIX GR. B PLATE 2 IN. MAX               SY= 60000 SU= 90000
+  789  STEEL CARBON A678 PHOENIX GR. C PLATE TO .75 IN.              SY= 75000 SU=105000
+  790  STEEL CARBON A678 PHOENIX GR. C PLATE .75-1.5 IN.             SY= 70000 SU=100000
+  791  STEEL CARBON A678 PHOENIX GR. C PLATE 1.5-2 IN.               SY= 65000 SU= 95000
+  792  STEEL CARBON A678 USS GR. A PLATE 1.5 IN. MAX                 SY= 50000 SU= 80000
+  793  STEEL CARBON A678 USS GR. B PLATE 2.5 IN. MAX                 SY= 60000 SU= 90000
+  794  STEEL CARBON A678 USS GR. C PLATE TO .75 IN.                  SY= 75000 SU=105000
+  795  STEEL CARBON A678 USS GR. C PLATE .75-1.5 IN.                 SY= 70000 SU=100000
+  796  STEEL CARBON A678 USS GR. C PLATE 1.5-2 IN.                   SY= 65000 SU= 95000
+  797  STEEL CARBON A690 H-PILES SHEET PILING                        SY= 50000 SU= 70000
+  798  STEEL CARBON A699 CLASS 1 PLATE BAR TO .625 IN.               SY= 70000 SU=100000
+  799  STEEL CARBON A699 CLASS 1 PLATE BAR .625-1 IN.                SY= 70000 SU=100000
+  800  STEEL CARBON A699 CLASS 1 OREGON PLATE TO .625 IN.            SY= 70000 SU=100000
+  801  STEEL CARBON A699 CLASS 1 OREGON PLATE .625-1 IN.             SY= 70000 SU=100000
+  802  STEEL CARBON A699 CLASS 2 PLATE BAR TO .625 IN.               SY= 75000 SU=100000
+  803  STEEL CARBON A699 CLASS 2 PLATE BAR .625-1 IN.                SY= 75000 SU=100000
+  804  STEEL CARBON A699 CLASS 2 OREGON PLATE 1 IN. MAX              SY= 75000 SU=100000
+  805  STEEL CARBON A699 CLASS 3 PLATE BAR TO .625 IN.               SY= 70000 SU= 95000
+  806  STEEL CARBON A699 CLASS 3 PLATE BAR .625-1 IN.                SY= 70000 SU= 95000
+  807  STEEL CARBON A699 CLASS 3 OREGON PLATE TO .625 IN.            SY= 70000 SU= 95000
+  808  STEEL CARBON A699 CLASS 3 OREGON PLATE .625-1 IN.             SY= 70000 SU= 95000
+  809  STEEL CARBON A699 CLASS 4 PLATE BAR TO 1 IN.                  SY= 75000 SU= 95000
+  810  STEEL CARBON A699 CLASS 4 OREGON PLATE 1 IN. MAX              SY= 75000 SU= 95000
+  811  STEEL CARBON A709 GRADE 36 PLATE TO 8 IN. MAX                 SY= 36000 SU= 69000
+  812  STEEL CARBON A709 GRADE 36 PLATE OVER 8 IN.                   SY= 32000 SU= 58000
+  813  STEEL CARBON A709 GRADE 50 PLATE BAR 2 IN. MAX                SY= 50000 SU= 65000
+  814  STEEL CARBON A709 GRADE 50W PLATE BAR 4 IN. MAX               SY= 50000 SU= 70000
+  815  STEEL CARBON A737 GR. B PLATE                                 SY= 50000 SU= 80000
+  816  STEEL CARBON A737 GR. C PLATE                                 SY= 60000 SU= 90000
+  817  STEEL CARBON A737 ARMCO CT-50N GR. B PLATE 4 IN. MAX          SY= 50000 SU= 80000
+  818  STEEL CARBON A737 ARMCO CT-65QT GR. B PLATE TO 2.5 IN.        SY= 65000 SU= 95000
+  819  STEEL CARBON A737 ARMCO CT-65QT GR. B PLATE 2.5-4 IN.         SY= 60000 SU= 90000
+  820  STEEL CARBON A737 ARMCO CT-65QT GR. B PLATE 4-6 IN.           SY= 56000 SU= 85000
+  821  STEEL CARBON A737 ARMCO VNT-N GR. C PLATE TO 4 IN.            SY= 60000 SU= 90000
+  822  STEEL CARBON A737 ARMCO VNT-N GR. C PLATE 4-6 IN.             SY= 55000 SU= 85000
+  823  STEEL CARBON A737 LUKENS GR. B PLATE 4 IN. MAX                SY= 50000 SU= 80000
+  824  STEEL CARBON A737 LUKENS GR. C PLATE 4 IN. MAX                SY= 60000 SU= 90000
+  825  STEEL CARBON A737 OREGON GR. B PLATE 2.5 IN. MAX              SY= 50000 SU= 70000
+  826  STEEL CARBON A737 USS GR. B PLATE 2.5 IN. MAX                 SY= 50000 SU= 80000
+  827  STEEL CARBON A737 USS GR. C PLATE 3 IN. MAX                   SY= 60000 SU= 90000
+  828  STEEL HP-9-4-20 HEAT-TREATED                                  SY=180000 SU=210000
+  829  STEEL H13 TOOL ROOM TEMPERATURE PROPERTIES                    SY=240000 SU=270000
+  830  STEEL H13 TOOL HEAT TREAT TO RC=52 MINIMUM                    SY=124000 SU=150000
+  831  STEEL WROUGHT 1020 1 IN. BAR ANNEALED                         SY= 43000 SU= 57000
+  832  STEEL WROUGHT 1020 1 IN. BAR HOT ROLLED                       SY= 48000 SU= 65000
+  833  STEEL WROUGHT 1020 1 IN. BAR NORM                             SY= 50000 SU= 64000
+  834  STEEL WROUGHT 1020 1 IN. BAR COLD ROLLED                      SY= 64000 SU= 75000
+  835  STEEL WROUGHT 1020 1 IN. BAR WQ+1200F                         SY= 47000 SU= 80000
+  836  STEEL WROUGHT 1020 1 IN. BAR WQ+400F                          SY= 80000 SU=105000
+  837  STEEL WROUGHT 1030 1 IN. BAR ANNEALED                         SY= 50000 SU= 67000
+  838  STEEL WROUGHT 1030 1 IN. BAR HOT ROLLED                       SY= 50000 SU= 80000
+  839  STEEL WROUGHT 1030 1 IN. BAR NORM                             SY= 50000 SU= 76000
+  840  STEEL WROUGHT 1030 1 IN. BAR WQ+1200F                         SY= 64000 SU= 85000
+  841  STEEL WROUGHT 1030 1 IN. BAR WQ+400F                          SY= 94000 SU=123000
+  842  STEEL WROUGHT 1040 1 IN. BAR ANNEALED                         SY= 51000 SU= 75000
+  843  STEEL WROUGHT 1040 1 IN. BAR HOT ROLLED                       SY= 60000 SU= 90000
+  844  STEEL WROUGHT 1040 1 IN. BAR WQ+1200F                         SY= 72000 SU= 92000
+  845  STEEL WROUGHT 1040 1 IN. BAR WQ+400F                          SY= 97000 SU=130000
+  846  STEEL WROUGHT 1040 1 IN. BAR OQ+1200F                         SY= 63000 SU= 92000
+  847  STEEL WROUGHT 1040 1 IN. BAR OQ+400F                          SY= 86000 SU=113000
+  848  STEEL WROUGHT 1050 1 IN. BAR ANNEALED                         SY= 53000 SU= 92000
+  849  STEEL WROUGHT 1050 1 IN. BAR HOT ROLLED                       SY= 55000 SU=105000
+  850  STEEL WROUGHT 1050 1 IN. BAR WQ+1200F                         SY= 78000 SU=104000
+  851  STEEL WROUGHT 1050 1 IN. BAR WQ+400F                          SY=117000 SU=163000
+  852  STEEL WROUGHT 1050 1 IN. BAR OQ+1200F                         SY= 64000 SU=106000
+  853  STEEL WROUGHT 1050 1 IN. BAR OQ+600F                          SY=105000 SU=142000
+  854  STEEL WROUGHT 1060 1 IN. BAR ANNEALED                         SY= 54000 SU= 91000
+  855  STEEL WROUGHT 1060 1 IN. HOT ROLLED                           SY= 70000 SU=118000
+  856  STEEL WROUGHT 1060 1 IN. BAR OQ+1200F                         SY= 76000 SU=116000
+  857  STEEL WROUGHT 1060 1 IN. BAR OQ+400F                          SY=113000 SU=160000
+  858  STEEL WROUGHT 1095 1 IN. BAR ANNEALED                         SY= 55000 SU= 95000
+  859  STEEL WROUGHT 1095 1 IN. BAR HOT ROLLED                       SY= 83000 SU=140000
+  860  STEEL WROUGHT 1095 1 IN. BAR WQ+1200F                         SY= 85000 SU=122000
+  861  STEEL WROUGHT 1095 1 IN. BAR WQ+400F                          SY=152000 SU=216000
+  862  STEEL WROUGHT 1095 1 IN. BAR OQ+1200F                         SY= 80000 SU=130000
+  863  STEEL WROUGHT 1095 1 IN. BAR OQ+400F                          SY=120000 SU=187000
+  864  STEEL WROUGHT 1117 1 IN. BAR ANNEALED                         SY= 41000 SU= 62000
+  865  STEEL WROUGHT 1117 1 IN. BAR HOT ROLLED                       SY= 44000 SU= 71000
+  866  STEEL WROUGHT 1117 1 IN. BAR CARB. 1700F+ WQ+600F             SY= 97000 SU=131000
+  867  STEEL WROUGHT 1117 1 IN. BAR CARB. 1700F+ WQ+400F             SY=100000 SU=137000
+  868  STEEL WROUGHT 1117 1 IN. BAR CARB. 1700F+ OQ+600F             SY= 69000 SU= 97000
+  869  STEEL WROUGHT 1117 1 IN. BAR CARB. 1700F+ OQ+400F             SY= 72000 SU=101000
+  870  STEEL WROUGHT 1144 1 IN. BAR ANNEALED                         SY= 50000 SU= 85000
+  871  STEEL WROUGHT 1144 1 IN. BAR HOT ROLLED                       SY= 61000 SU=102000
+  872  STEEL WROUGHT 1144 1 IN. BAR WQ+1200F                         SY= 91000 SU=108000
+  873  STEEL WROUGHT 1144 1 IN. BAR WQ+400F                          SY=188000 SU=290000
+  874  STEEL WROUGHT 1144 1 IN. BAR OQ+1200F                         SY= 73000 SU=105000
+  875  STEEL WROUGHT 1144 1 IN. BAR OQ+400F                          SY= 91000 SU=127000
+  876  STEEL WROUGHT 1340 1 IN. BAR ANNEALED                         SY= 63000 SU=102000
+  877  STEEL WROUGHT 1340 1 IN. BAR NORM                             SY= 81000 SU=120000
+  878  STEEL WROUGHT 1340 1 IN. BAR OQ+1200F                         SY= 96000 SU=112000
+  879  STEEL WROUGHT 1340 1 IN. BAR OQ+1000F                         SY=121000 SU=138000
+  880  STEEL WROUGHT 1340 1 IN. BAR OQ+400F                          SY=230000 SU=260000
+  881  STEEL WROUGHT 4130 1 IN. BAR ANNEALED                         SY= 52000 SU= 81000
+  882  STEEL WROUGHT 4130 1 IN. BAR NORM                             SY= 63000 SU= 97000
+  883  STEEL WROUGHT 4130 1 IN. BAR WQ+1200F                         SY=102000 SU=118000
+  884  STEEL WROUGHT 4130 1 IN. BAR WQ+1000F                         SY=132000 SU=150000
+  885  STEEL WROUGHT 4130 1 IN. BAR WQ+400F                          SY=212000 SU=236000
+  886  STEEL WROUGHT 4130 1 IN. BAR OQ+1200F                         SY= 88000 SU=114000
+  887  STEEL WROUGHT 4140 1 IN. BAR ANNEALED                         SY= 61000 SU= 95000
+  888  STEEL WROUGHT 4140 1 IN. BAR NORM                             SY= 95000 SU=148000
+  889  STEEL WROUGHT 4140 1 IN. BAR OQ+1200F                         SY= 95000 SU=110000
+  890  STEEL WROUGHT 4140 1 IN. BAR OQ+1000F                         SY=143000 SU=165000
+  891  STEEL WROUGHT 4140 1 IN. BAR OQ+400F                          SY=238000 SU=257000
+  892  STEEL WROUGHT 4340 1 IN. BAR ANNEALED                         SY= 69000 SU=108000
+  893  STEEL WROUGHT 4340 1 IN. BAR OQ+1200F                         SY=133000 SU=150000
+  894  STEEL WROUGHT 4340 1 IN. BAR OQ+1000F                         SY=170000 SU=183000
+  895  STEEL WROUGHT 4340 1 IN. BAR OQ+800F                          SY=200000 SU=222000
+  896  STEEL WROUGHT 4340 1 IN. BAR OQ+400F                          SY=238000 SU=283000
+  897  STEEL WROUGHT 4620 1 IN. BAR ANNEALED                         SY= 54000 SU= 74000
+  898  STEEL WROUGHT 4620 1 IN. BAR NORM                             SY= 53000 SU= 83000
+  899  STEEL WROUGHT 4620 1 IN. BAR OQ+1200F                         SY= 77000 SU= 90000
+  900  STEEL WROUGHT 4620 1 IN. BAR CARB. 1700F+ 1500F OQ+450F       SY=106000 SU=125000
+  901  STEEL WROUGHT 4620 1 IN. BAR CARB. 1700F+ OQ+450F             SY=124000 SU=140000
+  902  STEEL WROUGHT 4620 1 IN. BAR CARB. 1700F+ OQ+300F             SY=131000 SU=146000
+  903  STEEL WROUGHT 4820 1 IN. BAR ANNEALED                         SY= 67000 SU= 99000
+  904  STEEL WROUGHT 4820 1 IN. BAR NORM                             SY= 70000 SU=109000
+  905  STEEL WROUGHT 4820 1 IN. BAR CARB. 1700F+ 1475F OQ+450F       SY=185000 SU=205000
+  906  STEEL WROUGHT 4820 1 IN. BAR CARB. 1700F+ OQ+450F             SY=170000 SU=201000
+  907  STEEL WROUGHT 4820 1 IN. BAR CARB. 1700F+ OQ+300F             SY=166000 SU=205000
+  908  STEEL WROUGHT 5140 1 IN. BAR ANNEALED                         SY= 42000 SU= 83000
+  909  STEEL WROUGHT 5140 1 IN. BAR NORM                             SY= 69000 SU=115000
+  910  STEEL WROUGHT 5140 1 IN. BAR OQ+1200F                         SY= 95000 SU=110000
+  911  STEEL WROUGHT 5140 1 IN. BAR OQ+1000F                         SY=134000 SU=155000
+  912  STEEL WROUGHT 5140 1 IN. BAR OQ+800F                          SY=169000 SU=190000
+  913  STEEL WROUGHT 5140 1 IN. BAR OQ+400F                          SY=238000 SU=260000
+  914  STEEL WROUGHT 6150 1 IN. BAR ANNEALED                         SY= 60000 SU= 97000
+  915  STEEL WROUGHT 6150 1 IN. BAR NORM                             SY= 89000 SU=136000
+  916  STEEL WROUGHT 6150 1 IN. BAR OQ+1200F                         SY=130000 SU=141000
+  917  STEEL WROUGHT 6150 1 IN. BAR OQ+1000F                         SY=168000 SU=173000
+  918  STEEL WROUGHT 6150 1 IN. BAR OQ+400F                          SY=245000 SU=280000
+  919  STEEL WROUGHT 8630 1 IN. BAR ANNEALED                         SY= 54000 SU= 82000
+  920  STEEL WROUGHT 8630 1 IN. BAR NORM                             SY= 62000 SU= 94000
+  921  STEEL WROUGHT 8630 1 IN. BAR WQ+1200F                         SY=100000 SU=115000
+  922  STEEL WROUGHT 8630 1 IN. BAR WQ+1000F                         SY=123000 SU=135000
+  923  STEEL WROUGHT 8630 1 IN. BAR WQ+900F                          SY=132000 SU=147000
+  924  STEEL WROUGHT 8630 1 IN. BAR WQ+400F                          SY=178000 SU=200000
+  925  STEEL WROUGHT 8650 1 IN. BAR ANNEALED                         SY= 56000 SU=104000
+  926  STEEL WROUGHT 8650 1 IN. BAR NORM                             SY=100000 SU=149000
+  927  STEEL WROUGHT 8650 1 IN. BAR WQ+1200F                         SY=124000 SU=136000
+  928  STEEL WROUGHT 8650 1 IN. BAR WQ+1000F                         SY=155000 SU=176000
+  929  STEEL WROUGHT 8650 1 IN. BAR WQ+400F                          SY=243000 SU=281000
+  930  STEEL WROUGHT HY140 1 IN. PLATE(L) Q+TEMPER 1000F             SY=142000 SU=149000
+  931  STEEL WROUGHT HY140 1 IN. PLATE(T) Q+TEMPER 1000F             SY=142000 SU=149000
+  932  STEEL WROUGHT HY140 1 IN. PLATE WELD+TEMPER 1000F             SY=144000 SU=163000
+  933  STEEL WROUGHT H-11 (VM) BAR Q+T                               SY=210000 SU=260000
+  934  STEEL WROUGHT H-11 (VM) BAR Q+T 1050F                         SY=230000 SU=280000
+  935  STEEL WROUGHT H-11 (VM) SHEET Q+T                             SY=210000 SU=260000
+  936  STEEL WROUGHT H-11 (VM) SHEET Q+T 1050F                       SY=220000 SU=280000
+  937  STEEL WROUGHT D6AC PLATE(L) TEMPER 500F                       SY=250000 SU=290000
+  938  STEEL WROUGHT D6AC PLATE(L) TEMPER 1000F                      SY=215000 SU=230000
+  939  STEEL WROUGHT D6AC SHEET TEMPER 500F                          SY=230000 SU=290000
+  940  STEEL WROUGHT D6AC SHEET TEMPER 1000F                         SY=200000 SU=220000
+  941  STEEL WROUGHT 9NI-4CO-25 PLATE TEMPER 600F                    SY=195000 SU=215000
+  942  STEEL WROUGHT 9NI-4CO-25 PLATE TEMPER 1000F                   SY=190000 SU=200000
+  943  STEEL WROUGHT 9NI-4CO-25 SHEET TEMPER 600F                    SY=200000 SU=220000
+  944  STEEL WROUGHT 9NI-4CO-25 PLATE TEMPER 1000F                   SY=185000 SU=205000
+  945  STEEL WROUGHT 9NI-4CO-45 PLATE TEMPER 600F                    SY=255000 SU=280000
+  946  STEEL WROUGHT 9NI-4CO-45 PLATE TEMPER 1000F                   SY=205000 SU=215000
+  947  STEEL WROUGHT 9NI-4CO-45 SHEET TEMPER 600F                    SY=230000 SU=260000
+  948  STEEL WROUGHT 9NI-4CO-45 PLATE TEMPER 1000F                   SY=200000 SU=210000
+  949  STEEL WROUGHT 18NI-MIRAGE 200 PLATE(T) ANNEALED               SY=110000 SU=140000
+  950  STEEL WROUGHT 18NI-MIRAGE 200 PLATE(T) AGE 900F               SY=225000 SU=235000
+  951  STEEL WROUGHT 18NI-MIRAGE 200 PLATE(L) AGE 900F               SY=215000 SU=225000
+  952  STEEL WROUGHT 18NI-MIRAGE 200 WELDED AGE 900F                 SY=215000 SU=220000
+  953  STEEL WROUGHT 18NI-MIRAGE 250 (VM) PLATE(T) ANNEALED          SY=130000 SU=150000
+  954  STEEL WROUGHT 18NI-MIRAGE 250 (VM) PLATE(T) AGE 900F          SY=227000 SU=237000
+  955  STEEL WROUGHT 18NI-MIRAGE 250 (VM) PLATE(L) AGE 900F          SY=237000 SU=256000
+  956  STEEL WROUGHT 18NI-MIRAGE 250 (VM) SHEET(T) AGE 900F          SY=263000 SU=269000
+  957  STEEL WROUGHT 18NI-MIRAGE 300 (VM) PLATE(T) ANNEALED          SY=120000 SU=152000
+  958  STEEL WROUGHT 18NI-MIRAGE 300 (VM) PLATE(T) AGE 900F          SY=277000 SU=287000
+  959  STEEL WROUGHT 18NI-MIRAGE 300 (VM) PLATE(L) AGE 900F          SY=279000 SU=288000
+  960  STEEL WROUGHT 18NI-MIRAGE 300 (VM) SHEET(T) AGE 900F          SY=272000 SU=284000
+  961  STEEL WROUGHT 18NI-MIRAGE 350 (VM) 5/8 BAR ANNEALED           SY=120000 SU=165000
+  962  STEEL WROUGHT 18NI-MIRAGE 350 (VM) 5/8 BAR AGE 900F           SY=334000 SU=341000
+  963  STEEL WROUGHT 18NI-MIRAGE 350 (VM) 1/2 PLATE(T) AGE 900F      SY=345000 SU=352000
+  964  STEEL WROUGHT 18NI-MIRAGE 350 (VM) SHEET(T) AGE 900F          SY=364000 SU=373000
+  965  TANTALUM PURE ANNEALED SHEET                                  SY= 35000 SU= 45000
+  966  TEFLON                                                        SY=  1200 SU=  1800
+  967  TITANIUM COMMERCIAL PURE ANNEALED                             SY= 70000 SU= 90000
+  968  TITANIUM WROUGHT UNALLOYED GRADE 1 ANNEALED                   SY= 35000 SU= 48000
+  969  TITANIUM WROUGHT UNALLOYED GRADE 2 ANNEALED                   SY= 50000 SU= 63000
+  970  TITANIUM WROUGHT UNALLOYED GRADE 3 ANNEALED                   SY= 65000 SU= 75000
+  971  TITANIUM WROUGHT UNALLOYED GRADE 4 ANNEALED                   SY= 85000 SU= 95000
+  972  TITANIUM WROUGHT 0.2PB GRADE 7 ANNEALED                       SY= 50000 SU= 63000
+  973  TITANIUM WROUGHT CODE 12 ANNEALED                             SY= 70000 SU= 90000
+  974  TITANIUM WROUGHT 5-AL 2.5-SN ANNEALED                         SY=115000 SU=120000
+  975  TITANIUM WROUGHT 5-AL 2.5-SN ELI ANNEALED                     SY=100000 SU=110000
+  976  TITANIUM WROUGHT 3-AL 2.5-V ANNEALED                          SY= 90000 SU= 95000
+  977  TITANIUM WROUGHT 6-AL 2-CB 1-TA 1-MO ANNEALED                 SY=110000 SU=125000
+  978  TITANIUM WROUGHT 8-AL 1-MO 1-V ANNEALED                       SY=135000 SU=145000
+  979  TITANIUM WROUGHT 4.5-AL 5-MO 1.5-CR CRONA5                    SY=135000 SU=140000
+  980  TITANIUM WROUGHT 5-AL 2-SN 2-ZR 4-MO 4-CR ANNEALED            SY=155000 SU=165000
+  981  TITANIUM 6-AL 4-V ANNEALED                                    SY=130000 SU=135000
+  982  TITANIUM 6-AL 4-V HEAT-TREATED                                SY=145000 SU=155000
+  983  TITANIUM WROUGHT 6-AL 4-V AGED                                SY=160000 SU=170000
+  984  TITANIUM WROUGHT 6-AL 4-V ELI ANNEALED                        SY=120000 SU=135000
+  985  TITANIUM WROUGHT 6-AL 6-V 2-SN ANNEALED                       SY=145000 SU=155000
+  986  TITANIUM WROUGHT 6-AL 6-V 2-SN AGED                           SY=175000 SU=185000
+  987  TITANIUM WROUGHT 6-AL 2-SN 4-ZR 2-MO ANNEALED                 SY=133000 SU=145000
+  988  TITANIUM WROUGHT 6-AL 2-SN 4-ZR 6-MO ANNEALED                 SY=140000 SU=150000
+  989  TITANIUM WROUGHT 6-AL 2-SN 4-ZR 6-MO ANNEALED                 SY=165000 SU=175000
+  990  TITANIUM WROUGHT 6-AL 2-SN 2-ZR 2-MO 2-CR 0.25-SI             SY=147000 SU=162000
+  991  TITANIUM WROUGHT 10-V 2-FE 3-AL ANNEALED                      SY=130000 SU=140000
+  992  TITANIUM WROUGHT 10-V 2-FE 3-AL AGED                          SY=165000 SU=180000
+  993  TITANIUM WROUGHT 15-V 3-CR 3-SN 3-AL SOLUTION ANNEALED        SY=112000 SU=115000
+  994  TITANIUM WROUGHT 15-V 3-CR 3-SN 3-AL AGED                     SY=155000 SU=165000
+  995  TITANIUM WROUGHT 13-V 11-CR 3-AL ANNEALED                     SY=125000 SU=135000
+  996  TITANIUM WROUGHT 13-V 11-CR 3-AL AGED                         SY=165000 SU=175000
+  997  TITANIUM WROUGHT 3-AL 8-V 6-CR 4-MO 4-ZR ANNEALED             SY=113000 SU=120000
+  998  TITANIUM WROUGHT 3-AL 8-V 6-CR 4-MO 4-ZR AGED                 SY=170000 SU=180000
+  999  TITANIUM WROUGHT 4.5-SN 6-ZR 11.5-MO BETA III ANNEALED        SY= 95000 SU=100000
+ 1000  TITANIUM WROUGHT 4.5-SN 6-ZR 11.5-MO BETA III AGED            SY=170000 SU=180000
+ 1001  TUNGSTEN DRAWN 15 MIN.                                        SY=285000 SU=286000
+ 1002  TUNGSTEN SINTERED                                             SY= 18500 SU= 18600
+ 1003  TUNGSTEN NICKEL IRON                                          SY= 98000 SU=128000
+ 1004  URANIUM 6NI - BINARY                                          SY= 61000 SU=123000
+ 1005  URANIUM BETA QUENCHED                                         SY= 50000 SU=110000
+ 1006  URANIUM D-38                                                  SY= 25000 SU= 55000
+ 1007  URANIUM 0.75 TI                                               SY=144400 SU=185000
+ 1008  VANADIUM PURE ANNEALED                                        SY= 18000 SU= 25400
+ 1009  STEEL WROUGHT 4340 1 IN. BAR ANNEALED                         SY= 69000 SU=108000
+ 1010  STEEL WROUGHT 4340 CASE 1                                     SY= 90000 SU=117800
+ 1011  STEEL WROUGHT 4340 CASE 2                                     SY=128000 SU=143200
+ 1012  STEEL WROUGHT 4340 1 IN. BAR OQ+1200F                         SY=133000 SU=147000
+ 1013  STEEL WROUGHT 4340 CASE 3                                     SY=135000 SU=149100
+ 1014  STEEL WROUGHT 4340 CASE 4                                     SY=150000 SU=163200
+ 1015  STEEL WROUGHT 4340                                            SY=159000 SU=165000
+ 1016  STEEL WROUGHT 4340 1 IN. BAR OQ+1200F                         SY=170000 SU=183000
+ 1017  STEEL WROUGHT 4340 CASE 5                                     SY=185000 SU=203000
+ 1018  STEEL 4340 AISI OQ 1000°F 0.5 ROUND                           SY=169000 SU=182000
+ 1019  STEEL 4340 AISI OQ 1000°F 1.0 IN. ROUND                       SY=166000 SU=175000
+ 1020  STEEL 4340 AISI OQ 1000°F 2 IN. ROUND                         SY=160000 SU=170000
+ 1021  STEEL 4340 AISI OQ 1000°F 4 IN. ROUND                         SY=145000 SU=165000
+ 1022  STEEL 4340 AISI OQ 1100°F 0.5 IN. ROUND                       SY=162000 SU=166000
+ 1023  STEEL 4340 AISI OQ 1100°F 1.0 IN. ROUND                       SY=159000 SU=165000
+ 1024  STEEL 4340 AISI OQ 1100°F 2 IN. ROUND                         SY=139000 SU=147000
+ 1025  STEEL 4340 AISI OQ 1100°F 4 IN. ROUND                         SY=114000 SU=134000
+ 1026  STEEL 4340 AISI OQ 1200°F 0.5 IN. ROUND                       SY=136000 SU=145000
+ 1027  STEEL 4340 AISI OQ 1200°F 1.0 IN. ROUND                       SY=128000 SU=139000
+ 1028  STEEL 4340 AISI OQ 1200°F 2 IN. ROUND                         SY=121000 SU=135000
+ 1029  STEEL 4340 AISI OQ 1200°F 4 IN. ROUND                         SY=106000 SU=124000
+ 1030  STEEL WROUGHT 4340 1 IN. BAR OQ+800F                          SY=200000 SU=222000
+ 1031  STEEL WROUGHT 4340 1 IN. BAR OQ+400F                          SY=238000 SU=283000
+ 1032  STEEL WROUGHT 4140 1 IN. BAR ANNEALED                         SY= 61000 SU= 95000
+ 1033  STEEL WROUGHT 4140 1 IN. BAR NORM                             SY= 95000 SU=148000
+ 1034  STEEL WROUGHT 4140 1 IN. BAR OQ+1200F                         SY= 95000 SU=110000
+ 1035  STEEL WROUGHT 4140 1 IN. BAR OQ+1000F                         SY=143000 SU=165000
+ 1036  STEEL WROUGHT 4140 1 IN. BAR OQ+400F                          SY=238000 SU=257000
+ 1037  GRADE 8 BOLT MATERIAL                                         SY=130000 SU=150000
+ 1038  HIGH CARBON SPRING STEEL 1080 ASTM 684                        SY=126000 SU=184000
+ 1039  CARTRIDGE BRASS CU 70 ZN 30 DEAD SOFT                         SY= 11000 SU= 44000
+ 1040  CARTRIDGE BRASS CU 70 ZN 30 ANNEALED                          SY= 19000 SU= 51000
+ 1041  CARTRIDGE BRASS CU 70 ZN 30 1/4 HARD                          SY= 40000 SU= 54000
+ 1042  CARTRIDGE BRASS CU 70 ZN 30 1/2 HARD                          SY= 52000 SU= 62000
+ 1043  CARTRIDGE BRASS CU 70 ZN 30 FULL HARD                         SY= 63000 SU= 76000
+ 1044  CARTRIDGE BRASS CU 70 ZN 30 EXTRA HARD                        SY= 65000 SU= 86000
