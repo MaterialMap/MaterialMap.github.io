@@ -8,11 +8,12 @@ $#   EOSID         C        S1        S2        S3    GAMMAO         A        E0
 $#      V0                
          0
 $--------1---------2---------3---------4---------5---------6---------7---------8
+"""
 app = [
   "Copper",
 ]
 ref = "Altair Radioss Manual"
-units = "cm–ms–g–GPa"
+units = "cm-ms-g-GPa"
 url = "https://help.altair.com/hwsolvers/rad/topics/solvers/rad/eos_gruneisen_starter_r.htm?utm_source=chatgpt.com"
 
 [[material]]
@@ -25,12 +26,13 @@ $#   EOSID         C        S1        S2        S3    GAMMAO         A        E0
 $#      V0                
          0
 $--------1---------2---------3---------4---------5---------6---------7---------8
+"""
 app = [
   "Stainless Steel",
   "Alloy 304, 72% Fe, 19% Cr, 9% Ni"
 ]
 ref = "Altair Radioss Manual"
-units = "cm–ms–g–GPa"
+units = "cm-ms-g-GPa"
 url = "https://help.altair.com/hwsolvers/rad/topics/solvers/rad/eos_gruneisen_starter_r.htm?utm_source=chatgpt.com"
 
 [[material]]
@@ -43,11 +45,12 @@ $#   EOSID         C        S1        S2        S3    GAMMAO         A        E0
 $#      V0                
          0
 $--------1---------2---------3---------4---------5---------6---------7---------8
+"""
 app = [
   "Aluminum Alloy",
 ]
 ref = "Altair Radioss Manual"
-units = "cm–ms–g–GPa"
+units = "cm-ms-g-GPa"
 url = "https://help.altair.com/hwsolvers/rad/topics/solvers/rad/eos_gruneisen_starter_r.htm?utm_source=chatgpt.com"
 
 [[material]]
@@ -60,11 +63,12 @@ $#   EOSID         C        S1        S2        S3    GAMMAO         A        E0
 $#      V0                
          0
 $--------1---------2---------3---------4---------5---------6---------7---------8
+"""
 app = [
   "Beryllium",
 ]
 ref = "Altair Radioss Manual"
-units = "cm–ms–g–GPa"
+units = "cm-ms-g-GPa"
 url = "https://help.altair.com/hwsolvers/rad/topics/solvers/rad/eos_gruneisen_starter_r.htm?utm_source=chatgpt.com"
 
 [[material]]
@@ -77,11 +81,12 @@ $#   EOSID         C        S1        S2        S3    GAMMAO         A        E0
 $#      V0                
          0
 $--------1---------2---------3---------4---------5---------6---------7---------8
+"""
 app = [
   "Magnesium alloy",
 ]
 ref = "Altair Radioss Manual"
-units = "cm–ms–g–GPa"
+units = "cm-ms-g-GPa"
 url = "https://help.altair.com/hwsolvers/rad/topics/solvers/rad/eos_gruneisen_starter_r.htm?utm_source=chatgpt.com"
 
 [[material]]
@@ -94,11 +99,12 @@ $#   EOSID         C        S1        S2        S3    GAMMAO         A        E0
 $#      V0                
          0
 $--------1---------2---------3---------4---------5---------6---------7---------8
+"""
 app = [
   "Titanium",
 ]
 ref = "Altair Radioss Manual"
-units = "cm–ms–g–GPa"
+units = "cm-ms-g-GPa"
 url = "https://help.altair.com/hwsolvers/rad/topics/solvers/rad/eos_gruneisen_starter_r.htm?utm_source=chatgpt.com"
 
 [[material]]
@@ -111,11 +117,12 @@ $#   EOSID         C        S1        S2        S3    GAMMAO         A        E0
 $#      V0                
          0
 $--------1---------2---------3---------4---------5---------6---------7---------8
+"""
 app = [
   "Nickel",
 ]
 ref = "Altair Radioss Manual"
-units = "cm–ms–g–GPa"
+units = "cm-ms-g-GPa"
 url = "https://help.altair.com/hwsolvers/rad/topics/solvers/rad/eos_gruneisen_starter_r.htm?utm_source=chatgpt.com"
 
 [[material]]
@@ -128,9 +135,10 @@ $#   EOSID         C        S1        S2        S3    GAMMAO         A        E0
 $#      V0                
          0
 $--------1---------2---------3---------4---------5---------6---------7---------8
+"""
 app = [
   "Plumbum",
 ]
 ref = "Altair Radioss Manual"
-units = "cm–ms–g–GPa"
+units = "cm-ms-g-GPa"
 url = "https://help.altair.com/hwsolvers/rad/topics/solvers/rad/eos_gruneisen_starter_r.htm?utm_source=chatgpt.com"
