@@ -27,6 +27,20 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '20'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Validate TOML files before processing
+      run: |
+        echo "🔍 Validating TOML files before generating file list..."
+        if ! npm run validate-data; then
+          echo "❌ TOML validation failed! File list will not be updated."
+          echo "Please fix TOML errors and try again."
+          exit 1
+        fi
+        echo "✅ All TOML files are valid, proceeding with file list generation..."
 
     - name: Generate TOML file list with modification dates
       run: |

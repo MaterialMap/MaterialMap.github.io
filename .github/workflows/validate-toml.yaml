@@ -1,0 +1,77 @@
+name: Validate TOML Files
+
+on:
+  push:
+    paths:
+      - 'data/*.toml'  # Запускается при изменении любых TOML файлов
+  pull_request:
+    paths:
+      - 'data/*.toml'  # Проверка в pull requests
+  workflow_dispatch: # Возможность ручного запуска
+
+# Allow only one concurrent validation, cancel in-progress runs
+concurrency:
+  group: "toml-validation-${{ github.ref }}"
+  cancel-in-progress: true
+
+jobs:
+  validate-toml:
+    runs-on: ubuntu-latest
+    name: Validate TOML Syntax and Structure
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Get full history for better error context
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Validate TOML files
+      id: validate
+      run: |
+        echo "Starting TOML validation..."
+        if npm run validate-data; then
+          echo "✅ All TOML files are valid!"
+          echo "validation_status=success" >> $GITHUB_OUTPUT
+        else
+          echo "❌ TOML validation failed!"
+          echo "validation_status=failed" >> $GITHUB_OUTPUT
+          exit 1
+        fi
+
+    - name: List changed TOML files
+      if: always()
+      run: |
+        echo "Changed TOML files in this commit:"
+        git diff --name-only HEAD~1 HEAD -- 'data/*.toml' || echo "No TOML files changed"
+        
+    - name: Show TOML file statistics
+      if: always()
+      run: |
+        echo "TOML files statistics:"
+        find data -name "*.toml" -type f | wc -l | xargs echo "Total TOML files:"
+        find data -name "*.toml" -type f -exec wc -l {} + | tail -1 | awk '{print $1 " total lines in TOML files"}'
+
+    # If validation fails, provide additional context
+    - name: Provide troubleshooting information
+      if: failure()
+      run: |
+        echo "🔍 Troubleshooting information:"
+        echo ""
+        echo "Common TOML syntax errors:"
+        echo "1. Unmatched quotes in strings"
+        echo "2. Missing closing brackets ]"
+        echo "3. Invalid escape sequences"
+        echo "4. Incorrect datetime format"
+        echo "5. Missing required fields: 'app', and at least one of 'ref'/'url', and at least one of 'mat_data'/'eos_data'"
+        echo ""
+        echo "To validate locally, run: npm run validate-data"
+        echo "To validate a specific file, you can use: node -e \"const toml = require('toml'); const fs = require('fs'); try { toml.parse(fs.readFileSync('data/filename.toml', 'utf8')); console.log('Valid'); } catch(e) { console.error('Invalid:', e.message); }\""

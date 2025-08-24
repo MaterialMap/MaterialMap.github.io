@@ -41,57 +41,130 @@ function getTomlFiles() {
   }
 }
 
+// Helper function to find approximate line number of an error
+function findLineNumber(content, searchText) {
+  const lines = content.split('\n');
+  for (let i = 0; i < lines.length; i++) {
+    if (lines[i].includes(searchText)) {
+      return i + 1; // Line numbers are 1-based
+    }
+  }
+  return null;
+}
+
+// Helper function to analyze TOML structure and find material sections
+function findMaterialSections(content) {
+  const lines = content.split('\n');
+  const materialSections = [];
+  
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
+    if (line === '[[material]]') {
+      materialSections.push(i + 1); // Store 1-based line number
+    }
+  }
+  
+  return materialSections;
+}
+
 // Validate a single TOML file
 function validateTomlFile(filePath) {
   const fileName = path.basename(filePath);
   const errors = [];
+  let content = '';
   
   try {
-    // Read and parse the file
-    const content = fs.readFileSync(filePath, 'utf8');
+    // Read the file content
+    content = fs.readFileSync(filePath, 'utf8');
+    
+    // Try to parse the file
     const data = toml.parse(content);
     
     // Check if the file has the material array
     if (!data.material || !Array.isArray(data.material)) {
-      errors.push(`Missing or invalid 'material' array`);
+      const lineNum = findLineNumber(content, '[[material]]') || 'unknown';
+      errors.push(`Missing or invalid 'material' array (expected [[material]] sections, first section at line ${lineNum})`);
       return { fileName, errors, valid: false };
     }
     
+    // Find all material section line numbers
+    const materialSections = findMaterialSections(content);
+    
     // Validate each material entry
     data.material.forEach((material, index) => {
+      const sectionLine = materialSections[index] || 'unknown';
+      const materialId = `Material #${index + 1} (line ${sectionLine})`;
+      
       // Check required fields
       CONFIG.REQUIRED_FIELDS.forEach(field => {
         if (!material[field]) {
-          errors.push(`Material #${index + 1}: Missing required field '${field}'`);
+          const fieldLine = findLineNumber(content, `${field} =`) || 'not found';
+          errors.push(`${materialId}: Missing required field '${field}' (expected around line ${fieldLine})`);
         }
       });
       
       // Check if at least one reference field is present
       const hasReference = CONFIG.REFERENCE_FIELDS.some(field => material[field]);
       if (!hasReference) {
-        errors.push(`Material #${index + 1}: Missing reference - at least one of [${CONFIG.REFERENCE_FIELDS.join(', ')}] is required`);
+        errors.push(`${materialId}: Missing reference - at least one of [${CONFIG.REFERENCE_FIELDS.join(', ')}] is required`);
       }
       
       // Check if at least one material data field is present
       const hasMaterialData = CONFIG.MATERIAL_DATA_FIELDS.some(field => material[field]);
       if (!hasMaterialData) {
-        errors.push(`Material #${index + 1}: Missing material data - at least one of [${CONFIG.MATERIAL_DATA_FIELDS.join(', ')}] is required`);
+        errors.push(`${materialId}: Missing material data - at least one of [${CONFIG.MATERIAL_DATA_FIELDS.join(', ')}] is required`);
       }
       
       // Check if app is an array
       if (material.app && !Array.isArray(material.app)) {
-        errors.push(`Material #${index + 1}: Field 'app' must be an array`);
+        const appLine = findLineNumber(content, 'app =') || 'unknown';
+        errors.push(`${materialId}: Field 'app' must be an array (line ${appLine})`);
       }
+      
+      // Additional validation: check for empty required fields
+      CONFIG.REQUIRED_FIELDS.forEach(field => {
+        if (material[field] !== undefined) {
+          if (Array.isArray(material[field]) && material[field].length === 0) {
+            errors.push(`${materialId}: Field '${field}' cannot be empty array`);
+          } else if (typeof material[field] === 'string' && material[field].trim() === '') {
+            errors.push(`${materialId}: Field '${field}' cannot be empty string`);
+          }
+        }
+      });
     });
     
     return {
       fileName,
       errors,
-      valid: errors.length === 0
+      valid: errors.length === 0,
+      materialCount: data.material.length
     };
+    
   } catch (error) {
-    errors.push(`Parsing error: ${error.message}`);
-    return { fileName, errors, valid: false };
+    // Enhanced error reporting for parsing errors
+    let errorMsg = `Parsing error: ${error.message}`;
+    
+    // Try to extract line information from error message
+    const lineMatch = error.message.match(/line (\d+)/i);
+    if (lineMatch) {
+      const lineNum = parseInt(lineMatch[1]);
+      const lines = content.split('\n');
+      if (lines[lineNum - 1]) {
+        errorMsg += `\n    Problem line ${lineNum}: "${lines[lineNum - 1].trim()}"`;
+        
+        // Show context around the error
+        const start = Math.max(0, lineNum - 3);
+        const end = Math.min(lines.length, lineNum + 2);
+        errorMsg += `\n    Context (lines ${start + 1}-${end}):`;
+        for (let i = start; i < end; i++) {
+          const marker = i === lineNum - 1 ? ' >>> ' : '     ';
+          errorMsg += `\n    ${marker}${i + 1}: ${lines[i]}`;
+        }
+      }
+    }
+    
+    errors.push(errorMsg);
+    return { fileName, errors, valid: false, materialCount: 0 };
   }
 }
 
@@ -104,23 +177,65 @@ function validateAllFiles() {
     return true;
   }
   
-  console.log(`Validating ${files.length} TOML files...`);
+  console.log(`🔍 Validating ${files.length} TOML files...`);
+  console.log('━'.repeat(60));
   
   const results = files.map(validateTomlFile);
   const validFiles = results.filter(result => result.valid);
   const invalidFiles = results.filter(result => !result.valid);
   
-  console.log(`\nValidation complete: ${validFiles.length} valid, ${invalidFiles.length} invalid`);
+  // Calculate total materials
+  const totalMaterials = results.reduce((sum, result) => sum + (result.materialCount || 0), 0);
   
-  if (invalidFiles.length > 0) {
-    console.log('\nInvalid files:');
-    invalidFiles.forEach(result => {
-      console.log(`\n${result.fileName}:`);
-      result.errors.forEach(error => console.log(`  - ${error}`));
+  console.log('━'.repeat(60));
+  console.log(`📊 Validation Summary:`);
+  console.log(`   Files: ${validFiles.length} valid, ${invalidFiles.length} invalid (${files.length} total)`);
+  console.log(`   Materials: ${totalMaterials} total across all files`);
+  
+  // Show valid files summary
+  if (validFiles.length > 0) {
+    console.log(`\n✅ Valid files (${validFiles.length}):`);
+    validFiles.forEach(result => {
+      const materialText = result.materialCount === 1 ? 'material' : 'materials';
+      console.log(`   ${result.fileName} - ${result.materialCount} ${materialText}`);
     });
+  }
+  
+  // Show invalid files with detailed errors
+  if (invalidFiles.length > 0) {
+    console.log(`\n❌ Invalid files (${invalidFiles.length}):`);
+    console.log('━'.repeat(60));
+    
+    invalidFiles.forEach((result, index) => {
+      console.log(`\n${index + 1}. ${result.fileName}:`);
+      result.errors.forEach(error => {
+        const lines = error.split('\n');
+        console.log(`   🚫 ${lines[0]}`);
+        // Print additional context lines with indentation
+        if (lines.length > 1) {
+          lines.slice(1).forEach(line => {
+            console.log(`      ${line}`);
+          });
+        }
+      });
+      
+      if (result.materialCount > 0) {
+        const materialText = result.materialCount === 1 ? 'material' : 'materials';
+        console.log(`   ℹ️  File contains ${result.materialCount} ${materialText}`);
+      }
+    });
+    
+    console.log('\n━'.repeat(60));
+    console.log('💡 Quick fixes:');
+    console.log('   • Check TOML syntax with online validators');
+    console.log('   • Ensure all [[material]] sections have required fields');
+    console.log('   • Use npm run validate-data for local testing');
+    console.log('━'.repeat(60));
+    
     return false;
   }
   
+  console.log('\n🎉 All TOML files are valid!');
   return true;
 }
 
