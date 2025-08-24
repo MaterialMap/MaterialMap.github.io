@@ -1,0 +1,57 @@
+[[material]]
+
+mat_data="""
+*MAT_HIGH_EXPLOSIVE_BURN_TITLE
+PETN
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#     MID        RO         D       PCJ      BETA
+       110   1.77E-3    8.30e3    3.35E4       0.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+eos_data = """
+*EOS_JWL_TITLE
+PETN
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#   EOSID         A         B        R1        R2      OMEG        E0        V0
+       110    6.17E5  16.926E3       4.4      1.20      0.25    10.1E3       1.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+app = [
+  "PETN",
+  "HE",
+]
+ref = "Len Schwer and Samuel Rigby, Reflected Secondary Shocks: Some Observationsusing Afterburning, 11th European LS-DYNA Conference 2017, Salzburg, Austria"
+units = "mm-ms-g-MPa"
+url = "https://www.dynalook.com/conferences/10th-european-ls-dyna-conference/7%20Simulation%20III%20-%20Blast-Penetration/03-Schwer-SchwerEngineering-P.pdf"
+
+[[material]]
+
+mat_data="""
+*MAT_HIGH_EXPLOSIVE_BURN_TITLE
+PETN
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#     MID        RO         D       PCJ      BETA
+       110   1.77E-3    8.30e3    3.35E4       0.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+eos_data = """
+*EOS_JWL_AFTERBURN
+PETN
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#   EOSID         A         B        R1        R2      OMEG        E0        V0
+      2180    6.17E5  1.6926E4       4.4      1.20      0.25    1.01E4       1.0
+$#     OPT        QT        T1        T2
+         2    3.41E3       0.2       2.5
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+app = [
+  "PETN",
+  "HE",
+]
+ref = "Len Schwer and Samuel Rigby, Reflected Secondary Shocks: Some Observationsusing Afterburning, 11th European LS-DYNA Conference 2017, Salzburg, Austria"
+units = "mm-ms-g-MPa"
+url = "https://www.dynalook.com/conferences/10th-european-ls-dyna-conference/7%20Simulation%20III%20-%20Blast-Penetration/03-Schwer-SchwerEngineering-P.pdf"
