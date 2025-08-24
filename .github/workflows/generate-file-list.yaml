@@ -3,25 +3,29 @@ name: Generate TOML File List
 on:
   push:
     branches:
-      - main # Запускается при пуше в ветку main
+      - main
+    paths:
+      - 'data/*.toml'  # Запускается только при изменении TOML файлов
   workflow_dispatch: # Возможность ручного запуска
 
 jobs:
-  build:
+  generate-file-list:
     runs-on: ubuntu-latest
-
+    
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Получаем полную историю для git log
 
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '20' # Или другая версия Node.js
+        node-version: '20'
 
     - name: Generate TOML file list with modification dates
       run: |
-        mkdir -p dist # Создаем директорию для вывода
+        mkdir -p dist
         node -e "
         const fs = require('fs');
         const path = require('path');
@@ -80,16 +84,21 @@ jobs:
         fs.writeFileSync('dist/file-list.json', JSON.stringify(fileData, null, 2));
         console.log('Generated file-list.json with modification dates:', fileData);
         "
+        
+    - name: Check for changes
+      id: check_changes
+      run: |
+        if git diff --quiet dist/file-list.json; then
+          echo "changes=false" >> $GITHUB_OUTPUT
+        else
+          echo "changes=true" >> $GITHUB_OUTPUT
+        fi
+    
     - name: Commit and push file list
+      if: steps.check_changes.outputs.changes == 'true'
       run: |
         git config --local user.name "GitHub Actions"
         git config --local user.email "actions@github.com"
         git add dist/file-list.json
-        git commit -m "Update file list [skip ci]" || echo "No changes to commit"
+        git commit -m "Update file list [skip ci]"
         git push origin main
-    
-    - name: Upload file list artifact # Добавляем шаг для загрузки артефакта
-      uses: actions/upload-artifact@v4
-      with:
-        name: file-list-json # Имя артефакта
-        path: dist/file-list.json # Путь к файлу
