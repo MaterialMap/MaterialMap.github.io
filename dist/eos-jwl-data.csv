@@ -1,4 +1,18 @@
 source_file,material_title,a,b,r1,r2,omeg,units
+EOS_JWL.toml,TNT,3.738E5,3.74E3,4.15,0.90,0.35,mm-ms-g-MPa
+EOS_JWL.toml,RDX,7.78E5,7.071E3,4.5,1.4,0.25,mm-ms-g-MPa
+EOS_JWL.toml,HMX,7.779E5,7.071E3,4.2,1.1,0.34,mm-ms-g-MPa
+EOS_JWL.toml,PETN,6.175E5,16.926E3,4.4,1.2,0.25,mm-ms-g-MPa
+EOS_JWL.toml,TATB,7.824E5,7.349E3,4.2,1.1,0.30,mm-ms-g-MPa
+EOS_JWL.toml,Comp_A-3,5.242E5,7.678E3,4.2,1.1,0.34,mm-ms-g-MPa
+EOS_JWL.toml,Comp_B,5.242E5,7.678E3,4.2,1.1,0.34,mm-ms-g-MPa
+EOS_JWL.toml,Comp_C-4,6.098E5,12.95E3,4.5,1.4,0.25,mm-ms-g-MPa
+EOS_JWL.toml,LX-04-1,7.779E5,7.071E3,4.2,1.1,0.34,mm-ms-g-MPa
+EOS_JWL.toml,LX-17-0,7.51E5,7.3E3,4.2,1.1,0.30,mm-ms-g-MPa
+EOS_JWL.toml,PBX-9404,7.779E5,7.071E3,4.2,1.1,0.34,mm-ms-g-MPa
+EOS_JWL.toml,PBX-9502,7.824E5,7.349E3,4.2,1.1,0.30,mm-ms-g-MPa
+EOS_JWL.toml,PE4,6.098E5,12.95E3,4.5,1.4,0.25,mm-ms-g-MPa
+EOS_JWL.toml,ANFO,49.46E3,1.891E3,3.907,1.118,0.333,mm-ms-g-MPa
 Schwer 2011.toml,ANFO - Weidlinger,4.20E4,44.0,3.55,0.16,0.41,mm ms grams
 Schwer 2011.toml,DETASHEET EL-506C LLNL,3.49E5,4.524E3,4.10,1.20,0.30,mm ms grams
 Schwer 2011.toml,DETASHEET C-88 - SRI International,2.99E6,2.12E4,7.728,1.90,0.158,mm ms grams
