@@ -1,4 +1,4 @@
-name: Generate TOML File List
+name: Generate TOML File List and EOS JWL CSV
 
 on:
   push:
@@ -103,21 +103,26 @@ jobs:
         fs.writeFileSync('dist/file-list.json', JSON.stringify(fileData, null, 2));
         console.log('Generated file-list.json with modification dates:', fileData);
         "
+
+    - name: Generate EOS JWL CSV data
+      run: |
+        echo "🔄 Generating EOS JWL CSV data..."
+        npm run generate-eos-jwl-csv
         
     - name: Check for changes
       id: check_changes
       run: |
-        if git diff --quiet dist/file-list.json; then
+        if git diff --quiet dist/file-list.json dist/eos-jwl-data.csv; then
           echo "changes=false" >> $GITHUB_OUTPUT
         else
           echo "changes=true" >> $GITHUB_OUTPUT
         fi
     
-    - name: Commit and push file list
+    - name: Commit and push generated files
       if: steps.check_changes.outputs.changes == 'true'
       run: |
         git config --local user.name "GitHub Actions"
         git config --local user.email "actions@github.com"
-        git add dist/file-list.json
-        git commit -m "Update file list [skip ci]"
+        git add dist/file-list.json dist/eos-jwl-data.csv
+        git commit -m "Update file list and EOS JWL CSV data [skip ci]"
         git push origin main

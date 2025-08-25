@@ -1,0 +1,5 @@
+source_file,material_title,a,b,r1,r2,omeg,units
+Schwer 2011.toml,ANFO - Weidlinger,4.20E4,44.0,3.55,0.16,0.41,mm ms grams
+Schwer 2011.toml,DETASHEET EL-506C LLNL,3.49E5,4.524E3,4.10,1.20,0.30,mm ms grams
+Schwer 2011.toml,DETASHEET C-88 - SRI International,2.99E6,2.12E4,7.728,1.90,0.158,mm ms grams
+schwer 2017.toml,PETN,6.17E5,16.926E3,4.4,1.20,0.25,mm-ms-g-MPa

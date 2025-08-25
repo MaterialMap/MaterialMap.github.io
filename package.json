@@ -20,8 +20,9 @@
     "test:local": "playwright test --config=playwright.config.js",
     "test:github-pages": "playwright test --config=playwright.github-pages.config.js",
     "test:subdirectory": "playwright test --config=playwright.subdirectory.config.js",
-    "build": "npm run generate-file-list",
+    "build": "npm run generate-file-list && npm run generate-eos-jwl-csv",
     "generate-file-list": "node scripts/generate-file-list.js",
+    "generate-eos-jwl-csv": "node scripts/generate-eos-jwl-csv.js",
     "lint": "eslint src/js/**/*.js",
     "format": "prettier --write \"src/**/*.{js,css,html}\"",
     "validate-data": "node scripts/validate-toml.js"
