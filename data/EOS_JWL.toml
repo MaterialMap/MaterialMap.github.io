@@ -1,0 +1,335 @@
+[[material]]
+mat_data="""
+*MAT_HIGH_EXPLOSIVE_BURN_TITLE
+TNT
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#     MID        RO         D       PCJ      BETA
+       001   1.63E-3    6.93E3    2.10E4       0.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+eos_data = """
+*EOS_JWL_TITLE
+TNT
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#   EOSID         A         B        R1        R2      OMEG        E0        V0
+       001  3.738E5    3.74E3      4.15      0.90      0.35     6.0E3       1.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+app = ["TNT", "HE", "Reference"]
+ref = "LLNL Explosives Handbook"
+units = "mm-ms-g-MPa"
+url = "https://archive.org/details/LLNLExplosivesHandbook"
+
+[[material]]
+mat_data="""
+*MAT_HIGH_EXPLOSIVE_BURN_TITLE
+RDX
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#     MID        RO         D       PCJ      BETA
+       002   1.80E-3    8.75E3    3.38E4       0.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+eos_data = """
+*EOS_JWL_TITLE
+RDX
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#   EOSID         A         B        R1        R2      OMEG        E0        V0
+       002   7.78E5   7.071E3       4.5       1.4      0.25    8.93E3       1.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+app = ["RDX", "HE", "Military"]
+ref = "LLNL Explosives Handbook"
+units = "mm-ms-g-MPa"
+url = "https://archive.org/details/LLNLExplosivesHandbook"
+
+[[material]]
+mat_data="""
+*MAT_HIGH_EXPLOSIVE_BURN_TITLE
+HMX
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#     MID        RO         D       PCJ      BETA
+       003   1.90E-3    9.11E3    3.90E4       0.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+eos_data = """
+*EOS_JWL_TITLE
+HMX
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#   EOSID         A         B        R1        R2      OMEG        E0        V0
+       003  7.779E5   7.071E3       4.2       1.1      0.34     9.5E3       1.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+app = ["HMX", "HE", "Military"]
+ref = "LLNL Explosives Handbook"
+units = "mm-ms-g-MPa"
+url = "https://archive.org/details/LLNLExplosivesHandbook"
+
+[[material]]
+mat_data="""
+*MAT_HIGH_EXPLOSIVE_BURN_TITLE
+PETN
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#     MID        RO         D       PCJ      BETA
+       004   1.77E-3    8.26E3    3.35E4       0.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+eos_data = """
+*EOS_JWL_TITLE
+PETN
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#   EOSID         A         B        R1        R2      OMEG        E0        V0
+       004  6.175E5  16.926E3       4.4       1.2      0.25     8.4E3       1.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+app = ["PETN", "HE", "Commercial"]
+ref = "LLNL Explosives Handbook"
+units = "mm-ms-g-MPa"
+url = "https://archive.org/details/LLNLExplosivesHandbook"
+
+[[material]]
+mat_data="""
+*MAT_HIGH_EXPLOSIVE_BURN_TITLE
+TATB
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#     MID        RO         D       PCJ      BETA
+       005   1.88E-3    7.76E3    3.10E4       0.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+eos_data = """
+*EOS_JWL_TITLE
+TATB
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#   EOSID         A         B        R1        R2      OMEG        E0        V0
+       005  7.824E5   7.349E3       4.2       1.1      0.30     6.5E3       1.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+app = ["TATB", "HE", "Insensitive"]
+ref = "LLNL Explosives Handbook"
+units = "mm-ms-g-MPa"
+url = "https://archive.org/details/LLNLExplosivesHandbook"
+
+[[material]]
+mat_data="""
+*MAT_HIGH_EXPLOSIVE_BURN_TITLE
+Comp_A-3
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#     MID        RO         D       PCJ      BETA
+       006   1.65E-3    7.98E3    2.95E4       0.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+eos_data = """
+*EOS_JWL_TITLE
+Comp_A-3
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#   EOSID         A         B        R1        R2      OMEG        E0        V0
+       006  5.242E5   7.678E3       4.2       1.1      0.34         0       1.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+app = ["Comp A-3", "HE", "Military"]
+ref = "LLNL Explosives Handbook"
+units = "mm-ms-g-MPa"
+url = "https://archive.org/details/LLNLExplosivesHandbook"
+
+[[material]]
+mat_data="""
+*MAT_HIGH_EXPLOSIVE_BURN_TITLE
+Comp_B
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#     MID        RO         D       PCJ      BETA
+       007   1.72E-3    7.98E3    2.95E4       0.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+eos_data = """
+*EOS_JWL_TITLE
+Comp_B
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#   EOSID         A         B        R1        R2      OMEG        E0        V0
+       007  5.242E5   7.678E3       4.2       1.1      0.34         0       1.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+app = ["Comp B", "HE", "Military"]
+ref = "LLNL Explosives Handbook"
+units = "mm-ms-g-MPa"
+url = "https://archive.org/details/LLNLExplosivesHandbook"
+
+[[material]]
+mat_data="""
+*MAT_HIGH_EXPLOSIVE_BURN_TITLE
+Comp_C-4
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#     MID        RO         D       PCJ      BETA
+       008   1.60E-3    8.05E3    2.80E4       0.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+eos_data = """
+*EOS_JWL_TITLE
+Comp_C-4
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#   EOSID         A         B        R1        R2      OMEG        E0        V0
+       008  6.098E5   12.95E3       4.5       1.4      0.25         0       1.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+app = ["Comp C-4", "HE", "Military", "Plastic"]
+ref = "LLNL Explosives Handbook"
+units = "mm-ms-g-MPa"
+url = "https://archive.org/details/LLNLExplosivesHandbook"
+
+[[material]]
+mat_data="""
+*MAT_HIGH_EXPLOSIVE_BURN_TITLE
+LX-04-1
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#     MID        RO         D       PCJ      BETA
+       101   1.86E-3         0         0       0.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+eos_data = """
+*EOS_JWL_TITLE
+LX-04-1
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#   EOSID         A         B        R1        R2      OMEG        E0        V0
+       101  7.779E5   7.071E3       4.2       1.1      0.34         0       1.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+app = ["LX-04-1", "HE", "LLNL", "HMX-based"]
+ref = "LLNL Explosives Handbook"
+units = "mm-ms-g-MPa"
+url = "https://archive.org/details/LLNLExplosivesHandbook"
+
+[[material]]
+mat_data="""
+*MAT_HIGH_EXPLOSIVE_BURN_TITLE
+LX-17-0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#     MID        RO         D       PCJ      BETA
+       117   1.91E-3         0         0       0.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+eos_data = """
+*EOS_JWL_TITLE
+LX-17-0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#   EOSID         A         B        R1        R2      OMEG        E0        V0
+       117   7.51E5    7.3E3       4.2       1.1      0.30         0       1.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+app = ["LX-17-0", "HE", "LLNL", "TATB-based", "Insensitive"]
+ref = "LLNL Explosives Handbook"
+units = "mm-ms-g-MPa"
+url = "https://archive.org/details/LLNLExplosivesHandbook"
+
+[[material]]
+mat_data="""
+*MAT_HIGH_EXPLOSIVE_BURN_TITLE
+PBX-9404
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#     MID        RO         D       PCJ      BETA
+       201   1.84E-3         0         0       0.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+eos_data = """
+*EOS_JWL_TITLE
+PBX-9404
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#   EOSID         A         B        R1        R2      OMEG        E0        V0
+       201  7.779E5   7.071E3       4.2       1.1      0.34         0       1.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+app = ["PBX-9404", "HE", "LANL", "HMX-based"]
+ref = "LLNL Explosives Handbook"
+units = "mm-ms-g-MPa"
+url = "https://archive.org/details/LLNLExplosivesHandbook"
+
+[[material]]
+mat_data="""
+*MAT_HIGH_EXPLOSIVE_BURN_TITLE
+PBX-9502
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#     MID        RO         D       PCJ      BETA
+       202   1.90E-3         0         0       0.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+eos_data = """
+*EOS_JWL_TITLE
+PBX-9502
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#   EOSID         A         B        R1        R2      OMEG        E0        V0
+       202  7.824E5   7.349E3       4.2       1.1      0.30         0       1.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+app = ["PBX-9502", "HE", "LANL", "TATB-based", "Insensitive"]
+ref = "LLNL Explosives Handbook"
+units = "mm-ms-g-MPa"
+url = "https://archive.org/details/LLNLExplosivesHandbook"
+
+[[material]]
+mat_data="""
+*MAT_HIGH_EXPLOSIVE_BURN_TITLE
+PE4
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#     MID        RO         D       PCJ      BETA
+       301   1.60E-3         0         0       0.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+eos_data = """
+*EOS_JWL_TITLE
+PE4
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#   EOSID         A         B        R1        R2      OMEG        E0        V0
+       301  6.098E5   12.95E3       4.5       1.4      0.25         0       1.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+app = ["PE4", "HE", "British", "C-4 equivalent"]
+ref = "ScienceDirect PE4 Study"
+units = "mm-ms-g-MPa"
+url = "https://www.sciencedirect.com/science/article/abs/pii/S0734743X22000367"
+
+[[material]]
+mat_data="""
+*MAT_HIGH_EXPLOSIVE_BURN_TITLE
+ANFO
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#     MID        RO         D       PCJ      BETA
+       401   0.93E-3         0         0       0.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+eos_data = """
+*EOS_JWL_TITLE
+ANFO
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#   EOSID         A         B        R1        R2      OMEG        E0        V0
+       401   49.46E3   1.891E3     3.907     1.118     0.333         0       1.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+app = ["ANFO", "Commercial", "Mining", "Ammonium Nitrate"]
+ref = "Science.gov Database"
+units = "mm-ms-g-MPa"
+url = "https://www.science.gov/topicpages/s/standard+jones-wilkins-lee+jwl.html"
