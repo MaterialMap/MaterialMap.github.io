@@ -79,7 +79,31 @@
             </div>
         </div>
 
-        <div class="input-group" style="grid-template-columns: 1fr; max-width: 400px; margin: 0 auto;">
+        <!-- Input Parameters -->
+        <div class="input-group" style="grid-template-columns: 1fr 1fr 1fr; max-width: 1000px; margin: 0 auto 30px auto;">
+            <div class="input-item">
+                <label for="calculationMethod">Calculation Based On:</label>
+                <select id="calculationMethod" onchange="updateCalculationMethod()" style="width: 100%; padding: 8px 12px; border: 2px solid #ddd; border-radius: 6px; background: white; font-size: 14px;">
+                    <option value="nu" selected>Poisson's Ratio (ν)</option>
+                    <option value="d">Incompressibility Parameter (d)</option>
+                </select>
+            </div>
+            
+            <div class="input-item with-units" id="nuInputGroup">
+                <label for="poissonRatio">Poisson's Ratio, ν (0-0.5):</label>
+                <div class="input-with-units">
+                    <input type="number" id="poissonRatio" min="0" max="0.5" step="0.0001" value="0.4995" oninput="updateFromAdditionalInput()">
+                    <span class="unit-display">-</span>
+                </div>
+            </div>
+            <div class="input-item with-units" id="dInputGroup" style="display: none;">
+                <label for="incompressibilityParam">Incompressibility Parameter, d (>0):</label>
+                <div class="input-with-units">
+                    <input type="number" id="incompressibilityParam" min="0" step="0.0001" value="" oninput="updateFromAdditionalInput()">
+                    <span class="unit-display" id="dUnit">MPa⁻¹</span>
+                </div>
+            </div>
+            
             <div class="input-item with-units">
                 <label for="shoreHardness">Shore Hardness, A (35-70):</label>
                 <div class="input-with-units">
@@ -90,15 +114,19 @@
         </div>
 
         <div class="results" id="results" style="display: grid;">
+            <!-- Shore-based parameters -->
+            <div style="grid-column: 1 / -1; background: #f8f9fa; padding: 10px; margin: 10px 0; border-radius: 6px; border-left: 4px solid #28a745;">
+                <h4 style="margin: 0; color: #155724; font-size: 14px;">Shore Hardness Based Parameters</h4>
+            </div>
             <div class="result-item">
-                <div class="result-name">Young's Modulus, E</div>
+                <div class="result-name">Young's Modulus, E (Shore)</div>
                 <div class="result-value with-units">
                     <span id="youngModulus">-</span>
                     <span class="result-unit" id="youngModulusUnit">MPa</span>
                 </div>
             </div>
             <div class="result-item">
-                <div class="result-name">Shear Modulus, G</div>
+                <div class="result-name">Shear Modulus, G (Shore)</div>
                 <div class="result-value with-units">
                     <span id="shearModulus">-</span>
                     <span class="result-unit" id="shearModulusUnit">MPa</span>
@@ -116,6 +144,46 @@
                 <div class="result-value with-units">
                     <span id="c01">-</span>
                     <span class="result-unit" id="c01Unit">MPa</span>
+                </div>
+            </div>
+
+            <!-- Calculated parameters -->
+            <div style="grid-column: 1 / -1; background: #e7f3ff; padding: 10px; margin: 20px 0 10px 0; border-radius: 6px; border-left: 4px solid #007bff;">
+                <h4 style="margin: 0; color: #004085; font-size: 14px;">Calculated Parameters (G, K, E)</h4>
+            </div>
+            <div class="result-item">
+                <div class="result-name">Initial Shear Modulus, G = 2·(C₁₀ + C₀₁)</div>
+                <div class="result-value with-units">
+                    <span id="calculatedShearModulus">-</span>
+                    <span class="result-unit" id="calculatedShearModulusUnit">MPa</span>
+                </div>
+            </div>
+            <div class="result-item">
+                <div class="result-name">Bulk Modulus, K</div>
+                <div class="result-value with-units">
+                    <span id="bulkModulus">-</span>
+                    <span class="result-unit" id="bulkModulusUnit">MPa</span>
+                </div>
+            </div>
+            <div class="result-item">
+                <div class="result-name">Young's Modulus, E = 9KG/(3K+G)</div>
+                <div class="result-value with-units">
+                    <span id="calculatedYoungModulus">-</span>
+                    <span class="result-unit" id="calculatedYoungModulusUnit">MPa</span>
+                </div>
+            </div>
+            <div class="result-item">
+                <div class="result-name">Poisson's Ratio, ν</div>
+                <div class="result-value with-units">
+                    <span id="calculatedPoissonRatio">-</span>
+                    <span class="result-unit">-</span>
+                </div>
+            </div>
+            <div class="result-item">
+                <div class="result-name">Incompressibility Parameter, d</div>
+                <div class="result-value with-units">
+                    <span id="calculatedIncompressibilityParam">-</span>
+                    <span class="result-unit" id="calculatedIncompressibilityParamUnit">MPa⁻¹</span>
                 </div>
             </div>
         </div>
@@ -144,10 +212,10 @@
                     <thead>
                         <tr>
                             <th>Shore Hardness, A [°]</th>
-                            <th>Young's Modulus, E [MPa]</th>
-                            <th>Shear Modulus, G [MPa]</th>
-                            <th>Mooney-Rivlin Constant, C₁₀ [MPa]</th>
-                            <th>Mooney-Rivlin Constant, C₀₁ [MPa]</th>
+                            <th>E (Shore) [MPa]</th>
+                            <th>G (Shore) [MPa]</th>
+                            <th>C₁₀ [MPa]</th>
+                            <th>C₀₁ [MPa]</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">
@@ -163,6 +231,9 @@
     <script src="src/js/utils/PlotlyChartManager.js"></script>
     <script>
         let currentShoreHardness = 50;
+        let currentPoissonRatio = 0.4995;
+        let currentIncompressibilityParam = 0;
+        let calculationMethod = 'nu'; // 'nu' or 'd'
         let unitsHandler = new UnitsHandler();
         let chartManager = new PlotlyChartManager();
         let currentUnits = {
@@ -176,6 +247,14 @@
                 console.warn('Units handler initialization failed, using fallback');
             }
             updateUnitDisplays();
+            
+            // Initialize d parameter based on default nu = 0.4995
+            const c10Base = 3.0338e-2 * Math.exp(4.5684e-2 * currentShoreHardness);
+            const c01Base = 7.5554e-3 * Math.exp(4.5749e-2 * currentShoreHardness);
+            const G_base = 2 * (c10Base + c01Base);
+            const G_display = convertPressure(G_base, 'MPa', currentUnits.pressure);
+            currentIncompressibilityParam = 2 * (1 - 2 * currentPoissonRatio) / G_display;
+            
             calculate(); // Initial calculation
         });
 
@@ -205,6 +284,13 @@
             document.getElementById('shearModulusUnit').textContent = currentUnits.pressure;
             document.getElementById('c10Unit').textContent = currentUnits.pressure;
             document.getElementById('c01Unit').textContent = currentUnits.pressure;
+            
+            // Update calculated parameter unit displays
+            document.getElementById('calculatedShearModulusUnit').textContent = currentUnits.pressure;
+            document.getElementById('bulkModulusUnit').textContent = currentUnits.pressure;
+            document.getElementById('calculatedYoungModulusUnit').textContent = currentUnits.pressure;
+            document.getElementById('calculatedIncompressibilityParamUnit').textContent = currentUnits.pressure + '⁻¹';
+            document.getElementById('dUnit').textContent = currentUnits.pressure + '⁻¹';
         }
 
         function convertToDisplayUnits(value, quantityType) {
@@ -265,6 +351,55 @@
             }
         }
 
+        function updateFromAdditionalInput() {
+            if (calculationMethod === 'nu') {
+                const inputValue = document.getElementById('poissonRatio').value;
+                if (inputValue >= 0 && inputValue < 0.5) {
+                    currentPoissonRatio = parseFloat(inputValue);
+                    calculate();
+                }
+            } else {
+                const inputValue = document.getElementById('incompressibilityParam').value;
+                if (inputValue > 0) {
+                    currentIncompressibilityParam = parseFloat(inputValue);
+                    calculate();
+                }
+            }
+        }
+
+        function updateCalculationMethod() {
+            calculationMethod = document.getElementById('calculationMethod').value;
+            
+            // Show/hide appropriate input groups
+            const nuGroup = document.getElementById('nuInputGroup');
+            const dGroup = document.getElementById('dInputGroup');
+            
+            if (calculationMethod === 'nu') {
+                nuGroup.style.display = 'block';
+                dGroup.style.display = 'none';
+                
+                // Set d value based on current nu if not set
+                const c10Base = 3.0338e-2 * Math.exp(4.5684e-2 * currentShoreHardness);
+                const c01Base = 7.5554e-3 * Math.exp(4.5749e-2 * currentShoreHardness);
+                const G = 2 * (c10Base + c01Base);
+                currentIncompressibilityParam = 2 * (1 - 2 * currentPoissonRatio) / convertToDisplayUnits(G, 'pressure');
+            } else {
+                nuGroup.style.display = 'none';
+                dGroup.style.display = 'block';
+                
+                // Set nu value based on current d if not set
+                const c10Base = 3.0338e-2 * Math.exp(4.5684e-2 * currentShoreHardness);
+                const c01Base = 7.5554e-3 * Math.exp(4.5749e-2 * currentShoreHardness);
+                const dInBasePressure = currentIncompressibilityParam * convertPressure(1, currentUnits.pressure, 'MPa');
+                currentPoissonRatio = (1 - (c10Base + c01Base) * dInBasePressure) / 2;
+                
+                // Update d input field with current value
+                document.getElementById('incompressibilityParam').value = currentIncompressibilityParam.toFixed(6);
+            }
+            
+            calculate();
+        }
+
         function formatScientific(value, decimals = 3) {
             if (Math.abs(value) < 0.001 || Math.abs(value) >= 1000) {
                 return value.toExponential(decimals);
@@ -287,14 +422,73 @@
             const c10 = convertToDisplayUnits(c10Base, 'pressure');
             const c01 = convertToDisplayUnits(c01Base, 'pressure');
 
-            // Display results
+            // Display Shore-based results
             document.getElementById('youngModulus').textContent = formatScientific(youngModulus);
             document.getElementById('shearModulus').textContent = formatScientific(shearModulus);
             document.getElementById('c10').textContent = formatScientific(c10);
             document.getElementById('c01').textContent = formatScientific(c01);
 
+            // Calculate additional parameters based on formulas
+            calculateAdditionalParameters(c10Base, c01Base);
+
             // Update chart
             updateChart();
+        }
+
+        function calculateAdditionalParameters(c10Base, c01Base) {
+            // Calculate G = 2·(C₁₀ + C₀₁) - Initial shear modulus
+            const calculatedShearModulusBase = 2 * (c10Base + c01Base);
+            const calculatedShearModulus = convertToDisplayUnits(calculatedShearModulusBase, 'pressure');
+            
+            let nu, K_base, E_calc_base, d_display;
+            
+            if (calculationMethod === 'nu') {
+                // Calculate based on Poisson's ratio
+                nu = currentPoissonRatio;
+                
+                // K = E/(3(1-2ν)) but we need to derive it from G and nu
+                // Using relationship: E = 2G(1+ν) and K = E/(3(1-2ν))
+                // So K = 2G(1+ν)/(3(1-2ν))
+                K_base = 2 * calculatedShearModulusBase * (1 + nu) / (3 * (1 - 2 * nu));
+                
+                // Calculate d = 2(1-2ν)/G
+                d_display = 2 * (1 - 2 * nu) / calculatedShearModulus;
+                
+            } else {
+                // Calculate based on incompressibility parameter d
+                const dInBasePressure = currentIncompressibilityParam * convertPressure(1, currentUnits.pressure, 'MPa');
+                
+                // Calculate ν = (1-(C₁₀+C₀₁)·d)/2
+                nu = (1 - (c10Base + c01Base) * dInBasePressure) / 2;
+                
+                // Calculate K = 2/d
+                K_base = 2 / dInBasePressure;
+                
+                d_display = currentIncompressibilityParam;
+            }
+            
+            // Calculate E = 9KG/(3K+G) using base units
+            E_calc_base = (9 * K_base * calculatedShearModulusBase) / (3 * K_base + calculatedShearModulusBase);
+            
+            // Convert to display units
+            const bulkModulus = convertToDisplayUnits(K_base, 'pressure');
+            const calculatedYoungModulus = convertToDisplayUnits(E_calc_base, 'pressure');
+            
+            // Display calculated results
+            document.getElementById('calculatedShearModulus').textContent = formatScientific(calculatedShearModulus);
+            document.getElementById('bulkModulus').textContent = formatScientific(bulkModulus);
+            document.getElementById('calculatedYoungModulus').textContent = formatScientific(calculatedYoungModulus);
+            document.getElementById('calculatedPoissonRatio').textContent = formatScientific(nu, 4);
+            document.getElementById('calculatedIncompressibilityParam').textContent = formatScientific(d_display, 6);
+            
+            // Update input fields to reflect calculated values
+            if (calculationMethod === 'nu') {
+                document.getElementById('poissonRatio').value = nu.toFixed(4);
+                currentIncompressibilityParam = d_display;
+            } else {
+                document.getElementById('incompressibilityParam').value = d_display.toFixed(6);
+                currentPoissonRatio = nu;
+            }
         }
 
         function drawChart() {
@@ -543,7 +737,7 @@
         }
 
         function exportToCSV() {
-            let csvContent = "Shore Hardness A [°],Young's Modulus E [MPa],Shear Modulus G [MPa],C10 [MPa],C01 [MPa]\n";
+            let csvContent = "Shore Hardness A [°],E (Shore) [MPa],G (Shore) [MPa],C10 [MPa],C01 [MPa]\n";
             
             for (let shore = 35; shore <= 70; shore++) {
                 const youngModulus = 1.5048e-1 * Math.exp(5.5579e-2 * shore);

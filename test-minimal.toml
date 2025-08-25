@@ -1,0 +1,7 @@
+[[material]]
+eos_data = """
+*EOS_GRUNEISEN_TITLE
+Copper
+"""
+app = ["Test"]
+url = "http://example.com"
