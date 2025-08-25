@@ -105,7 +105,7 @@ export function processMaterialData(material, materialDictionaries) {
     materialModelEosHTML += `<div><strong>EOS:</strong> ${eosInfo.id} / ${eosInfo.eos}</div>`;
   }
   
-  // Collect all material types for search
+  // Collect all material types for search (excluding EOS)
   const allMaterialTypes = [];
   
   // Add material type if it exists
@@ -113,10 +113,7 @@ export function processMaterialData(material, materialDictionaries) {
     allMaterialTypes.push(materialInfo.mat);
   }
   
-  // Add EOS type if it exists (for EOS-only materials)
-  if (eosInfo.eos && eosInfo.eos !== '-') {
-    allMaterialTypes.push(eosInfo.eos);
-  }
+  // Note: EOS is excluded from material types as it has its own filter
   
   if (matAddInfo) {
     allMaterialTypes.push(matAddInfo);
