@@ -80,7 +80,7 @@
         </div>
 
         <!-- Input Parameters -->
-        <div class="input-group" style="grid-template-columns: 1fr 1fr 1fr; max-width: 1000px; margin: 0 auto 30px auto;">
+        <div class="input-group" style="max-width: 1000px; margin: 0 auto 15px auto;">
             <div class="input-item">
                 <label for="calculationMethod">Calculation Based On:</label>
                 <select id="calculationMethod" onchange="updateCalculationMethod()" style="width: 100%; padding: 8px 12px; border: 2px solid #ddd; border-radius: 6px; background: white; font-size: 14px;">
@@ -103,7 +103,9 @@
                     <span class="unit-display" id="dUnit">MPa⁻¹</span>
                 </div>
             </div>
-            
+        </div>
+        
+        <div class="input-group" style="max-width: 1000px; margin: 0 auto 30px auto;">
             <div class="input-item with-units">
                 <label for="shoreHardness">Shore Hardness, A (35-70):</label>
                 <div class="input-with-units">
