@@ -137,11 +137,9 @@ url = "https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz"
 
 
 [[material]]
-units = "mm ms grams"
-
 mat_data = """
 *MAT_HIGH_EXPLOSIVE_BURN_TITLE
-ANFO - Weidlinger
+ANFO
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID        RO         D       PCJ      BETA
        110   8.20E-4    4.55E3    5.50E3       0.0
@@ -149,24 +147,22 @@ $--------1---------2---------3---------4---------5---------6---------7---------8
 """
 eos_data = """
 *EOS_JWL_TITLE
-ANFO - Weidlinger
+ANFO
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#   EOSID         A         B        R1        R2      OMEG        E0        V0
        110    4.20E4      44.0      3.55      0.16      0.41    3.15E3       1.0
 $--------1---------2---------3---------4---------5---------6---------7---------8
 """
-app = [
-  "HE",
-  "ANFO"
-]
+app = ["HE", "ANFO"]
+units = "mm-ms-g-MPa"
 url = "https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz"
 ref = "Weidlinger FLEX code"
 
 [[material]]
-units = "mm ms grams"
+
 mat_data = """
 *MAT_HIGH_EXPLOSIVE_BURN_TITLE
-DETASHEET EL-506C LLNL
+EL-506C
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID        RO         D       PCJ      BETA
         10   1.48E-3     7.0E3    1.95E4       0.0
@@ -174,25 +170,22 @@ $--------1---------2---------3---------4---------5---------6---------7---------8
 """
 eos_data = """
 *EOS_JWL_TITLE
-DETASHEET EL-506C LLNL
+EL-506C
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#   EOSID         A         B        R1        R2      OMEG        E0        V0
         10    3.49E5   4.524E3      4.10      1.20      0.30    6.20E3       1.0
 $--------1---------2---------3---------4---------5---------6---------7---------8
 """
-app = [
-  "HE",
-  "EL-506C"
-]
+app = ["HE","EL-506C"]
+units = "mm-ms-g-MPa"
 url = "https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz"
 ref = "LLNL Explosives Handbook Properties of Chemical Explosives and Explosive Simulants UCRL-52997"
 
 
 [[material]]
-units = "mm ms grams"
 mat_data = """
 *MAT_HIGH_EXPLOSIVE_BURN_TITLE
-DETASHEET C-88 - SRI International
+C-88
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#     MID        RO         D       PCJ      BETA
        111   1.48E-3    6.26E3    1.16E4       0.0
@@ -200,21 +193,18 @@ $--------1---------2---------3---------4---------5---------6---------7---------8
 """
 eos_data = """
 *EOS_JWL_TITLE
-DETASHEET C-88 - SRI International
+C-88
 $--------1---------2---------3---------4---------5---------6---------7---------8
 $#   EOSID         A         B        R1        R2      OMEG        E0        V0
        111    2.99E6    2.12E4     7.728      1.90     0.158    5.94E3       1.0
 $--------1---------2---------3---------4---------5---------6---------7---------8
 """
-app = [
-  "HE",
-  "C-88"
-]
+app = ["HE","C-88"]
+units = "mm-ms-g-MPa"
 url = "https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz"
 ref = "Dr. James Gran of SRI International"
 
 [[material]]
-units = "mm ms grams"
 mat_data = """
 *MAT_NULL_TITLE
 Water
@@ -233,14 +223,11 @@ $#      V0        EO
 
 $--------1---------2---------3---------4---------5---------6---------7---------8
 """
-app = [
-  "Water"
-]
+app = ["Water"]
+units = "mm-ms-g-MPa"
 url = "https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz"
 
 [[material]]
-
-units = "mm ms gram"
 
 mat_data = """
 *MAT_NULL_TITLE
@@ -278,11 +265,12 @@ app = [
   "Failed Brass",
   "C26000 Cartridge Brass"
 ]
+units = "mm-ms-g-MPa"
 url = "https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz"
 ref = "Johnson, GR, and TJ Holmquist,Test Data and Computational Strength and Fracture Model Constants for 23 materials Subjected to Large Strains, High Strain Rates, and High Temperatures, Los Alamos Technical Report LA-11463-MS, Los Alamos National$ Laboratory, Los Alamos, NM, 1989. Cartridge Brass Rockwell F-67"
 
 [[material]]
-units = "mm ms gram"
+units = "mm-ms-g-MPa"
 mat_data = """
 *MAT_JOHNSON_COOK_TITLE
 C26000 Cartridge Brass 
@@ -315,7 +303,7 @@ url = "https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz"
 ref = "Johnson, GR, and TJ Holmquist,Test Data and Computational Strength and Fracture Model Constants for 23 materials Subjected to Large Strains, High Strain Rates, and High Temperatures, Los Alamos Technical Report LA-11463-MS, Los Alamos National$ Laboratory, Los Alamos, NM, 1989. Cartridge Brass Rockwell F-67"
 
 [[material]]
-units = "mm ms gram"
+units = "mm-ms-g-MPa"
 mat_data = """
 *MAT_JOHNSON_COOK_TITLE
 Aluminum 7039
@@ -349,7 +337,7 @@ ref = "Johnson, GR, and TJ Holmquist,Test Data and Computational Strength and Fr
 
 
 [[material]]
-units = "mm ms gram"
+units = "mm-ms-g-MPa"
 mat_data = """
 *MAT_NULL_TITLE
 Failed Aluminum 7039
@@ -389,7 +377,7 @@ url = "https://ftp.lstc.com/anonymous/outgoing/hao/sale/models/eos7/eos7.tar.gz"
 ref = "Johnson, GR, and TJ Holmquist,Test Data and Computational Strength and Fracture Model Constants for 23 materials Subjected to Large Strains, High Strain Rates, and High Temperatures, Los Alamos Technical Report LA-11463-MS, Los Alamos National$ Laboratory, Los Alamos, NM, 1989. Cartridge Brass Rockwell F-67"
 
 [[material]]
-units = "mm ms gram"
+units = "mm-ms-g-MPa"
 mat_data = """
 *MAT_JOHNSON_COOK_TITLE
 Steel 1006
@@ -423,7 +411,7 @@ ref = "Johnson, GR, and TJ Holmquist,Test Data and Computational Strength and Fr
 
 
 [[material]]
-units = "mm ms gram"
+units = "mm-ms-g-MPa"
 
 mat_data = """
 *MAT_NULL_TITLE

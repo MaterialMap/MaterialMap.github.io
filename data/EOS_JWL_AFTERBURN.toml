@@ -1,0 +1,25 @@
+[[material]]
+mat_data="""
+*MAT_HIGH_EXPLOSIVE_BURN_TITLE
+TNT Confined Explosion
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#     MID        RO         D       PCJ      BETA
+       111  1.631E-3   6.717E3   1.850E4       0.0
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+eos_data = """
+*EOS_JWL_AFTERBURN_TITLE
+TNT Confined Explosion
+$--------1---------2---------3---------4---------5---------6---------7---------8
+$#   EOSID         A         B        R1        R2      OMEG        E0        V0
+       111  3.7125E5   3.231E3      4.15      0.95      0.30     7.0E3       1.0
+$#     OPT        QT        T1        T2
+         1    16.3E3       2.4       4.4
+$--------1---------2---------3---------4---------5---------6---------7---------8
+"""
+
+app = ["TNT", "HE", "Confined Explosion", "Constant Rate"]
+ref = "Schwer (2016), LLNL HEAF Tests"
+units = "mm-ms-g-MPa"
+url = "https://www.dynalook.com/conferences/14th-international-ls-dyna-conference/constitutivemodeling/jones-wilkens-lee-jwl-equation-of-state-with-afterburning"

@@ -1,5 +1,44 @@
 source_file,material_title,a,b,r1,r2,omeg,units
-Schwer 2011.toml,ANFO - Weidlinger,4.20E4,44.0,3.55,0.16,0.41,mm ms grams
-Schwer 2011.toml,DETASHEET EL-506C LLNL,3.49E5,4.524E3,4.10,1.20,0.30,mm ms grams
-Schwer 2011.toml,DETASHEET C-88 - SRI International,2.99E6,2.12E4,7.728,1.90,0.158,mm ms grams
+EOS_JWL.toml,TNT,3.738E5,3.74E3,4.15,0.90,0.35,mm-ms-g-MPa
+EOS_JWL.toml,RDX,7.78E5,7.071E3,4.5,1.4,0.25,mm-ms-g-MPa
+EOS_JWL.toml,HMX,7.779E5,7.071E3,4.2,1.1,0.34,mm-ms-g-MPa
+EOS_JWL.toml,PETN,6.175E5,16.926E3,4.4,1.2,0.25,mm-ms-g-MPa
+EOS_JWL.toml,TATB,7.824E5,7.349E3,4.2,1.1,0.30,mm-ms-g-MPa
+EOS_JWL.toml,Comp_A-3,5.242E5,7.678E3,4.2,1.1,0.34,mm-ms-g-MPa
+EOS_JWL.toml,Comp_B,5.242E5,7.678E3,4.2,1.1,0.34,mm-ms-g-MPa
+EOS_JWL.toml,Comp_C-4,6.098E5,12.95E3,4.5,1.4,0.25,mm-ms-g-MPa
+EOS_JWL.toml,Cyclotol_75-25,6.11E5,10.5E3,4.3,1.3,0.28,mm-ms-g-MPa
+EOS_JWL.toml,Octol_75-25,6.88E5,8.8E3,4.15,1.25,0.30,mm-ms-g-MPa
+EOS_JWL.toml,Pentolite_50-50,4.71E5,11.3E3,4.3,1.15,0.28,mm-ms-g-MPa
+EOS_JWL.toml,LX-04-1,7.779E5,7.071E3,4.2,1.1,0.34,mm-ms-g-MPa
+EOS_JWL.toml,LX-07-1,7.50E5,8.2E3,4.1,1.0,0.35,mm-ms-g-MPa
+EOS_JWL.toml,LX-09-0,7.22E5,8.45E3,4.0,1.0,0.37,mm-ms-g-MPa
+EOS_JWL.toml,LX-10-0,7.64E5,7.8E3,4.15,1.05,0.36,mm-ms-g-MPa
+EOS_JWL.toml,LX-11-0,6.80E5,9.8E3,3.9,1.15,0.38,mm-ms-g-MPa
+EOS_JWL.toml,LX-14-0,7.55E5,8.1E3,4.1,1.05,0.35,mm-ms-g-MPa
+EOS_JWL.toml,LX-15,4.30E5,4.2E3,4.6,1.35,0.25,mm-ms-g-MPa
+EOS_JWL.toml,LX-17-0,7.51E5,7.3E3,4.2,1.1,0.30,mm-ms-g-MPa
+EOS_JWL.toml,PBX-9010,7.78E5,7.071E3,4.5,1.4,0.25,mm-ms-g-MPa
+EOS_JWL.toml,PBX-9011,7.779E5,7.071E3,4.2,1.1,0.34,mm-ms-g-MPa
+EOS_JWL.toml,PBX-9404,7.779E5,7.071E3,4.2,1.1,0.34,mm-ms-g-MPa
+EOS_JWL.toml,PBX-9501,7.779E5,7.071E3,4.2,1.1,0.34,mm-ms-g-MPa
+EOS_JWL.toml,PBX-9502,7.824E5,7.349E3,4.2,1.1,0.30,mm-ms-g-MPa
+EOS_JWL.toml,PBX-9205,7.72E5,8.1E3,4.45,1.3,0.27,mm-ms-g-MPa
+EOS_JWL.toml,PE4,6.098E5,12.95E3,4.5,1.4,0.25,mm-ms-g-MPa
+EOS_JWL.toml,BTF,8.75E5,10.5E3,4.15,1.10,0.275,mm-ms-g-MPa
+EOS_JWL.toml,H-6,4.78E5,8.9E3,4.1,1.2,0.32,mm-ms-g-MPa
+EOS_JWL.toml,HBX-1,5.24E5,9.2E3,4.0,1.15,0.34,mm-ms-g-MPa
+EOS_JWL.toml,Tetryl,4.50E5,8.5E3,4.2,1.25,0.30,mm-ms-g-MPa
+EOS_JWL.toml,Amatol_80-20,3.00E5,4.5E3,4.0,1.0,0.35,mm-ms-g-MPa
+EOS_JWL.toml,Baratol,3.20E5,3.8E3,4.1,0.95,0.36,mm-ms-g-MPa
+EOS_JWL.toml,Minol-2,4.10E5,6.2E3,4.0,1.1,0.33,mm-ms-g-MPa
+EOS_JWL.toml,Tritonal,3.40E5,4.8E3,4.0,1.0,0.35,mm-ms-g-MPa
+EOS_JWL.toml,XTX-8003,5.10E5,13.2E3,4.3,1.15,0.28,mm-ms-g-MPa
+EOS_JWL.toml,XTX-8004,7.20E5,8.5E3,4.4,1.3,0.27,mm-ms-g-MPa
+EOS_JWL.toml,ANFO,49.46E3,1.891E3,3.907,1.118,0.333,mm-ms-g-MPa
+EOS_JWL.toml,Emulsion_1_18,2.144E5,0.182E3,4.2,0.9,0.15,mm-ms-g-MPa
+EOS_JWL.toml,Emulsion_1_03,1.837E5,0.150E3,4.15,0.85,0.15,mm-ms-g-MPa
+Schwer 2011.toml,ANFO,4.20E4,44.0,3.55,0.16,0.41,mm-ms-g-MPa
+Schwer 2011.toml,EL-506C,3.49E5,4.524E3,4.10,1.20,0.30,mm-ms-g-MPa
+Schwer 2011.toml,C-88,2.99E6,2.12E4,7.728,1.90,0.158,mm-ms-g-MPa
 schwer 2017.toml,PETN,6.17E5,16.926E3,4.4,1.20,0.25,mm-ms-g-MPa

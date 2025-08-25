@@ -24,6 +24,18 @@
     "lastModified": "2025-08-07"
   },
   {
+    "filename": "EOS_JWL.toml",
+    "lastModified": "2025-08-25"
+  },
+  {
+    "filename": "EOS_JWLB.toml",
+    "lastModified": "2025-08-25"
+  },
+  {
+    "filename": "EOS_JWL_AFTERBURN.toml",
+    "lastModified": "2025-08-25"
+  },
+  {
     "filename": "Flores-Johnson 2011.toml",
     "lastModified": "2025-08-07"
   },
@@ -45,7 +57,7 @@
   },
   {
     "filename": "Schwer 2011.toml",
-    "lastModified": "2025-08-24"
+    "lastModified": "2025-08-25"
   },
   {
     "filename": "Walvekar 2010.toml",
@@ -81,6 +93,6 @@
   },
   {
     "filename": "schwer 2017.toml",
-    "lastModified": "2025-08-24"
+    "lastModified": "2025-08-25"
   }
 ]
